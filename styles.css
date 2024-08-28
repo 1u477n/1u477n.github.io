@@ -91,7 +91,7 @@ img.avatar {
     flex-grow: 1;
     background-color: white;
     border-style: solid;
-    border-width: 1px;
+    border-width: 1.5px;
     border-color: #E5E4E2;
     width: 300px;
     line-height: 38px;
