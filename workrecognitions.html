@@ -1,43 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
+    <title>Work Recognitions</title>
 </head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Work Recognitions</h1>
+        </div>
 
-<body style="margin: 5%;">
-    <h3 style="margin-top: 10%; margin-bottom: 5%; text-decoration: solid;">Work Recognitions</h3>
-    <p>
-        <ul class="inspiredworks">
-            <li><a href="awards/links/20231213.pdf">Accelerate A year of scaling & increasing impact - Win As One Team</a></li>
-            <li><a href="awards/links/20221222_03.pdf">Contributions to CoM Design Product - Win As One Team</a></li>
-            <li><a href="awards/links/20221222_02.pdf">HTE Library Design Capability Development - Win As One Team</a></li>
-            <li><a href="awards/links/20221222_01.pdf">Contributions to CoM Design Product - Win As One Team</a></li>
-            <li><a href="awards/links/20221221.pdf">Therapeutic Antibody Profiler Execution - Act With Urgency</a></li>
-            <li><a href="awards/links/20221026.pdf">Help with Pipeline Pilot protocols - Act With Urgency</a></li>
-            <li><a href="awards/links/20220725.pdf">ChemDraw 21 Rollout - Experiment, Learn, and Adapt</a></li>
-            <li><a href="awards/links/20211220.pdf">Impact through continuous learning - Knowing To Learn</a></li>
-            <li><a href="awards/links/20211216_02.pdf">CoM product line - Witholding to Sharing</a></li>
-            <li><a href="awards/links/20211216_01.pdf">SSF LEO Development and Execution Team - Witholding to Sharing</a></li>
-            <li><a href="awards/links/20211203.pdf">Instrument onboarding process - Drive Results</a></li>
-            <li><a href="awards/links/20211108.pdf">Solving ELN issue - Drive Results</a></li>
-            <li><a href="awards/links/20210130.pdf">Driving the Resolution of our HTRT RDP Issue - Drive Results</a></li>
-            <li><a href="awards/links/20201006.pdf">Enter Large Dataset into PIER Parser - Drive Results</a></li>
-            <li><a href="awards/links/20200707.pdf">Help with External InVivo data curation - Drive Results</a></li>
-            <li><a href="awards/links/20200520.pdf">Identified and resolved email problem with partner - Drive Results</a></li>
-            <li><a href="awards/links/20200407.pdf">Big thanks Luat for your help - Drive Results</a></li>
-            <li><a href="awards/links/20200224.pdf">Site Culture and Collaboration - Silos to Networks</a></li>
-            <li><a href="awards/links/20200214.pdf">Extended Leadership Member - Build A Diverse and Inclusive Culture</a></li>
-            <li><a href="awards/links/20190902.pdf">Thank you for your help and support - Drive Results</a></li>
-            <li><a href="awards/links/20190619.pdf">Palo Alto:SSF:Mission Bay computer room migration - Drive Results</a></li>
-            <li><a href="awards/links/20190102.pdf">SSF Site Move IT Support - Drive Results</a></li>
-            <li><a href="awards/links/20181213.pdf">Weekly reporting of site-related IT activities - Foster Collaboration</a></li>
-            <li><a href="awards/links/20171209.pdf">Linux Workstation @ South San Francisco - Foster Collaboration</a></li>
-            <li><a href="awards/links/2015.JPG">Medivation - IT Excellence and Innovation Award</a></li>
-        </ul>
-    </p>
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search awards...">
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Win As One Team">Win As One Team</option>
+                <option value="Act With Urgency">Act With Urgency</option>
+                <option value="Experiment, Learn, and Adapt">Experiment, Learn, and Adapt</option>
+                <option value="Knowing To Learn">Knowing To Learn</option>
+                <option value="Witholding to Sharing">Witholding to Sharing</option>
+                <option value="Drive Results">Drive Results</option>
+                <option value="Silos to Networks">Silos to Networks</option>
+                <option value="Build A Diverse and Inclusive Culture">Build A Diverse and Inclusive Culture</option>
+                <option value="Foster Collaboration">Foster Collaboration</option>
+                <option value="IT Excellence and Innovation">IT Excellence and Innovation</option>
+            </select>
+        </div>
+
+        <div class="awards-grid" id="awardsGrid">
+            <div class="award-card" data-category="Win As One Team">
+                <a href="awards/links/20231213.pdf">Accelerate A year of scaling & increasing impact</a>
+                <div class="category">Win As One Team</div>
+            </div>
+            <div class="award-card" data-category="Win As One Team">
+                <a href="awards/links/20221222_03.pdf">Contributions to CoM Design Product</a>
+                <div class="category">Win As One Team</div>
+            </div>
+            <div class="award-card" data-category="Win As One Team">
+                <a href="awards/links/20221222_02.pdf">HTE Library Design Capability Development</a>
+                <div class="category">Win As One Team</div>
+            </div>
+            <div class="award-card" data-category="Win As One Team">
+                <a href="awards/links/20221222_01.pdf">Contributions to CoM Design Product</a>
+                <div class="category">Win As One Team</div>
+            </div>
+            <div class="award-card" data-category="Act With Urgency">
+                <a href="awards/links/20221221.pdf">Therapeutic Antibody Profiler Execution</a>
+                <div class="category">Act With Urgency</div>
+            </div>
+            <div class="award-card" data-category="Act With Urgency">
+                <a href="awards/links/20221026.pdf">Help with Pipeline Pilot protocols</a>
+                <div class="category">Act With Urgency</div>
+            </div>
+            <div class="award-card" data-category="Experiment, Learn, and Adapt">
+                <a href="awards/links/20220725.pdf">ChemDraw 21 Rollout</a>
+                <div class="category">Experiment, Learn, and Adapt</div>
+            </div>
+            <div class="award-card" data-category="Knowing To Learn">
+                <a href="awards/links/20211220.pdf">Impact through continuous learning</a>
+                <div class="category">Knowing To Learn</div>
+            </div>
+            <div class="award-card" data-category="Witholding to Sharing">
+                <a href="awards/links/20211216_02.pdf">CoM product line</a>
+                <div class="category">Witholding to Sharing</div>
+            </div>
+            <div class="award-card" data-category="Witholding to Sharing">
+                <a href="awards/links/20211216_01.pdf">SSF LEO Development and Execution Team</a>
+                <div class="category">Witholding to Sharing</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20211203.pdf">Instrument onboarding process</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20211108.pdf">Solving ELN issue</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20210130.pdf">Driving the Resolution of our HTRT RDP Issue</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20201006.pdf">Enter Large Dataset into PIER Parser</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20200707.pdf">Help with External InVivo data curation</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20200520.pdf">Identified and resolved email problem with partner</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20200407.pdf">Big thanks Luat for your help</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20190902.pdf">Thank you for your help and support</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20190619.pdf">Palo Alto:SSF:Mission Bay computer room migration</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Drive Results">
+                <a href="awards/links/20190102.pdf">SSF Site Move IT Support</a>
+                <div class="category">Drive Results</div>
+            </div>
+            <div class="award-card" data-category="Silos to Networks">
+                <a href="awards/links/20200224.pdf">Site Culture and Collaboration</a>
+                <div class="category">Silos to Networks</div>
+            </div>
+            <div class="award-card" data-category="Build A Diverse and Inclusive Culture">
+                <a href="awards/links/20200214.pdf">Extended Leadership Member</a>
+                <div class="category">Build A Diverse and Inclusive Culture</div>
+            </div>
+            <div class="award-card" data-category="Foster Collaboration">
+                <a href="awards/links/20181213.pdf">Weekly reporting of site-related IT activities</a>
+                <div class="category">Foster Collaboration</div>
+            </div>
+            <div class="award-card" data-category="Foster Collaboration">
+                <a href="awards/links/20171209.pdf">Linux Workstation @ South San Francisco</a>
+                <div class="category">Foster Collaboration</div>
+            </div>
+            <!-- Add all other awards here following the same pattern -->
+            <div class="award-card" data-category="IT Excellence and Innovation">
+                <a href="awards/links/2015.JPG">Medivation - IT Excellence and Innovation Award</a>
+                <div class="category">IT Excellence and Innovation</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const awardCards = document.querySelectorAll('.award-card');
+
+        function filterAwards() {
+            const searchText = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            awardCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const category = card.getAttribute('data-category');
+
+                const matchesSearch = text.includes(searchText);
+                const matchesCategory = !selectedCategory || category === selectedCategory;
+
+                card.classList.toggle('hidden', !(matchesSearch && matchesCategory));
+            });
+        }
+
+        searchInput.addEventListener('input', filterAwards);
+        categoryFilter.addEventListener('change', filterAwards);
+    </script>
 </body>
-
 </html>
