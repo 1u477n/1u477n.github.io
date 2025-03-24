@@ -18,7 +18,7 @@ font-size: 17px;
 
 /* Colors */
 :root {
-  --primary-color: ##C0C0C0; /* Bootstrap primary color - a good starting point */
+  --primary-color: ##f1efef; /* Bootstrap primary color - a good starting point */
   --secondary-color: #6c757d;
   --accent-color: #ffc107; /* Yellow - for highlights */
   --text-color: #444;
@@ -102,7 +102,7 @@ box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 
 .flexbox > div {
   background: white;
-  border: 2px solid #ccc;
+  border: 2px solid #f1efef;
   width: 280px;
   padding: 10px;
   border-radius: 15px;
