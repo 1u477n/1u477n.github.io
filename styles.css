@@ -16,6 +16,15 @@ font-size: 16px;
 font-size: 17px;
 }
 
+/* Colors */
+:root {
+  --primary-color: #007bff; /* Bootstrap primary color - a good starting point */
+  --secondary-color: #6c757d;
+  --accent-color: #ffc107; /* Yellow - for highlights */
+  --text-color: #444;
+  --background-color: #fff;
+}
+
 /* tablet styles */
 @media screen and (min-width: 768px) {
   body {
@@ -71,6 +80,8 @@ img.avatar {
 border-radius: 50%;
 width: 150px;
 height: 150px;
+object-fit: cover; /* Ensures image fills the circle */
+border: 2px solid var(--primary-color);
 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
