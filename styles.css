@@ -162,3 +162,27 @@ display: block;
 text-indent: -10px;
 margin-left: -10px;
 }
+
+/* Container  */
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Core Competencies List */
+.competencies {
+  list-style: none;
+  padding: 0;
+}
+
+.competencies li {
+  background: #ecf0f1;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-left: 5px solid #2980b9;
+  font-size: 1.1em;
+}
