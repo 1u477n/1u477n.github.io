@@ -4,25 +4,120 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+    
+        input,
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            flex: 1;
+        }
+    
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    
+        .award-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            border-left: 5px solid #2980b9;
+        }
+    
+        .award-card:hover {
+            transform: translateY(-5px);
+        }
+    
+        .award-card a {
+            color: #030303;
+            text-decoration: none;
+        }
+    
+        .award-card a:hover {
+            text-decoration: underline;
+        }
+    
+        .category {
+            font-size: 14px;
+            color: #818181;
+            margin-top: 5px;
+        }
+    
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
-<body style="margin: 5%;">
+<body>
     <div class="container">
     <h2>Published Works</h2>
     <p>
-        <ul class="competencies">
-            <li class="work"><a href="publishedworks/2003_Nanotech.pdf">(2003) MembraneChip - Arrays of Natively Displayed Membrane Targets for Novel Drug Discovery</a></li>
-            <li class="work"><a href="publishedworks/2005_BMCBiotech.pdf">(2005) Cell Membrane Array Fabrication and Assay Technology</a></li>
-            <li class="work"><a href="publishedworks/Patent_US6699719.pdf">Patent US6699719, United States - Biosensor Arrays and Methods</a></li>
-            <li class="work"><a href="publishedworks/JP4493496B2.pdf">Patent JP4493496B2, Japan - Biosensor Arrays and Methods</a></li>
-            <li class="work"><a href="publishedworks/CA2492899A1.pdf">Patent CA2492899A1, Canada - Biosensor Arrays and Methods</a></li>
-            <li class="work"><a href="publishedworks/WO2004010074A2.pdf">International Publication WO2004010074A2, WIPO (PCT) - Biosensor Arrays and Methods</a></li>
-            <li class="work"><a href="publishedworks/Patent_PCT_US2009_067197.pdf">Patent US2009:067197 - Compositions of Protein Receptor Tyrosine Kinase Inhibitors</a></li>
-            <li class="work"><a href="publishedworks/Patent_US8586619.pdf">Patent US8586619, United States - Agents of Calcium Ion Channel Modulators</a></li>
-            <li class="work"><a href="publishedworks/CN101686952A.pdf">Patent CN101686952A, China - Agents of Calcium Ion Channel Modulators</a></li>
-            <li class="work"><a href="publishedworks/WO2008112715A2.pdf">International Publication WO2008112715A2, WIPO (PCT) - Agents of Calcium Ion Channel Modulators</a></li>
-        </ul>
+        <div class="awards-grid" id="awardsGrid">
+            <div class="award-card">
+                <a href="publishedworks/2003_Nanotech.pdf">(2003) MembraneChip - Arrays of Natively Displayed Membrane Targets for Novel Drug Discovery</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/2005_BMCBiotech.pdf">(2005) Cell Membrane Array Fabrication and Assay Technology</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/Patent_US6699719.pdf">Patent US6699719, United States - Biosensor Arrays and Methods</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/JP4493496B2.pdf">Patent JP4493496B2, Japan - Biosensor Arrays and Methods</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/CA2492899A1.pdf">Patent CA2492899A1, Canada - Biosensor Arrays and Methods</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/WO2004010074A2.pdf">International Pubdivcation WO2004010074A2, WIPO (PCT) - Biosensor Arrays and Methods</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/Patent_PCT_US2009_067197.pdf">Patent US2009:067197 - Compositions of Protein Receptor Tyrosine Kinase Inhibitors</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/Patent_US8586619.pdf">Patent US8586619, United States - Agents of Calcium Ion Channel Modulators</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/CN101686952A.pdf">Patent CN101686952A, China - Agents of Calcium Ion Channel Modulators</a>
+            </div>
+            <div class="award-card">
+                <a href="publishedworks/WO2008112715A2.pdf">International Pubdivcation WO2008112715A2, WIPO (PCT) - Agents of Calcium Ion Channel Modulators</a>
+            </div>
+        </div>
     </p>
     </div>
 </body>
