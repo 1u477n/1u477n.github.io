@@ -167,10 +167,39 @@ margin-left: -10px;
 .container {
   max-width: 800px;
   margin: 50px auto;
-  padding: 20px;
-  background: white;
+  padding: 30px;
+  position: relative;
+  background: #fff;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.home-icon {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 35px;
+  height: 35px;
+  background: #2c3e50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.home-icon:hover {
+  background: #34495e;
+  transform: scale(1.1);
+}
+
+.home-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: white;
+  display: block;
+  margin: auto;
 }
 
 /* Core Competencies List */
