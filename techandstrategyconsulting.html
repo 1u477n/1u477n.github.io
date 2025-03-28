@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-icon {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            background: #2c3e50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .home-icon:hover {
+            background: #34495e;
+            transform: scale(1.1);
+        }
+
+        .home-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        .consulting-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2980b9;
+        }
+
+        .service-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .service-card ul li {
+            padding: 5px 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .service-card ul li::before {
+            content: "•";
+            color: #2980b9;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="https://1u477n.github.io/" class="home-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                    <path
+                        d="M280.4 148.3L96 300.1V464c0 8.8 7.2 16 16 16l112-.3c8.8 0 16-7.2 16-16l.1-112c0-8.8 7.2-16 16-16h64c8.8 0 16 7.2 16 16l-.1 112c0 8.8 7.2 16 16 16l112 .3c8.8 0 16-7.2 16-16V300.1L295.6 148.3c-6.9-5.5-16.3-5.5-23.2 0z" />
+                </svg>
+            </a>
+            <h2>Technology & Strategy Consulting</h2>
+            <p>Luke (Luat) Nguyen is an experienced technology strategist specializing in R&D IT, AI/ML integration, and data analytics within
+            the biotech and pharmaceutical industries. With a background in biochemistry, computer science, and economics, he has
+            developed a deep understanding of IT infrastructure, product management, and business analysis. He has successfully led
+            digital transformation projects, designed cloud-based infrastructure strategies, and implemented data governance
+            frameworks for GxP and non-GxP environments. Luat has authored patents in biosensor arrays and calcium ion channel
+            modulators, demonstrating his innovative approach to solving complex scientific and technological challenges. He is
+            passionate about leveraging cutting-edge technologies to drive business value and improve research and development
+            processes.</p>
+        </div>
+
+        <div class="consulting-services">
+            <div class="service-card">
+                <h3>R&D IT Strategy & Infrastructure</h3>
+                <ul>
+                    <li>IT roadmap development for biotech and pharma R&D</li>
+                    <li>Cloud-based and on-prem infrastructure strategy</li>
+                    <li>Data governance and security compliance (GxP & non-GxP)</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>AI/ML & Data Analytics Consulting</h3>
+                <ul>
+                    <li>AI-driven data pipelines and workflow automation</li>
+                    <li>Machine learning model evaluation and deployment</li>
+                    <li>Scientific data management and visualization</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>SaaS Strategy & Enterprise Integration</h3>
+                <ul>
+                    <li>Vendor selection and contract negotiation</li>
+                    <li>SaaS implementation and on-prem integration</li>
+                    <li>System interoperability and data exchange optimization</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>Product Management & Digital Transformation</h3>
+                <ul>
+                    <li>Agile methodologies for IT and informatics solutions</li>
+                    <li>End-to-end product lifecycle management</li>
+                    <li>Stakeholder alignment and change management</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>Cybersecurity & Data Integrity</h3>
+                <ul>
+                    <li>Secure access controls and vulnerability management</li>
+                    <li>Compliance with regulatory frameworks (FDA, HIPAA, GDPR)</li>
+                    <li>Disaster recovery and business continuity planning</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>Scientific Informatics & Research IT Solutions</h3>
+                <ul>
+                    <li>ELN, LIMS, and lab automation strategy</li>
+                    <li>High-performance computing for drug discovery</li>
+                    <li>Computational chemistry and bioinformatics platform development</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
