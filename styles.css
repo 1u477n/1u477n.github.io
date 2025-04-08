@@ -4,7 +4,7 @@
 }
 
 html {
--webkit-text-size-adjust: 120%;
+-webkit-text-size-adjust: 100%;
 /* Font scaling in landscape while allowing user zoom */
 }
 
@@ -166,7 +166,7 @@ margin-left: -10px;
 
 /* Container  */
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 10px;
   position: relative;
