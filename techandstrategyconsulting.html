@@ -133,11 +133,21 @@
             padding-right: 10px;
         }
 
-        .center {
+        .center {            
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            /* margin-right: 0px; */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #2980b9;
+            
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 75%; /* Adjust width as needed */            
+            width: auto; /* Adjust width as needed */            
         }
         
     </style>
@@ -242,8 +252,8 @@
                 </ul>
             </div>
 
-            <div class="header">
-                <img src="/images/datalifecycle.PNG" class="center" width="500" height="500">
+            <div class="center">
+                <img class="center" src="/images/datalifecycle.PNG">
             </div>
             
         </div>            
