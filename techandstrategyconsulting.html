@@ -134,14 +134,23 @@
         }
 
         .center-container {
+            /* 1. The 'Auto' margins handle the horizontal centering */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+            margin-top: 0;
+        
+            /* 2. Block properties */
+            display: block; 
+            max-width: fit-content; /* Wraps tightly around the image */
+            
+            /* 3. Visual Styling */
             text-align: center;
             padding: 20px;
             background: #fff;
             border-radius: 10px;
-            margin: 0 auto 20px auto; /* Centers the container itself */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-top: 5px solid #2980b9;
-            max-width: fit-content; /* Keeps the border/shadow tight to the image */
         }
 
         .center-container img {
