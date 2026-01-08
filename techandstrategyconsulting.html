@@ -40,17 +40,20 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-top: 5px solid #2980b9;
         }
-
-        .header h2 {
+        /* Fluid Typography for Headlines */
+        /* Scales between 1rem and 2rem based on screen width */
+       .header h2 {
             margin-top: 0;
             font-weight: 700;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
-            font-size: 2rem;
+            font-size: clamp(1rem, 5vw, 2rem);
         }
 
+        /* Fluid Typography for Headlines */
+        /* Scales between 1.1rem and 1.25rem based on screen width */
         .header h3 {
             margin-top: 0;
             margin-bottom: 0;
@@ -59,7 +62,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
-            font-size: 1.2rem;
+            font-size: clamp(1.1rem, 5vw, 1.25rem);
         }
 
         /* Menu Icon Design */
@@ -76,7 +79,6 @@
             line-height: 18px;
             font-size: 14px;
             cursor: pointer;
-
             transition: background 0.3s ease, transform 0.2s ease;
         }
 
@@ -138,24 +140,15 @@
             transition: transform 0.3s ease;
             border-left: 5px solid #2980b9;
         }
-/*
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient);
-        }
-*/
+        
         .service-card:hover {
             transform: translateY(-7px);
             box-shadow: var(--glow);
             border-color:#f89e04;
-            /*border-color: rgba(10, 81, 162, 0.3);*/
         }
 
+        /* Fluid Typography for Headlines */
+        /* Scales between 1.1rem and 1.25rem based on screen width */
         .service-card h3 {
             margin-top: 0;
             margin-bottom: 0;
@@ -164,7 +157,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
-            font-size: 1.2rem;
+            font-size: clamp(1.1rem, 5vw, 1.25rem);
         }
 
         .service-card ul {
@@ -451,4 +444,5 @@
         }
     </script>
 </body>
+
 </html>
