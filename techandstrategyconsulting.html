@@ -106,8 +106,21 @@
             border-left: 5px solid #2980b9;
         }
 
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-7px);
+            box-shadow: var(--glow);
+            /*border-color: rgba(56, 189, 248, 0.3);*/
+            border-color: rgba(10, 81, 162, 0.3);
         }
 
         .service-card h3 {
@@ -133,47 +146,124 @@
             padding-right: 10px;
         }
 
+        /* Images Container */
         .center-container {
-            /* 1. The 'Auto' margins handle the horizontal centering */
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        
-            /* 2. Block properties */
-            display: block; 
-            max-width: fit-content; /* Wraps tightly around the image */
-            
-            /* 3. Visual Styling */
+            margin: 40px auto;
+            display: block;
+            max-width: fit-content;
             text-align: center;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid #2980b9;
-            border-bottom: 5px solid #2980b9;
-            transition: transform 0.3s ease;            
+            padding: 10px;
+            transition: transform 0.3s ease;
         }
 
         .center-container img {
             display: block;
             margin: 0 auto;
-            max-width: 70%; /* Ensures responsiveness on smaller screens */
+            max-width: 80%;
             height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            cursor: zoom-in;
+            transition: filter 0.3s ease;
         }
 
-        .center-container:hover {
-            transform: translateY(-5px);
+        .center-container img:hover {
+            filter: brightness(1.1);
+        }
+        
+        .center-container h4 a {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+        
+        .center-container h4 a:hover {
+            color: var(--accent-primary);
         }
 
         .rounded-corners {
             border-radius: 10px; /* Adjust the pixel value for more or less rounding */
+        }
+ 
+        /* Lightbox (Zoom) Styles */
+        .lightbox {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            animation: zoom 0.3s;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .close:hover {
+            color: var(--accent-primary);
+        }
+
+        .caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0.8); opacity: 0;}
+            to {transform:scale(1); opacity: 1;}
+        }
+
+        @media only screen and (max-width: 700px) {
+            .lightbox-content {
+                width: 95%;
+            }
+            .header {
+                padding: 20px;
+            }
         }
         
     </style>
 </head>
 
 <body tabindex=0>
+
+    <div id="imageLightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="img01">
+        <div id="caption" class="caption"></div>
+    </div>
+
     <div class="container">
         <div class="header">
             <!-- Menu Icon with Dropdown -->
@@ -275,13 +365,48 @@
         </div>
         
         <div class="center-container">
-            <img src="/images/datalifecycle_AF3_IT.jpeg" alt="Data Life Cycle Diagram">
+            <img class="zoomable" src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg" alt="Data Life Cycle Diagram">
             <h4><a href="https://x.com/1u477n/status/2007915846749036690?s=20" style="text-decoration:none">The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research</a></h4>
         </div>
         <div class="center-container">
-            <img src="/images/modalities.PNG" alt="Drug Modalities Illustration and Definition" class="rounded-corners">
-        </div>        
+            <img class="zoomable" src="https://1u477n.github.io/images/modalities.PNG" alt="Drug Modalities Illustration and Definition">
+        </div>             
     </div>
-</body>
 
+    <script>
+        // Get the modal
+        var modal = document.getElementById("imageLightbox");
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        
+        // Select all images inside center-container
+        var images = document.querySelectorAll(".center-container img");
+
+        images.forEach(img => {
+            img.onclick = function(){
+                // Use flex to center the content
+                modal.style.display = "flex";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            }
+        });
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() { 
+            modal.style.display = "none";
+        }
+
+        // Close when clicking anywhere outside the image
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
 </html>
