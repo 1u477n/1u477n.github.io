@@ -1,3 +1,4 @@
+
 <!DOCTYPE html ontouchmove>
 <html lang="en">
 
@@ -5,6 +6,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <style>
+
+        :root {
+            --bg-color: #0f172a; /* Slate 900 */
+            --card-bg: #1e293b;   /* Slate 800 */
+            --text-main: #e2e8f0; /* Slate 200 */
+            --text-muted: #94a3b8; /* Slate 400 */
+            --accent-primary: #38bdf8; /* Sky 400 */
+            --accent-secondary: #818cf8; /* Indigo 400 */
+            --gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            --glow: 0 0 20px rgba(56, 189, 248, 0.15);
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -27,6 +40,16 @@
             margin-right: 0px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-top: 5px solid #2980b9;
+        }
+
+        .header h2 {
+            margin-top: 0;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            font-size: 2rem;
         }
 
         /* Menu Icon Design */
@@ -297,21 +320,23 @@
                 <a href="https://1u477n.github.io/publishedworks/Patent_PCT_US2009_067197.pdf">receptor tyrosine kinase inhibitors</a>, demonstrating his innovative 
                 approach to tackling complex scientific and technological challenges. He is passionate about leveraging cutting-edge technologies 
                 to drive business value and enhance research and development processes.</p>
-            <p style="text-align: left;"><h3 style="text-align: left;">Our GIFT service model:</h3>
-            <p style="text-align: left;">To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
-                <ul>
-                    <li style="text-align: left;">1.5% success fee on the first $10M raised, then 1% on all additional funds—aligning our incentives with your growth and
-                    fundraising success.
-                    </li>
-                    <li style="text-align: left;">For identifying and developing small-molecule drug candidates, we apply a 2% success fee on the first $10M raised, 
-                    then a tiered structure up to 3.5% on later rounds or milestone-based fees—ensuring fair value-sharing while supporting high-impact, 
-                    capital-intensive biotech innovations.
-                    </li>
-                    <li style="text-align: left;">Revenue-sharing or royalties can be structured flexibly to align with long-term success.</li>
-                </ul>
-                <p style="text-align: left;">We’re here to drive your success. Our fee structure is designed to ensure both flexibility and scalability, maximizing
-                value at every stage of your fundraising journey.
-                </p>
+            <div style="background: rgba(56, 189, 248, 0.05); padding: 20px; padding-top: 10px; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
+                    <h3 style="text-align: left;">Our GIFT service model:</h3>
+                <p style="text-align: left;">To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
+                    <ul>
+                        <li style="text-align: left;">1.5% success fee on the first $10M raised, then 1% on all additional funds—aligning our incentives with your growth and
+                        fundraising success.
+                        </li>
+                        <li style="text-align: left;">For identifying and developing small-molecule drug candidates, we apply a 2% success fee on the first $10M raised, 
+                        then a tiered structure up to 3.5% on later rounds or milestone-based fees—ensuring fair value-sharing while supporting high-impact, 
+                        capital-intensive biotech innovations.
+                        </li>
+                        <li style="text-align: left;">Revenue-sharing or royalties can be structured flexibly to align with long-term success.</li>
+                    </ul>
+                    <p style="text-align: left;">We’re here to drive your success. Our fee structure is designed to ensure both flexibility and scalability, maximizing
+                    value at every stage of your fundraising journey.
+                    </p>
+            </div>
         </div>
 
         <div class="consulting-services">
@@ -366,7 +391,7 @@
         
         <div class="center-container">
             <img class="zoomable" src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg" alt="Data Life Cycle Diagram">
-            <h4><a href="https://x.com/1u477n/status/2007915846749036690?s=20" style="text-decoration:none">The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research</a></h4>
+            <h4 style="color:black"><a href="https://x.com/1u477n/status/2007915846749036690?s=20" style="text-decoration:none">The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research</a></h4>
         </div>
         <div class="center-container">
             <img class="zoomable" src="https://1u477n.github.io/images/modalities.PNG" alt="Drug Modalities Illustration and Definition">
