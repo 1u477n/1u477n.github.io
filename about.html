@@ -1,83 +1,571 @@
-<!DOCTYPE html>
-<html lang="en" ontouchmove>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>About Me</title>
 
-<head style="margin-top: 0px;">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About Me</title>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW323NJP26"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+  <!-- Google Analytics (kept) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW323NJP26"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VW323NJP26');
+  </script>
+
+  <!-- Same font stack/theme as your other updated pages -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1020;
+
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.16);
+
+      --text:#EAF0FF;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.55);
+
+      --a1:#38BDF8;
+      --a2:#A78BFA;
+      --a3:#34D399;
+
+      --grad: linear-gradient(135deg, var(--a1), var(--a2));
+      --ring: 0 0 0 2px rgba(56,189,248,.55);
+
+      --shadow: 0 0 0 1px var(--stroke), 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 0 0 1px var(--stroke), 0 22px 80px rgba(0,0,0,.62);
+
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
+      --r24: 24px;
+
+      --max: 980px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    html{
+      -webkit-text-size-adjust:100%;
+      text-rendering: geometricPrecision;
+    }
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(56,189,248,.18), transparent 55%),
+        radial-gradient(1000px 600px at 90% 10%, rgba(167,139,250,.16), transparent 55%),
+        radial-gradient(900px 600px at 50% 110%, rgba(52,211,153,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+      padding: 22px 18px 40px;
+    }
+
+    ::selection{ background: rgba(56,189,248,.22); color: var(--text); }
+
+    /* Background grid */
+    .bg-grid{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      opacity:.25;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(700px 400px at 50% 12%, rgba(0,0,0,.85), transparent 70%);
+      z-index: 0;
+    }
+    .top-vignette{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 220px;
+      pointer-events:none;
+      background: radial-gradient(800px 180px at 50% 0%, rgba(255,255,255,.06), transparent 70%);
+      opacity: .85;
+      z-index: 0;
+    }
+
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Panel border effect */
+    .panel{
+      position: relative;
+      overflow: hidden;
+    }
+    .panel:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg,
+        rgba(56,189,248,.34),
+        rgba(167,139,250,.28),
+        rgba(52,211,153,.18),
+        rgba(255,255,255,.06)
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: .55;
+    }
+
+    /* Top bar (same nav pattern as your consulting page) */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 10px 0;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,10,18,.88), rgba(7,10,18,.55));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin: -22px -18px 14px; /* align with body padding */
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .mark{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,.05) 55%),
+        var(--grad);
+      box-shadow: 0 12px 28px rgba(56,189,248,.12);
+      border: 1px solid rgba(255,255,255,.14);
+      position: relative;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .mark:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 45%),
+        linear-gradient(90deg, transparent 20%, rgba(255,255,255,.10), transparent 80%);
+      transform: rotate(18deg);
+      opacity:.55;
+    }
+    .brand .title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+      min-width: 0;
+    }
+    .brand .title strong{
+      font-size: 14px;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+    .brand .title span{
+      font-size: 12px;
+      color: var(--muted2);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor:pointer;
+      text-decoration:none;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      backdrop-filter: blur(10px);
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.20); background: rgba(255,255,255,.085); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn.primary{
+      border-color: rgba(56,189,248,.35);
+      background: linear-gradient(135deg, rgba(56,189,248,.22), rgba(167,139,250,.18));
+      box-shadow: 0 16px 32px rgba(56,189,248,.10);
+    }
+
+    .icon-btn{
+      width: 42px; height: 42px;
+      display:grid;
+      place-items:center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      transition: transform .15s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+      backdrop-filter: blur(10px);
+    }
+    .icon-btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.20);
+      background: rgba(255,255,255,.085);
+      box-shadow: 0 14px 30px rgba(0,0,0,.25);
+    }
+    .icon{
+      width: 18px; height: 14px; position: relative;
+    }
+    .icon span{
+      position:absolute; left:0; right:0; height:2px; border-radius: 2px;
+      background: rgba(234,240,255,.90);
+      transition: transform .2s ease, top .2s ease, opacity .2s ease;
+    }
+    .icon span:nth-child(1){ top:0; }
+    .icon span:nth-child(2){ top:6px; opacity:.85; }
+    .icon span:nth-child(3){ top:12px; opacity:.70; }
+
+    /* Menu panel */
+    .menu{
+      position: fixed;
+      top: 70px;
+      right: 18px;
+      width: min(360px, calc(100vw - 36px));
+      border-radius: 18px;
+      background: rgba(8,12,22,.78);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      backdrop-filter: blur(16px);
+      padding: 10px;
+      display:none;
+      z-index: 60;
+    }
+    .menu.open{ display:block; animation: pop .16s ease-out; }
+    @keyframes pop{ from{ transform: translateY(-6px); opacity: 0;} to{ transform: translateY(0); opacity: 1;} }
+
+    .menu a{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      text-decoration:none;
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      transition: background .2s ease, border-color .2s ease;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .menu a:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    .menu a span{
+      color: var(--muted2);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* Main card */
+    .card{
+      border-radius: var(--r24);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.14), transparent 50%),
+        radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.12), transparent 55%),
+        rgba(255,255,255,.05);
+      box-shadow: var(--shadow2);
+      padding: 22px;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,.22);
+      background: rgba(56,189,248,.08);
+      color: rgba(234,240,255,.92);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: .2px;
+    }
+    .kicker i{
+      width: 8px; height: 8px;
+      border-radius: 99px;
+      background: var(--grad);
+      display:inline-block;
+      box-shadow: 0 0 0 4px rgba(56,189,248,.10);
+    }
+
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(22px, 4vw, 34px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .grad-text{
+      background: var(--grad);
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    p{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+      max-width: 82ch;
+    }
+    p strong{ color: rgba(234,240,255,.92); }
+
+    h2{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -.01em;
+    }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+    }
+    .section-head .hint{
+      margin: 0;
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* Competencies list styled as product-like chips */
+    ul.competencies{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display:grid;
+      gap: 10px;
+    }
+    ul.competencies li{
+      display:flex;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: var(--r16);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      color: rgba(234,240,255,.86);
+      line-height: 1.6;
+      font-size: 13px;
+    }
     
-        gtag('config', 'G-VW323NJP26');
-    </script>
-    <link rel="stylesheet" href="styles.css">
+    ul.competencies li:before{
+      content:"";
+      width: 8px; height: 8px;
+      border-radius: 99px;
+      background: rgba(56,189,248,.95);
+      margin-top: 6px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 4px rgba(56,189,248,.08);
+    }
+
+    /* Footer */
+    .footer{
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--r20);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.5;
+      text-align:center;
+    }
+
+    :focus-visible{
+      outline: none;
+      box-shadow: var(--ring);
+      border-radius: 12px;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ transition: none !important; animation: none !important; }
+    }
+  </style>
 </head>
 
-<body style="margin-top: 0px;" tabindex=0>
-    <div class="container">
-        <!-- Menu Icon with Dropdown -->
-        <div class="menu-icon">
-            <div class="dropdown" tabindex="0">
-                <a href="https://1u477n.github.io/">Home</a>
-                <a href="https://1u477n.github.io/about.html">About Me</a>
-                <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting</a>
-                <a href="https://1u477n.github.io/publishedworks.html">Published Works</a>
-                <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions</a>
-                <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae</a>
-                <a href="https://www.linkedin.com/in/1u477n/">LinkedIn</a>
-            </div>
+<body tabindex="0">
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="top-vignette" aria-hidden="true"></div>
+
+  <!-- Top bar with same menu behavior -->
+  <div class="topbar">
+    <div class="nav" role="navigation" aria-label="Site">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div class="title">
+          <strong>About Me</strong>
+          <span>Technology · Drug discovery · AI/ML</span>
         </div>
-        <h2>About Me</h2>
-        <p>
-            I thrive at the intersection of <strong>technology and drug discovery</strong>, bridging computational and
-            wet-lab approaches to accelerate innovation.
-            With <strong>20+ years of experience</strong> spanning biotech startups and global pharmaceutical
-            enterprises, I’ve led cross-functional teams to develop and implement cutting-edge solutions
-            in <strong>informatics, AI/machine learning, IT strategy, and technical product management</strong>. My work
-            has consistently focused on advancing drug discovery through computational methods,
-            predictive analytics, and scalable infrastructure.
-        </p>
-        <p>
-            A core strength of mine is the ability to <strong>translate complex scientific and technical challenges into
-                actionable solutions</strong>. I’ve collaborated with
-            software engineers, ML researchers, computational chemists, and medicinal chemists to build platforms that
-            streamline R&D workflows and drive data-driven decision-making.
-            I’m deeply familiar with the challenges of integrating AI and computational tools into drug discovery, and
-            I’m passionate about creating systems that empower scientists and accelerate innovation.
-        </p>
-        <p>
-            I’ve successfully led <strong>product roadmaps, IT strategy, and infrastructure initiatives</strong> to
-            support AI-driven research. Whether it’s building a scalable informatics platform,
-            designing predictive models, or ensuring seamless cross-functional collaboration, I bring a strategic
-            mindset with a hands-on approach to execution.
-            My expertise extends across <strong>machine learning, computational chemistry, and cloud computing</strong>,
-            and I’m committed to leveraging technology to solve complex scientific problems.
-        </p>
-        <p>
-            At my core, I’m driven by the <strong>impact that technology can have on drug discovery and human
-                health</strong>. I thrive in dynamic, interdisciplinary environments where I can bridge technical and
-            scientific domains to drive meaningful progress.
-        </p>
+      </div>
 
-        <h3>Core Competencies</h3>
-        <ul class="competencies">
-            <li><strong>Scientific Data Management</strong> – Expertise in handling large-scale scientific datasets,
-                ensuring data integrity, consistency, and accessibility.</li>
-            <li><strong>Advanced Data Analysis</strong> – Develop and implement analytical models and pipelines to
-                support research and development.</li>
-            <li><strong>Software Development</strong> – Design and deploy custom tools and platforms to enhance data
-                capture, processing, and analysis.</li>
-            <li><strong>Stakeholder Engagement</strong> – Trusted advisor to senior leadership and cross-functional
-                teams, driving alignment and operational efficiency.</li>
-            <li><strong>AI/ML & Data Analytics</strong> – Expertise in AI/ML tools, data pipelines, and automated
-                workflows to generate insights and drive business value.</li>
-            <li><strong>Product Management & Strategy</strong> – Lead end-to-end product lifecycle using agile
-                methodologies to drive digital innovation and business impact.</li>
-        </ul>
+      <div class="nav-actions">
+        <a class="btn primary" href="https://www.linkedin.com/in/1u477n/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <button class="icon-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel" title="Menu">
+          <div class="icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </button>
+      </div>
     </div>
-</body>
 
+    <!-- Menu panel -->
+    <div class="menu" id="menuPanel" role="menu" aria-label="Menu">
+      <a role="menuitem" href="https://1u477n.github.io/">Home <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span>↗</span></a>
+      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span>↗</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="card panel">
+      <div class="kicker"><i></i> AI-native bio</div>
+
+      <h1><span class="grad-text">About Me</span></h1>
+
+      <!-- Content kept exactly as provided -->
+      <p>
+        I thrive at the intersection of <strong>technology and drug discovery</strong>, bridging computational and
+        wet-lab approaches to accelerate innovation.
+        With <strong>20+ years of experience</strong> spanning biotech startups and global pharmaceutical
+        enterprises, I’ve led cross-functional teams to develop and implement cutting-edge solutions
+        in <strong>informatics, AI/machine learning, IT strategy, and technical product management</strong>. My work
+        has consistently focused on advancing drug discovery through computational methods,
+        predictive analytics, and scalable infrastructure.
+      </p>
+      <p>
+        A core strength of mine is the ability to <strong>translate complex scientific and technical challenges into
+          actionable solutions</strong>. I’ve collaborated with
+        software engineers, ML researchers, computational chemists, and medicinal chemists to build platforms that
+        streamline R&D workflows and drive data-driven decision-making.
+        I’m deeply familiar with the challenges of integrating AI and computational tools into drug discovery, and
+        I’m passionate about creating systems that empower scientists and accelerate innovation.
+      </p>
+      <p>
+        I’ve successfully led <strong>product roadmaps, IT strategy, and infrastructure initiatives</strong> to
+        support AI-driven research. Whether it’s building a scalable informatics platform,
+        designing predictive models, or ensuring seamless cross-functional collaboration, I bring a strategic
+        mindset with a hands-on approach to execution.
+        My expertise extends across <strong>machine learning, computational chemistry, and cloud computing</strong>,
+        and I’m committed to leveraging technology to solve complex scientific problems.
+      </p>
+      <p>
+        At my core, I’m driven by the <strong>impact that technology can have on drug discovery and human
+          health</strong>. I thrive in dynamic, interdisciplinary environments where I can bridge technical and
+        scientific domains to drive meaningful progress.
+      </p>
+
+      <div class="section-head">
+        <h2>Core Competencies</h2>
+        <p class="hint">Key capabilities and strengths</p>
+      </div>
+
+      <ul class="competencies">
+        <li></li><strong>Scientific Data Management</strong> – Expertise in handling large-scale scientific datasets,
+          ensuring data integrity, consistency, and accessibility.</li>
+        <li><strong>Advanced Data Analysis</strong> – Develop and implement analytical models and pipelines to
+          support research and development.</li>
+        <li><strong>Software Development</strong> – Design and deploy custom tools and platforms to enhance data
+          capture, processing, and analysis.</li>
+        <li><strong>Stakeholder Engagement</strong> – Trusted advisor to senior leadership and cross-functional
+          teams, driving alignment and operational efficiency.</li>
+        <li><strong>AI/ML & Data Analytics</strong> – Expertise in AI/ML tools, data pipelines, and automated
+          workflows to generate insights and drive business value.</li>
+        <li><strong>Product Management & Strategy</strong> – Lead end-to-end product lifecycle using agile
+          methodologies to drive digital innovation and business impact.</li>
+      </ul>
+    </section>
+
+    <footer class="footer panel">
+      © <span id="year"></span> · About Me
+    </footer>
+  </main>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Menu toggle (same behavior as your other pages)
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+
+    function closeMenu() {
+      menuPanel.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+    function toggleMenu() {
+      const open = menuPanel.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    menuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    menuPanel.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    document.addEventListener("click", () => {
+      if (menuPanel.classList.contains("open")) closeMenu();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+  </script>
+</body>
 </html>
