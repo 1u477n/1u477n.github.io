@@ -1,475 +1,1050 @@
-<!DOCTYPE html ontouchmove>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>IT & Strategy Consulting</title>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
+  <!-- Google Analytics (kept) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-VW323NJP26');
-    </script>
+  </script>
 
-    <style>
+  <!-- Modern font (optional; remove if you want zero external deps) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        :root {
-            --bg-color: #0f172a; /* Slate 900 */
-            --card-bg: #1e293b;   /* Slate 800 */
-            --text-main: #e2e8f0; /* Slate 200 */
-            --text-muted: #94a3b8; /* Slate 400 */
-            --accent-primary: #38bdf8; /* Sky 400 */
-            --accent-secondary: #818cf8; /* Indigo 400 */
-            --gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            --glow: 0 0 20px rgba(56, 189, 248, 0.15);
-        }
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1020;
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f5;
-        }
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.16);
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+      --text:#EAF0FF;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.55);
 
-        .header {
-            position: relative;
-            text-align: left;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            margin-right: 0px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-top: 5px solid #2980b9;
-        }
+      --a1:#38BDF8; /* sky */
+      --a2:#A78BFA; /* violet */
+      --a3:#34D399; /* emerald */
+      --a4:#F59E0B; /* amber */
 
-        .header h2 {
-            margin-top: 0;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            font-size: clamp(1rem, 5vw, 2rem);
-            line-height: 1.2;
-        }
+      --grad: linear-gradient(135deg, var(--a1), var(--a2));
+      --grad2: linear-gradient(135deg, rgba(56,189,248,.20), rgba(167,139,250,.18), rgba(52,211,153,.12));
 
-        .header h3 {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            font-size: clamp(1.25rem, 5vw, 1.25rem);
-            line-height: 1.2;
-        }
+      --shadow: 0 0 0 1px var(--stroke), 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 0 0 1px var(--stroke), 0 22px 80px rgba(0,0,0,.62);
 
-        /* Menu Icon Design */
-        .menu-icon {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            width: 35px;
-            height: 35px;
-            display: inline-block;
-            border-radius: 15px;
-            color: black;
-            text-align: center;
-            line-height: 18px;
-            font-size: 14px;
-            cursor: pointer;
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
 
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
+      --max: 1160px;
 
-        .menu-icon:hover {
+      --ring: 0 0 0 2px rgba(56,189,248,.55);
+    }
 
-            transform: scale(1.1);
-        }
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    html{
+      scroll-behavior: smooth;
+      text-rendering: geometricPrecision;
+      -webkit-text-size-adjust: 100%;
+    }
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(56,189,248,.18), transparent 55%),
+        radial-gradient(1000px 600px at 90% 10%, rgba(167,139,250,.16), transparent 55%),
+        radial-gradient(900px 600px at 50% 110%, rgba(52,211,153,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+      padding-bottom: 40px;
+    }
 
-        .menu-icon:before {
-            content: "☰";
-            /* Menu character */
-            font-size: 26px;
-            color: black;
-        }
+    ::selection{
+      background: rgba(56,189,248,.22);
+      color: var(--text);
+    }
 
-        /* Dropdown container */
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 20px;
-            left: -150px;
-            /* Adjusted to place the dropdown to the left */
-            background-color: white;
-            min-width: 190px;
-            max-width: 190px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            z-index: 1;
-        }
+    /* Subtle animated noise grid */
+    .bg-grid{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      opacity:.25;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(700px 400px at 50% 12%, rgba(0,0,0,.85), transparent 70%);
+    }
 
-        .menu-icon:hover .dropdown {
-            display: block;
-        }
+    /* App-shell polish: subtle top vignette */
+    .top-vignette{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 220px;
+      pointer-events:none;
+      background: radial-gradient(800px 180px at 50% 0%, rgba(255,255,255,.06), transparent 70%);
+      opacity: .8;
+      z-index: 1;
+    }
 
-        .dropdown a {
-            color: #2c3e50;
-            padding: 8px 8px;
-            text-decoration: none;
-            display: block;
-        }
+    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; }
 
-        .dropdown a:hover {
-            background-color: #f1f1f1;
-            border-radius: 10px;
-            color: #2980b9;
-        }
+    /* Top nav */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 10px 0;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,10,18,.88), rgba(7,10,18,.55));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
 
-        .consulting-services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-        }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
 
-        .service-card {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            border-left: 5px solid #2980b9;
-        }
-/*
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient);
-        }
-*/
-        .service-card:hover {
-            transform: translateY(-7px);
-            box-shadow: var(--glow);
-            border-color:#f89e04;
-            /*border-color: rgba(10, 81, 162, 0.3);*/
-        }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
 
-        .service-card h3 {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            font-size: clamp(1.25rem, 5vw, 1.25rem);
-            line-height: 1.2;
-        }
+    /* AI-product mark: looks like a "model tile" */
+    .mark{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,.05) 55%),
+        var(--grad);
+      box-shadow: 0 12px 28px rgba(56,189,248,.12);
+      position: relative;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .mark:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 45%),
+        linear-gradient(90deg, transparent 20%, rgba(255,255,255,.10), transparent 80%);
+      transform: rotate(18deg);
+      opacity:.55;
+    }
 
-        .service-card ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
+    .brand .title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+      min-width: 0;
+    }
+    .brand .title strong{
+      font-size: 14px;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+    .brand .title span{
+      font-size: 12px;
+      color: var(--muted2);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
 
-        .service-card ul li {
-            padding: 5px 0;
-            font-size: 16px;
-            line-height: 1.6;
-        }
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
 
-        .service-card ul li::before {
-            content: "•";
-            color: #2980b9;
-            padding-right: 10px;
-        }
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor:pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      backdrop-filter: blur(10px);
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.20); background: rgba(255,255,255,.085); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn.primary{
+      border-color: rgba(56,189,248,.35);
+      background: linear-gradient(135deg, rgba(56,189,248,.22), rgba(167,139,250,.18));
+      box-shadow: 0 16px 32px rgba(56,189,248,.10);
+    }
 
-        /* Images Container */
-        .center-container {
-            margin: 40px auto;
-            display: block;
-            max-width: fit-content;
-            text-align: center;
-            padding: 10px;
-            transition: transform 0.3s ease;
-        }
+    /* Hamburger */
+    .icon-btn{
+      width: 42px; height: 42px;
+      display:grid;
+      place-items:center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      transition: transform .15s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+      backdrop-filter: blur(10px);
+    }
+    .icon-btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.20); background: rgba(255,255,255,.085); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+    .icon{
+      width: 18px; height: 14px; position: relative;
+    }
+    .icon span{
+      position:absolute; left:0; right:0; height:2px; border-radius: 2px;
+      background: rgba(234,240,255,.90);
+      transition: transform .2s ease, top .2s ease, opacity .2s ease;
+    }
+    .icon span:nth-child(1){ top:0; }
+    .icon span:nth-child(2){ top:6px; opacity:.85; }
+    .icon span:nth-child(3){ top:12px; opacity:.70; }
 
-        .center-container img {
-            display: block;
-            margin: 0 auto;
-            max-width: 80%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(125, 125, 125, 0.4);
-            cursor: zoom-in;
-            transition: filter 0.3s ease;
-        }
+    /* Menu panel */
+    .menu{
+      position: fixed;
+      top: 70px;
+      right: 18px;
+      width: min(360px, calc(100vw - 36px));
+      border-radius: 18px;
+      background: rgba(8,12,22,.78);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      backdrop-filter: blur(16px);
+      padding: 10px;
+      display:none;
+      z-index: 60;
+    }
+    .menu.open{ display:block; animation: pop .16s ease-out; }
+    @keyframes pop{ from{ transform: translateY(-6px); opacity: 0;} to{ transform: translateY(0); opacity: 1;} }
 
-        .center-container img:hover {
-            filter: brightness(1.1);
-        }
-        
-        .center-container h4 a {
-            color: var(--text-main);
-            font-weight: 500;
-        }
-        
-        .center-container h4 a:hover {
-            color: var(--accent-primary);
-        }
+    .menu a{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      text-decoration:none;
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      transition: background .2s ease, border-color .2s ease;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .menu a:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+    }
+    .menu a span{
+      color: var(--muted2);
+      font-weight: 600;
+      font-size: 12px;
+    }
 
-        .rounded-corners {
-            border-radius: 10px; /* Adjust the pixel value for more or less rounding */
-        }
- 
-        /* Lightbox (Zoom) Styles */
-        .lightbox {
-            display: none; /* Hidden by default */
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+    /* Reusable "AI product panel border" effect (no content changes) */
+    .panel{
+      position: relative;
+      overflow: hidden;
+    }
+    .panel:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg,
+        rgba(56,189,248,.34),
+        rgba(167,139,250,.28),
+        rgba(52,211,153,.18),
+        rgba(255,255,255,.06)
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: .55;
+    }
 
-        .lightbox-content {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            animation: zoom 0.3s;
-        }
+    /* Hero */
+    .hero{
+      margin-top: 18px;
+      padding: 26px;
+      border-radius: 24px;
+      background:
+        radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.16), transparent 50%),
+        radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.14), transparent 55%),
+        rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      position: relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(700px 200px at 50% -10%, rgba(255,255,255,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,.22);
+      background: rgba(56,189,248,.08);
+      color: rgba(234,240,255,.92);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .2px;
+    }
+    .kicker i{
+      width: 8px; height: 8px;
+      border-radius: 99px;
+      background: var(--grad);
+      display:inline-block;
+      box-shadow: 0 0 0 4px rgba(56,189,248,.10);
+    }
 
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-            z-index: 2001;
-        }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(26px, 4.2vw, 42px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .grad-text{
+      background: var(--grad);
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
 
-        .close:hover {
-            color: var(--accent-primary);
-        }
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(14px, 2vw, 16px);
+      line-height: 1.65;
+      max-width: 78ch;
+    }
 
-        .caption {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 0;
-            margin-top: 10px;
-        }
+    .meta-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .pill{
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 9px 12px;
+      font-size: 12px;
+      color: var(--muted);
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .pill b{
+      color: rgba(234,240,255,.92);
+      font-weight: 700;
+    }
 
-        @keyframes zoom {
-            from {transform:scale(0.8); opacity: 0;}
-            to {transform:scale(1); opacity: 1;}
-        }
+    .quote{
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color: rgba(234,240,255,.80);
+      line-height: 1.6;
+    }
+    .quote em{ color: rgba(234,240,255,.92); font-style: italic; }
+    .quote .by{ color: var(--muted2); font-weight: 600; margin-left: 6px; }
 
-        @media only screen and (max-width: 700px) {
-            .lightbox-content {
-                width: 95%;
-            }
-            .header {
-                padding: 20px;
-            }
-        }
-        
-    </style>
+    /* Two-column content inside hero */
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .85fr;
+      gap: 18px;
+      margin-top: 18px;
+      align-items: start;
+    }
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+
+    /* GIFT card */
+    .gift{
+      border-radius: 20px;
+      border: 1px solid rgba(56,189,248,.18);
+      background:
+        radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.14), transparent 55%),
+        rgba(255,255,255,.045);
+      box-shadow: 0 0 0 1px rgba(56,189,248,.08) inset;
+      padding: 18px;
+      overflow:hidden;
+    }
+    .gift h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -.01em;
+    }
+    .gift p{ margin: 0 0 10px; color: var(--muted); line-height: 1.6; font-size: 13px; }
+    .gift ul{ margin: 10px 0 0; padding: 0; list-style:none; display:grid; gap: 10px; }
+    .gift li{
+      display:flex;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      color: rgba(234,240,255,.86);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+    .gift li:before{
+      content:"";
+      width: 10px; height: 10px;
+      border-radius: 99px;
+      background: var(--grad);
+      margin-top: 4px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 4px rgba(56,189,248,.10);
+    }
+
+    /* Section headings */
+    .section{
+      margin-top: 22px;
+    }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0 12px;
+    }
+    .section-head h2{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -.01em;
+    }
+    .section-head p{
+      margin: 0;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+
+    /* Services grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 6;
+      border-radius: 20px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 20px 60px rgba(0,0,0,.55);
+      padding: 18px;
+      position: relative;
+      overflow:hidden;
+      transition: transform .18s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .card.panel:after{ opacity: .45; } /* slightly calmer */
+    .card:before{
+      content:"";
+      position:absolute;
+      inset: -2px -2px auto auto;
+      width: 240px; height: 240px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(56,189,248,.16), transparent 60%),
+        radial-gradient(circle at 65% 40%, rgba(167,139,250,.14), transparent 62%);
+      opacity: .9;
+      pointer-events:none;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(56,189,248,.32);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 24px 80px rgba(0,0,0,.62);
+    }
+    .card:focus-within{
+      box-shadow: var(--ring), 0 24px 80px rgba(0,0,0,.62);
+      border-color: rgba(56,189,248,.45);
+    }
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 14px;
+      letter-spacing: -.01em;
+    }
+    .card .sub{
+      margin: 0 0 10px;
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .list{
+      margin: 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap: 10px;
+    }
+    .list li{
+      display:flex;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      color: rgba(234,240,255,.86);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+    .list li:before{
+      content:"";
+      width: 8px; height: 8px;
+      border-radius: 99px;
+      background: rgba(56,189,248,.95);
+      margin-top: 6px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 4px rgba(56,189,248,.08);
+    }
+
+    @media (max-width: 920px){
+      .card{ grid-column: span 12; }
+    }
+
+    /* MEDIA: guaranteed fit + equal-height cards */
+    .media{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      align-items: stretch;
+      grid-auto-rows: 1fr; /* equal height rows */
+    }
+
+    .media-card{
+      grid-column: span 6;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      transition: transform .18s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
+      display:flex;                /* key: flex column ensures content stays inside */
+      flex-direction: column;
+      min-width: 0;               /* key: allows text to clamp properly */
+    }
+    .media-card.panel:after{ opacity: .42; }
+
+    .media-card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(56,189,248,.32);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.10), 0 26px 90px rgba(0,0,0,.62);
+      background: rgba(255,255,255,.045);
+    }
+    .media-card:focus-within{
+      box-shadow: var(--ring), 0 26px 90px rgba(0,0,0,.62);
+      border-color: rgba(56,189,248,.45);
+    }
+
+    .media-img{
+      width: 100%;
+      display:block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      cursor: zoom-in;
+      filter: saturate(1.05) contrast(1.02);
+      flex: 0 0 auto; /* image never shrinks into caption space */
+    }
+
+    .media-body{
+      padding: 14px 14px 16px;
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1 1 auto;   /* caption takes remaining height */
+      min-height: 0;    /* key: enables line clamp/overflow control */
+    }
+
+    .media-body h4{
+      margin: 0;
+      font-size: 13px;
+      color: rgba(234,240,255,.92);
+      line-height: 1.35;
+      font-weight: 700;
+
+      /* key: keep title inside the card */
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+
+    .media-body p{
+      margin: 0;
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.5;
+
+      /* key: keep description inside the card */
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+
+    .media-body a{
+      color: rgba(56,189,248,.95);
+      text-decoration: none;
+    }
+    .media-body a:hover{ text-decoration: underline; }
+
+    @media (max-width: 920px){
+      .media-card{ grid-column: span 12; }
+    }
+
+    /* Lightbox */
+    .lightbox{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index: 2000;
+      background-color: rgba(7,10,18,.92);
+      backdrop-filter: blur(10px);
+      align-items:center;
+      justify-content:center;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .lightbox.open{ display:flex; }
+    .lightbox-content{
+      max-width: min(1100px, 96vw);
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 40px 120px rgba(0,0,0,.7);
+      border: 1px solid rgba(255,255,255,.10);
+      animation: zoom .18s ease-out;
+    }
+    .caption{
+      max-width: min(900px, 92vw);
+      margin-top: 14px;
+      color: rgba(234,240,255,.78);
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .close{
+      position:absolute;
+      top: 14px;
+      right: 16px;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      color: rgba(234,240,255,.92);
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .close:hover{
+      transform: translateY(-1px);
+      border-color: rgba(56,189,248,.35);
+      background: rgba(56,189,248,.10);
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+    }
+
+    @keyframes zoom{
+      from{ transform: scale(.98); opacity: 0;}
+      to{ transform: scale(1); opacity: 1;}
+    }
+
+    /* Footer */
+    .footer{
+      margin-top: 22px;
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.5;
+      text-align:center;
+    }
+
+    /* Accessibility */
+    :focus-visible{
+      outline: none;
+      box-shadow: var(--ring);
+      border-radius: 12px;
+    }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior: auto; }
+      *{ transition: none !important; animation: none !important; }
+    }
+  </style>
 </head>
 
-<body tabindex=0>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="top-vignette" aria-hidden="true"></div>
 
-    <div id="imageLightbox" class="lightbox">
-        <span class="close">&times;</span>
-        <img class="lightbox-content" id="img01">
-        <div id="caption" class="caption"></div>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="nav" role="navigation" aria-label="Site">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div class="title">
+          <strong>IT & Strategy Consulting</strong>
+          <span>AI-ready R&D, data, and fundraising strategy</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <a class="btn primary" href="https://www.linkedin.com/in/1u477n/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <button class="icon-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel" title="Menu">
+          <div class="icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </button>
+      </div>
     </div>
 
-    <div class="container">
-        <div class="header">
-            <!-- Menu Icon with Dropdown -->
-            <div class="menu-icon">
-                <div class="dropdown" tabindex=0>
-                    <a href="https://1u477n.github.io/">Home</a>
-                    <a href="https://1u477n.github.io/about.html">About Me</a>
-                    <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting</a>
-                    <a href="https://aiincubator.github.io/">Big Data & AI Incubator</a>
-                    <a href="https://1u477n.github.io/publishedworks.html">Published Works</a>
-                    <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions</a>
-                    <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae</a>
-                    <a href="https://www.linkedin.com/in/1u477n/">LinkedIn</a>
-                </div>
-            </div>
-            <h2>IT & Strategy Consulting</h2>
-            <p style="text-align: left;">(...inspired by 
-                <a href="https://www.linkedin.com/posts/adammgrant_have-you-ever-hesitated-to-share-your-work-activity-7311774949793234944-9rme?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAMcMqIBGCZJXmtjKkgejIZlsIYP2oLhPJU">a video from Adam Grant</a>)</p>
-            <p style="text-align: left;"><i>
-                “It doesn’t matter how beautiful your theory is, it doesn’t matter how smart you are. If it doesn’t agree with experiment, it’s wrong.”</i> -Richard Feynman
-            </p>
-            <p style="text-align: left;">Luke (Luat) Nguyen is an experienced technology strategist specializing in R&D IT, AI/ML integration, and data analytics within the biotech 
-                and pharmaceutical industries. With a background in biochemistry/chemistry, computer science, and economics, he has developed a deep understanding of 
-                IT infrastructure, product management, and business analysis. He has successfully led digital transformation initiatives, designed 
-                cloud-based infrastructure strategies, and implemented data governance frameworks for both GxP and non-GxP environments.</p>
-
-            <p style="text-align: left;">Luke is also an inventor with hands-on experience and proprietary, data-driven scientific expertise in the discovery of highly selective 
-                and specific small-molecule drug candidates—over 70% of his proposed compounds were independently validated through experimental studies by scientists at 
-                the <a href="https://www.ucsf.edu/">University of California, San Francisco</a>. He is a co-author of patents in <a href="https://1u477n.github.io/publishedworks/Patent_US6699719.pdf">
-            biosensor arrays</a>, <a href="https://1u477n.github.io/publishedworks/Patent_US8586619.pdf">calcium ion channel modulators</a>, and 
-            <a href="https://1u477n.github.io/publishedworks/Patent_PCT_US2009_067197.pdf">receptor tyrosine kinase inhibitors</a>, demonstrating his innovative 
-            approach to tackling complex scientific and technological challenges. He is passionate about leveraging cutting-edge technologies 
-            to drive business value and enhance research and development processes.</p>
-            
-            <br>
-            <div style="background: #f1f1f1; padding: 20px; padding-top: 20px; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);">
-                <h3 style="text-align: left; color: black; margin-top:0;">Our GIFT service model:</h3>
-                <p style="text-align: left;">To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
-                    <ul>
-                        <li style="text-align: left;">1.5% success fee on the first $10M raised, then 1% on all additional funds—aligning our incentives with your growth and
-                        fundraising success.
-                        </li>
-                        <li style="text-align: left;">For identifying and developing small-molecule drug candidates, we apply a 2% success fee on the first $10M raised, 
-                        then a tiered structure up to 3.5% on later rounds or milestone-based fees—ensuring fair value-sharing while supporting high-impact, 
-                        capital-intensive biotech innovations.
-                        </li>
-                        <li style="text-align: left;">Revenue-sharing or royalties can be structured flexibly to align with long-term success.</li>
-                    </ul>
-                    <p style="text-align: left;">We’re here to drive your success. Our fee structure is designed to ensure both flexibility and scalability, maximizing
-                    value at every stage of your fundraising journey.
-                    </p>
-            </div>
-        </div>
-
-        <div class="consulting-services">
-            
-            <div class="service-card">
-                <h3>G – Growth & Fundraising Strategy</h3>
-                <ul>
-                    <li>Capital Strategy for Biotech Ventures – Flexible success-fee & revenue-sharing models to align incentives with biotech
-                    startup growth.</li>
-                    <li>Fundraising & Investor Readiness – Support in securing early-stage & milestone-based funding for drug discovery &
-                    AI-driven biotech innovations.</li>
-                    <li>Technology Due Diligence – Evaluate scientific feasibility & IT infrastructure for investors and startups.</li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <h3>I – Informatics & AI-Driven R&D</h3>
-                <ul>
-                    <li>Scientific Informatics Strategy – Implementation of Entity & Assay Registration, Sample Management, ELN, LIMS, and lab automation to streamline
-                    research workflows.</li>
-                    <li>AI & Computational Chemistry Platforms – AI-driven drug discovery pipelines integrating bioinformatics, machine
-                    learning, and high-performance computing.</li>
-                    <li>Data Governance & Security – Compliance with GxP, HIPAA, GDPR, and FDA regulations for scientific data integrity &
-                    security.</li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <h3>F – Future-Ready IT & Digital Transformation</h3>
-                <ul>
-                    <li>R&D IT Strategy & Infrastructure – Development of cloud-based, hybrid, and on-prem IT environments for biotech & pharma
-                    R&D</li>
-                    <li>Enterprise Integration & SaaS Strategy – Vendor selection, SaaS implementation, and system interoperability for seamless
-                    data exchange.</li>
-                    <li>Agile Product Management & IT Roadmaps – Aligning biotech R&D with scalable IT solutions & digital transformation
-                    strategies.</li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <h3>T – Technology-Driven Drug Discovery & Cybersecurity</h3>
-                <ul>
-                    <li>Computational Drug Discovery & Bioinformatics – AI/ML-powered modeling for small-molecule & biologics development.</li>
-                    <li>Cybersecurity & Compliance – Securing R&D data, access controls, vulnerability management, and disaster recovery
-                    planning.</li>
-                    <li>Scalable AI/ML Infrastructure – Deployment of automated data pipelines, workflow optimizations, and AI model lifecycle
-                    management.</li>
-                </ul>
-            </div>
-    
-        </div>
-        
-        <div class="center-container">
-            <h4><a href="https://x.com/1u477n/status/2007915846749036690?s=20" style="text-decoration:none; color:rgb(34, 81, 234);">The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research</a></h4>
-            <img class="zoomable" src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg" alt="Data Life Cycle Diagram">
-        </div>
-        <div class="center-container">
-            <h4 style="text-decoration:none; font-weight:normal ;color:rgb(34, 81, 234);">The Importance of Basic Research During #AI Era - The Billion-Dollar Shortcut: How We Finally Stopped Guessing and Started Engineering Better Drugs</h4>
-            <img class="zoomable" style="width:550px; height:auto; display:block;" src="https://1u477n.github.io/images/bresearch_preclinical_datalifecycle.jpeg" alt="Basic Research and Drug Discovery Data Life Cycle Diagram">
-        </div>
-        <div class="center-container">
-            <img class="zoomable" style="width:800px; height:auto; display:block;" src="https://1u477n.github.io/images/datainfrastructures.jpg" alt="Integrated Data Infrastructures">
-            <h4><a href="https://www.nature.com/articles/s44401-025-00058-9" style="text-decoration:none; color:rgb(34, 81, 234);">Ref: Modernizing Data and Data Science Infrastructure as a Strategic Asset for Cancer Centers</a></h4>
-        </div>      
-        <div class="center-container">
-            <img class="zoomable" src="https://1u477n.github.io/images/modalities.PNG" alt="Drug Modalities Illustration and Definition">
-        </div>          
+    <!-- Menu panel -->
+    <div class="menu" id="menuPanel" role="menu" aria-label="Menu">
+      <a role="menuitem" href="https://1u477n.github.io/">Home <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span>↗</span></a>
+      <a role="menuitem" href="https://aiincubator.github.io/">Big Data & AI Incubator <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span>↗</span></a>
+      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span>↗</span></a>
     </div>
+  </div>
 
-    <script>
-        // Get the modal
-        var modal = document.getElementById("imageLightbox");
+  <!-- Lightbox -->
+  <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
+    <button class="close" id="lightboxClose" aria-label="Close">×</button>
+    <img class="lightbox-content" id="img01" alt="" />
+    <div id="caption" class="caption"></div>
+  </div>
 
-        // Get the image and insert it inside the modal - use its "alt" text as a caption
-        var modalImg = document.getElementById("img01");
-        var captionText = document.getElementById("caption");
-        
-        // Select all images inside center-container
-        var images = document.querySelectorAll(".center-container img");
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero panel">
+      <div class="kicker"><i></i> AI-native consulting for biotech & pharma</div>
 
-        images.forEach(img => {
-            img.onclick = function(){
-                // Use flex to center the content
-                modal.style.display = "flex";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
-            }
-        });
+      <h1>
+        <span class="grad-text">IT & Strategy Consulting</span><br />
+        for modern R&amp;D organizations
+      </h1>
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+      <p class="lead">
+        Luke (Luat) Nguyen is an experienced technology strategist specializing in R&amp;D IT, AI/ML integration,
+        and data analytics within the biotech and pharmaceutical industries. With a background in biochemistry/chemistry,
+        computer science, and economics, he has developed a deep understanding of IT infrastructure, product management,
+        and business analysis.
+      </p>
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() { 
-            modal.style.display = "none";
+      <div class="meta-row" aria-label="Highlights">
+        <div class="pill"><b>Focus</b> R&amp;D IT · AI/ML · Data governance</div>
+        <div class="pill"><b>Domains</b> Biotech · Pharma · Scientific computing</div>
+        <div class="pill"><b>Outcomes</b> Digital transformation · Investor readiness</div>
+      </div>
+
+      <div class="quote">
+        <em>“It doesn’t matter how beautiful your theory is, it doesn’t matter how smart you are. If it doesn’t agree with experiment, it’s wrong.”</em>
+        <span class="by">— Richard Feynman</span>
+        <div style="margin-top:10px; color: rgba(234,240,255,.72); font-size: 12.5px;">
+          (...inspired by
+          <a href="https://www.linkedin.com/posts/adammgrant_have-you-ever-hesitated-to-share-your-work-activity-7311774949793234944-9rme?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAMcMqIBGCZJXmtjKkgejIZlsIYP2oLhPJU"
+             style="color: rgba(56,189,248,.95); text-decoration:none;" target="_blank" rel="noreferrer">
+            a video from Adam Grant
+          </a>)
+        </div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <p class="lead" style="margin-top:0;">
+            Luke is also an inventor with hands-on experience and proprietary, data-driven scientific expertise in the discovery of highly selective
+            and specific small-molecule drug candidates—over 70% of his proposed compounds were independently validated through experimental studies
+            by scientists at the <a href="https://www.ucsf.edu/" target="_blank" rel="noreferrer" style="color: rgba(56,189,248,.95); text-decoration:none;">University of California, San Francisco</a>.
+          </p>
+
+          <p class="lead" style="margin-top:12px;">
+            He is a co-author of patents in
+            <a href="https://1u477n.github.io/publishedworks/Patent_US6699719.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">biosensor arrays</a>,
+            <a href="https://1u477n.github.io/publishedworks/Patent_US8586619.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">calcium ion channel modulators</a>, and
+            <a href="https://1u477n.github.io/publishedworks/Patent_PCT_US2009_067197.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">receptor tyrosine kinase inhibitors</a>,
+            demonstrating an innovative approach to tackling complex scientific and technological challenges.
+            He is passionate about leveraging cutting-edge technologies to drive business value and enhance R&amp;D processes.
+          </p>
+        </div>
+
+        <aside class="gift panel" aria-label="GIFT service model">
+          <h2><span class="grad-text">Our GIFT service model</span></h2>
+          <p>To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
+          <ul>
+            <li>1.5% success fee on the first $10M raised, then 1% on all additional funds—aligning our incentives with your growth and fundraising success.</li>
+            <li>For identifying and developing small-molecule drug candidates: 2% success fee on the first $10M raised, then a tiered structure up to 3.5% on later rounds or milestone-based fees—supporting capital-intensive biotech innovation.</li>
+            <li>Revenue-sharing or royalties can be structured flexibly to align with long-term success.</li>
+          </ul>
+          <p style="margin-top:12px;">
+            We’re here to drive your success—flexible, scalable economics designed to maximize value at every stage.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" aria-label="Consulting services">
+      <div class="section-head">
+        <h2>Consulting Services</h2>
+        <p>G · I · F · T — a structured engagement model</p>
+      </div>
+
+      <div class="grid">
+        <article class="card panel">
+          <h3 class="grad-text">G — Growth &amp; Fundraising Strategy</h3>
+          <p class="sub">Capital strategy, investor readiness, and technical diligence.</p>
+          <ul class="list">
+            <li>Capital strategy for biotech ventures — success-fee &amp; revenue-sharing models aligned to growth.</li>
+            <li>Fundraising &amp; investor readiness — support for early-stage and milestone-based funding.</li>
+            <li>Technology due diligence — evaluate scientific feasibility &amp; IT infrastructure for investors/startups.</li>
+          </ul>
+        </article>
+
+        <article class="card panel">
+          <h3 class="grad-text">I — Informatics &amp; AI-Driven R&amp;D</h3>
+          <p class="sub">Modern scientific platforms that move data reliably from bench to insight.</p>
+          <ul class="list">
+            <li>Scientific informatics strategy — Entity &amp; Assay Registration, Sample Management, ELN, LIMS, lab automation.</li>
+            <li>AI &amp; computational chemistry platforms — AI-driven pipelines integrating bioinformatics, ML, and HPC.</li>
+            <li>Data governance &amp; security — GxP, HIPAA, GDPR, FDA-aligned integrity and security controls.</li>
+          </ul>
+        </article>
+
+        <article class="card panel">
+          <h3 class="grad-text">F — Future-Ready IT &amp; Digital Transformation</h3>
+          <p class="sub">Cloud, hybrid, and on-prem strategies built for regulated R&amp;D reality.</p>
+          <ul class="list">
+            <li>R&amp;D IT strategy &amp; infrastructure — cloud-based, hybrid, and on-prem environments for R&amp;D.</li>
+            <li>Enterprise integration &amp; SaaS strategy — vendor selection, implementation, interoperability.</li>
+            <li>Agile product management &amp; roadmaps — scalable IT solutions aligned to R&amp;D execution.</li>
+          </ul>
+        </article>
+
+        <article class="card panel">
+          <h3 class="grad-text">T — Technology-Driven Drug Discovery &amp; Cybersecurity</h3>
+          <p class="sub">Secure, scalable compute + modern model lifecycle practices.</p>
+          <ul class="list">
+            <li>Computational drug discovery &amp; bioinformatics — AI/ML modeling for small molecules &amp; biologics.</li>
+            <li>Cybersecurity &amp; compliance — access controls, vulnerability management, disaster recovery planning.</li>
+            <li>Scalable AI/ML infrastructure — automated pipelines, workflow optimization, model lifecycle management.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- MEDIA / DIAGRAMS -->
+    <section class="section" aria-label="Featured visuals and references">
+      <div class="section-head">
+        <h2>Featured</h2>
+        <p>Click any image to zoom</p>
+      </div>
+
+      <div class="media">
+        <figure class="media-card panel">
+          <img class="media-img zoomable"
+               loading="lazy" decoding="async"
+               src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg"
+               alt="Data Life Cycle Diagram" />
+          <figcaption class="media-body">
+            <h4>
+              <a href="https://x.com/1u477n/status/2007915846749036690?s=20" target="_blank" rel="noreferrer">
+                The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research
+              </a>
+            </h4>
+            <p>Data lifecycle framing for AI-first preclinical discovery.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="media-card panel">
+          <img class="media-img zoomable"
+               loading="lazy" decoding="async"
+               src="https://1u477n.github.io/images/bresearch_preclinical_datalifecycle.jpeg"
+               alt="Basic Research and Drug Discovery Data Life Cycle Diagram" />
+          <figcaption class="media-body">
+            <h4>The Importance of Basic Research During #AI Era — The Billion-Dollar Shortcut</h4>
+            <p>How we stopped guessing and started engineering better drugs.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="media-card panel">
+          <img class="media-img zoomable"
+               loading="lazy" decoding="async"
+               src="https://1u477n.github.io/images/datainfrastructures.jpg"
+               alt="Integrated Data Infrastructures" />
+          <figcaption class="media-body">
+            <h4>
+              <a href="https://www.nature.com/articles/s44401-025-00058-9" target="_blank" rel="noreferrer">
+                Ref: Modernizing Data and Data Science Infrastructure as a Strategic Asset for Cancer Centers
+              </a>
+            </h4>
+            <p>Position data platforms as a strategic asset, not overhead.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="media-card panel">
+          <img class="media-img zoomable"
+               loading="lazy" decoding="async"
+               src="https://1u477n.github.io/images/modalities.PNG"
+               alt="Drug Modalities Illustration and Definition" />
+          <figcaption class="media-body">
+            <h4>Drug Modalities</h4>
+            <p>Illustration and definitions across modern therapeutic modalities.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <footer class="footer panel">
+      © <span id="year"></span> · IT &amp; Strategy Consulting · Built for a modern AI-driven era
+    </footer>
+  </main>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Menu toggle (improved: only close on outside click)
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+
+    function closeMenu() {
+      menuPanel.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+    function toggleMenu() {
+      const open = menuPanel.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    menuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    menuPanel.addEventListener("click", (e) => {
+      // allow clicking links without immediately closing due to document handler
+      e.stopPropagation();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (menuPanel.classList.contains("open")) closeMenu();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    // Lightbox (zoom) + focus restore
+    const modal = document.getElementById("imageLightbox");
+    const modalImg = document.getElementById("img01");
+    const captionText = document.getElementById("caption");
+    const closeBtn = document.getElementById("lightboxClose");
+
+    const images = document.querySelectorAll("img.zoomable");
+    let lastFocusEl = null;
+
+    function openLightbox(img) {
+      lastFocusEl = document.activeElement;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      modalImg.src = img.src;
+      modalImg.alt = img.alt || "Zoomed image";
+      captionText.textContent = img.alt || "";
+      document.body.style.overflow = "hidden";
+      closeBtn.focus();
+    }
+
+    function closeLightbox() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      modalImg.src = "";
+      captionText.textContent = "";
+      document.body.style.overflow = "";
+      if (lastFocusEl && typeof lastFocusEl.focus === "function") lastFocusEl.focus();
+    }
+
+    images.forEach(img => {
+      img.addEventListener("click", () => openLightbox(img));
+      // keyboard accessibility
+      img.setAttribute("tabindex", "0");
+      img.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLightbox(img);
         }
+      });
+    });
 
-        // Close when clicking anywhere outside the image
-        modal.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+    closeBtn.addEventListener("click", closeLightbox);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeLightbox();
+    });
+  </script>
 </body>
 </html>
