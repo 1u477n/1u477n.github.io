@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="dark" />
+
+  <!-- Support both light & dark based on device setting -->
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#070A12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
   <title>IT & Strategy Consulting</title>
 
   <!-- Google Analytics (kept) -->
@@ -60,6 +65,7 @@
       scroll-behavior: smooth;
       text-rendering: geometricPrecision;
       -webkit-text-size-adjust: 100%;
+      color-scheme: light dark;
     }
     body{
       margin:0;
@@ -726,6 +732,211 @@
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior: auto; }
       *{ transition: none !important; animation: none !important; }
+    }
+
+    /* ---------------------------
+       LIGHT MODE (device setting)
+       --------------------------- */
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg0:#ffffff;
+        --bg1:#f6f8ff;
+
+        --text:#0b0f1a;
+        --muted: rgba(11,15,26,.74);
+        --muted2: rgba(11,15,26,.58);
+
+        --shadow: 0 0 0 1px rgba(0,0,0,.08), 0 18px 60px rgba(0,0,0,.10);
+        --shadow2: 0 0 0 1px rgba(0,0,0,.08), 0 22px 80px rgba(0,0,0,.12);
+
+        --ring: 0 0 0 2px rgba(56,189,248,.45);
+      }
+
+      body{
+        color: var(--text);
+        background:
+          radial-gradient(1200px 700px at 10% 0%, rgba(56,189,248,.14), transparent 55%),
+          radial-gradient(1000px 600px at 90% 10%, rgba(167,139,250,.12), transparent 55%),
+          radial-gradient(900px 600px at 50% 110%, rgba(52,211,153,.08), transparent 60%),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+      }
+
+      .bg-grid{
+        opacity:.18;
+        background-image:
+          linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
+        mask-image: radial-gradient(700px 400px at 50% 12%, rgba(0,0,0,.55), transparent 70%);
+      }
+
+      .top-vignette{
+        background: radial-gradient(800px 180px at 50% 0%, rgba(0,0,0,.06), transparent 70%);
+        opacity: .55;
+      }
+
+      .topbar{
+        background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.65));
+        border-bottom: 1px solid rgba(0,0,0,.08);
+      }
+
+      .mark{
+        border: 1px solid rgba(0,0,0,.10);
+      }
+
+      .btn{
+        border: 1px solid rgba(0,0,0,.12);
+        background: rgba(255,255,255,.70);
+        color: var(--text);
+      }
+      .btn:hover{
+        border-color: rgba(0,0,0,.18);
+        background: rgba(255,255,255,.85);
+        box-shadow: 0 14px 30px rgba(0,0,0,.12);
+      }
+      .btn.primary{
+        border-color: rgba(56,189,248,.32);
+        background: linear-gradient(135deg, rgba(56,189,248,.18), rgba(167,139,250,.14));
+        box-shadow: 0 16px 32px rgba(56,189,248,.12);
+      }
+
+      .icon-btn{
+        border: 1px solid rgba(0,0,0,.12);
+        background: rgba(255,255,255,.70);
+      }
+      .icon-btn:hover{
+        border-color: rgba(0,0,0,.18);
+        background: rgba(255,255,255,.85);
+        box-shadow: 0 14px 30px rgba(0,0,0,.12);
+      }
+      .icon span{
+        background: rgba(11,15,26,.86);
+      }
+
+      .menu{
+        background: rgba(255,255,255,.86);
+        border: 1px solid rgba(0,0,0,.12);
+        box-shadow: 0 30px 80px rgba(0,0,0,.14);
+      }
+      .menu a{
+        color: var(--text);
+      }
+      .menu a:hover{
+        background: rgba(0,0,0,.04);
+        border-color: rgba(0,0,0,.08);
+      }
+      .menu a span{
+        color: rgba(11,15,26,.55);
+      }
+
+      .hero{
+        border: 1px solid rgba(0,0,0,.10);
+        background:
+          radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.12), transparent 50%),
+          radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.10), transparent 55%),
+          rgba(255,255,255,.75);
+        box-shadow: var(--shadow2);
+      }
+
+      .kicker{
+        border: 1px solid rgba(56,189,248,.30);
+        background: rgba(56,189,248,.10);
+        color: rgba(11,15,26,.92);
+      }
+
+      .pill{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(255,255,255,.62);
+        color: rgba(11,15,26,.72);
+      }
+      .pill b{
+        color: rgba(11,15,26,.92);
+      }
+
+      .quote{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(0,0,0,.04);
+        color: rgba(11,15,26,.78);
+      }
+      .quote em{ color: rgba(11,15,26,.92); }
+      .quote .by{ color: rgba(11,15,26,.55); }
+
+      .gift{
+        border: 1px solid rgba(56,189,248,.24);
+        background:
+          radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.12), transparent 55%),
+          rgba(255,255,255,.70);
+        box-shadow: 0 0 0 1px rgba(56,189,248,.10) inset;
+      }
+      .gift li{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(0,0,0,.03);
+        color: rgba(11,15,26,.84);
+      }
+
+      .card{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(255,255,255,.72);
+        box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 20px 60px rgba(0,0,0,.12);
+      }
+      .card:hover{
+        background: rgba(255,255,255,.88);
+        box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 24px 80px rgba(0,0,0,.14);
+      }
+      .list li{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(0,0,0,.03);
+        color: rgba(11,15,26,.84);
+      }
+
+      .media-card{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(255,255,255,.70);
+        box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 18px 60px rgba(0,0,0,.12);
+      }
+      .media-card:hover{
+        background: rgba(255,255,255,.88);
+        box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 26px 90px rgba(0,0,0,.14);
+      }
+      .media-body h4{
+        color: rgba(11,15,26,.92);
+      }
+      .media-body p{
+        color: rgba(11,15,26,.58);
+      }
+      .media-body a{
+        color: rgba(2,132,199,.95);
+      }
+
+      .lightbox{
+        background-color: rgba(255,255,255,.92);
+      }
+      .lightbox-content{
+        border: 1px solid rgba(0,0,0,.10);
+        box-shadow: 0 40px 120px rgba(0,0,0,.22);
+      }
+      .caption{
+        color: rgba(11,15,26,.72);
+      }
+      .close{
+        border: 1px solid rgba(0,0,0,.12);
+        background: rgba(255,255,255,.70);
+        color: rgba(11,15,26,.92);
+      }
+      .close:hover{
+        border-color: rgba(56,189,248,.30);
+        background: rgba(56,189,248,.10);
+        box-shadow: 0 16px 40px rgba(0,0,0,.12);
+      }
+
+      .footer{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(255,255,255,.60);
+        color: rgba(11,15,26,.58);
+      }
+
+      .panel:after{
+        opacity: .45;
+      }
     }
   </style>
 </head>
