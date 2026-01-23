@@ -652,6 +652,86 @@
       .media-card{ grid-column: span 12; }
     }
 
+    /* ---------------------------
+       On this page (TOC) + layout
+       --------------------------- */
+    .content-grid{
+      margin-top: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (min-width: 980px){
+      .content-grid{
+        grid-template-columns: 1fr 320px;
+      }
+      .toc{
+        position: sticky;
+        top: 110px;
+      }
+      .toc details{ open: true; }
+      .toc summary{ display:none; }
+      .toc details[open] > summary{ display:none; }
+    }
+
+    .toc{
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    .toc details{
+      border-radius: 16px;
+    }
+    .toc summary{
+      cursor: pointer;
+      user-select:none;
+      list-style: none;
+      font-weight: 800;
+      font-size: 13px;
+      color: rgba(234,240,255,.92);
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .toc summary::-webkit-details-marker{ display:none; }
+    .toc-nav{
+      margin-top: 10px;
+      display: grid;
+      gap: 6px;
+    }
+    .toc-nav a{
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .toc-nav a:hover{
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.10);
+    }
+    .toc-nav a.active{
+      color: rgba(234,240,255,.92);
+      background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08));
+      border-color: rgba(56,189,248,.25);
+      box-shadow: 0 0 0 1px rgba(56,189,248,.10) inset;
+    }
+    .toc-nav a[data-level="3"]{ padding-left: 18px; }
+
+    /* Make TOC jump positions play nice with sticky topbar */
+    .gift h2,
+    .section-head h2,
+    .card h3{
+      scroll-margin-top: 120px;
+    }
+
     /* Lightbox */
     .lightbox{
       display:none;
@@ -941,6 +1021,26 @@
       .panel:after{
         opacity: .45;
       }
+
+      /* TOC light mode */
+      .toc{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(255,255,255,.60);
+      }
+      .toc summary{
+        border: 1px solid rgba(0,0,0,.10);
+        background: rgba(255,255,255,.75);
+        color: rgba(11,15,26,.92);
+      }
+      .toc-nav a:hover{
+        background: rgba(0,0,0,.04);
+        border-color: rgba(0,0,0,.08);
+      }
+      .toc-nav a.active{
+        color: rgba(11,15,26,.92);
+        background: linear-gradient(135deg, rgba(56,189,248,.12), rgba(167,139,250,.10));
+        border-color: rgba(56,189,248,.28);
+      }
     }
 
     /* ---------------------------
@@ -1145,6 +1245,26 @@
     }
     html[data-theme="light"] .panel:after{ opacity: .45; }
 
+    /* TOC manual light */
+    html[data-theme="light"] .toc{
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.60);
+    }
+    html[data-theme="light"] .toc summary{
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.75);
+      color: rgba(11,15,26,.92);
+    }
+    html[data-theme="light"] .toc-nav a:hover{
+      background: rgba(0,0,0,.04);
+      border-color: rgba(0,0,0,.08);
+    }
+    html[data-theme="light"] .toc-nav a.active{
+      color: rgba(11,15,26,.92);
+      background: linear-gradient(135deg, rgba(56,189,248,.12), rgba(167,139,250,.10));
+      border-color: rgba(56,189,248,.28);
+    }
+
     /* Force DARK (re-assert dark styles even if device is light) */
     html[data-theme="dark"]{
       color-scheme: dark;
@@ -1306,6 +1426,26 @@
       color: var(--muted2);
     }
     html[data-theme="dark"] .panel:after{ opacity: .55; }
+
+    /* TOC manual dark */
+    html[data-theme="dark"] .toc{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    html[data-theme="dark"] .toc summary{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(234,240,255,.92);
+    }
+    html[data-theme="dark"] .toc-nav a:hover{
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.10);
+    }
+    html[data-theme="dark"] .toc-nav a.active{
+      color: rgba(234,240,255,.92);
+      background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08));
+      border-color: rgba(56,189,248,.25);
+    }
   </style>
 </head>
 
@@ -1369,188 +1509,201 @@
   </div>
 
   <main class="container">
-    <!-- HERO -->
-    <section class="hero panel">
-      <div class="kicker"><i></i> AI-native consulting for biotech & pharma</div>
+    <!-- NEW: content + TOC grid (no content text changed) -->
+    <div class="content-grid">
+      <div class="main">
+        <!-- HERO -->
+        <section class="hero panel">
+          <div class="kicker"><i></i> AI-native consulting for biotech & pharma</div>
 
-      <h1>
-        <span class="grad-text">IT & Strategy Consulting</span><br />
-        for modern R&amp;D organizations
-      </h1>
+          <h1>
+            <span class="grad-text">IT & Strategy Consulting</span><br />
+            for modern R&amp;D organizations
+          </h1>
 
-      <p class="lead">
-        Luat (Luke) Nguyen is an experienced technology strategist specializing in R&amp;D IT, AI/ML integration,
-        and data analytics within the biotech and pharmaceutical industries. With a background in biochemistry/chemistry,
-        computer science, and economics, he has developed a deep understanding of IT infrastructure, product management,
-        and business analysis.
-      </p>
-
-      <div class="meta-row" aria-label="Highlights">
-        <div class="pill"><b>Focus</b> R&amp;D IT · AI/ML · Data governance</div>
-        <div class="pill"><b>Domains</b> Biotech · Pharma · Scientific computing</div>
-        <div class="pill"><b>Outcomes</b> Digital transformation · Investor readiness</div>
-      </div>
-
-      <div class="quote">
-        <em>“It doesn’t matter how beautiful your theory is, it doesn’t matter how smart you are. If it doesn’t agree with experiment, it’s wrong.”</em>
-        <span class="by">— Richard Feynman</span>
-        <div style="margin-top:10px; font-size: 12.5px;">
-          (...inspired by
-          <a href="https://www.linkedin.com/posts/adammgrant_have-you-ever-hesitated-to-share-your-work-activity-7311774949793234944-9rme?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAMcMqIBGCZJXmtjKkgejIZlsIYP2oLhPJU"
-             style="color: rgba(56,189,248,.95); text-decoration:none;" target="_blank" rel="noreferrer">
-            a video from Adam Grant
-          </a>)
-        </div>
-      </div>
-
-      <div class="hero-grid">
-        <div>
-          <p class="lead" style="margin-top:0;">
-            Luke is also an inventor with hands-on experience and proprietary, data-driven scientific expertise in the discovery of highly selective
-            and specific small-molecule drug candidates—over 70% of his proposed compounds were independently validated through experimental studies
-            by scientists at the <a href="https://www.ucsf.edu/" target="_blank" rel="noreferrer" style="color: rgba(56,189,248,.95); text-decoration:none;">University of California, San Francisco</a>.
+          <p class="lead">
+            Luat (Luke) Nguyen is an experienced technology strategist specializing in R&amp;D IT, AI/ML integration,
+            and data analytics within the biotech and pharmaceutical industries. With a background in biochemistry/chemistry,
+            computer science, and economics, he has developed a deep understanding of IT infrastructure, product management,
+            and business analysis.
           </p>
 
-          <p class="lead" style="margin-top:12px;">
-            He is a co-author of patents in
-            <a href="https://1u477n.github.io/publishedworks/Patent_US6699719.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">biosensor arrays</a> (a <a href="https://www.stanford.edu" style="color: rgba(56,189,248,.95); text-decoration:none;">Stanford</a>'s spin-off),
-            <a href="https://1u477n.github.io/publishedworks/Patent_US8586619.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">calcium ion channel modulators</a>, and
-            <a href="https://1u477n.github.io/publishedworks/Patent_PCT_US2009_067197.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">receptor tyrosine kinase inhibitors</a>,
-            demonstrating an innovative approach to tackling complex scientific and technological challenges.
-            He is passionate about leveraging cutting-edge technologies to drive business value and enhance R&amp;D processes.
-          </p>
-        </div>
+          <div class="meta-row" aria-label="Highlights">
+            <div class="pill"><b>Focus</b> R&amp;D IT · AI/ML · Data governance</div>
+            <div class="pill"><b>Domains</b> Biotech · Pharma · Scientific computing</div>
+            <div class="pill"><b>Outcomes</b> Digital transformation · Investor readiness</div>
+          </div>
 
-        <aside class="gift panel" aria-label="GIFT service model">
-          <h2><span class="grad-text">Our GIFT service model</span></h2>
-          <p>To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
-          <ul>
-            <li>1.5% success fee on the first $10M raised, then 1% on all additional funds—aligning our incentives with your growth and fundraising success.</li>
-            <li>For identifying and developing small-molecule drug candidates: 2% success fee on the first $10M raised, then a tiered structure up to 3.5% on later rounds or milestone-based fees—supporting capital-intensive biotech innovation.</li>
-            <li>Revenue-sharing or royalties can be structured flexibly to align with long-term success.</li>
-          </ul>
-          <p style="margin-top:12px;">
-            We’re here to drive your success—flexible, scalable economics designed to maximize value at every stage.
-          </p>
-        </aside>
+          <div class="quote">
+            <em>“It doesn’t matter how beautiful your theory is, it doesn’t matter how smart you are. If it doesn’t agree with experiment, it’s wrong.”</em>
+            <span class="by">— Richard Feynman</span>
+            <div style="margin-top:10px; font-size: 12.5px;">
+              (...inspired by
+              <a href="https://www.linkedin.com/posts/adammgrant_have-you-ever-hesitated-to-share-your-work-activity-7311774949793234944-9rme?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAMcMqIBGCZJXmtjKkgejIZlsIYP2oLhPJU"
+                 style="color: rgba(56,189,248,.95); text-decoration:none;" target="_blank" rel="noreferrer">
+                a video from Adam Grant
+              </a>)
+            </div>
+          </div>
+
+          <div class="hero-grid">
+            <div>
+              <p class="lead" style="margin-top:0;">
+                Luke is also an inventor with hands-on experience and proprietary, data-driven scientific expertise in the discovery of highly selective
+                and specific small-molecule drug candidates—over 70% of his proposed compounds were independently validated through experimental studies
+                by scientists at the <a href="https://www.ucsf.edu/" target="_blank" rel="noreferrer" style="color: rgba(56,189,248,.95); text-decoration:none;">University of California, San Francisco</a>.
+              </p>
+
+              <p class="lead" style="margin-top:12px;">
+                He is a co-author of patents in
+                <a href="https://1u477n.github.io/publishedworks/Patent_US6699719.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">biosensor arrays</a> (a <a href="https://www.stanford.edu" style="color: rgba(56,189,248,.95); text-decoration:none;">Stanford</a>'s spin-off),
+                <a href="https://1u477n.github.io/publishedworks/Patent_US8586619.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">calcium ion channel modulators</a>, and
+                <a href="https://1u477n.github.io/publishedworks/Patent_PCT_US2009_067197.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">receptor tyrosine kinase inhibitors</a>,
+                demonstrating an innovative approach to tackling complex scientific and technological challenges.
+                He is passionate about leveraging cutting-edge technologies to drive business value and enhance R&amp;D processes.
+              </p>
+            </div>
+
+            <aside class="gift panel" aria-label="GIFT service model">
+              <h2><span class="grad-text">Our GIFT service model</span></h2>
+              <p>To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
+              <ul>
+                <li>1.5% success fee on the first $10M raised, then 1% on all additional funds—aligning our incentives with your growth and fundraising success.</li>
+                <li>For identifying and developing small-molecule drug candidates: 2% success fee on the first $10M raised, then a tiered structure up to 3.5% on later rounds or milestone-based fees—supporting capital-intensive biotech innovation.</li>
+                <li>Revenue-sharing or royalties can be structured flexibly to align with long-term success.</li>
+              </ul>
+              <p style="margin-top:12px;">
+                We’re here to drive your success—flexible, scalable economics designed to maximize value at every stage.
+              </p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="section" aria-label="Consulting services">
+          <div class="section-head">
+            <h2>Consulting Services</h2>
+            <p>G · I · F · T — a structured engagement model</p>
+          </div>
+
+          <div class="grid">
+            <article class="card panel">
+              <h3 class="grad-text">G — Growth &amp; Fundraising Strategy</h3>
+              <p class="sub">Capital strategy, investor readiness, and technical diligence.</p>
+              <ul class="list">
+                <li>Capital strategy for biotech ventures — success-fee &amp; revenue-sharing models aligned to growth.</li>
+                <li>Fundraising &amp; investor readiness — support for early-stage and milestone-based funding.</li>
+                <li>Technology due diligence — evaluate scientific feasibility &amp; IT infrastructure for investors/startups.</li>
+              </ul>
+            </article>
+
+            <article class="card panel">
+              <h3 class="grad-text">I — Informatics &amp; AI-Driven R&amp;D</h3>
+              <p class="sub">Modern scientific platforms that move data reliably from bench to insight.</p>
+              <ul class="list">
+                <li>Scientific informatics strategy — Entity &amp; Assay Registration, Sample Management, ELN, LIMS, lab automation.</li>
+                <li>AI &amp; computational chemistry platforms — AI-driven pipelines integrating bioinformatics, ML, and HPC.</li>
+                <li>Data governance &amp; security — GxP, HIPAA, GDPR, FDA-aligned integrity and security controls.</li>
+              </ul>
+            </article>
+
+            <article class="card panel">
+              <h3 class="grad-text">F — Future-Ready IT &amp; Digital Transformation</h3>
+              <p class="sub">Cloud, hybrid, and on-prem strategies built for regulated R&amp;D reality.</p>
+              <ul class="list">
+                <li>R&amp;D IT strategy &amp; infrastructure — cloud-based, hybrid, and on-prem environments for R&amp;D.</li>
+                <li>Enterprise integration &amp; SaaS strategy — vendor selection, implementation, interoperability.</li>
+                <li>Agile product management &amp; roadmaps — scalable IT solutions aligned to R&amp;D execution.</li>
+              </ul>
+            </article>
+
+            <article class="card panel">
+              <h3 class="grad-text">T — Technology-Driven Drug Discovery &amp; Cybersecurity</h3>
+              <p class="sub">Secure, scalable compute + modern model lifecycle practices.</p>
+              <ul class="list">
+                <li>Computational drug discovery &amp; bioinformatics — AI/ML modeling for small molecules &amp; biologics.</li>
+                <li>Cybersecurity &amp; compliance — access controls, vulnerability management, disaster recovery planning.</li>
+                <li>Scalable AI/ML infrastructure — automated pipelines, workflow optimization, model lifecycle management.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- MEDIA / DIAGRAMS -->
+        <section class="section" aria-label="Featured visuals and references">
+          <div class="section-head">
+            <h2>Featured</h2>
+            <p>Click any image to zoom</p>
+          </div>
+
+          <div class="media">
+            <figure class="media-card panel">
+              <img class="media-img zoomable"
+                   loading="lazy" decoding="async"
+                   src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg"
+                   alt="Preclinical Drug Discovery Data Life Cycle" />
+              <figcaption class="media-body">
+                <h4>
+                  <a href="https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html" rel="noreferrer">
+                    The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research
+                  </a>
+                </h4>
+                <p>Data lifecycle framing for AI-first preclinical discovery.</p>
+              </figcaption>
+            </figure>
+
+            <figure class="media-card panel">
+              <img class="media-img zoomable"
+                   loading="lazy" decoding="async"
+                   src="https://1u477n.github.io/images/bresearch_preclinical_datalifecycle.jpeg"
+                   alt="Basic Research and Drug Discovery Data Life Cycle" />
+              <figcaption class="media-body">
+                <h4>The Importance of Basic Research During #AI Era — The Billion-Dollar Shortcut</h4>
+                <p>How we stopped guessing and started engineering better drugs.</p>
+              </figcaption>
+            </figure>
+
+            <figure class="media-card panel">
+              <img class="media-img zoomable"
+                   loading="lazy" decoding="async"
+                   src="https://1u477n.github.io/images/datainfrastructures.jpg"
+                   alt="Integrated Research Data Infrastructures" />
+              <figcaption class="media-body">
+                <h4>
+                  <a href="https://www.nature.com/articles/s44401-025-00058-9" target="_blank" rel="noreferrer">
+                    Ref: Modernizing Data and Data Science Infrastructure as a Strategic Asset for Cancer Centers
+                  </a>
+                </h4>
+                <p>Position data platforms as a strategic asset, not overhead.</p>
+              </figcaption>
+            </figure>
+
+            <figure class="media-card panel">
+              <img class="media-img zoomable"
+                   loading="lazy" decoding="async"
+                   src="https://1u477n.github.io/images/modalities.PNG"
+                   alt="Drug Modalities Illustration and Definition" />
+              <figcaption class="media-body">
+                <h4>Drug Modalities</h4>
+                <p>Illustration and definitions across modern therapeutic modalities.</p>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <footer class="footer panel">
+          © <span id="year"></span> · IT &amp; Strategy Consulting · Built for a modern AI-driven era
+        </footer>
       </div>
-    </section>
 
-    <!-- SERVICES -->
-    <section class="section" aria-label="Consulting services">
-      <div class="section-head">
-        <h2>Consulting Services</h2>
-        <p>G · I · F · T — a structured engagement model</p>
-      </div>
-
-      <div class="grid">
-        <article class="card panel">
-          <h3 class="grad-text">G — Growth &amp; Fundraising Strategy</h3>
-          <p class="sub">Capital strategy, investor readiness, and technical diligence.</p>
-          <ul class="list">
-            <li>Capital strategy for biotech ventures — success-fee &amp; revenue-sharing models aligned to growth.</li>
-            <li>Fundraising &amp; investor readiness — support for early-stage and milestone-based funding.</li>
-            <li>Technology due diligence — evaluate scientific feasibility &amp; IT infrastructure for investors/startups.</li>
-          </ul>
-        </article>
-
-        <article class="card panel">
-          <h3 class="grad-text">I — Informatics &amp; AI-Driven R&amp;D</h3>
-          <p class="sub">Modern scientific platforms that move data reliably from bench to insight.</p>
-          <ul class="list">
-            <li>Scientific informatics strategy — Entity &amp; Assay Registration, Sample Management, ELN, LIMS, lab automation.</li>
-            <li>AI &amp; computational chemistry platforms — AI-driven pipelines integrating bioinformatics, ML, and HPC.</li>
-            <li>Data governance &amp; security — GxP, HIPAA, GDPR, FDA-aligned integrity and security controls.</li>
-          </ul>
-        </article>
-
-        <article class="card panel">
-          <h3 class="grad-text">F — Future-Ready IT &amp; Digital Transformation</h3>
-          <p class="sub">Cloud, hybrid, and on-prem strategies built for regulated R&amp;D reality.</p>
-          <ul class="list">
-            <li>R&amp;D IT strategy &amp; infrastructure — cloud-based, hybrid, and on-prem environments for R&amp;D.</li>
-            <li>Enterprise integration &amp; SaaS strategy — vendor selection, implementation, interoperability.</li>
-            <li>Agile product management &amp; roadmaps — scalable IT solutions aligned to R&amp;D execution.</li>
-          </ul>
-        </article>
-
-        <article class="card panel">
-          <h3 class="grad-text">T — Technology-Driven Drug Discovery &amp; Cybersecurity</h3>
-          <p class="sub">Secure, scalable compute + modern model lifecycle practices.</p>
-          <ul class="list">
-            <li>Computational drug discovery &amp; bioinformatics — AI/ML modeling for small molecules &amp; biologics.</li>
-            <li>Cybersecurity &amp; compliance — access controls, vulnerability management, disaster recovery planning.</li>
-            <li>Scalable AI/ML infrastructure — automated pipelines, workflow optimization, model lifecycle management.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <!-- MEDIA / DIAGRAMS -->
-    <section class="section" aria-label="Featured visuals and references">
-      <div class="section-head">
-        <h2>Featured</h2>
-        <p>Click any image to zoom</p>
-      </div>
-
-      <div class="media">
-        <figure class="media-card panel">
-          <img class="media-img zoomable"
-               loading="lazy" decoding="async"
-               src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg"
-               alt="Preclinical Drug Discovery Data Life Cycle" />
-          <figcaption class="media-body">
-            <h4>
-              <a href="https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html" rel="noreferrer">
-                The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research
-              </a>
-            </h4>
-            <p>Data lifecycle framing for AI-first preclinical discovery.</p>
-          </figcaption>
-        </figure>
-
-        <figure class="media-card panel">
-          <img class="media-img zoomable"
-               loading="lazy" decoding="async"
-               src="https://1u477n.github.io/images/bresearch_preclinical_datalifecycle.jpeg"
-               alt="Basic Research and Drug Discovery Data Life Cycle" />
-          <figcaption class="media-body">
-            <h4>The Importance of Basic Research During #AI Era — The Billion-Dollar Shortcut</h4>
-            <p>How we stopped guessing and started engineering better drugs.</p>
-          </figcaption>
-        </figure>
-
-        <figure class="media-card panel">
-          <img class="media-img zoomable"
-               loading="lazy" decoding="async"
-               src="https://1u477n.github.io/images/datainfrastructures.jpg"
-               alt="Integrated Research Data Infrastructures" />
-          <figcaption class="media-body">
-            <h4>
-              <a href="https://www.nature.com/articles/s44401-025-00058-9" target="_blank" rel="noreferrer">
-                Ref: Modernizing Data and Data Science Infrastructure as a Strategic Asset for Cancer Centers
-              </a>
-            </h4>
-            <p>Position data platforms as a strategic asset, not overhead.</p>
-          </figcaption>
-        </figure>
-
-        <figure class="media-card panel">
-          <img class="media-img zoomable"
-               loading="lazy" decoding="async"
-               src="https://1u477n.github.io/images/modalities.PNG"
-               alt="Drug Modalities Illustration and Definition" />
-          <figcaption class="media-body">
-            <h4>Drug Modalities</h4>
-            <p>Illustration and definitions across modern therapeutic modalities.</p>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <footer class="footer panel">
-      © <span id="year"></span> · IT &amp; Strategy Consulting · Built for a modern AI-driven era
-    </footer>
+      <!-- NEW: On this page panel -->
+      <aside class="toc panel" aria-label="On this page">
+        <details open>
+          <summary>On this page</summary>
+          <nav class="toc-nav" id="tocNav" aria-label="Table of contents"></nav>
+        </details>
+      </aside>
+    </div>
   </main>
 
   <script>
@@ -1676,6 +1829,77 @@
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && modal.classList.contains("open")) closeLightbox();
     });
+
+    // ------------------------------------------------------------
+    // NEW: "On this page" (TOC) generator + active section highlight
+    // ------------------------------------------------------------
+    (function(){
+      const tocNav = document.getElementById("tocNav");
+      const scope = document.querySelector("main.container");
+      if (!tocNav || !scope) return;
+
+      // Choose headings that make sense for this page (section H2 + card H3 + gift H2)
+      const headings = Array.from(scope.querySelectorAll(".gift h2, .section-head h2, .card h3"));
+      if (!headings.length) return;
+
+      const slugify = (s) => (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/&amp;|&/g, "and")
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+
+      // Ensure unique IDs
+      const used = new Map();
+      function uniqueId(base){
+        const n = (used.get(base) || 0) + 1;
+        used.set(base, n);
+        return n === 1 ? base : `${base}-${n}`;
+      }
+
+      headings.forEach(h => {
+        const raw = (h.textContent || "").trim();
+        const base = slugify(raw) || "section";
+        if (!h.id) h.id = uniqueId(base);
+      });
+
+      // Build TOC (h3 gets indented)
+      tocNav.innerHTML = headings.map(h => {
+        const lvl = h.tagName === "H3" ? "3" : "2";
+        const label = (h.textContent || "").trim();
+        return `<a href="#${h.id}" data-id="${h.id}" data-level="${lvl}">${label}</a>`;
+      }).join("");
+
+      const links = Array.from(tocNav.querySelectorAll("a"));
+      const setActive = (id) => {
+        links.forEach(a => a.classList.toggle("active", a.dataset.id === id));
+      };
+
+      // Observe heading visibility to set active link
+      const obs = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b) => (b.intersectionRatio - a.intersectionRatio));
+        if (visible[0]) setActive(visible[0].target.id);
+      }, { root: null, threshold: [0.2, 0.35, 0.5], rootMargin: "-15% 0px -70% 0px" });
+
+      headings.forEach(h => obs.observe(h));
+
+      // Smooth scroll + focus for keyboard users
+      links.forEach(a => {
+        a.addEventListener("click", (e) => {
+          const id = a.dataset.id;
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          target.setAttribute("tabindex", "-1");
+          target.focus({ preventScroll: true });
+          setTimeout(() => target.removeAttribute("tabindex"), 300);
+        });
+      });
+    })();
   </script>
 </body>
 </html>
