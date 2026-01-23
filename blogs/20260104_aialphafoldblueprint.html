@@ -143,7 +143,9 @@
       gap: 10px;
       min-width: 0;
     }
-    .mark{
+
+    /* --- CHANGED: mark -> theme toggle button (same size/feel) --- */
+    .theme-toggle{
       width: 34px; height: 34px;
       border-radius: 50%;
       background:
@@ -154,8 +156,16 @@
       overflow:hidden;
       border: 1px solid rgba(255,255,255,.14);
       flex: 0 0 auto;
+
+      display:grid;
+      place-items:center;
+
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
     }
-    .mark:after{
+    .theme-toggle:after{
       content:"";
       position:absolute; inset:-40%;
       background:
@@ -163,7 +173,182 @@
         linear-gradient(90deg, transparent 20%, rgba(255,255,255,.10), transparent 80%);
       transform: rotate(18deg);
       opacity:.55;
+      pointer-events:none;
     }
+    .theme-toggle:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.20);
+      box-shadow: 0 14px 30px rgba(0,0,0,.25);
+    }
+    .theme-toggle:active{ transform: translateY(0px) scale(.99); }
+    .theme-toggle:focus-visible{ outline: none; box-shadow: var(--ring); }
+
+    .theme-icon{
+      position: relative;
+      z-index: 1;
+      width: 18px;
+      height: 18px;
+      display:block;
+      color: rgba(234,240,255,.92);
+    }
+    .theme-icon svg{ width: 18px; height: 18px; display:block; }
+
+    /* --- NEW: manual theme override (does not change content/layout) --- */
+    /* Dark override */
+    html[data-theme="dark"]{
+      color-scheme: dark;
+    }
+    html[data-theme="dark"] body{
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(56,189,248,.18), transparent 55%),
+        radial-gradient(1000px 600px at 90% 10%, rgba(167,139,250,.16), transparent 55%),
+        radial-gradient(900px 600px at 50% 110%, rgba(52,211,153,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+
+    /* Light override (copies your @media light palette) */
+    html[data-theme="light"]{
+      color-scheme: light;
+    }
+    html[data-theme="light"]{
+      --bg0:#ffffff;
+      --bg1:#f6f8ff;
+
+      --text:#0b0f1a;
+      --muted: rgba(11,15,26,.74);
+      --muted2: rgba(11,15,26,.58);
+
+      --shadow: 0 0 0 1px rgba(0,0,0,.08), 0 18px 60px rgba(0,0,0,.10);
+      --shadow2: 0 0 0 1px rgba(0,0,0,.08), 0 22px 80px rgba(0,0,0,.12);
+
+      --ring: 0 0 0 2px rgba(56,189,248,.45);
+    }
+    html[data-theme="light"] body{
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(56,189,248,.14), transparent 55%),
+        radial-gradient(1000px 600px at 90% 10%, rgba(167,139,250,.12), transparent 55%),
+        radial-gradient(900px 600px at 50% 110%, rgba(52,211,153,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+    html[data-theme="light"] .bg-grid{
+      opacity:.18;
+      background-image:
+        linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
+      mask-image: radial-gradient(700px 400px at 50% 12%, rgba(0,0,0,.55), transparent 70%);
+    }
+    html[data-theme="light"] .top-vignette{
+      background: radial-gradient(800px 180px at 50% 0%, rgba(0,0,0,.06), transparent 70%);
+      opacity: .55;
+    }
+    html[data-theme="light"] .topbar{
+      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.65));
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+
+    /* toggle button border in light */
+    html[data-theme="light"] .theme-toggle{
+      border: 1px solid rgba(0,0,0,.10);
+    }
+    html[data-theme="light"] .theme-icon{
+      color: rgba(11,15,26,.92);
+    }
+
+    html[data-theme="light"] .icon-btn{
+      border: 1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.70);
+    }
+    html[data-theme="light"] .icon-btn:hover{
+      border-color: rgba(0,0,0,.18);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 14px 30px rgba(0,0,0,.12);
+    }
+    html[data-theme="light"] .icon span{
+      background: rgba(11,15,26,.86);
+    }
+    html[data-theme="light"] .menu{
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: 0 30px 80px rgba(0,0,0,.14);
+    }
+    html[data-theme="light"] .menu a{ color: var(--text); }
+    html[data-theme="light"] .menu a:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
+    html[data-theme="light"] .menu a span{ color: rgba(11,15,26,.55); }
+
+    html[data-theme="light"] .hero{
+      border: 1px solid rgba(0,0,0,.10);
+      background:
+        radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.12), transparent 50%),
+        radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.10), transparent 55%),
+        rgba(255,255,255,.75);
+      box-shadow: var(--shadow2);
+    }
+    html[data-theme="light"] .kicker{
+      border: 1px solid rgba(56,189,248,.30);
+      background: rgba(56,189,248,.10);
+      color: rgba(11,15,26,.92);
+    }
+    html[data-theme="light"] .pill{
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.62);
+      color: rgba(11,15,26,.72);
+    }
+    html[data-theme="light"] .pill b{ color: rgba(11,15,26,.92); }
+
+    html[data-theme="light"] .post{
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 18px 60px rgba(0,0,0,.10);
+    }
+    html[data-theme="light"] figure{
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.03);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 18px 60px rgba(0,0,0,.10);
+    }
+    html[data-theme="light"] figcaption{ color: rgba(11,15,26,.58); }
+
+    html[data-theme="light"] .callout{
+      border: 1px solid rgba(56,189,248,.24);
+      background:
+        radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.12), transparent 55%),
+        rgba(255,255,255,.70);
+      box-shadow: 0 0 0 1px rgba(56,189,248,.10) inset;
+    }
+    html[data-theme="light"] .callout p{ color: rgba(11,15,26,.74); }
+
+    html[data-theme="light"] .prose p{ color: rgba(11,15,26,.74); }
+    html[data-theme="light"] .prose h2, html[data-theme="light"] .prose h3{ color: rgba(11,15,26,.92); }
+    html[data-theme="light"] .prose strong{ color: rgba(11,15,26,.92); }
+
+    html[data-theme="light"] .divider{ background: rgba(0,0,0,.10); }
+
+    html[data-theme="light"] .lightbox{ background-color: rgba(255,255,255,.92); }
+    html[data-theme="light"] .lightbox-content{
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: 0 40px 120px rgba(0,0,0,.22);
+    }
+    html[data-theme="light"] .caption{ color: rgba(11,15,26,.72); }
+    html[data-theme="light"] .close{
+      border: 1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.70);
+      color: rgba(11,15,26,.92);
+    }
+    html[data-theme="light"] .close:hover{
+      border-color: rgba(56,189,248,.30);
+      background: rgba(56,189,248,.10);
+      box-shadow: 0 16px 40px rgba(0,0,0,.12);
+    }
+
+    html[data-theme="light"] .footer{
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.60);
+      color: rgba(11,15,26,.58);
+    }
+    html[data-theme="light"] .panel:after{ opacity: .45; }
+
+    /* brand text */
     .brand .title{
       display:flex;
       flex-direction:column;
@@ -546,7 +731,7 @@
         border-bottom: 1px solid rgba(0,0,0,.08);
       }
 
-      .mark{ border: 1px solid rgba(0,0,0,.10); }
+      /* NOTE: .mark removed, replaced by .theme-toggle overrides above */
 
       .icon-btn{
         border: 1px solid rgba(0,0,0,.12);
@@ -654,7 +839,11 @@
   <div class="topbar">
     <div class="nav" role="navigation" aria-label="Site">
       <div class="brand">
-        <div class="mark" aria-hidden="true"></div>
+        <!-- CHANGED: circular mark -> theme toggle -->
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true" id="themeIcon"></span>
+        </button>
+
         <div class="title">
           <strong>Blog</strong>
           <span>AI + R&amp;D strategy</span>
@@ -782,13 +971,81 @@
   </main>
 
   <script>
+    // ---------------------------
+    // Theme toggle (manual override)
+    // ---------------------------
+    const THEME_KEY = "theme-preference"; // "light" | "dark" | null
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    const sunSvg = `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    `;
+    const moonSvg = `
+      <svg class="moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 13.2A8.4 8.4 0 0 1 10.8 3a7.6 7.6 0 1 0 10.2 10.2Z"
+              stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    `;
+
+    function systemPrefersDark(){
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
+    function setTheme(theme){ // theme: "light" | "dark" | null
+      const root = document.documentElement;
+
+      if (theme === "light" || theme === "dark") {
+        root.setAttribute("data-theme", theme);
+        localStorage.setItem(THEME_KEY, theme);
+      } else {
+        root.removeAttribute("data-theme"); // fall back to system
+        localStorage.removeItem(THEME_KEY);
+      }
+
+      const effective = root.getAttribute("data-theme") || (systemPrefersDark() ? "dark" : "light");
+      // sun for light mode, moon for dark mode
+      themeIcon.innerHTML = effective === "dark" ? moonSvg : sunSvg;
+      themeToggle.setAttribute("aria-pressed", effective === "dark" ? "true" : "false");
+      themeToggle.setAttribute("aria-label", effective === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    }
+
+    // Initialize from saved pref (else system)
+    const saved = localStorage.getItem(THEME_KEY);
+    setTheme(saved === "light" || saved === "dark" ? saved : null);
+
+    // Keep icon in sync if user changes OS theme while in "system" mode
+    const media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    if (media && typeof media.addEventListener === "function") {
+      media.addEventListener("change", () => {
+        if (!localStorage.getItem(THEME_KEY)) setTheme(null);
+      });
+    } else if (media && typeof media.addListener === "function") {
+      media.addListener(() => {
+        if (!localStorage.getItem(THEME_KEY)) setTheme(null);
+      });
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || (systemPrefersDark() ? "dark" : "light");
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // ---------------------------
     // Footer year + simple "today"
+    // ---------------------------
     document.getElementById("year").textContent = new Date().getFullYear();
     const d = new Date();
     const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
     document.getElementById("today").textContent = fmt.format(d);
 
+    // ---------------------------
     // Menu toggle (close on outside click)
+    // ---------------------------
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
 
@@ -818,7 +1075,9 @@
       if (e.key === "Escape") closeMenu();
     });
 
+    // ---------------------------
     // Lightbox (zoom) + focus restore
+    // ---------------------------
     const modal = document.getElementById("imageLightbox");
     const modalImg = document.getElementById("img01");
     const captionText = document.getElementById("caption");
