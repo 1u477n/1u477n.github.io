@@ -713,6 +713,7 @@
 
     /* ---------------------------
        Manual theme override (wins over prefers-color-scheme)
+       Put AFTER the media query so it always wins.
        --------------------------- */
 
     /* Force LIGHT */
@@ -779,8 +780,8 @@
       background: rgba(255,255,255,.85);
       box-shadow: 0 14px 30px rgba(0,0,0,.12);
     }
-
     html[data-theme="light"] .icon span{ background: rgba(11,15,26,.86); }
+
     html[data-theme="light"] .menu{
       background: rgba(255,255,255,.86);
       border: 1px solid rgba(0,0,0,.12);
@@ -792,6 +793,7 @@
       border-color: rgba(0,0,0,.08);
     }
     html[data-theme="light"] .menu a span{ color: rgba(11,15,26,.55); }
+
     html[data-theme="light"] .hero{
       border: 1px solid rgba(0,0,0,.10);
       background:
@@ -801,19 +803,29 @@
       box-shadow: var(--shadow2);
     }
     html[data-theme="light"] .subhead{ color: rgba(11,15,26,.58); }
+
     html[data-theme="light"] .control{
       border: 1px solid rgba(0,0,0,.10);
       background: rgba(255,255,255,.72);
       box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 18px 60px rgba(0,0,0,.10);
     }
     html[data-theme="light"] .label{ color: rgba(11,15,26,.80); }
+
     html[data-theme="light"] input[type="text"],
     html[data-theme="light"] select{
       border: 1px solid rgba(0,0,0,.12);
       background: rgba(0,0,0,.04);
       color: rgba(11,15,26,.92);
     }
-    html[data-theme="light"] input[type="text"]::placeholder{ color: rgba(11,15,26,.45); }
+    html[data-theme="light"] input[type="text"]::placeholder{
+      color: rgba(11,15,26,.45);
+    }
+    html[data-theme="light"] input[type="text"]:focus,
+    html[data-theme="light"] select:focus{
+      border-color: rgba(56,189,248,.32);
+      box-shadow: var(--ring);
+    }
+
     html[data-theme="light"] .blog-card{
       border: 1px solid rgba(0,0,0,.10);
       background: rgba(255,255,255,.72);
@@ -826,6 +838,7 @@
     }
     html[data-theme="light"] .blog-title,
     html[data-theme="light"] .blog-card a{ color: rgba(11,15,26,.92); }
+
     html[data-theme="light"] .chip{
       border: 1px solid rgba(0,0,0,.10);
       background: rgba(0,0,0,.04);
@@ -843,7 +856,7 @@
     }
     html[data-theme="light"] .panel:after{ opacity: .45; }
 
-    /* Force DARK */
+    /* Force DARK (overrides device light mode) */
     html[data-theme="dark"]{
       color-scheme: dark;
       --bg0:#070A12;
@@ -898,6 +911,7 @@
       background: linear-gradient(135deg, rgba(56,189,248,.22), rgba(167,139,250,.18));
       box-shadow: 0 16px 32px rgba(56,189,248,.10);
     }
+
     html[data-theme="dark"] .icon-btn{
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
@@ -906,8 +920,9 @@
       border-color: rgba(255,255,255,.20);
       background: rgba(255,255,255,.085);
       box-shadow: 0 14px 30px rgba(0,0,0,.25);
-
+    }
     html[data-theme="dark"] .icon span{ background: rgba(234,240,255,.90); }
+
     html[data-theme="dark"] .menu{
       background: rgba(8,12,22,.78);
       border: 1px solid rgba(255,255,255,.12);
@@ -919,6 +934,7 @@
       border-color: rgba(255,255,255,.10);
     }
     html[data-theme="dark"] .menu a span{ color: var(--muted2); }
+
     html[data-theme="dark"] .hero{
       border: 1px solid rgba(255,255,255,.10);
       background:
@@ -928,18 +944,29 @@
       box-shadow: var(--shadow2);
     }
     html[data-theme="dark"] .subhead{ color: var(--muted2); }
+
     html[data-theme="dark"] .control{
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.05);
       box-shadow: var(--shadow);
     }
     html[data-theme="dark"] .label{ color: rgba(234,240,255,.86); }
+
     html[data-theme="dark"] input[type="text"],
     html[data-theme="dark"] select{
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.18);
       color: rgba(234,240,255,.92);
     }
+    html[data-theme="dark"] input[type="text"]::placeholder{
+      color: rgba(234,240,255,.45);
+    }
+    html[data-theme="dark"] input[type="text"]:focus,
+    html[data-theme="dark"] select:focus{
+      border-color: rgba(56,189,248,.38);
+      box-shadow: var(--ring);
+    }
+
     html[data-theme="dark"] .blog-card{
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.05);
@@ -952,6 +979,7 @@
     }
     html[data-theme="dark"] .blog-title,
     html[data-theme="dark"] .blog-card a{ color: rgba(234,240,255,.94); }
+
     html[data-theme="dark"] .chip{
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.14);
