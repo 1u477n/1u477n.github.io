@@ -22,8 +22,29 @@
 
   <!-- Support both light & dark based on device setting -->
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#070A12" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#070A12" id="themeColor">
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const storageKey = "theme";
+      const media = window.matchMedia("(prefers-color-scheme: light)");
+
+      let saved = null;
+      try { saved = localStorage.getItem(storageKey); } catch {}
+
+      const theme =
+        (saved === "light" || saved === "dark")
+          ? saved
+          : (media.matches ? "light" : "dark");
+
+      // Set theme early for consistent CSS + icons
+      root.setAttribute("data-theme", theme);
+
+      // Set browser chrome color early
+      const meta = document.getElementById("themeColor");
+      if (meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
+    })();
+  </script>
 
   <title>The Synergy of the Century: Why Apple Intelligence Needs Google’s Gemini</title>
 
@@ -98,9 +119,11 @@
       --tableRow2: rgba(255,255,255,.025);
     }
 
-    /* LIGHT MODE (device setting) */
+    /* LIGHT MODE (device setting) — only when NOT manually overridden */
     @media (prefers-color-scheme: light){
-      :root{
+      html:not([data-theme]){
+        color-scheme: light;
+
         --bg0:#ffffff;
         --bg1:#f6f8ff;
 
@@ -1029,8 +1052,15 @@
         toggle.setAttribute("title", `Switch to ${next} mode`);
       }
 
+      const themeMeta = document.getElementById("themeColor");
+      function setThemeColor(theme){
+        if (!themeMeta) return;
+        themeMeta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
+      }
+
       function applyTheme(theme, persist){
         root.setAttribute("data-theme", theme);
+        setThemeColor(theme);
         if (persist) safeSet(theme);
         setToggleText(theme);
       }
