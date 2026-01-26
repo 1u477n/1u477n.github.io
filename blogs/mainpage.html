@@ -85,6 +85,33 @@
 
     ::selection{ background: rgba(56,189,248,.22); color: var(--text); }
 
+    /* Helps some browsers style the dropdown UI more consistently */
+    select{ color-scheme: dark; }
+    html[data-theme="light"] select{ color-scheme: light; }
+
+    @media (prefers-color-scheme: light){
+      html:not([data-theme]) select{ color-scheme: light; }
+    }
+    @media (prefers-color-scheme: dark){
+      html:not([data-theme]) select{ color-scheme: dark; }
+    }
+
+    /* Best-effort option styling (works in many browsers; Safari is limited) */
+    select option{
+      background-color: #0B1020;
+      color: #EAF0FF;
+    }
+    html[data-theme="light"] select option{
+      background-color: #ffffff;
+      color: #0b0f1a;
+    }
+    @media (prefers-color-scheme: light){
+      html:not([data-theme]) select option{
+        background-color: #ffffff;
+        color: #0b0f1a;
+      }
+    }
+
     /* Background grid */
     .bg-grid{
       position: fixed;
