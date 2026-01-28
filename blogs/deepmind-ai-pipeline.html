@@ -158,9 +158,40 @@
       --menuShadow: 0 30px 80px rgba(0,0,0,.14);
     }
 
+    /* Force DARK (overrides device light mode too) */
     html[data-theme="dark"]{
       color-scheme: dark;
-      /* (dark tokens already in :root) */
+
+      --bg0:#070A12;
+      --bg1:#0B1020;
+
+      --text:#EAF0FF;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.55);
+
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.16);
+
+      --shadow: 0 0 0 1px var(--stroke), 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 0 0 1px var(--stroke), 0 22px 80px rgba(0,0,0,.62);
+
+      --ring: 0 0 0 2px rgba(56,189,248,.55);
+
+      --glow1: rgba(56,189,248,.18);
+      --glow2: rgba(167,139,250,.16);
+      --glow3: rgba(52,211,153,.10);
+
+      --gridline: rgba(255,255,255,.06);
+      --gridmask: rgba(0,0,0,.85);
+      --vignette: rgba(255,255,255,.06);
+
+      --topbarA: rgba(7,10,18,.88);
+      --topbarB: rgba(7,10,18,.55);
+
+      --menuBg: rgba(8,12,22,.78);
+      --menuShadow: 0 30px 80px rgba(0,0,0,.55);
     }
 
     *{ box-sizing:border-box }
@@ -259,7 +290,7 @@
       padding: 10px 0;
       backdrop-filter: blur(14px);
       background: linear-gradient(180deg, var(--topbarA), var(--topbarB));
-      border-bottom: 1px solid rgba(255,255,255,.02);
+      border-bottom: 1px solid var(--stroke);
     }
 
     .nav {
