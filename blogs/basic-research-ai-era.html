@@ -809,11 +809,12 @@
       text-align: center;
     }
     .lightbox-actions{
-      display:flex;
+      display: flex;
       gap: 10px;
-      position:absolute;
-      left: 16px;
-      top: 14px;
+      position: absolute;
+      top: calc(14px + env(safe-area-inset-top));
+      right: calc(14px + env(safe-area-inset-right));
+      left: auto;
     }
     .lb-btn{
       width: 46px;
@@ -921,9 +922,7 @@
   <!-- Lightbox -->
   <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
     <div class="lightbox-actions" aria-hidden="false">
-      <button class="lb-btn" id="lightboxPrev" aria-label="Previous image">‹</button>
       <button class="lb-btn" id="lightboxClose" aria-label="Close">×</button>
-      <button class="lb-btn" id="lightboxNext" aria-label="Next image">›</button>
     </div>
     <img class="lightbox-content" id="img01" alt="" />
     <div id="caption" class="caption"></div>
