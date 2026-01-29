@@ -849,11 +849,12 @@
       text-align: center;
     }
     .lightbox-actions{
-      display:flex;
+      display: flex;
       gap: 10px;
-      position:absolute;
-      left: 16px;
-      top: 14px;
+      position: absolute;
+      top: calc(14px + env(safe-area-inset-top));
+      right: calc(14px + env(safe-area-inset-right));
+      left: auto;
     }
     .lb-btn{
       width: 46px;
