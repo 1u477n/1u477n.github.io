@@ -342,7 +342,20 @@
       font-weight: 700;
       font-size: 12px;
     }
-
+    /* Menu external-link arrow: force text glyph + bigger size */
+    .menu a .arrow-icon{
+      display: inline-block;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif; /* avoids emoji square on Windows */
+      font-size: 16px;     /* increase as you like (16–20px) */
+      line-height: 1;
+      color: currentColor; /* black in light mode, white in dark mode */
+    }
+    .menu a span.arrow-icon{
+      font-size: 16px;
+      color: currentColor;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif;
+      line-height: 1;
+    }
     /* Header card */
     .hero{
       border-radius: var(--r24);
@@ -539,8 +552,16 @@
       display:grid;
       place-items:center;
       color: rgba(234,240,255,.80);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* no Emoji fonts */
       font-weight: 900;
+      font-size: 18px;   /* try 18–22px */
+      line-height: 1;    /* keeps it vertically centered */
       flex: 0 0 auto;
+    }
+    .arrow .arrow-icon{
+      font-size: 18px;   /* try 18–22px */
+      line-height: 1;
+      display: block;    /* helps centering inside the 34x34 box */
     }
 
     @media (max-width: 920px){
@@ -1078,14 +1099,14 @@
     </div>
 
     <div class="menu" id="menuPanel" role="menu" aria-label="Menu">
-      <a role="menuitem" href="https://1u477n.github.io/">Home <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span>↗</span></a>
-      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/">Home <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
     </div>
   </div>
 
@@ -1137,7 +1158,7 @@
               <div class="chip">AI & Drug Discovery</div>
               <div class="chip" data-date-chip>2026-01-23</div>
             </div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1156,7 +1177,7 @@
               <div class="chip">AI & Drug Discovery</div>
               <div class="chip" data-date-chip>2026-01-04</div>
             </div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1175,7 +1196,7 @@
               <div class="chip">AI & Drug Discovery</div>
               <div class="chip" data-date-chip>2026-01-24</div>
             </div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1194,7 +1215,7 @@
               <div class="chip">AI & Healthcare</div>
               <div class="chip" data-date-chip>2026-01-25</div>
             </div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1213,7 +1234,7 @@
               <div class="chip">AI & Medicine</div>
               <div class="chip" data-date-chip>2026-01-28</div>
             </div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
