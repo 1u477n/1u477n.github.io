@@ -444,17 +444,17 @@
       border-color: rgba(255,255,255,.10);
     }
     .menu a span{
-      color: var(--muted2);
       font-weight: 600;
       font-size: 12px;
     }
     /* Menu external-link arrow: force text glyph + bigger size */
-    .menu a span.arrow-icon{
+    .menu a .arrow-icon{
+      color: var(--muted2);   /* explicitly muted */
       font-size: 16px;
-      color: currentColor;
-      font-family: "Segoe UI Symbol", system-ui, sans-serif;
       line-height: 1;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif;
     }
+    
     /* Light-mode control surfaces — MATCHES your blog page */
     html[data-theme="light"] .mark{ border: 1px solid rgba(0,0,0,.10); }
     html[data-theme="light"] .icon-btn{
