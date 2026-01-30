@@ -310,6 +310,20 @@
       font-weight: 700;
       font-size: 12px;
     }
+    /* Menu external-link arrow: force text glyph + bigger size */
+    .menu a .arrow-icon{
+      display: inline-block;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* no Emoji fonts */
+      font-size: 16px;     /* increase as you like (16–20px) */
+      line-height: 1;
+      color: currentColor; /* black in light mode, white in dark mode */
+    }
+    .menu a span.arrow-icon{
+      font-size: 16px;
+      color: currentColor;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif;
+      line-height: 1;
+    }
 
     /* Header card */
     .hero{
@@ -945,14 +959,14 @@
 
     <!-- Menu panel -->
     <div class="menu" id="menuPanel" role="menu" aria-label="Menu">
-      <a role="menuitem" href="https://1u477n.github.io/">Home <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span>↗</span></a>
-      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/">Home <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
     </div>
   </div>
 
@@ -971,7 +985,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">Nano Science and Technology Institute (NSTI)</div>
-          <div class="arrow"><a href="publishedworks/2003_Nanotech.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/2003_Nanotech.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -981,7 +995,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">BMC Biotechnology</div>
-          <div class="arrow"><a href="publishedworks/2005_BMCBiotech.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/2005_BMCBiotech.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -991,7 +1005,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">Patent</div>
-          <div class="arrow"><a href="publishedworks/Patent_US6699719.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/Patent_US6699719.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -1001,7 +1015,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">Patent</div>
-          <div class="arrow"><a href="publishedworks/JP4493496B2.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/JP4493496B2.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -1011,7 +1025,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">Patent</div>
-          <div class="arrow"><a href="publishedworks/CA2492899A1.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/CA2492899A1.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -1021,7 +1035,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">WIPO (PCT)</div>
-          <div class="arrow"><a href="publishedworks/WO2004010074A2.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/WO2004010074A2.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -1031,7 +1045,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">Patent</div>
-          <div class="arrow"><a href="publishedworks/Patent_PCT_US2009_067197.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/Patent_PCT_US2009_067197.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -1041,7 +1055,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">Patent</div>
-          <div class="arrow"><a href="publishedworks/Patent_US8586619.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/Patent_US8586619.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -1051,7 +1065,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">Patent</div>
-          <div class="arrow"><a href="publishedworks/CN101686952A.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/CN101686952A.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
 
@@ -1061,7 +1075,7 @@
         </h3>
         <div class="work-meta">
           <div class="pill">WIPO (PCT)</div>
-          <div class="arrow"><a href="publishedworks/WO2008112715A2.pdf">↗</a></div>
+          <div class="arrow"><a href="publishedworks/WO2008112715A2.pdf"><span class="arrow-icon">&#x2197;&#xFE0E;</span></a></div>
         </div>
       </article>
     </section>
