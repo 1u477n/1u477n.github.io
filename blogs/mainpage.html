@@ -545,6 +545,9 @@
       max-width: 100%;
     }
     .arrow{
+      display:flex;
+      align-items:center;
+      justify-content:center;
       width: 34px; height: 34px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.12);
@@ -563,7 +566,11 @@
       line-height: 1;
       display: block;    /* helps centering inside the 34x34 box */
     }
-
+    .arrow .arrow-svg{
+      width: 18px;
+      height: 18px;
+      display:block;
+    }
     @media (max-width: 920px){
       .blog-card{ grid-column: span 12; }
     }
@@ -1158,7 +1165,12 @@
               <div class="chip">AI & Drug Discovery</div>
               <div class="chip" data-date-chip>2026-01-23</div>
             </div>
-            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
+            <div class="arrow" aria-hidden="true">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         </a>
       </article>
@@ -1177,7 +1189,12 @@
               <div class="chip">AI & Drug Discovery</div>
               <div class="chip" data-date-chip>2026-01-04</div>
             </div>
-            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
+            <div class="arrow" aria-hidden="true">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         </a>
       </article>
@@ -1196,7 +1213,12 @@
               <div class="chip">AI & Drug Discovery</div>
               <div class="chip" data-date-chip>2026-01-24</div>
             </div>
-            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
+            <div class="arrow" aria-hidden="true">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         </a>
       </article>
@@ -1215,7 +1237,12 @@
               <div class="chip">AI & Healthcare</div>
               <div class="chip" data-date-chip>2026-01-25</div>
             </div>
-            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
+            <div class="arrow" aria-hidden="true">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         </a>
       </article>
@@ -1234,7 +1261,12 @@
               <div class="chip">AI & Medicine</div>
               <div class="chip" data-date-chip>2026-01-28</div>
             </div>
-            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
+            <div class="arrow" aria-hidden="true">
+              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         </a>
       </article>
