@@ -332,16 +332,15 @@
       border-color: rgba(255,255,255,.10);
     }
     .menu a span{
-      color: var(--muted2);
       font-weight: 700;
       font-size: 12px;
     }
     /* Menu external-link arrow: force text glyph + bigger size */
-    .menu a span.arrow-icon{
+    .menu a .arrow-icon{
+      color: var(--muted2);   /* explicitly muted */
       font-size: 16px;
-      color: currentColor;
-      font-family: "Segoe UI Symbol", system-ui, sans-serif;
       line-height: 1;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif;
     }
     
     /* Header card */
