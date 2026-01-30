@@ -310,6 +310,14 @@
       font-weight: 700;
       font-size: 12px;
     }
+    /* Menu external-link arrow: force text glyph + bigger size */
+    .menu a .arrow-icon{
+      display: inline-block;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif; /* avoids emoji square on Windows */
+      font-size: 16px;     /* increase as you like (16–20px) */
+      line-height: 1;
+      color: currentColor; /* black in light mode, white in dark mode */
+    }
 
     /* Main card */
     .card{
@@ -855,14 +863,14 @@
 
     <!-- Menu panel -->
     <div class="menu" id="menuPanel" role="menu" aria-label="Menu">
-      <a role="menuitem" href="https://1u477n.github.io/">Home <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span>↗</span></a>
-      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/">Home <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
     </div>
   </div>
 
