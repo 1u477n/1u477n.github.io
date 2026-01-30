@@ -336,7 +336,22 @@
       font-weight: 700;
       font-size: 12px;
     }
-
+    /* Menu external-link arrow: force text glyph + bigger size */
+    .menu a .arrow-icon{
+      display: inline-block;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif; /* avoids emoji square on Windows */
+      font-size: 16px;     /* increase as you like (16–20px) */
+      line-height: 1;
+      color: currentColor; /* black in light mode, white in dark mode */
+    }
+    /* Menu external-link arrow: force text glyph + bigger size */
+    .menu a .arrow-icon{
+      display: inline-block;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif; /* avoids emoji square on Windows */
+      font-size: 16px;     /* increase as you like (16–20px) */
+      line-height: 1;
+      color: currentColor; /* black in light mode, white in dark mode */
+    }
     /* Header card */
     .hero{
       border-radius: var(--r24);
@@ -494,7 +509,12 @@
       z-index: 1;
     }
     .award-card a:hover{ text-decoration: none; }
-
+    .award-card a span.arrow-icon{
+      font-size: 18px;
+      color: currentColor;
+      font-family: "Segoe UI Symbol", system-ui, sans-serif;
+      line-height: 1;
+    }
     .meta{
       margin-top: auto;
       display:flex;
@@ -1077,14 +1097,14 @@
 
     <!-- Menu panel -->
     <div class="menu" id="menuPanel" role="menu" aria-label="Menu">
-      <a role="menuitem" href="https://1u477n.github.io/">Home <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>↗</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span>↗</span></a>
-      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span>↗</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/">Home <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
+      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
     </div>
   </div>
 
@@ -1127,7 +1147,7 @@
           <h3 class="award-title">Accelerate A year of scaling & increasing impact</h3>
           <div class="meta">
             <div class="chip">Win As One Team</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1137,7 +1157,7 @@
           <h3 class="award-title">Contributions to CoM Design Product</h3>
           <div class="meta">
             <div class="chip">Win As One Team</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1147,7 +1167,7 @@
           <h3 class="award-title">HTE Library Design Capability Development</h3>
           <div class="meta">
             <div class="chip">Win As One Team</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1157,7 +1177,7 @@
           <h3 class="award-title">Contributions to CoM Design Product</h3>
           <div class="meta">
             <div class="chip">Win As One Team</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1167,7 +1187,7 @@
           <h3 class="award-title">Therapeutic Antibody Profiler Execution</h3>
           <div class="meta">
             <div class="chip">Act With Urgency</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1177,7 +1197,7 @@
           <h3 class="award-title">Help with Pipeline Pilot protocols</h3>
           <div class="meta">
             <div class="chip">Act With Urgency</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1187,7 +1207,7 @@
           <h3 class="award-title">ChemDraw 21 Rollout</h3>
           <div class="meta">
             <div class="chip">Experiment, Learn, and Adapt</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1197,7 +1217,7 @@
           <h3 class="award-title">Impact through continuous learning</h3>
           <div class="meta">
             <div class="chip">Knowing To Learn</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1207,7 +1227,7 @@
           <h3 class="award-title">CoM product line</h3>
           <div class="meta">
             <div class="chip">Witholding to Sharing</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1217,7 +1237,7 @@
           <h3 class="award-title">SSF LEO Development and Execution Team</h3>
           <div class="meta">
             <div class="chip">Witholding to Sharing</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1227,7 +1247,7 @@
           <h3 class="award-title">Instrument onboarding process</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1237,7 +1257,7 @@
           <h3 class="award-title">Solving ELN issue</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1247,7 +1267,7 @@
           <h3 class="award-title">Driving the Resolution of our HTRT RDP Issue</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1257,7 +1277,7 @@
           <h3 class="award-title">Enter Large Dataset into PIER Parser</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1267,7 +1287,7 @@
           <h3 class="award-title">Help with External InVivo data curation</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1277,7 +1297,7 @@
           <h3 class="award-title">Identified and resolved email problem with partner</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1287,7 +1307,7 @@
           <h3 class="award-title">Big thanks Luat for your help</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1297,7 +1317,7 @@
           <h3 class="award-title">Thank you for your help and support</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1307,7 +1327,7 @@
           <h3 class="award-title">Palo Alto:SSF:Mission Bay computer room migration</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1317,7 +1337,7 @@
           <h3 class="award-title">SSF Site Move IT Support</h3>
           <div class="meta">
             <div class="chip">Drive Results</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1327,7 +1347,7 @@
           <h3 class="award-title">Site Culture and Collaboration</h3>
           <div class="meta">
             <div class="chip">Silos to Networks</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1337,7 +1357,7 @@
           <h3 class="award-title">Extended Leadership Member</h3>
           <div class="meta">
             <div class="chip">Build A Diverse and Inclusive Culture</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1347,7 +1367,7 @@
           <h3 class="award-title">Weekly reporting of site-related IT activities</h3>
           <div class="meta">
             <div class="chip">Foster Collaboration</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1357,7 +1377,7 @@
           <h3 class="award-title">Linux Workstation @ South San Francisco</h3>
           <div class="meta">
             <div class="chip">Foster Collaboration</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
@@ -1367,7 +1387,7 @@
           <h3 class="award-title">Medivation - IT Excellence and Innovation Award</h3>
           <div class="meta">
             <div class="chip">IT Excellence and Innovation</div>
-            <div class="arrow">↗</div>
+            <div class="arrow"><span class="arrow-icon">&#x2197;&#xFE0E;</span></div>
           </div>
         </a>
       </article>
