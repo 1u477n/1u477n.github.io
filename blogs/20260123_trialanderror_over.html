@@ -500,7 +500,12 @@
       line-height: 1;
       font-family: "Segoe UI Symbol", system-ui, sans-serif;
     }
-
+    .arrow-icon .arrow-svg{
+      width: 18px;
+      height: 18px;
+      display:block;
+    } 
+  
     /* Light-mode control surfaces */
     html[data-theme="light"] .mark{ border: 1px solid rgba(0,0,0,.10); }
     html[data-theme="light"] .icon-btn{
@@ -911,16 +916,72 @@
     </div>
 
     <!-- Menu panel -->
-    <nav class="menu panel" id="menuPanel" aria-label="Menu">
-      <a role="menuitem" href="https://1u477n.github.io/">Home <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/about.html">About Me <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/publishedworks.html">Published Works <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-      <a role="menuitem" href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-      <a role="menuitem" href="https://www.linkedin.com/in/1u477n/">LinkedIn <span class="arrow-icon">&#x2197;&#xFE0E;</span></a>
-    </nav>
+    <div class="menu" id="menuPanel" aria-label="Menu">
+      <a href="https://1u477n.github.io/">Home 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+      <a href="https://1u477n.github.io/about.html">About Me 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+      <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn 
+        <span class="arrow-icon">
+          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </div>
   </div>
 
   <!-- Lightbox -->
