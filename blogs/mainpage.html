@@ -350,78 +350,78 @@
     }
 
 
-/* ---------------------------
-   Likes (heart + count)
-   Reuses .arrow styling so theme stays consistent
-   --------------------------- */
-.meta-actions{
-  display:flex;
-  align-items:center;
-  gap: 10px;
-}
+    /* ---------------------------
+      Likes (heart + count)
+      Reuses .arrow styling so theme stays consistent
+      --------------------------- */
+    .meta-actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
 
-/* Heart SVG specifics */
-.like-btn .heart-svg{
-  width: 18px;
-  height: 18px;
-  display:block;
-}
+    /* Heart SVG specifics */
+    .like-btn .heart-svg{
+      width: 18px;
+      height: 18px;
+      display:block;
+    }
 
-/* Outline by default */
-.like-btn .heart-fill{
-  fill: transparent;
-  transition: fill .18s ease, transform .18s ease;
-  transform-origin: center;
-}
+    /* Outline by default */
+    .like-btn .heart-fill{
+      fill: transparent;
+      transition: fill .18s ease, transform .18s ease;
+      transform-origin: center;
+    }
 
-/* Solid when liked (your .liked already sets color: #ef4444) */
-.like-btn.liked .heart-fill{
-  fill: currentColor;
-}
+    /* Solid when liked (your .liked already sets color: #ef4444) */
+    .like-btn.liked .heart-fill{
+      fill: currentColor;
+    }
 
-/* Optional micro “pop” when liked (safe, subtle) */
-.like-btn.liked .heart-fill{
-  transform: scale(1.02);
-}
+    /* Optional micro “pop” when liked (safe, subtle) */
+    .like-btn.liked .heart-fill{
+      transform: scale(1.02);
+    }
 
-.like-wrap{
-  display:flex;
-  align-items:center;
-  gap: 8px;
-}
+    .like-wrap{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+    }
 
-.like-btn{
-  cursor: pointer;
-  user-select: none;
-}
+    .like-btn{
+      cursor: pointer;
+      user-select: none;
+    }
 
-.like-btn svg{
-  width: 18px;
-  height: 18px;
-  display:block;
-  fill: none; /* outline by default */
-}
+    .like-btn svg{
+      width: 18px;
+      height: 18px;
+      display:block;
+      fill: none; /* outline by default */
+    }
 
-.like-count{
-  font-weight: 800;
-  font-size: 13px;
-  color: var(--muted2);
-  min-width: 1ch;
-}
+    .like-count{
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--muted2);
+      min-width: 1ch;
+    }
 
-.like-btn.liked{
-  color: #ef4444; /* solid red heart */
-}
+    .like-btn.liked{
+      color: #ef4444; /* solid red heart */
+    }
 
-.like-btn.liked svg{
-  fill: currentColor; /* makes the heart solid */
-}
+    .like-btn.liked svg{
+      fill: currentColor; /* makes the heart solid */
+    }
 
-.like-btn:focus-visible{
-  outline: none;
-  box-shadow: var(--ring);
-  border-radius: 14px;
-}
+    .like-btn:focus-visible{
+      outline: none;
+      box-shadow: var(--ring);
+      border-radius: 14px;
+    }
     
     /* Header card */
     .hero{
@@ -1139,6 +1139,16 @@
       color: var(--muted2);
     }
     html[data-theme="dark"] .panel:after{ opacity: .55; }
+
+    /* Ensure liked state wins over theme-specific .arrow colors */
+    html[data-theme] .like-btn.liked{
+      color: #ef4444; /* solid red in light + dark */
+    }
+
+    html[data-theme] .like-btn.liked .heart-fill{
+      fill: currentColor; /* fill heart with that red */
+    }
+
   </style>
 </head>
 
@@ -1539,7 +1549,7 @@
     sortSelect.addEventListener("change", applyFiltersAndSort);
   </script>
 
-<script type="module">
+  <script type="module">
   // Firebase (Firestore) - CDN modular SDK
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
   import {
@@ -1585,18 +1595,18 @@
     return `${card.dataset.date || ""}|${card.dataset.title || ""}`;
   }
 
-function buildHeartSVG(){
-  return `
-    <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        class="heart-fill"
-        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        fill="transparent"
-      />
-    </svg>
-  `;
-}
+  function buildHeartSVG(){
+    return `
+      <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          class="heart-fill"
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          fill="transparent"
+        />
+      </svg>
+    `;
+  }
 
   function injectLikeUI(card){
     const meta = card.querySelector(".meta");
@@ -1654,11 +1664,18 @@ function buildHeartSVG(){
 
       // One-like-per-browser (simple client-side guard)
       const likedStorageKey = `liked_${docId}`;
-      const isLiked = localStorage.getItem(likedStorageKey) === "1";
-      if (isLiked){
-        likeBtn.classList.add("liked");
-        likeBtn.setAttribute("aria-pressed", "true");
+
+      // IMPORTANT: use a mutable variable (not a one-time const)
+      let liked = localStorage.getItem(likedStorageKey) === "1";
+
+      function applyLikedUI(){
+        likeBtn.classList.toggle("liked", liked);
+        likeBtn.setAttribute("aria-pressed", liked ? "true" : "false");
+        likeBtn.setAttribute("title", liked ? "Unlike" : "Like");
       }
+
+      // Apply initial UI state
+      applyLikedUI();
 
       // Ensure doc exists (count field), without changing your page logic
       // merge:true keeps it safe if you add fields later
@@ -1671,35 +1688,38 @@ function buildHeartSVG(){
         likeCount.textContent = String(count);
       });
 
-      async function doLike(e){
+      async function toggleLike(e){
         // Stop link navigation (because this sits inside the <a> card)
         e.preventDefault();
         e.stopPropagation();
 
-        // Already liked on this browser? Do nothing.
-        if (localStorage.getItem(likedStorageKey) === "1") return;
+        const next = !liked;
+        const delta = next ? 1 : -1;
 
-        // UI state first (instant feedback)
-        localStorage.setItem(likedStorageKey, "1");
-        likeBtn.classList.add("liked");
-        likeBtn.setAttribute("aria-pressed", "true");
+        // Optimistic UI update
+        liked = next;
+        if (liked) localStorage.setItem(likedStorageKey, "1");
+        else localStorage.removeItem(likedStorageKey);
+        applyLikedUI();
 
-        // Atomic increment in Firestore
+        // Atomic update in Firestore
         try{
-          await updateDoc(ref, { count: increment(1) });
+          await updateDoc(ref, { count: increment(delta) });
         }catch(err){
-          // If update fails, rollback UI state
-          localStorage.removeItem(likedStorageKey);
-          likeBtn.classList.remove("liked");
-          likeBtn.setAttribute("aria-pressed", "false");
-          console.error("Like failed:", err);
+          // Rollback UI state on failure
+          liked = !next;
+          if (liked) localStorage.setItem(likedStorageKey, "1");
+          else localStorage.removeItem(likedStorageKey);
+          applyLikedUI();
+
+          console.error(delta === 1 ? "Like failed:" : "Unlike failed:", err);
         }
       }
 
-      likeBtn.addEventListener("click", doLike);
+      likeBtn.addEventListener("click", toggleLike);
       likeBtn.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " "){
-          doLike(e);
+          toggleLike(e);
         }
       });
     }
@@ -1707,7 +1727,7 @@ function buildHeartSVG(){
 
   // Run after your existing scripts have created the DOM order
   setupLikes();
-</script>
+  </script>
 
 </body>
 </html>
