@@ -602,6 +602,51 @@
     }
     .pill b{ color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; }
 
+    /* Like pill (matches existing .pill design) */
+    .like-pill{
+      user-select: none;
+    }
+
+    .like-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .like-btn .heart-svg{
+      width: 18px;
+      height: 18px;
+      display:block;
+    }
+
+    .like-btn .heart-fill{
+      fill: transparent;
+      transition: fill .18s ease;
+    }
+
+    .like-btn.liked{
+      color: #ef4444; /* red when liked */
+    }
+
+    .like-btn.liked .heart-fill{
+      fill: currentColor;
+    }
+
+    .like-count{
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .like-btn:focus-visible{
+      outline: none;
+      box-shadow: var(--ring);
+      border-radius: 10px;
+    }
+
     /* Layout: post + toc */
     .content-grid{
       margin-top: 16px;
@@ -1566,5 +1611,181 @@
       });
     })();
   </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      onSnapshot,
+      runTransaction
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // Firebase config (same as other blog pages)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
+      authDomain: "searchablevideos.firebaseapp.com",
+      projectId: "searchablevideos",
+      storageBucket: "searchablevideos.firebasestorage.app",
+      messagingSenderId: "345918351272",
+      appId: "1:345918351272:web:82534dbe5b10dc8e131f9d",
+      measurementId: "G-VW323NJP26"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const COLLECTION = "blogLikes";
+
+    // Stable hash -> stable Firestore doc id per post
+    function fnv1a(str){
+      let h = 0x811c9dc5;
+      for (let i = 0; i < str.length; i++){
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 0x01000193);
+      }
+      return (h >>> 0).toString(16).padStart(8, "0");
+    }
+
+    // Use canonical href so likes map to the exact published URL
+    function getPostKey(){
+      const canonical = document.querySelector('link[rel="canonical"]');
+      const raw = canonical?.getAttribute("href");
+      if (raw) return raw;
+      return `${location.origin}${location.pathname}`;
+    }
+
+    function safeGet(key){
+      try { return localStorage.getItem(key); } catch { return null; }
+    }
+    function safeSet(key, val){
+      try { localStorage.setItem(key, val); } catch {}
+    }
+    function safeRemove(key){
+      try { localStorage.removeItem(key); } catch {}
+    }
+
+    function heartSVG(){
+      return `
+        <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            class="heart-fill"
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            fill="transparent"
+          />
+        </svg>
+      `;
+    }
+
+    function injectLikePill(){
+      const metaRow = document.querySelector(".meta-row");
+      if (!metaRow) return null;
+
+      // Prevent duplicates
+      if (metaRow.querySelector(".like-pill")) return null;
+
+      const pill = document.createElement("div");
+      pill.className = "pill like-pill";
+      pill.setAttribute("aria-label", "Likes");
+
+      const btn = document.createElement("span");
+      btn.className = "like-btn";
+      btn.setAttribute("role", "button");
+      btn.setAttribute("tabindex", "0");
+      btn.setAttribute("aria-pressed", "false");
+      btn.setAttribute("title", "Like");
+      btn.innerHTML = heartSVG();
+
+      const count = document.createElement("span");
+      count.className = "like-count";
+      count.setAttribute("aria-live", "polite");
+      count.textContent = "0";
+
+      pill.appendChild(btn);
+      pill.appendChild(count);
+
+      metaRow.appendChild(pill);
+      return { btn, count };
+    }
+
+    async function toggleLike({ ref, postKey, docId, btn }) {
+      const likedStorageKey = `liked_${docId}`;
+      const isLiked = safeGet(likedStorageKey) === "1";
+
+      function setLikedUI(nextLiked){
+        btn.classList.toggle("liked", nextLiked);
+        btn.setAttribute("aria-pressed", nextLiked ? "true" : "false");
+      }
+
+      const nextLiked = !isLiked;
+      setLikedUI(nextLiked);
+
+      if (nextLiked) safeSet(likedStorageKey, "1");
+      else safeRemove(likedStorageKey);
+
+      const delta = nextLiked ? 1 : -1;
+
+      try{
+        await runTransaction(db, async (tx) => {
+          const snap = await tx.get(ref);
+          const cur = snap.exists() && typeof snap.data().count === "number" ? snap.data().count : 0;
+          const next = Math.max(0, cur + delta);
+          tx.set(ref, { count: next, postKey }, { merge: true });
+        });
+      } catch (err) {
+        // Roll back if transaction fails
+        setLikedUI(isLiked);
+        if (isLiked) safeSet(likedStorageKey, "1");
+        else safeRemove(likedStorageKey);
+        console.error("Like/unlike failed:", err);
+      }
+    }
+
+    async function setupLikes(){
+      const ui = injectLikePill();
+      if (!ui) return;
+
+      const { btn, count } = ui;
+
+      const postKey = getPostKey();
+      const docId = fnv1a(postKey);
+      const ref = doc(db, COLLECTION, docId);
+
+      // Restore liked state per browser
+      const likedStorageKey = `liked_${docId}`;
+      const isLiked = safeGet(likedStorageKey) === "1";
+      btn.classList.toggle("liked", isLiked);
+      btn.setAttribute("aria-pressed", isLiked ? "true" : "false");
+
+      // Ensure doc exists
+      setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
+
+      // Live count updates
+      onSnapshot(ref, (snap) => {
+        const data = snap.exists() ? snap.data() : null;
+        const n = data && typeof data.count === "number" ? data.count : 0;
+        count.textContent = String(n);
+      });
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleLike({ ref, postKey, docId, btn });
+      });
+
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          e.stopPropagation();
+          toggleLike({ ref, postKey, docId, btn });
+        }
+      });
+    }
+
+    setupLikes();
+  </script>
+
 </body>
 </html>
