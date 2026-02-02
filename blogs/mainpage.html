@@ -348,6 +348,80 @@
       line-height: 1;
       font-family: "Segoe UI Symbol", system-ui, sans-serif;
     }
+
+
+/* ---------------------------
+   Likes (heart + count)
+   Reuses .arrow styling so theme stays consistent
+   --------------------------- */
+.meta-actions{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* Heart SVG specifics */
+.like-btn .heart-svg{
+  width: 18px;
+  height: 18px;
+  display:block;
+}
+
+/* Outline by default */
+.like-btn .heart-fill{
+  fill: transparent;
+  transition: fill .18s ease, transform .18s ease;
+  transform-origin: center;
+}
+
+/* Solid when liked (your .liked already sets color: #ef4444) */
+.like-btn.liked .heart-fill{
+  fill: currentColor;
+}
+
+/* Optional micro “pop” when liked (safe, subtle) */
+.like-btn.liked .heart-fill{
+  transform: scale(1.02);
+}
+
+.like-wrap{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+
+.like-btn{
+  cursor: pointer;
+  user-select: none;
+}
+
+.like-btn svg{
+  width: 18px;
+  height: 18px;
+  display:block;
+  fill: none; /* outline by default */
+}
+
+.like-count{
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--muted2);
+  min-width: 1ch;
+}
+
+.like-btn.liked{
+  color: #ef4444; /* solid red heart */
+}
+
+.like-btn.liked svg{
+  fill: currentColor; /* makes the heart solid */
+}
+
+.like-btn:focus-visible{
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: 14px;
+}
     
     /* Header card */
     .hero{
@@ -541,8 +615,8 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      width: 34px; height: 34px;
-      border-radius: 14px;
+      width: 30px; height: 30px;
+      border-radius: 50%;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.16);
       display:grid;
@@ -1464,5 +1538,176 @@
     categoryFilter.addEventListener("change", applyFiltersAndSort);
     sortSelect.addEventListener("change", applyFiltersAndSort);
   </script>
+
+<script type="module">
+  // Firebase (Firestore) - CDN modular SDK
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    updateDoc,
+    increment,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+  // Your Firebase config (exactly as provided)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
+    authDomain: "searchablevideos.firebaseapp.com",
+    projectId: "searchablevideos",
+    storageBucket: "searchablevideos.firebasestorage.app",
+    messagingSenderId: "345918351272",
+    appId: "1:345918351272:web:82534dbe5b10dc8e131f9d",
+    measurementId: "G-VW323NJP26"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const COLLECTION = "blogLikes";
+
+  // Deterministic short id from a string (stable docId per post)
+  function fnv1a(str){
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++){
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 0x01000193);
+    }
+    return (h >>> 0).toString(16).padStart(8, "0");
+  }
+
+  function getPostKey(card){
+    // Prefer href (stable), fallback to date+title
+    const a = card.querySelector("a.card-link");
+    const href = a?.getAttribute("href") || "";
+    if (href) return href;
+    return `${card.dataset.date || ""}|${card.dataset.title || ""}`;
+  }
+
+function buildHeartSVG(){
+  return `
+    <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        class="heart-fill"
+        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        fill="transparent"
+      />
+    </svg>
+  `;
+}
+
+  function injectLikeUI(card){
+    const meta = card.querySelector(".meta");
+    if (!meta) return;
+
+    const arrow = meta.querySelector(".arrow");
+    if (!arrow) return;
+
+    // Prevent double-injection
+    if (meta.querySelector(".like-wrap")) return;
+
+    // Wrap right-side actions: [heart+count] [arrow]
+    const actions = document.createElement("div");
+    actions.className = "meta-actions";
+
+    const likeWrap = document.createElement("div");
+    likeWrap.className = "like-wrap";
+
+    // Reuse your existing .arrow styling for the heart pill
+    const likeBtn = document.createElement("span");
+    likeBtn.className = "arrow like-btn";
+    likeBtn.setAttribute("role", "button");
+    likeBtn.setAttribute("tabindex", "0");
+    likeBtn.setAttribute("aria-pressed", "false");
+    likeBtn.setAttribute("title", "Like");
+    likeBtn.innerHTML = buildHeartSVG();
+
+    const likeCount = document.createElement("span");
+    likeCount.className = "like-count";
+    likeCount.textContent = "0";
+
+    likeWrap.appendChild(likeBtn);
+    likeWrap.appendChild(likeCount);
+
+    // Replace arrow with actions container, then append both
+    arrow.replaceWith(actions);
+    actions.appendChild(likeWrap);
+    actions.appendChild(arrow);
+
+    return { likeBtn, likeCount };
+  }
+
+  async function setupLikes(){
+    const cards = Array.from(document.querySelectorAll(".blog-card"));
+
+    for (const card of cards){
+      const ui = injectLikeUI(card);
+      if (!ui) continue;
+
+      const { likeBtn, likeCount } = ui;
+
+      const postKey = getPostKey(card);
+      const docId = fnv1a(postKey);
+      const ref = doc(db, COLLECTION, docId);
+
+      // One-like-per-browser (simple client-side guard)
+      const likedStorageKey = `liked_${docId}`;
+      const isLiked = localStorage.getItem(likedStorageKey) === "1";
+      if (isLiked){
+        likeBtn.classList.add("liked");
+        likeBtn.setAttribute("aria-pressed", "true");
+      }
+
+      // Ensure doc exists (count field), without changing your page logic
+      // merge:true keeps it safe if you add fields later
+      setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
+
+      // Live updates
+      onSnapshot(ref, (snap) => {
+        const data = snap.exists() ? snap.data() : null;
+        const count = data && typeof data.count === "number" ? data.count : 0;
+        likeCount.textContent = String(count);
+      });
+
+      async function doLike(e){
+        // Stop link navigation (because this sits inside the <a> card)
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Already liked on this browser? Do nothing.
+        if (localStorage.getItem(likedStorageKey) === "1") return;
+
+        // UI state first (instant feedback)
+        localStorage.setItem(likedStorageKey, "1");
+        likeBtn.classList.add("liked");
+        likeBtn.setAttribute("aria-pressed", "true");
+
+        // Atomic increment in Firestore
+        try{
+          await updateDoc(ref, { count: increment(1) });
+        }catch(err){
+          // If update fails, rollback UI state
+          localStorage.removeItem(likedStorageKey);
+          likeBtn.classList.remove("liked");
+          likeBtn.setAttribute("aria-pressed", "false");
+          console.error("Like failed:", err);
+        }
+      }
+
+      likeBtn.addEventListener("click", doLike);
+      likeBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " "){
+          doLike(e);
+        }
+      });
+    }
+  }
+
+  // Run after your existing scripts have created the DOM order
+  setupLikes();
+</script>
+
 </body>
 </html>
