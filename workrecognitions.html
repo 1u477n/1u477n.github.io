@@ -335,9 +335,8 @@
       font-weight: 700;
       font-size: 12px;
     }
-    /* Menu external-link arrow: force text glyph + bigger size */
     .menu a .arrow-icon{
-      color: var(--muted2);   /* explicitly muted */
+      color: var(--muted2);
       font-size: 16px;
       line-height: 1;
       font-family: "Segoe UI Symbol", system-ui, sans-serif;
@@ -515,6 +514,17 @@
       position: relative;
       z-index: 1;
     }
+
+    /* NEW (minimal): allow multiple chips without changing chip style */
+    .chips{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      min-width: 0;
+      flex-wrap: wrap;
+      max-width: 75%;
+    }
+
     .chip{
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
@@ -525,7 +535,7 @@
       white-space: nowrap;
       overflow:hidden;
       text-overflow: ellipsis;
-      max-width: 75%;
+      max-width: 100%;
     }
     .arrow{
       display:flex;
@@ -776,13 +786,11 @@
       border-radius: 50%;
       box-shadow: var(--ring), 0 12px 28px rgba(56,189,248,.12);
     }
-    /* Show ☀️ in light mode, 🌙 in dark mode */
     html[data-theme="dark"] .mark.theme-toggle .sun{ display:none; }
     html[data-theme="light"] .mark.theme-toggle .moon{ display:none; }
 
     /* ---------------------------
        Manual theme override (wins over prefers-color-scheme)
-       Put AFTER the media query so it always wins.
        --------------------------- */
 
     /* Force LIGHT */
@@ -1067,7 +1075,7 @@
   <div class="topbar">
     <div class="nav" role="navigation" aria-label="Site">
       <div class="brand">
-        <!-- Changed from decorative mark to theme toggle button -->
+        <!-- Theme toggle button -->
         <button class="mark theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
           <!-- Sun (light) -->
           <svg class="sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -1089,7 +1097,6 @@
       </div>
 
       <div class="nav-actions">
-        <!-- <a class="btn primary" href="https://www.linkedin.com/in/1u477n/" target="_blank" rel="noreferrer">LinkedIn</a> -->
         <button class="icon-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel" title="Menu">
           <div class="icon" aria-hidden="true">
             <span></span><span></span><span></span>
@@ -1100,7 +1107,7 @@
 
     <!-- Menu panel -->
     <div class="menu" id="menuPanel" aria-label="Menu">
-      <a href="https://1u477n.github.io/">Home 
+      <a href="https://1u477n.github.io/">Home
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1108,7 +1115,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/about.html">About Me 
+      <a href="https://1u477n.github.io/about.html">About Me
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1116,7 +1123,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting 
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1124,7 +1131,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/publishedworks.html">Published Works 
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1132,7 +1139,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions 
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1140,7 +1147,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs 
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1148,7 +1155,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae 
+      <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1156,7 +1163,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn 
+      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1169,12 +1176,11 @@
 
   <main class="container">
     <section class="hero panel" aria-label="Work Recognitions header">
-      <!-- <div class="kicker"><i></i> Recognition index</div> -->
       <h1><span class="grad-text">Work Recognitions</span></h1>
       <p class="subhead">Search and filter awards by keyword and category.</p>
     </section>
 
-    <!-- Controls (same functionality, restyled) -->
+    <!-- Controls -->
     <section class="controls" aria-label="Filters">
       <div class="control panel">
         <div class="label"><i></i> Search</div>
@@ -1185,400 +1191,16 @@
         <div class="label"><i></i> Category</div>
         <select id="categoryFilter">
           <option value="">All Categories</option>
-          <option value="Win As One Team">Win As One Team</option>
-          <option value="Act With Urgency">Act With Urgency</option>
-          <option value="Experiment, Learn, and Adapt">Experiment, Learn, and Adapt</option>
-          <option value="Knowing To Learn">Knowing To Learn</option>
-          <option value="Witholding to Sharing">Witholding to Sharing</option>
-          <option value="Drive Results">Drive Results</option>
-          <option value="Silos to Networks">Silos to Networks</option>
-          <option value="Build A Diverse and Inclusive Culture">Build A Diverse and Inclusive Culture</option>
-          <option value="Foster Collaboration">Foster Collaboration</option>
-          <option value="IT Excellence and Innovation">IT Excellence and Innovation</option>
+          <!-- Populated from CSV -->
         </select>
       </div>
     </section>
 
-    <!-- Content kept exactly (same links/text/categories), restyled -->
-    <section class="awards-grid" id="awardsGrid" aria-label="Awards list">
-      <article class="award-card panel" data-category="Win As One Team">
-        <a href="awards/links/20231213.pdf" class="card-link">
-          <h3 class="award-title">Accelerate A year of scaling & increasing impact</h3>
-          <div class="meta">
-            <div class="chip">Win As One Team</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Win As One Team">
-        <a href="awards/links/20221222_03.pdf" class="card-link">
-          <h3 class="award-title">Contributions to CoM Design Product</h3>
-          <div class="meta">
-            <div class="chip">Win As One Team</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Win As One Team">
-        <a href="awards/links/20221222_02.pdf" class="card-link">
-          <h3 class="award-title">HTE Library Design Capability Development</h3>
-          <div class="meta">
-            <div class="chip">Win As One Team</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Win As One Team">
-        <a href="awards/links/20221222_01.pdf" class="card-link">
-          <h3 class="award-title">Contributions to CoM Design Product</h3>
-          <div class="meta">
-            <div class="chip">Win As One Team</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Act With Urgency">
-        <a href="awards/links/20221221.pdf" class="card-link">
-          <h3 class="award-title">Therapeutic Antibody Profiler Execution</h3>
-          <div class="meta">
-            <div class="chip">Act With Urgency</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Act With Urgency">
-        <a href="awards/links/20221026.pdf" class="card-link">
-          <h3 class="award-title">Help with Pipeline Pilot protocols</h3>
-          <div class="meta">
-            <div class="chip">Act With Urgency</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Experiment, Learn, and Adapt">
-        <a href="awards/links/20220725.pdf" class="card-link">
-          <h3 class="award-title">ChemDraw 21 Rollout</h3>
-          <div class="meta">
-            <div class="chip">Experiment, Learn, and Adapt</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Knowing To Learn">
-        <a href="awards/links/20211220.pdf" class="card-link">
-          <h3 class="award-title">Impact through continuous learning</h3>
-          <div class="meta">
-            <div class="chip">Knowing To Learn</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Witholding to Sharing">
-        <a href="awards/links/20211216_02.pdf" class="card-link">
-          <h3 class="award-title">CoM product line</h3>
-          <div class="meta">
-            <div class="chip">Witholding to Sharing</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Witholding to Sharing">
-        <a href="awards/links/20211216_01.pdf" class="card-link">
-          <h3 class="award-title">SSF LEO Development and Execution Team</h3>
-          <div class="meta">
-            <div class="chip">Witholding to Sharing</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20211203.pdf" class="card-link">
-          <h3 class="award-title">Instrument onboarding process</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20211108.pdf" class="card-link">
-          <h3 class="award-title">Solving ELN issue</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20210130.pdf" class="card-link">
-          <h3 class="award-title">Driving the Resolution of our HTRT RDP Issue</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20201006.pdf" class="card-link">
-          <h3 class="award-title">Enter Large Dataset into PIER Parser</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20200707.pdf" class="card-link">
-          <h3 class="award-title">Help with External InVivo data curation</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20200520.pdf" class="card-link">
-          <h3 class="award-title">Identified and resolved email problem with partner</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20200407.pdf" class="card-link">
-          <h3 class="award-title">Big thanks Luat for your help</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20190902.pdf" class="card-link">
-          <h3 class="award-title">Thank you for your help and support</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20190619.pdf" class="card-link">
-          <h3 class="award-title">Palo Alto:SSF:Mission Bay computer room migration</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Drive Results">
-        <a href="awards/links/20190102.pdf" class="card-link">
-          <h3 class="award-title">SSF Site Move IT Support</h3>
-          <div class="meta">
-            <div class="chip">Drive Results</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Silos to Networks">
-        <a href="awards/links/20200224.pdf" class="card-link">
-          <h3 class="award-title">Site Culture and Collaboration</h3>
-          <div class="meta">
-            <div class="chip">Silos to Networks</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Build A Diverse and Inclusive Culture">
-        <a href="awards/links/20200214.pdf" class="card-link">
-          <h3 class="award-title">Extended Leadership Member</h3>
-          <div class="meta">
-            <div class="chip">Build A Diverse and Inclusive Culture</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Foster Collaboration">
-        <a href="awards/links/20181213.pdf" class="card-link">
-          <h3 class="award-title">Weekly reporting of site-related IT activities</h3>
-          <div class="meta">
-            <div class="chip">Foster Collaboration</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="Foster Collaboration">
-        <a href="awards/links/20171209.pdf" class="card-link">
-          <h3 class="award-title">Linux Workstation @ South San Francisco</h3>
-          <div class="meta">
-            <div class="chip">Foster Collaboration</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="award-card panel" data-category="IT Excellence and Innovation">
-        <a href="awards/links/2015.JPG" class="card-link">
-          <h3 class="award-title">Medivation - IT Excellence and Innovation Award</h3>
-          <div class="meta">
-            <div class="chip">IT Excellence and Innovation</div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-    </section>
+    <!-- Cards injected from CSV -->
+    <section class="awards-grid" id="awardsGrid" aria-label="Awards list"></section>
 
     <footer class="footer panel">
-      © <span id="year"></span> · Work Recognitions · 
+      © <span id="year"></span> · Work Recognitions ·
       <a href="https://1u477n.github.io/">Home</a>
     </footer>
   </main>
@@ -1612,7 +1234,6 @@
       } else {
         applyTheme(media.matches ? "light" : "dark", false);
 
-        // Track system changes only when user hasn't manually chosen a theme
         const handler = (e) => applyTheme(e.matches ? "light" : "dark", false);
         if (typeof media.addEventListener === "function") media.addEventListener("change", handler);
         else if (typeof media.addListener === "function") media.addListener(handler);
@@ -1625,7 +1246,7 @@
       });
     })();
 
-    // Menu toggle (same behavior as your other pages)
+    // Menu toggle
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
 
@@ -1655,28 +1276,233 @@
       if (e.key === "Escape") closeMenu();
     });
 
-    // Filtering logic (kept)
-    const searchInput = document.getElementById('searchInput');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const awardCards = document.querySelectorAll('.award-card');
+    // -----------------------------
+    // CSV → render awards + categories
+    // -----------------------------
+    const awardsGrid = document.getElementById("awardsGrid");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const searchInput = document.getElementById("searchInput");
+
+    let awardCards = [];
+
+    // Robust CSV parser (handles quotes + commas)
+    function parseCSV(text){
+      const rows = [];
+      let row = [];
+      let cur = "";
+      let inQuotes = false;
+
+      // Normalize newlines
+      text = (text || "").replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+      for (let i = 0; i < text.length; i++){
+        const ch = text[i];
+
+        if (inQuotes){
+          if (ch === '"'){
+            const next = text[i+1];
+            if (next === '"'){ // escaped quote
+              cur += '"';
+              i++;
+            } else {
+              inQuotes = false;
+            }
+          } else {
+            cur += ch;
+          }
+        } else {
+          if (ch === '"'){
+            inQuotes = true;
+          } else if (ch === ","){
+            row.push(cur);
+            cur = "";
+          } else if (ch === "\n"){
+            row.push(cur);
+            cur = "";
+            // Skip empty trailing lines
+            if (row.length > 1 || (row.length === 1 && row[0].trim() !== "")){
+              rows.push(row);
+            }
+            row = [];
+          } else {
+            cur += ch;
+          }
+        }
+      }
+
+      // last cell
+      row.push(cur);
+      if (row.length > 1 || (row.length === 1 && row[0].trim() !== "")){
+        rows.push(row);
+      }
+
+      return rows;
+    }
+
+    function rowsToObjects(rows){
+      if (!rows || rows.length < 2) return [];
+      const headers = rows[0].map(h => (h || "").trim().toLowerCase());
+      const out = [];
+
+      for (let i = 1; i < rows.length; i++){
+        const r = rows[i];
+        if (!r || r.every(v => (v || "").trim() === "")) continue;
+
+        const obj = {};
+        for (let c = 0; c < headers.length; c++){
+          const key = headers[c];
+          if (!key) continue;
+          obj[key] = (r[c] ?? "").trim();
+        }
+        out.push(obj);
+      }
+      return out;
+    }
+
+    function clearCategoryOptions(){
+      // keep only "All Categories"
+      while (categoryFilter.options.length > 1) categoryFilter.remove(1);
+    }
+
+    function populateCategoriesFromData(data){
+      clearCategoryOptions();
+      const seen = new Set();
+
+      for (const item of data){
+        const cat = (item.category || "").trim();
+        if (!cat || seen.has(cat)) continue;
+        seen.add(cat);
+
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categoryFilter.appendChild(opt);
+      }
+    }
+
+    function buildCard({ category, recognition, nominator, source }){
+      const article = document.createElement("article");
+      article.className = "award-card panel";
+      article.setAttribute("data-category", category || "");
+
+      const a = document.createElement("a");
+      a.className = "card-link";
+      a.href = source || "#";
+
+      const h3 = document.createElement("h3");
+      h3.className = "award-title";
+      h3.textContent = recognition || "";
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+
+      const chips = document.createElement("div");
+      chips.className = "chips";
+/*
+      const chipCategory = document.createElement("div");
+      chipCategory.className = "chip";
+      chipCategory.textContent = category || "";
+      chips.appendChild(chipCategory);
+*/
+      const nom = (nominator || "").trim();
+      if (nom){
+        const chipNom = document.createElement("div");
+        chipNom.className = "chip";
+        chipNom.textContent = `Nominator: ${nom}`;
+        chips.appendChild(chipNom);
+      }
+
+      const arrow = document.createElement("div");
+      arrow.className = "arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.innerHTML = `
+        <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+
+      meta.appendChild(chips);
+      meta.appendChild(arrow);
+
+      a.appendChild(h3);
+      a.appendChild(meta);
+      article.appendChild(a);
+
+      return article;
+    }
+
+    function renderAwards(data){
+      awardsGrid.innerHTML = "";
+
+      // De-dupe by UID (first occurrence wins)
+      const seenUID = new Set();
+
+      for (const item of data){
+        const uid = (item.uid || "").trim();
+        if (uid && seenUID.has(uid)) continue;
+        if (uid) seenUID.add(uid);
+
+        const card = buildCard({
+          category: item.category || "",
+          recognition: item.recognition || "",
+          nominator: item.nominator || "",
+          source: item.source || ""
+        });
+
+        awardsGrid.appendChild(card);
+      }
+
+      // Update live list of cards for filtering
+      awardCards = Array.from(document.querySelectorAll(".award-card"));
+    }
 
     function filterAwards() {
       const searchText = searchInput.value.toLowerCase();
       const selectedCategory = categoryFilter.value;
 
-      awardCards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        const category = card.getAttribute('data-category');
+      for (const card of awardCards){
+        const text = (card.textContent || "").toLowerCase();
+        const category = card.getAttribute("data-category") || "";
 
         const matchesSearch = text.includes(searchText);
         const matchesCategory = !selectedCategory || category === selectedCategory;
 
-        card.classList.toggle('hidden', !(matchesSearch && matchesCategory));
-      });
+        card.classList.toggle("hidden", !(matchesSearch && matchesCategory));
+      }
     }
 
-    searchInput.addEventListener('input', filterAwards);
-    categoryFilter.addEventListener('change', filterAwards);
+    async function loadCSVAndRender(){
+      // Daily cache-bust → ensures everyone gets updates within 24 hours
+      const dayStamp = Math.floor(Date.now() / 86400000);
+      const url = `/awards/work_recognitions.csv?v=${dayStamp}`;
+
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok){
+        throw new Error(`CSV fetch failed: ${res.status} ${res.statusText}`);
+      }
+
+      const text = await res.text();
+      const rows = parseCSV(text);
+      const data = rowsToObjects(rows);
+
+      populateCategoriesFromData(data);
+      renderAwards(data);
+
+      // Default: show all
+      filterAwards();
+    }
+
+    // Wire filters
+    searchInput.addEventListener("input", filterAwards);
+    categoryFilter.addEventListener("change", filterAwards);
+
+    // Initial load
+    loadCSVAndRender().catch((err) => {
+      console.error(err);
+      awardsGrid.innerHTML = "";
+      // Keep UI clean; log the error only.
+    });
   </script>
 </body>
 </html>
