@@ -36,6 +36,32 @@
     gtag('config', 'G-VW323NJP26');
   </script>
 
+  <script>
+    (function () {
+      // Detect repo base for GitHub Pages project sites
+      var segs = location.pathname.split('/').filter(Boolean);
+      var base = '';
+      if (segs.length && !(segs[0].endsWith('.html') || segs[0] === 'blogs')) base = '/' + segs[0];
+  
+      // Apple Touch Icon (Home Screen icon)
+      var icon = document.createElement('link');
+      icon.rel = 'apple-touch-icon';
+      icon.href = base + '/icons/apple-touch-icon.png';
+      document.head.appendChild(icon);
+  
+      // Optional: make it feel more app-like when launched
+      var cap = document.createElement('meta');
+      cap.name = 'apple-mobile-web-app-capable';
+      cap.content = 'yes';
+      document.head.appendChild(cap);
+  
+      var title = document.createElement('meta');
+      title.name = 'apple-mobile-web-app-title';
+      title.content = 'Your App Name';
+      document.head.appendChild(title);
+    })();
+  </script>
+  
   <!-- Same font stack as the themed page -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
