@@ -341,18 +341,16 @@
       font-weight: 700;
       font-size: 12px;
     }
-    /* Menu external-link arrow: force text glyph + bigger size */
+    /* Menu external-link arrow */
     .menu a .arrow-icon{
-      color: var(--muted2);   /* explicitly muted */
+      color: var(--muted2);
       font-size: 16px;
       line-height: 1;
       font-family: "Segoe UI Symbol", system-ui, sans-serif;
     }
 
-
     /* ---------------------------
       Likes (heart + count)
-      Reuses .arrow styling so theme stays consistent
       --------------------------- */
     .meta-actions{
       display:flex;
@@ -360,26 +358,21 @@
       gap: 10px;
     }
 
-    /* Heart SVG specifics */
     .like-btn .heart-svg{
       width: 18px;
       height: 18px;
       display:block;
     }
 
-    /* Outline by default */
     .like-btn .heart-fill{
       fill: transparent;
       transition: fill .18s ease, transform .18s ease;
       transform-origin: center;
     }
 
-    /* Solid when liked (your .liked already sets color: #ef4444) */
     .like-btn.liked .heart-fill{
       fill: currentColor;
     }
-
-    /* Optional micro “pop” when liked (safe, subtle) */
     .like-btn.liked .heart-fill{
       transform: scale(1.02);
     }
@@ -399,7 +392,7 @@
       width: 18px;
       height: 18px;
       display:block;
-      fill: none; /* outline by default */
+      fill: none;
     }
 
     .like-count{
@@ -410,11 +403,11 @@
     }
 
     .like-btn.liked{
-      color: #ef4444; /* solid red heart */
+      color: #ef4444;
     }
 
     .like-btn.liked svg{
-      fill: currentColor; /* makes the heart solid */
+      fill: currentColor;
     }
 
     .like-btn:focus-visible{
@@ -422,7 +415,7 @@
       box-shadow: var(--ring);
       border-radius: 14px;
     }
-    
+
     /* Header card */
     .hero{
       border-radius: var(--r24);
@@ -622,16 +615,16 @@
       display:grid;
       place-items:center;
       color: rgba(234,240,255,.80);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* no Emoji fonts */
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       font-weight: 900;
-      font-size: 18px;   /* try 18–22px */
-      line-height: 1;    /* keeps it vertically centered */
+      font-size: 18px;
+      line-height: 1;
       flex: 0 0 auto;
     }
     .arrow .arrow-icon{
-      font-size: 18px;   /* try 18–22px */
+      font-size: 18px;
       line-height: 1;
-      display: block;    /* helps centering inside the 34x34 box */
+      display: block;
     }
     .arrow .arrow-svg{
       width: 18px;
@@ -854,12 +847,7 @@
     html[data-theme="dark"] .mark.theme-toggle .sun{ display:none; }
     html[data-theme="light"] .mark.theme-toggle .moon{ display:none; }
 
-    /* ---------------------------
-       Manual theme override (wins over prefers-color-scheme)
-       Put AFTER the media query so it always wins.
-       --------------------------- */
-
-    /* Force LIGHT */
+    /* Manual theme override blocks (unchanged) */
     html[data-theme="light"]{
       color-scheme: light;
       --bg0:#ffffff;
@@ -999,7 +987,6 @@
     }
     html[data-theme="light"] .panel:after{ opacity: .45; }
 
-    /* Force DARK (overrides device light mode) */
     html[data-theme="dark"]{
       color-scheme: dark;
       --bg0:#070A12;
@@ -1142,13 +1129,11 @@
 
     /* Ensure liked state wins over theme-specific .arrow colors */
     html[data-theme] .like-btn.liked{
-      color: #ef4444; /* solid red in light + dark */
+      color: #ef4444;
     }
-
     html[data-theme] .like-btn.liked .heart-fill{
-      fill: currentColor; /* fill heart with that red */
+      fill: currentColor;
     }
-
   </style>
 </head>
 
@@ -1189,7 +1174,7 @@
     </div>
 
     <div class="menu" id="menuPanel" aria-label="Menu">
-      <a href="https://1u477n.github.io/">Home 
+      <a href="https://1u477n.github.io/">Home
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1197,7 +1182,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/about.html">About Me 
+      <a href="https://1u477n.github.io/about.html">About Me
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1205,7 +1190,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting 
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1213,7 +1198,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/publishedworks.html">Published Works 
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1221,7 +1206,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions 
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1229,7 +1214,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs 
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1237,7 +1222,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae 
+      <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1245,7 +1230,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn 
+      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1274,9 +1259,7 @@
         <div class="label"><i></i> Category</div>
         <select id="categoryFilter">
           <option value="">All Categories</option>
-          <option value="AI & Drug Discovery">AI & Drug Discovery</option>
-          <option value="AI & Healthcare">AI & Healthcare</option>
-          <option value="AI & Medicine">AI & Medicine</option>
+          <!-- populated from blogs_mainpage.csv -->
         </select>
       </div>
 
@@ -1290,130 +1273,11 @@
     </section>
 
     <section class="blogs-grid" id="blogsGrid" aria-label="Blogs list">
-      <!-- Blog 1 -->
-      <article
-        class="blog-card panel"
-        data-category="AI & Drug Discovery"
-        data-date="2026-01-23"
-        data-title="Trial and Error, Over"
-      >
-        <a href="https://1u477n.github.io/blogs/20260123_trialanderror_over.html" class="card-link">
-          <h3 class="blog-title">The Trial-and-Error Era Is Over</h3>
-          <div class="meta">
-            <div class="chips">
-              <div class="chip">AI & Drug Discovery</div>
-              <div class="chip" data-date-chip>2026-01-23</div>
-            </div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Blog 2 -->
-      <article
-        class="blog-card panel"
-        data-category="AI & Drug Discovery"
-        data-date="2026-01-04"
-        data-title="AI AlphaFold Blueprint"
-      >
-        <a href="https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html" class="card-link">
-          <h3 class="blog-title">AI AlphaFold Blueprint - New Foundation in Drug Discovery </h3>
-          <div class="meta">
-            <div class="chips">
-              <div class="chip">AI & Drug Discovery</div>
-              <div class="chip" data-date-chip>2026-01-04</div>
-            </div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Blog 3 -->
-      <article
-        class="blog-card panel"
-        data-category="AI & Drug Discovery"
-        data-date="2026-01-24"
-        data-title="Basic Research in the AI Era"
-      >
-        <a href="https://1u477n.github.io/blogs/basic-research-ai-era.html" class="card-link">
-          <h3 class="blog-title">The Enduring Power of Basic Research in the AI Era</h3>
-          <div class="meta">
-            <div class="chips">
-              <div class="chip">AI & Drug Discovery</div>
-              <div class="chip" data-date-chip>2026-01-24</div>
-            </div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Blog 4 -->
-      <article
-        class="blog-card panel"
-        data-category="AI & Healthcare"
-        data-date="2026-01-25"
-        data-title="The Synergy of the Century"
-      >
-        <a href="https://1u477n.github.io/blogs/apple-gemini-healthcare.html" class="card-link">
-          <h3 class="blog-title">The Synergy of the Century: Why Apple Intelligence Needs Google’s Gemini</h3>
-          <div class="meta">
-            <div class="chips">
-              <div class="chip">AI & Healthcare</div>
-              <div class="chip" data-date-chip>2026-01-25</div>
-            </div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Blog 5 -->
-      <article
-        class="blog-card panel"
-        data-category="AI & Medicine"
-        data-date="2026-01-28"
-        data-title="From Molecules to Medicine: DeepMind’s AI Pipeline"
-      >
-        <a href="https://1u477n.github.io/blogs/deepmind-ai-pipeline.html" class="card-link">
-          <h3 class="blog-title">From Molecules to Medicine: DeepMind’s AI Pipeline</h3>
-          <div class="meta">
-            <div class="chips">
-              <div class="chip">AI & Medicine</div>
-              <div class="chip" data-date-chip>2026-01-28</div>
-            </div>
-            <div class="arrow" aria-hidden="true">
-              <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </article>
-      
+      <!-- populated from blogs_mainpage.csv -->
     </section>
 
     <footer class="footer panel">
-      © <span id="year"></span> · Blogs · 
+      © <span id="year"></span> · Blogs ·
       <a href="https://1u477n.github.io/">Home</a>
     </footer>
   </main>
@@ -1489,15 +1353,184 @@
       if (e.key === "Escape") closeMenu();
     });
 
-    // Blog filtering + sorting (date default, name within category)
+    // ---------------------------------------------------------
+    // CSV -> render blog cards + populate category dropdown
+    // ---------------------------------------------------------
+
+    // A promise that resolves once CSV-rendered cards exist (used by Firebase likes module)
+    window.__BLOGS_READY__ = new Promise((resolve) => { window.__resolveBlogsReady__ = resolve; });
+
+    const CSV_PATH = "blogs_mainpage.csv"; // same route level as this page
+
     const searchInput = document.getElementById("searchInput");
     const categoryFilter = document.getElementById("categoryFilter");
     const sortSelect = document.getElementById("sortSelect");
     const grid = document.getElementById("blogsGrid");
-    const cards = Array.from(document.querySelectorAll(".blog-card"));
+
+    function parseCSV(text){
+      // Handles commas, quotes, and newlines inside quotes.
+      const rows = [];
+      let row = [];
+      let field = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++){
+        const c = text[i];
+
+        if (inQuotes){
+          if (c === '"'){
+            const next = text[i + 1];
+            if (next === '"'){
+              field += '"';
+              i++;
+            } else {
+              inQuotes = false;
+            }
+          } else {
+            field += c;
+          }
+        } else {
+          if (c === '"'){
+            inQuotes = true;
+          } else if (c === ","){
+            row.push(field);
+            field = "";
+          } else if (c === "\n"){
+            row.push(field);
+            field = "";
+            // Ignore empty last line
+            if (row.some(v => String(v).trim() !== "")) rows.push(row);
+            row = [];
+          } else if (c === "\r"){
+            // ignore
+          } else {
+            field += c;
+          }
+        }
+      }
+
+      // trailing field
+      row.push(field);
+      if (row.some(v => String(v).trim() !== "")) rows.push(row);
+
+      return rows;
+    }
+
+    function toObjects(csvText){
+      const raw = parseCSV(csvText);
+      if (!raw.length) return [];
+
+      const headers = raw[0].map(h => String(h || "").trim());
+      const lowerHeaders = headers.map(h => h.toLowerCase());
+
+      const out = [];
+      for (let i = 1; i < raw.length; i++){
+        const r = raw[i];
+        const obj = {};
+        for (let j = 0; j < headers.length; j++){
+          obj[headers[j]] = (r[j] ?? "").toString().trim();
+          obj[lowerHeaders[j]] = (r[j] ?? "").toString().trim(); // convenience access
+        }
+        out.push(obj);
+      }
+      return out;
+    }
+
+    function arrowSVG(){
+      return `
+        <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
+
+    function clearCategories(){
+      // Keep the first option ("All Categories"), remove the rest
+      while (categoryFilter.options.length > 1) categoryFilter.remove(1);
+    }
+
+    function populateCategoriesFromSet(categories){
+      clearCategories();
+      const list = Array.from(categories).filter(Boolean);
+      list.sort((a,b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+      for (const cat of list){
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categoryFilter.appendChild(opt);
+      }
+    }
+
+    function renderBlogs(rows){
+      // Remove any existing cards (CSV is the source of truth)
+      grid.innerHTML = "";
+
+      const categories = new Set();
+
+      for (const r of rows){
+        const uid = (r.blogs_uid || r.blog_uid || r.blog_uid || "").trim();
+        const url = (r.blog_url || "").trim();
+        const title = (r.title || "").trim();
+        const category = (r.category || "").trim();
+        const date = (r.date || "").trim();
+
+        if (!url || !title) continue;
+
+        categories.add(category);
+
+        const article = document.createElement("article");
+        article.className = "blog-card panel";
+        article.setAttribute("data-category", category);
+        article.setAttribute("data-date", date);
+        article.setAttribute("data-title", title);
+        if (uid) article.setAttribute("data-uid", uid);
+
+        const a = document.createElement("a");
+        a.className = "card-link";
+        a.href = url;
+
+        const h3 = document.createElement("h3");
+        h3.className = "blog-title";
+        h3.textContent = title;
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+
+        const chips = document.createElement("div");
+        chips.className = "chips";
+
+        const chipCategory = document.createElement("div");
+        chipCategory.className = "chip";
+        chipCategory.textContent = category;
+
+        const chipDate = document.createElement("div");
+        chipDate.className = "chip";
+        chipDate.setAttribute("data-date-chip", "");
+        chipDate.textContent = date;
+
+        chips.appendChild(chipCategory);
+        chips.appendChild(chipDate);
+
+        const arrow = document.createElement("div");
+        arrow.className = "arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.innerHTML = arrowSVG();
+
+        meta.appendChild(chips);
+        meta.appendChild(arrow);
+
+        a.appendChild(h3);
+        a.appendChild(meta);
+
+        article.appendChild(a);
+        grid.appendChild(article);
+      }
+
+      populateCategoriesFromSet(categories);
+    }
 
     function parseDateISO(s){
-      // Safe parse for YYYY-MM-DD
       const [y,m,d] = (s || "").split("-").map(Number);
       if (!y || !m || !d) return new Date(0);
       return new Date(Date.UTC(y, m-1, d));
@@ -1507,6 +1540,8 @@
       const q = searchInput.value.trim().toLowerCase();
       const selectedCategory = categoryFilter.value;
       const sortMode = sortSelect.value;
+
+      const cards = Array.from(grid.querySelectorAll(".blog-card"));
 
       const visible = [];
       const hidden = [];
@@ -1525,28 +1560,106 @@
         (show ? visible : hidden).push(card);
       }
 
-      // Sort ONLY the visible set (i.e., within the chosen category/filter)
       visible.sort((a,b) => {
         if (sortMode === "title_asc") {
           return (a.dataset.title || "").localeCompare((b.dataset.title || ""), undefined, { sensitivity: "base" });
         }
-        // default: date_desc (newest first)
         const da = parseDateISO(a.dataset.date);
         const db = parseDateISO(b.dataset.date);
         return db - da;
       });
 
-      // Re-append in order (visible first, then hidden)
       for (const card of [...visible, ...hidden]) grid.appendChild(card);
     }
 
-    // Default sort: date (newest)
-    sortSelect.value = "date_desc";
-    applyFiltersAndSort();
+    // Load CSV and render on page load
+    (async function initFromCSV(){
+      try{
+        // Cache-bust hourly => ensures "within 24 hours" updates for returning viewers.
+        const bust = Math.floor(Date.now() / 3600000);
+        const url = `${CSV_PATH}?v=${bust}`;
 
-    searchInput.addEventListener("input", applyFiltersAndSort);
-    categoryFilter.addEventListener("change", applyFiltersAndSort);
-    sortSelect.addEventListener("change", applyFiltersAndSort);
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(`Failed to fetch ${CSV_PATH} (${res.status})`);
+
+        const csvText = await res.text();
+        const rows = toObjects(csvText);
+
+        renderBlogs(rows);
+
+        // Default sort: date (newest)
+        sortSelect.value = "date_desc";
+        applyFiltersAndSort();
+
+        // Wire listeners (same behavior)
+        searchInput.addEventListener("input", applyFiltersAndSort);
+        categoryFilter.addEventListener("change", applyFiltersAndSort);
+        sortSelect.addEventListener("change", applyFiltersAndSort);
+
+        // Signal to the likes module that cards exist
+        if (typeof window.__resolveBlogsReady__ === "function") window.__resolveBlogsReady__();
+      } catch (err){
+        console.error("CSV render error:", err);
+
+        // Non-invasive fallback: show 1 card with error so the page isn't empty.
+        grid.innerHTML = "";
+        const article = document.createElement("article");
+        article.className = "blog-card panel";
+        article.setAttribute("data-category", "");
+        article.setAttribute("data-date", "1970-01-01");
+        article.setAttribute("data-title", "Unable to load blogs");
+
+        const a = document.createElement("a");
+        a.className = "card-link";
+        a.href = "#";
+
+        const h3 = document.createElement("h3");
+        h3.className = "blog-title";
+        h3.textContent = "Unable to load blogs_mainpage.csv";
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+
+        const chips = document.createElement("div");
+        chips.className = "chips";
+
+        const chip1 = document.createElement("div");
+        chip1.className = "chip";
+        chip1.textContent = "Check console / path";
+
+        const chip2 = document.createElement("div");
+        chip2.className = "chip";
+        chip2.setAttribute("data-date-chip", "");
+        chip2.textContent = "";
+
+        chips.appendChild(chip1);
+        chips.appendChild(chip2);
+
+        const arrow = document.createElement("div");
+        arrow.className = "arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.innerHTML = arrowSVG();
+
+        meta.appendChild(chips);
+        meta.appendChild(arrow);
+
+        a.appendChild(h3);
+        a.appendChild(meta);
+
+        article.appendChild(a);
+        grid.appendChild(article);
+
+        clearCategories();
+        sortSelect.value = "date_desc";
+        applyFiltersAndSort();
+
+        searchInput.addEventListener("input", applyFiltersAndSort);
+        categoryFilter.addEventListener("change", applyFiltersAndSort);
+        sortSelect.addEventListener("change", applyFiltersAndSort);
+
+        if (typeof window.__resolveBlogsReady__ === "function") window.__resolveBlogsReady__();
+      }
+    })();
   </script>
 
   <script type="module">
@@ -1577,7 +1690,6 @@
 
   const COLLECTION = "blogLikes";
 
-  // Deterministic short id from a string (stable docId per post)
   function fnv1a(str){
     let h = 0x811c9dc5;
     for (let i = 0; i < str.length; i++){
@@ -1588,7 +1700,6 @@
   }
 
   function getPostKey(card){
-    // Prefer href (stable), fallback to date+title
     const a = card.querySelector("a.card-link");
     const href = a?.getAttribute("href") || "";
     if (href) return href;
@@ -1615,17 +1726,14 @@
     const arrow = meta.querySelector(".arrow");
     if (!arrow) return;
 
-    // Prevent double-injection
     if (meta.querySelector(".like-wrap")) return;
 
-    // Wrap right-side actions: [heart+count] [arrow]
     const actions = document.createElement("div");
     actions.className = "meta-actions";
 
     const likeWrap = document.createElement("div");
     likeWrap.className = "like-wrap";
 
-    // Reuse your existing .arrow styling for the heart pill
     const likeBtn = document.createElement("span");
     likeBtn.className = "arrow like-btn";
     likeBtn.setAttribute("role", "button");
@@ -1641,7 +1749,6 @@
     likeWrap.appendChild(likeBtn);
     likeWrap.appendChild(likeCount);
 
-    // Replace arrow with actions container, then append both
     arrow.replaceWith(actions);
     actions.appendChild(likeWrap);
     actions.appendChild(arrow);
@@ -1662,10 +1769,7 @@
       const docId = fnv1a(postKey);
       const ref = doc(db, COLLECTION, docId);
 
-      // One-like-per-browser (simple client-side guard)
       const likedStorageKey = `liked_${docId}`;
-
-      // IMPORTANT: use a mutable variable (not a one-time const)
       let liked = localStorage.getItem(likedStorageKey) === "1";
 
       function applyLikedUI(){
@@ -1674,14 +1778,10 @@
         likeBtn.setAttribute("title", liked ? "Unlike" : "Like");
       }
 
-      // Apply initial UI state
       applyLikedUI();
 
-      // Ensure doc exists (count field), without changing your page logic
-      // merge:true keeps it safe if you add fields later
       setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
 
-      // Live updates
       onSnapshot(ref, (snap) => {
         const data = snap.exists() ? snap.data() : null;
         const count = data && typeof data.count === "number" ? data.count : 0;
@@ -1689,29 +1789,24 @@
       });
 
       async function toggleLike(e){
-        // Stop link navigation (because this sits inside the <a> card)
         e.preventDefault();
         e.stopPropagation();
 
         const next = !liked;
         const delta = next ? 1 : -1;
 
-        // Optimistic UI update
         liked = next;
         if (liked) localStorage.setItem(likedStorageKey, "1");
         else localStorage.removeItem(likedStorageKey);
         applyLikedUI();
 
-        // Atomic update in Firestore
         try{
           await updateDoc(ref, { count: increment(delta) });
         }catch(err){
-          // Rollback UI state on failure
           liked = !next;
           if (liked) localStorage.setItem(likedStorageKey, "1");
           else localStorage.removeItem(likedStorageKey);
           applyLikedUI();
-
           console.error(delta === 1 ? "Like failed:" : "Unlike failed:", err);
         }
       }
@@ -1725,7 +1820,8 @@
     }
   }
 
-  // Run after your existing scripts have created the DOM order
+  // Wait until CSV-rendered cards are present
+  if (window.__BLOGS_READY__) await window.__BLOGS_READY__;
   setupLikes();
   </script>
 
