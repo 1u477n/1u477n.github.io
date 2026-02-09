@@ -1387,7 +1387,7 @@
     })();
   </script>
 
-  <!-- OPTIONAL: Firestore likes (same algorithm as your other posts) -->
+  <!-- OPTIONAL: Firestore likes (consistent like/unlike/count logic) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
@@ -1397,6 +1397,7 @@
       runTransaction
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+    // Firebase config (same as other blog pages)
     const firebaseConfig = {
       apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
       authDomain: "searchablevideos.firebaseapp.com",
@@ -1412,6 +1413,7 @@
 
     const COLLECTION = "blogLikes";
 
+    // Stable hash -> stable Firestore doc id per post
     function fnv1a(str){
       let h = 0x811c9dc5;
       for (let i = 0; i < str.length; i++){
@@ -1421,16 +1423,38 @@
       return (h >>> 0).toString(16).padStart(8, "0");
     }
 
+    // Normalize URLs so mainpage + post page always hash the same string
+    function normalizeKey(urlLike){
+      try{
+        const u = new URL(urlLike, location.href);
+        u.hash = "";
+        u.search = "";
+        // Normalize common "index.html" variants
+        u.pathname = u.pathname.replace(/\/index\.html$/i, "/");
+        // Drop trailing slash (except root)
+        if (u.pathname.length > 1) u.pathname = u.pathname.replace(/\/+$/g, "");
+        return `${u.origin}${u.pathname}`;
+      } catch {
+        return String(urlLike || "").split("#")[0].split("?")[0];
+      }
+    }
+
+    // Use canonical href so likes map to the exact published URL (normalized)
     function getPostKey(){
       const canonical = document.querySelector('link[rel="canonical"]');
       const raw = canonical?.getAttribute("href");
-      if (raw) return raw;
-      return `${location.origin}${location.pathname}`;
+      return normalizeKey(raw || location.href);
     }
 
-    function safeGet(key){ try { return localStorage.getItem(key); } catch { return null; } }
-    function safeSet(key, val){ try { localStorage.setItem(key, val); } catch {} }
-    function safeRemove(key){ try { localStorage.removeItem(key); } catch {} }
+    function safeGet(key){
+      try { return localStorage.getItem(key); } catch { return null; }
+    }
+    function safeSet(key, val){
+      try { localStorage.setItem(key, val); } catch {}
+    }
+    function safeRemove(key){
+      try { localStorage.removeItem(key); } catch {}
+    }
 
     function heartSVG(){
       return `
@@ -1449,13 +1473,12 @@
       const metaRow = document.querySelector(".meta-row");
       if (!metaRow) return null;
 
-      // ✅ FIX: if already injected, reuse it (don’t bail out)
+      // Reuse if already exists
       const existing = metaRow.querySelector(".like-pill");
       if (existing){
         const btn = existing.querySelector(".like-btn");
         const count = existing.querySelector(".like-count");
         if (btn && count) return { btn, count };
-        // If something is malformed, fall through and rebuild
         existing.remove();
       }
 
@@ -1483,7 +1506,20 @@
       return { btn, count };
     }
 
-    // ✅ FIX: Create/repair doc WITHOUT resetting existing count
+    function setCountEl(el, n){
+      const num = Number(n);
+      const safe = Number.isFinite(num) ? Math.max(0, Math.floor(num)) : 0;
+      el.dataset.count = String(safe);
+      el.textContent = String(safe);
+    }
+    function getCountEl(el){
+      const v = Number(el.dataset.count);
+      if (Number.isFinite(v)) return v;
+      const t = Number(el.textContent);
+      return Number.isFinite(t) ? t : 0;
+    }
+
+    // Create/repair doc WITHOUT resetting an existing numeric count
     async function ensureLikeDoc(ref, postKey){
       try{
         await runTransaction(db, async (tx) => {
@@ -1495,37 +1531,41 @@
           }
 
           const data = snap.data() || {};
-          // If count missing or invalid, initialize it (but never overwrite a valid number)
           if (typeof data.count !== "number"){
             tx.set(ref, { count: 0 }, { merge: true });
           }
-          // Keep postKey in sync (safe merge)
           if (data.postKey !== postKey){
             tx.set(ref, { postKey }, { merge: true });
           }
         });
       } catch {
-        // Non-fatal (offline / blocked). UI can still show local liked state.
+        // non-fatal (offline / blocked)
       }
     }
 
-    async function toggleLike({ ref, postKey, docId, btn }) {
-      const likedStorageKey = `liked_${docId}`;
-      const isLiked = safeGet(likedStorageKey) === "1";
+    async function toggleLike({ ref, postKey, docId, btn, countEl, busyRef }){
+      if (busyRef.busy) return;
+      busyRef.busy = true;
 
-      function setLikedUI(nextLiked){
-        btn.classList.toggle("liked", nextLiked);
-        btn.setAttribute("aria-pressed", nextLiked ? "true" : "false");
-        btn.setAttribute("title", nextLiked ? "Unlike" : "Like");
+      const likedStorageKey = `liked_${docId}`;
+      const wasLiked = safeGet(likedStorageKey) === "1";
+      const nextLiked = !wasLiked;
+      const delta = nextLiked ? 1 : -1;
+
+      const prevCount = getCountEl(countEl);
+
+      function setLikedUI(liked){
+        btn.classList.toggle("liked", liked);
+        btn.setAttribute("aria-pressed", liked ? "true" : "false");
+        btn.setAttribute("title", liked ? "Unlike" : "Like");
       }
 
-      const nextLiked = !isLiked;
+      // Optimistic UI
       setLikedUI(nextLiked);
+      setCountEl(countEl, Math.max(0, prevCount + delta));
 
       if (nextLiked) safeSet(likedStorageKey, "1");
       else safeRemove(likedStorageKey);
-
-      const delta = nextLiked ? 1 : -1;
 
       try{
         await runTransaction(db, async (tx) => {
@@ -1534,12 +1574,15 @@
           const next = Math.max(0, cur + delta);
           tx.set(ref, { count: next, postKey }, { merge: true });
         });
-      } catch (err) {
-        // rollback
-        setLikedUI(isLiked);
-        if (isLiked) safeSet(likedStorageKey, "1");
+      } catch (err){
+        // Roll back
+        setLikedUI(wasLiked);
+        setCountEl(countEl, prevCount);
+        if (wasLiked) safeSet(likedStorageKey, "1");
         else safeRemove(likedStorageKey);
         console.error("Like/unlike failed:", err);
+      } finally {
+        busyRef.busy = false;
       }
     }
 
@@ -1559,27 +1602,38 @@
       btn.setAttribute("aria-pressed", isLiked ? "true" : "false");
       btn.setAttribute("title", isLiked ? "Unlike" : "Like");
 
-      // ✅ FIX: ensure doc exists without wiping count
+      setCountEl(count, 0);
+
       await ensureLikeDoc(ref, postKey);
 
       onSnapshot(ref, (snap) => {
         const data = snap.exists() ? snap.data() : null;
         const n = data && typeof data.count === "number" ? data.count : 0;
-        count.textContent = String(n);
+        setCountEl(count, n);
       });
 
-      btn.addEventListener("click", (e) => {
+      const busyRef = { busy: false };
+
+      const doToggle = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggleLike({ ref, postKey, docId, btn });
-      });
+        toggleLike({ ref, postKey, docId, btn, countEl: count, busyRef });
+      };
 
+      btn.addEventListener("click", doToggle);
       btn.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " "){
-          e.preventDefault();
-          e.stopPropagation();
-          toggleLike({ ref, postKey, docId, btn });
+          doToggle(e);
         }
+      });
+
+      // Cross-tab sync (heart state)
+      window.addEventListener("storage", (e) => {
+        if (e.key !== likedStorageKey) return;
+        const liked = e.newValue === "1";
+        btn.classList.toggle("liked", liked);
+        btn.setAttribute("aria-pressed", liked ? "true" : "false");
+        btn.setAttribute("title", liked ? "Unlike" : "Like");
       });
     }
 
