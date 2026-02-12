@@ -1663,166 +1663,184 @@
   </script>
 
   <script type="module">
-  // Firebase (Firestore) - CDN modular SDK
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import {
-    getFirestore,
-    doc,
-    setDoc,
-    updateDoc,
-    increment,
-    onSnapshot
-  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-  // Your Firebase config (exactly as provided)
-  const firebaseConfig = {
-    apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
-    authDomain: "searchablevideos.firebaseapp.com",
-    projectId: "searchablevideos",
-    storageBucket: "searchablevideos.firebasestorage.app",
-    messagingSenderId: "345918351272",
-    appId: "1:345918351272:web:82534dbe5b10dc8e131f9d",
-    measurementId: "G-VW323NJP26"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const COLLECTION = "blogLikes";
-
-  function fnv1a(str){
-    let h = 0x811c9dc5;
-    for (let i = 0; i < str.length; i++){
-      h ^= str.charCodeAt(i);
-      h = Math.imul(h, 0x01000193);
-    }
-    return (h >>> 0).toString(16).padStart(8, "0");
-  }
-
-  function getPostKey(card){
-    const a = card.querySelector("a.card-link");
-    const href = a?.getAttribute("href") || "";
-    if (href) return href;
-    return `${card.dataset.date || ""}|${card.dataset.title || ""}`;
-  }
-
-  function buildHeartSVG(){
-    return `
-      <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          class="heart-fill"
-          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          fill="transparent"
-        />
-      </svg>
-    `;
-  }
-
-  function injectLikeUI(card){
-    const meta = card.querySelector(".meta");
-    if (!meta) return;
-
-    const arrow = meta.querySelector(".arrow");
-    if (!arrow) return;
-
-    if (meta.querySelector(".like-wrap")) return;
-
-    const actions = document.createElement("div");
-    actions.className = "meta-actions";
-
-    const likeWrap = document.createElement("div");
-    likeWrap.className = "like-wrap";
-
-    const likeBtn = document.createElement("span");
-    likeBtn.className = "arrow like-btn";
-    likeBtn.setAttribute("role", "button");
-    likeBtn.setAttribute("tabindex", "0");
-    likeBtn.setAttribute("aria-pressed", "false");
-    likeBtn.setAttribute("title", "Like");
-    likeBtn.innerHTML = buildHeartSVG();
-
-    const likeCount = document.createElement("span");
-    likeCount.className = "like-count";
-    likeCount.textContent = "0";
-
-    likeWrap.appendChild(likeBtn);
-    likeWrap.appendChild(likeCount);
-
-    arrow.replaceWith(actions);
-    actions.appendChild(likeWrap);
-    actions.appendChild(arrow);
-
-    return { likeBtn, likeCount };
-  }
-
-  async function setupLikes(){
-    const cards = Array.from(document.querySelectorAll(".blog-card"));
-
-    for (const card of cards){
-      const ui = injectLikeUI(card);
-      if (!ui) continue;
-
-      const { likeBtn, likeCount } = ui;
-
-      const postKey = getPostKey(card);
-      const docId = fnv1a(postKey);
-      const ref = doc(db, COLLECTION, docId);
-
-      const likedStorageKey = `liked_${docId}`;
-      let liked = localStorage.getItem(likedStorageKey) === "1";
-
-      function applyLikedUI(){
-        likeBtn.classList.toggle("liked", liked);
-        likeBtn.setAttribute("aria-pressed", liked ? "true" : "false");
-        likeBtn.setAttribute("title", liked ? "Unlike" : "Like");
+    // Firebase (Firestore) - CDN modular SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,  // <--- ADDED THIS IMPORT
+      updateDoc,
+      increment,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+  
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
+      authDomain: "searchablevideos.firebaseapp.com",
+      projectId: "searchablevideos",
+      storageBucket: "searchablevideos.firebasestorage.app",
+      messagingSenderId: "345918351272",
+      appId: "1:345918351272:web:82534dbe5b10dc8e131f9d",
+      measurementId: "G-VW323NJP26"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+  
+    const COLLECTION = "blogLikes";
+  
+    function fnv1a(str){
+      let h = 0x811c9dc5;
+      for (let i = 0; i < str.length; i++){
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 0x01000193);
       }
-
-      applyLikedUI();
-
-      setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
-
-      onSnapshot(ref, (snap) => {
-        const data = snap.exists() ? snap.data() : null;
-        const count = data && typeof data.count === "number" ? data.count : 0;
-        likeCount.textContent = String(count);
-      });
-
-      async function toggleLike(e){
-        e.preventDefault();
-        e.stopPropagation();
-
-        const next = !liked;
-        const delta = next ? 1 : -1;
-
-        liked = next;
-        if (liked) localStorage.setItem(likedStorageKey, "1");
-        else localStorage.removeItem(likedStorageKey);
+      return (h >>> 0).toString(16).padStart(8, "0");
+    }
+  
+    function getPostKey(card){
+      const a = card.querySelector("a.card-link");
+      const href = a?.getAttribute("href") || "";
+      // Ensure we use the exact string present in the href (from CSV)
+      return href; 
+    }
+  
+    function buildHeartSVG(){
+      return `
+        <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            class="heart-fill"
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            fill="transparent"
+          />
+        </svg>
+      `;
+    }
+  
+    function injectLikeUI(card){
+      const meta = card.querySelector(".meta");
+      if (!meta) return;
+  
+      const arrow = meta.querySelector(".arrow");
+      if (!arrow) return;
+  
+      if (meta.querySelector(".like-wrap")) return;
+  
+      const actions = document.createElement("div");
+      actions.className = "meta-actions";
+  
+      const likeWrap = document.createElement("div");
+      likeWrap.className = "like-wrap";
+  
+      const likeBtn = document.createElement("span");
+      likeBtn.className = "arrow like-btn";
+      likeBtn.setAttribute("role", "button");
+      likeBtn.setAttribute("tabindex", "0");
+      likeBtn.setAttribute("aria-pressed", "false");
+      likeBtn.setAttribute("title", "Like");
+      likeBtn.innerHTML = buildHeartSVG();
+  
+      const likeCount = document.createElement("span");
+      likeCount.className = "like-count";
+      likeCount.textContent = "0";
+  
+      likeWrap.appendChild(likeBtn);
+      likeWrap.appendChild(likeCount);
+  
+      arrow.replaceWith(actions);
+      actions.appendChild(likeWrap);
+      actions.appendChild(arrow);
+  
+      return { likeBtn, likeCount };
+    }
+  
+    async function setupLikes(){
+      const cards = Array.from(document.querySelectorAll(".blog-card"));
+  
+      for (const card of cards){
+        const ui = injectLikeUI(card);
+        if (!ui) continue;
+  
+        const { likeBtn, likeCount } = ui;
+  
+        const postKey = getPostKey(card);
+        // Skip if no valid URL found
+        if(!postKey) continue;
+  
+        const docId = fnv1a(postKey);
+        const ref = doc(db, COLLECTION, docId);
+  
+        const likedStorageKey = `liked_${docId}`;
+        let liked = localStorage.getItem(likedStorageKey) === "1";
+  
+        function applyLikedUI(){
+          likeBtn.classList.toggle("liked", liked);
+          likeBtn.setAttribute("aria-pressed", liked ? "true" : "false");
+          likeBtn.setAttribute("title", liked ? "Unlike" : "Like");
+        }
+  
         applyLikedUI();
-
-        try{
-          await updateDoc(ref, { count: increment(delta) });
-        }catch(err){
-          liked = !next;
+  
+        // -------------------------------------------------------------
+        // FIX: SAFE INITIALIZATION
+        // Instead of forcing count:0 (which deletes "1 like"),
+        // we check if the doc exists first.
+        // -------------------------------------------------------------
+        getDoc(ref).then((snap) => {
+          if (!snap.exists()) {
+            // Only create with 0 if it doesn't exist at all
+            setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
+          } else {
+            // If it exists, we can ensure the postKey is synced, but DO NOT touch 'count'
+            // We use the "Idempotent" update rule we added (count == count)
+            setDoc(ref, { postKey }, { merge: true }).catch(() => {});
+          }
+        });
+  
+        onSnapshot(ref, (snap) => {
+          const data = snap.exists() ? snap.data() : null;
+          const count = data && typeof data.count === "number" ? data.count : 0;
+          likeCount.textContent = String(count);
+        });
+  
+        async function toggleLike(e){
+          e.preventDefault();
+          e.stopPropagation();
+  
+          const next = !liked;
+          const delta = next ? 1 : -1;
+  
+          liked = next;
           if (liked) localStorage.setItem(likedStorageKey, "1");
           else localStorage.removeItem(likedStorageKey);
           applyLikedUI();
-          console.error(delta === 1 ? "Like failed:" : "Unlike failed:", err);
+  
+          try{
+            await updateDoc(ref, { count: increment(delta) });
+          }catch(err){
+            liked = !next;
+            if (liked) localStorage.setItem(likedStorageKey, "1");
+            else localStorage.removeItem(likedStorageKey);
+            applyLikedUI();
+            console.error(delta === 1 ? "Like failed:" : "Unlike failed:", err);
+          }
         }
+  
+        likeBtn.addEventListener("click", toggleLike);
+        likeBtn.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " "){
+            toggleLike(e);
+          }
+        });
       }
-
-      likeBtn.addEventListener("click", toggleLike);
-      likeBtn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " "){
-          toggleLike(e);
-        }
-      });
     }
-  }
-
-  // Wait until CSV-rendered cards are present
-  if (window.__BLOGS_READY__) await window.__BLOGS_READY__;
-  setupLikes();
+  
+    // Wait until CSV-rendered cards are present
+    if (window.__BLOGS_READY__) await window.__BLOGS_READY__;
+    setupLikes();
   </script>
 
 </body>
