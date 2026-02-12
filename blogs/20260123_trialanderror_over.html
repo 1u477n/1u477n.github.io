@@ -244,7 +244,6 @@
     .prose strong{ color: color-mix(in srgb, var(--text) 94%, transparent); font-weight: 800; }
     .prose a{ color: color-mix(in srgb, var(--a1) 85%, white); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,.35); }
     .prose a:hover{ border-bottom-color: rgba(56,189,248,.65); }
-    
     .divider{ height: 1px; background: color-mix(in srgb, var(--stroke) 90%, transparent); margin: 18px 0; }
     figure{ margin: 16px 0; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(0,0,0,.14); overflow:hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 60px rgba(0,0,0,.45); }
     html[data-theme="light"] figure{ background: rgba(255,255,255,.75); }
@@ -254,17 +253,6 @@
     .callout{ margin-top: 16px; border-radius: var(--r20); border: 1px solid rgba(56,189,248,.18); background: radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.14), transparent 55%), rgba(255,255,255,.045); box-shadow: 0 0 0 1px rgba(56,189,248,.08) inset; padding: 16px; }
     .callout h3{ margin: 0 0 6px; font-size: 14px; letter-spacing: -.01em; }
     .callout p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
-    
-    .table-wrap{ margin: 14px 0 4px; border-radius: var(--r20); border: 1px solid var(--stroke); background: var(--tableBg); box-shadow: var(--shadow); overflow: hidden; }
-    table{ width:100%; border-collapse: collapse; font-size: 13px; }
-    thead th{ text-align:left; padding: 12px 12px; color: color-mix(in srgb, var(--text) 92%, transparent); background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08)); border-bottom: 1px solid var(--stroke); letter-spacing: .2px; }
-    tbody td{ padding: 12px 12px; color: var(--muted); border-bottom: 1px solid color-mix(in srgb, var(--stroke) 85%, transparent); vertical-align: top; line-height: 1.6; }
-    tbody tr:last-child td{ border-bottom: none; }
-    tbody tr:hover td{ background: var(--tableRow); color: color-mix(in srgb, var(--text) 82%, var(--muted)); }
-    .chip{ display:inline-flex; align-items:center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color: color-mix(in srgb, var(--text) 88%, transparent); font-weight: 800; font-size: 12px; white-space: nowrap; }
-    html[data-theme="light"] .chip{ border: 1px solid rgba(0,0,0,.10); background: rgba(255,255,255,.70); }
-    @media (prefers-color-scheme: light){ html:not([data-theme]) .chip{ border: 1px solid rgba(0,0,0,.10); background: rgba(255,255,255,.70); } }
-
     .toc{ border-radius: var(--r24); border: 1px solid var(--stroke); background: rgba(255,255,255,.03); box-shadow: var(--shadow); padding: 14px; }
     .toc details{ border-radius: 16px; }
     .toc summary{ cursor: pointer; user-select:none; list-style: none; font-weight: 800; font-size: 13px; color: color-mix(in srgb, var(--text) 92%, transparent); padding: 8px 10px; border-radius: 14px; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); }
@@ -424,8 +412,8 @@
       </h1>
       <p class="lead">
         For decades, discovering a new drug meant searching for a needle in a haystack—often without a clear map of the protein
-        you were targeting. Today, that changes. <span class="ai-signal">AlphaFold and the broader AI Blueprint are moving medicine from slow, expensive
-        guesswork to high-fidelity prediction—turning discovery into a more precise, digital-first engineering loop.</span>
+        you were targeting. Today, that changes. AlphaFold and the broader AI Blueprint are moving medicine from slow, expensive
+        guesswork to high-fidelity prediction—turning discovery into a more precise, digital-first engineering loop.
       </p>
       
       <div class="meta-row" aria-label="Post metadata">
@@ -765,27 +753,52 @@
         if(!res.ok) return;
         const text = await res.text();
         
+        // Exact same CSV algorithm as requested
         function parseCSV(text){
-          const lines = text.split("\n");
           const rows = [];
-          for (let i=1; i<lines.length; i++) {
-            const line = lines[i].trim();
-            if(line) {
-               // Simple split respecting quotes
-               const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-               if(parts) rows.push(parts.map(p => p.replace(/^"|"$/g, '').trim()));
+          let row = [];
+          let field = "";
+          let inQuotes = false;
+          for (let i = 0; i < text.length; i++){
+            const c = text[i];
+            if (inQuotes){
+              if (c === '"'){
+                if (text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; }
+              } else { field += c; }
+            } else {
+              if (c === '"'){ inQuotes = true; }
+              else if (c === ","){ row.push(field); field = ""; }
+              else if (c === "\n"){ row.push(field); field = ""; if(row.some(v=>v.trim())) rows.push(row); row=[]; }
+              else if (c !== "\r"){ field += c; }
             }
           }
+          row.push(field);
+          if(row.some(v=>v.trim())) rows.push(row);
           return rows;
         }
 
-        const data = parseCSV(text);
-        const currentHref = window.location.href;
+        function toObjects(raw){
+          if (!raw.length) return [];
+          const headers = raw[0].map(h => (h||"").trim().toLowerCase());
+          const out = [];
+          for (let i = 1; i < raw.length; i++){
+            const r = raw[i];
+            const obj = {};
+            for (let j = 0; j < headers.length; j++){
+              obj[headers[j]] = (r[j] ?? "").toString().trim();
+            }
+            out.push(obj);
+          }
+          return out;
+        }
+
+        const data = toObjects(parseCSV(text));
+        const currentHref = window.location.href.split("#")[0];
 
         // Filter out current page
-        let others = data.filter(row => {
-          const url = row[1] || ""; 
-          // Check if current URL contains this row's slug
+        let others = data.filter(d => {
+          const url = d.blog_url || "";
+          // Exclude if current page URL contains the slug from CSV
           return url && !currentHref.includes(url.split("/").pop());
         });
 
@@ -794,18 +807,18 @@
 
         // Take 2
         const selected = others.slice(0, 2);
+        
+        if (selected.length === 0) {
+            document.querySelector(".related-section").style.display = "none";
+            return;
+        }
 
-        grid.innerHTML = selected.map(row => {
-          const title = row[0] || "Blog Post";
-          const url = row[1] || "#";
-          const date = row[2] || "";
-          return `
-            <a href="${url}" class="rel-card">
-              <div class="rel-title">${title}</div>
-              <div class="rel-date">${date}</div>
-            </a>
-          `;
-        }).join("");
+        grid.innerHTML = selected.map(item => `
+          <a href="${item.blog_url}" class="rel-card">
+            <h4 class="rel-title">${item.title}</h4>
+            <div class="rel-date">${item.date || ""}</div>
+          </a>
+        `).join("");
 
       } catch(e){}
     })();
