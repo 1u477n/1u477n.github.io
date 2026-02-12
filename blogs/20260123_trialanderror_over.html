@@ -69,6 +69,7 @@
       --gridline: rgba(255,255,255,.06); --gridmask: rgba(0,0,0,.85); --vignette: rgba(255,255,255,.06);
       --topbarA: rgba(7,10,18,.88); --topbarB: rgba(7,10,18,.55);
       --menuBg: rgba(8,12,22,.78); --menuShadow: 0 30px 80px rgba(0,0,0,.55);
+      --tableBg: rgba(255,255,255,.03); --tableRow: rgba(255,255,255,.04); --tableRow2: rgba(255,255,255,.025);
     }
     @media (prefers-color-scheme: light){
       :root{
@@ -83,6 +84,7 @@
         --gridline: rgba(0,0,0,.06); --gridmask: rgba(0,0,0,.55); --vignette: rgba(0,0,0,.06);
         --topbarA: rgba(255,255,255,.88); --topbarB: rgba(255,255,255,.65);
         --menuBg: rgba(255,255,255,.86); --menuShadow: 0 30px 80px rgba(0,0,0,.14);
+        --tableBg: rgba(0,0,0,.03); --tableRow: rgba(0,0,0,.03); --tableRow2: rgba(0,0,0,.02);
       }
     }
     html[data-theme="light"]{
@@ -98,6 +100,7 @@
       --gridline: rgba(0,0,0,.06); --gridmask: rgba(0,0,0,.55); --vignette: rgba(0,0,0,.06);
       --topbarA: rgba(255,255,255,.88); --topbarB: rgba(255,255,255,.65);
       --menuBg: rgba(255,255,255,.86); --menuShadow: 0 30px 80px rgba(0,0,0,.14);
+      --tableBg: rgba(0,0,0,.03); --tableRow: rgba(0,0,0,.03); --tableRow2: rgba(0,0,0,.02);
     }
     html[data-theme="dark"]{
       color-scheme: dark;
@@ -112,6 +115,7 @@
       --gridline: rgba(255,255,255,.06); --gridmask: rgba(0,0,0,.85); --vignette: rgba(255,255,255,.06);
       --topbarA: rgba(7,10,18,.88); --topbarB: rgba(7,10,18,.55);
       --menuBg: rgba(8,12,22,.78); --menuShadow: 0 30px 80px rgba(0,0,0,.55);
+      --tableBg: rgba(255,255,255,.03); --tableRow: rgba(255,255,255,.04); --tableRow2: rgba(255,255,255,.025);
     }
 
     *{ box-sizing:border-box }
@@ -194,7 +198,7 @@
     
     /* NEW: Reading Clock Icon */
     .read-icon{ width: 14px; height: 14px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    
+
     /* Interactive Pills */
     .icon-pill{ width: 34px; height: 34px; padding:0; display:grid; place-items:center; cursor:pointer; color: var(--muted); transition: color .2s ease, background .2s ease, transform .15s ease; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); }
     .icon-pill:hover{ color: var(--text); background: rgba(255,255,255,.08); transform: translateY(-1px); }
@@ -240,6 +244,7 @@
     .prose strong{ color: color-mix(in srgb, var(--text) 94%, transparent); font-weight: 800; }
     .prose a{ color: color-mix(in srgb, var(--a1) 85%, white); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,.35); }
     .prose a:hover{ border-bottom-color: rgba(56,189,248,.65); }
+    
     .divider{ height: 1px; background: color-mix(in srgb, var(--stroke) 90%, transparent); margin: 18px 0; }
     figure{ margin: 16px 0; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(0,0,0,.14); overflow:hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 60px rgba(0,0,0,.45); }
     html[data-theme="light"] figure{ background: rgba(255,255,255,.75); }
@@ -249,6 +254,17 @@
     .callout{ margin-top: 16px; border-radius: var(--r20); border: 1px solid rgba(56,189,248,.18); background: radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.14), transparent 55%), rgba(255,255,255,.045); box-shadow: 0 0 0 1px rgba(56,189,248,.08) inset; padding: 16px; }
     .callout h3{ margin: 0 0 6px; font-size: 14px; letter-spacing: -.01em; }
     .callout p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    
+    .table-wrap{ margin: 14px 0 4px; border-radius: var(--r20); border: 1px solid var(--stroke); background: var(--tableBg); box-shadow: var(--shadow); overflow: hidden; }
+    table{ width:100%; border-collapse: collapse; font-size: 13px; }
+    thead th{ text-align:left; padding: 12px 12px; color: color-mix(in srgb, var(--text) 92%, transparent); background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08)); border-bottom: 1px solid var(--stroke); letter-spacing: .2px; }
+    tbody td{ padding: 12px 12px; color: var(--muted); border-bottom: 1px solid color-mix(in srgb, var(--stroke) 85%, transparent); vertical-align: top; line-height: 1.6; }
+    tbody tr:last-child td{ border-bottom: none; }
+    tbody tr:hover td{ background: var(--tableRow); color: color-mix(in srgb, var(--text) 82%, var(--muted)); }
+    .chip{ display:inline-flex; align-items:center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color: color-mix(in srgb, var(--text) 88%, transparent); font-weight: 800; font-size: 12px; white-space: nowrap; }
+    html[data-theme="light"] .chip{ border: 1px solid rgba(0,0,0,.10); background: rgba(255,255,255,.70); }
+    @media (prefers-color-scheme: light){ html:not([data-theme]) .chip{ border: 1px solid rgba(0,0,0,.10); background: rgba(255,255,255,.70); } }
+
     .toc{ border-radius: var(--r24); border: 1px solid var(--stroke); background: rgba(255,255,255,.03); box-shadow: var(--shadow); padding: 14px; }
     .toc details{ border-radius: 16px; }
     .toc summary{ cursor: pointer; user-select:none; list-style: none; font-weight: 800; font-size: 13px; color: color-mix(in srgb, var(--text) 92%, transparent); padding: 8px 10px; border-radius: 14px; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); }
@@ -310,7 +326,7 @@
 
         <div class="title">
           <strong>Blog</strong>
-          <span>AI-native R&amp;D · AlphaFold</span>
+          <span>AI + R&amp;D strategy</span>
         </div>
       </div>
 
@@ -408,8 +424,8 @@
       </h1>
       <p class="lead">
         For decades, discovering a new drug meant searching for a needle in a haystack—often without a clear map of the protein
-        you were targeting. Today, that changes. AlphaFold and the broader AI Blueprint are moving medicine from slow, expensive
-        guesswork to high-fidelity prediction—turning discovery into a more precise, digital-first engineering loop.
+        you were targeting. Today, that changes. <span class="ai-signal">AlphaFold and the broader AI Blueprint are moving medicine from slow, expensive
+        guesswork to high-fidelity prediction—turning discovery into a more precise, digital-first engineering loop.</span>
       </p>
       
       <div class="meta-row" aria-label="Post metadata">
@@ -748,19 +764,41 @@
         const res = await fetch("blogs_mainpage.csv");
         if(!res.ok) return;
         const text = await res.text();
-        const lines = text.split("\n").slice(1).filter(l => l.trim());
-        const shuffled = lines.sort(() => 0.5 - Math.random()).slice(0, 2);
         
-        grid.innerHTML = shuffled.map(line => {
-          const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-          if(!parts) return "";
-          const clean = parts.map(p => p.replace(/^"|"$/g, '').trim());
-          const title = clean[0] || "Blog Post";
-          const url = clean[1] || "#";
-          const date = clean[2] || "";
-          
-          if(url.includes("trialanderror")) return "";
+        function parseCSV(text){
+          const lines = text.split("\n");
+          const rows = [];
+          for (let i=1; i<lines.length; i++) {
+            const line = lines[i].trim();
+            if(line) {
+               // Simple split respecting quotes
+               const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+               if(parts) rows.push(parts.map(p => p.replace(/^"|"$/g, '').trim()));
+            }
+          }
+          return rows;
+        }
 
+        const data = parseCSV(text);
+        const currentHref = window.location.href;
+
+        // Filter out current page
+        let others = data.filter(row => {
+          const url = row[1] || ""; 
+          // Check if current URL contains this row's slug
+          return url && !currentHref.includes(url.split("/").pop());
+        });
+
+        // Shuffle
+        others.sort(() => 0.5 - Math.random());
+
+        // Take 2
+        const selected = others.slice(0, 2);
+
+        grid.innerHTML = selected.map(row => {
+          const title = row[0] || "Blog Post";
+          const url = row[1] || "#";
+          const date = row[2] || "";
           return `
             <a href="${url}" class="rel-card">
               <div class="rel-title">${title}</div>
@@ -768,6 +806,7 @@
             </a>
           `;
         }).join("");
+
       } catch(e){}
     })();
   </script>
@@ -805,6 +844,7 @@
       return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>`;
     }
     
+    // Inject heart into container if needed
     const pill = document.querySelector(".like-pill");
     if(pill && !pill.innerHTML.trim()){
        pill.innerHTML = `
