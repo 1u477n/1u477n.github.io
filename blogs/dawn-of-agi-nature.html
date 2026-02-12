@@ -1,12 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- SEO / Social -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="A Nature perspective argues AGI has arrived: human-level intelligence as broad, flexible competence — and a call to move from fear to partnership." />
 
-  <!-- TODO: Update canonical to your final URL -->
   <link rel="canonical" href="https://1u477n.github.io/blogs/dawn-of-agi-nature.html" />
 
   <meta property="og:type" content="article">
@@ -20,11 +18,9 @@
   <meta name="twitter:description" content="A February 2026 Nature perspective reframes “human-level” intelligence and calls for a shift from fear to partnership.">
   <meta name="twitter:image" content="https://1u477n.github.io/images/human-machine-partnership.png">
 
-  <!-- Support both light & dark based on device setting -->
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#070A12" id="themeColor">
 
-  <!-- Set theme early to prevent flash -->
   <script>
     (function () {
       const root = document.documentElement;
@@ -48,7 +44,6 @@
 
   <title>The Dawn of AGI: Nature Declares Human-Level Intelligence is Already Here</title>
 
-  <!-- Analytics (same as your other pages, optional) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW323NJP26"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -57,12 +52,10 @@
     gtag('config', 'G-VW323NJP26');
   </script>
 
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Preload hero figure -->
   <link rel="preload" as="image" href="https://1u477n.github.io/images/human-machine-partnership.png" />
 
   <style>
@@ -836,21 +829,17 @@
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="top-vignette" aria-hidden="true"></div>
 
-  <!-- Top bar -->
   <div class="topbar" role="banner">
     <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
     <div class="nav" role="navigation" aria-label="Site">
       <div class="brand">
-        <!-- Theme toggle -->
         <button class="mark theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-          <!-- Sun (light) -->
           <svg class="sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" stroke="currentColor" stroke-width="2"/>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <!-- Moon (dark) -->
           <svg class="moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M21 13.2A8.4 8.4 0 0 1 10.8 3a7.6 7.6 0 1 0 10.2 10.2Z"
                   stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -872,7 +861,6 @@
       </div>
     </div>
 
-    <!-- Menu panel -->
     <div class="menu" id="menuPanel" aria-label="Menu">
       <a href="https://1u477n.github.io/">Home
         <span class="arrow-icon">
@@ -941,7 +929,6 @@
     </div>
   </div>
 
-  <!-- Lightbox -->
   <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
     <div class="lightbox-actions" aria-hidden="false">
       <button class="lb-btn" id="lightboxClose" aria-label="Close">×</button>
@@ -951,7 +938,6 @@
   </div>
 
   <main class="container" id="main">
-    <!-- HERO -->
     <section class="hero panel" aria-label="Blog post header">
       <div class="kicker"><i></i> Nature · AGI · The third cognitive revolution</div>
 
@@ -971,12 +957,10 @@
         <div class="pill"><b>Journal</b> Nature (Feb 2026)</div>
         <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
         <div class="pill"><b>Reading</b> <span id="readTime">—</span></div>
-        <!-- Likes injected here by module -->
-      </div>
+        </div>
     </section>
 
     <div class="content-grid">
-      <!-- POST -->
       <article class="post panel" id="post" aria-label="Blog post content">
         <div class="prose" id="prose">
           <p>
@@ -1077,7 +1061,6 @@
         </div>
       </article>
 
-      <!-- TOC -->
       <aside class="toc panel" aria-label="On this page">
         <details open>
           <summary>On this page</summary>
@@ -1387,17 +1370,17 @@
     })();
   </script>
 
-  <!-- OPTIONAL: Firestore likes (consistent like/unlike/count logic) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
       getFirestore,
       doc,
+      setDoc,
       onSnapshot,
       runTransaction
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // Firebase config (same as other blog pages)
+    // Firebase config (same as your other blog pages)
     const firebaseConfig = {
       apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
       authDomain: "searchablevideos.firebaseapp.com",
@@ -1423,27 +1406,12 @@
       return (h >>> 0).toString(16).padStart(8, "0");
     }
 
-    // Normalize URLs so mainpage + post page always hash the same string
-    function normalizeKey(urlLike){
-      try{
-        const u = new URL(urlLike, location.href);
-        u.hash = "";
-        u.search = "";
-        // Normalize common "index.html" variants
-        u.pathname = u.pathname.replace(/\/index\.html$/i, "/");
-        // Drop trailing slash (except root)
-        if (u.pathname.length > 1) u.pathname = u.pathname.replace(/\/+$/g, "");
-        return `${u.origin}${u.pathname}`;
-      } catch {
-        return String(urlLike || "").split("#")[0].split("?")[0];
-      }
-    }
-
-    // Use canonical href so likes map to the exact published URL (normalized)
+    // Use canonical href so it matches your mainpage card links exactly
     function getPostKey(){
       const canonical = document.querySelector('link[rel="canonical"]');
       const raw = canonical?.getAttribute("href");
-      return normalizeKey(raw || location.href);
+      if (raw) return raw;
+      return `${location.origin}${location.pathname}`;
     }
 
     function safeGet(key){
@@ -1473,14 +1441,8 @@
       const metaRow = document.querySelector(".meta-row");
       if (!metaRow) return null;
 
-      // Reuse if already exists
-      const existing = metaRow.querySelector(".like-pill");
-      if (existing){
-        const btn = existing.querySelector(".like-btn");
-        const count = existing.querySelector(".like-count");
-        if (btn && count) return { btn, count };
-        existing.remove();
-      }
+      // Prevent duplicates
+      if (metaRow.querySelector(".like-pill")) return null;
 
       const pill = document.createElement("div");
       pill.className = "pill like-pill";
@@ -1501,71 +1463,29 @@
 
       pill.appendChild(btn);
       pill.appendChild(count);
-      metaRow.appendChild(pill);
 
+      metaRow.appendChild(pill);
       return { btn, count };
     }
 
-    function setCountEl(el, n){
-      const num = Number(n);
-      const safe = Number.isFinite(num) ? Math.max(0, Math.floor(num)) : 0;
-      el.dataset.count = String(safe);
-      el.textContent = String(safe);
-    }
-    function getCountEl(el){
-      const v = Number(el.dataset.count);
-      if (Number.isFinite(v)) return v;
-      const t = Number(el.textContent);
-      return Number.isFinite(t) ? t : 0;
-    }
-
-    // Create/repair doc WITHOUT resetting an existing numeric count
-    async function ensureLikeDoc(ref, postKey){
-      try{
-        await runTransaction(db, async (tx) => {
-          const snap = await tx.get(ref);
-
-          if (!snap.exists()){
-            tx.set(ref, { count: 0, postKey }, { merge: true });
-            return;
-          }
-
-          const data = snap.data() || {};
-          if (typeof data.count !== "number"){
-            tx.set(ref, { count: 0 }, { merge: true });
-          }
-          if (data.postKey !== postKey){
-            tx.set(ref, { postKey }, { merge: true });
-          }
-        });
-      } catch {
-        // non-fatal (offline / blocked)
-      }
-    }
-
-    async function toggleLike({ ref, postKey, docId, btn, countEl, busyRef }){
-      if (busyRef.busy) return;
-      busyRef.busy = true;
-
+    async function toggleLike({ ref, postKey, docId, btn }) {
       const likedStorageKey = `liked_${docId}`;
-      const wasLiked = safeGet(likedStorageKey) === "1";
-      const nextLiked = !wasLiked;
-      const delta = nextLiked ? 1 : -1;
+      const isLiked = safeGet(likedStorageKey) === "1";
 
-      const prevCount = getCountEl(countEl);
-
-      function setLikedUI(liked){
-        btn.classList.toggle("liked", liked);
-        btn.setAttribute("aria-pressed", liked ? "true" : "false");
-        btn.setAttribute("title", liked ? "Unlike" : "Like");
+      // Optimistic UI update
+      function setLikedUI(nextLiked){
+        btn.classList.toggle("liked", nextLiked);
+        btn.setAttribute("aria-pressed", nextLiked ? "true" : "false");
       }
 
-      // Optimistic UI
+      const nextLiked = !isLiked;
       setLikedUI(nextLiked);
-      setCountEl(countEl, Math.max(0, prevCount + delta));
 
+      // Persist per-browser like state
       if (nextLiked) safeSet(likedStorageKey, "1");
       else safeRemove(likedStorageKey);
+
+      const delta = nextLiked ? 1 : -1;
 
       try{
         await runTransaction(db, async (tx) => {
@@ -1574,15 +1494,12 @@
           const next = Math.max(0, cur + delta);
           tx.set(ref, { count: next, postKey }, { merge: true });
         });
-      } catch (err){
-        // Roll back
-        setLikedUI(wasLiked);
-        setCountEl(countEl, prevCount);
-        if (wasLiked) safeSet(likedStorageKey, "1");
+      } catch (err) {
+        // Roll back UI + localStorage if transaction fails
+        setLikedUI(isLiked);
+        if (isLiked) safeSet(likedStorageKey, "1");
         else safeRemove(likedStorageKey);
         console.error("Like/unlike failed:", err);
-      } finally {
-        busyRef.busy = false;
       }
     }
 
@@ -1592,48 +1509,38 @@
 
       const { btn, count } = ui;
 
-      const postKey = getPostKey();
+      const postKey = getPostKey(); // canonical: https://1u477n.github.io/blogs/dawn-of-agi-nature.html
       const docId = fnv1a(postKey);
       const ref = doc(db, COLLECTION, docId);
 
+      // Initial UI state from localStorage
       const likedStorageKey = `liked_${docId}`;
       const isLiked = safeGet(likedStorageKey) === "1";
       btn.classList.toggle("liked", isLiked);
       btn.setAttribute("aria-pressed", isLiked ? "true" : "false");
-      btn.setAttribute("title", isLiked ? "Unlike" : "Like");
 
-      setCountEl(count, 0);
+      // Ensure doc exists
+      setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
 
-      await ensureLikeDoc(ref, postKey);
-
+      // Live count updates
       onSnapshot(ref, (snap) => {
         const data = snap.exists() ? snap.data() : null;
         const n = data && typeof data.count === "number" ? data.count : 0;
-        setCountEl(count, n);
+        count.textContent = String(n);
       });
 
-      const busyRef = { busy: false };
-
-      const doToggle = (e) => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggleLike({ ref, postKey, docId, btn, countEl: count, busyRef });
-      };
-
-      btn.addEventListener("click", doToggle);
-      btn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " "){
-          doToggle(e);
-        }
+        toggleLike({ ref, postKey, docId, btn });
       });
 
-      // Cross-tab sync (heart state)
-      window.addEventListener("storage", (e) => {
-        if (e.key !== likedStorageKey) return;
-        const liked = e.newValue === "1";
-        btn.classList.toggle("liked", liked);
-        btn.setAttribute("aria-pressed", liked ? "true" : "false");
-        btn.setAttribute("title", liked ? "Unlike" : "Like");
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          e.stopPropagation();
+          toggleLike({ ref, postKey, docId, btn });
+        }
       });
     }
 
