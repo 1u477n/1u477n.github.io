@@ -181,11 +181,13 @@
     .meta-row{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
     .pill{ border-radius: 999px; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); padding: 9px 12px; font-size: 12px; color: var(--muted); display:inline-flex; align-items:center; gap: 8px; }
     .pill b{ color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; }
+    
     /* Share btn */
     .icon-pill{ width: 34px; height: 34px; padding:0; display:grid; place-items:center; cursor:pointer; color: var(--muted); transition: color .2s ease, background .2s ease, transform .15s ease; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); }
     .icon-pill:hover{ color: var(--text); background: rgba(255,255,255,.08); transform: translateY(-1px); }
     .icon-pill:active{ transform: scale(.97); }
     .share-icon{ width: 16px; height: 16px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    
     .like-pill{ user-select:none; }
     .like-btn{ display:inline-flex; align-items:center; justify-content:center; width: 18px; height: 18px; cursor: pointer; }
     .like-btn .heart-svg{ width: 18px; height: 18px; display:block; }
@@ -344,7 +346,7 @@
           </svg>
         </span>
       </a>
-      <a href="https://1u477n.github.io/www.linkedin.com/in/1u477n/">LinkedIn
+      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn
         <span class="arrow-icon">
           <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -383,7 +385,11 @@
         <div class="pill"><b>Journal</b> Nature (Feb 2026)</div>
         <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
         <div class="pill"><b>Reading</b> <span id="readTime">—</span></div>
+        
         <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
+        
+        <div class="pill like-pill"></div>
+        
         <button class="pill icon-pill" id="shareBtn" title="Share Article">
           <svg class="share-icon" viewBox="0 0 24 24">
             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
@@ -391,7 +397,7 @@
             <line x1="12" y1="2" x2="12" y2="15"></line>
           </svg>
         </button>
-        </div>
+      </div>
     </section>
 
     <div class="content-grid">
@@ -844,12 +850,6 @@
       const container = document.getElementById("relatedGrid");
       if(!container) return;
 
-      const CSV_PATH = "../blogs_mainpage.csv"; // assumes blogs/ folder structure
-      // OR if your csv is at root: "/blogs_mainpage.csv" - adjust as needed.
-      // Based on mainpage logic: "blogs_mainpage.csv" was local.
-      // If this file is in /blogs/, and csv is at /blogs/, then just "blogs_mainpage.csv" works.
-      // I'll use "blogs_mainpage.csv" but handle error.
-
       function parseCSV(text){
         const rows = [];
         let row = [];
@@ -890,6 +890,7 @@
 
       async function loadRelated(){
         try {
+          // Try loading from root or same dir
           const res = await fetch("blogs_mainpage.csv");
           if (!res.ok) return; // fail silently
           const text = await res.text();
@@ -899,7 +900,6 @@
           const currentHref = window.location.href.split("#")[0];
 
           // Filter: exclude current
-          // Optional: filter by category if we knew it. For now, random is good.
           let others = data.filter(d => {
             const url = d.blog_url || "";
             return url && !currentHref.includes(url) && !url.includes("dawn-of-agi");
@@ -974,19 +974,22 @@
       return `<svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="transparent"/></svg>`;
     }
 
+    // Logic to hook into the EXISTING HTML structure for likes
     function injectLikePill(){
-      // Pill already added in HTML logic, but we can hook into it
       const metaRow = document.querySelector(".meta-row");
-      // Create if missing (fallback)
+      // We look for the hardcoded div with class "like-pill"
       let pill = document.querySelector(".like-pill");
+      
+      // If it doesn't exist for some reason, create it (fallback)
       if (!pill && metaRow) {
         pill = document.createElement("div");
         pill.className = "pill like-pill";
+        // Append at end if creating new
         metaRow.appendChild(pill);
       }
       if (!pill) return null;
 
-      // Populate if empty
+      // If empty, populate it
       if (!pill.querySelector(".like-btn")){
         pill.innerHTML = `
           <span class="like-btn" role="button" tabindex="0" title="Like">${heartSVG()}</span>
@@ -1019,10 +1022,6 @@
         await runTransaction(db, async (tx) => {
           const snap = await tx.get(ref);
           if (!snap.exists()){
-             // If doc missing, create with count (0 or 1 based on delta)
-             // But wait, user clicked, so count should be 1 if new?
-             // Actually simplest to create at 0 then add delta, or create at 1.
-             // Rules allow create with count=1.
              const start = (delta > 0) ? 1 : 0;
              tx.set(ref, { count: start, postKey, views: 1 });
           } else {
@@ -1063,8 +1062,6 @@
       }
 
       // 2. View Counter Increment (Once per session-ish, or just page load)
-      //    We use updateDoc with increment.
-      //    If doc doesn't exist, we create it safely.
       try {
         await runTransaction(db, async (tx) => {
           const snap = await tx.get(ref);
