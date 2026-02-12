@@ -53,6 +53,7 @@
 
   <style>
     :root{
+      /* Base (dark) tokens */
       --bg0:#070A12; --bg1:#0B1020;
       --text:#EAF0FF; --muted: rgba(234,240,255,.72); --muted2: rgba(234,240,255,.55);
       --panel: rgba(255,255,255,.06); --panel2: rgba(255,255,255,.08);
@@ -129,7 +130,7 @@
     .bg-grid{ position: fixed; inset: 0; pointer-events:none; opacity:.25; background-image: linear-gradient(var(--gridline) 1px, transparent 1px), linear-gradient(90deg, var(--gridline) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(700px 400px at 50% 12%, var(--gridmask), transparent 70%); z-index: 0; }
     .top-vignette{ position: fixed; top: 0; left: 0; right: 0; height: 220px; pointer-events:none; background: radial-gradient(800px 180px at 50% 0%, var(--vignette), transparent 70%); opacity: .8; z-index: 1; }
     
-    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; transition: max-width .4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; transition: max-width .3s ease; }
     
     .panel{ position: relative; overflow: hidden; }
     .panel:after{ content:""; position:absolute; inset:0; pointer-events:none; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(56,189,248,.34), rgba(167,139,250,.28), rgba(52,211,153,.18), rgba(255,255,255,.06)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .55; }
@@ -152,39 +153,31 @@
     .mark.theme-toggle:hover{ transform: translateY(-1px); }
     .mark.theme-toggle:active{ transform: translateY(0) scale(.99); }
     .mark.theme-toggle:focus-visible{ outline:none; box-shadow: var(--ring), 0 12px 28px rgba(56,189,248,.12); }
-    
     html[data-theme="dark"] .mark.theme-toggle .sun{ display:none; } html[data-theme="light"] .mark.theme-toggle .moon{ display:none; }
     @media (prefers-color-scheme: dark){ html:not([data-theme]) .mark.theme-toggle .sun{ display:none; } }
     @media (prefers-color-scheme: light){ html:not([data-theme]) .mark.theme-toggle .moon{ display:none; } }
-    
     .nav-actions{ display:flex; align-items:center; gap: 10px; }
-    
     .icon-btn{ width: 42px; height: 42px; display:grid; place-items:center; border-radius: 14px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); cursor:pointer; transition: transform .15s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; backdrop-filter: blur(10px); color: var(--text); }
     .icon-btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.20); background: rgba(255,255,255,.085); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
     .icon-btn:active{ transform: translateY(0) scale(.99); }
     .icon-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
-    
     .icon{ width: 18px; height: 14px; position: relative; }
     .icon span{ position:absolute; left:0; right:0; height:2px; border-radius: 2px; background: rgba(234,240,255,.90); }
     .icon span:nth-child(1){ top:0; } .icon span:nth-child(2){ top:6px; opacity:.85; } .icon span:nth-child(3){ top:12px; opacity:.70; }
     html[data-theme="light"] .icon span{ background: rgba(11,15,26,.86); }
     @media (prefers-color-scheme: light){ html:not([data-theme]) .icon span{ background: rgba(11,15,26,.86); } }
-    
     .menu{ position: fixed; top: 70px; right: 18px; width: min(360px, calc(100vw - 36px)); border-radius: 18px; background: var(--menuBg); border: 1px solid rgba(255,255,255,.12); box-shadow: var(--menuShadow); backdrop-filter: blur(16px); padding: 10px; display:none; z-index: 60; }
     .menu.open{ display:block; animation: pop .16s ease-out; }
     @keyframes pop{ from{ transform: translateY(-6px); opacity: 0;} to{ transform: translateY(0); opacity: 1;} }
-    
     .menu a{ display:flex; align-items:center; justify-content: space-between; gap: 10px; text-decoration:none; color: var(--text); padding: 12px 12px; border-radius: 14px; border: 1px solid transparent; transition: background .2s ease, border-color .2s ease; font-weight: 600; font-size: 13px; }
     .menu a:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
     .menu a .arrow-icon{ color: var(--muted2); font-size: 16px; line-height: 1; font-family: "Segoe UI Symbol", system-ui, sans-serif; }
     .arrow-icon .arrow-svg{ width: 18px; height: 18px; display:block; }
-    
     html[data-theme="light"] .mark{ border: 1px solid rgba(0,0,0,.10); }
     html[data-theme="light"] .icon-btn{ border: 1px solid rgba(0,0,0,.12); background: rgba(255,255,255,.70); }
     html[data-theme="light"] .icon-btn:hover{ border-color: rgba(0,0,0,.18); background: rgba(255,255,255,.85); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
     html[data-theme="light"] .menu{ border: 1px solid rgba(0,0,0,.12); }
     html[data-theme="light"] .menu a:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
-    
     @media (prefers-color-scheme: light){
       html:not([data-theme]) .mark{ border: 1px solid rgba(0,0,0,.10); }
       html:not([data-theme]) .icon-btn{ border: 1px solid rgba(0,0,0,.12); background: rgba(255,255,255,.70); }
@@ -192,8 +185,6 @@
       html:not([data-theme]) .menu{ border: 1px solid rgba(0,0,0,.12); }
       html:not([data-theme]) .menu a:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
     }
-    
-    /* Hero */
     .hero{ margin-top: 18px; padding: 24px; border-radius: var(--r24); background: radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.16), transparent 50%), radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.14), transparent 55%), var(--panel); border: 1px solid var(--stroke); box-shadow: var(--shadow2); }
     .kicker{ display:inline-flex; align-items:center; gap: 10px; padding: 8px 10px; border-radius: 999px; border: 1px solid rgba(56,189,248,.22); background: rgba(56,189,248,.08); color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; font-size: 12px; letter-spacing: .2px; }
     .kicker i{ width: 8px; height: 8px; border-radius: 99px; background: var(--grad); display:inline-block; box-shadow: 0 0 0 4px rgba(56,189,248,.10); }
@@ -205,6 +196,9 @@
     .pill{ border-radius: 999px; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); padding: 9px 12px; font-size: 12px; color: var(--muted); display:inline-flex; align-items:center; gap: 8px; }
     .pill b{ color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; }
     
+    /* NEW: Reading Clock Icon */
+    .read-icon{ width: 14px; height: 14px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
     /* Interactive Pills */
     .icon-pill{ width: 34px; height: 34px; padding:0; display:grid; place-items:center; cursor:pointer; color: var(--muted); transition: color .2s ease, background .2s ease, transform .15s ease; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); }
     .icon-pill:hover{ color: var(--text); background: rgba(255,255,255,.08); transform: translateY(-1px); }
@@ -242,7 +236,6 @@
     
     .content-grid{ margin-top: 16px; display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; transition: all .4s ease; }
     @media (min-width: 980px){ .content-grid{ grid-template-columns: 1fr 320px; } .toc{ position: sticky; top: 110px; } .toc details{ open: true; } .toc summary{ display:none; } .toc details[open] > summary{ display:none; } }
-    
     .post{ border-radius: var(--r24); border: 1px solid var(--stroke); background: rgba(255,255,255,.04); box-shadow: var(--shadow); padding: 22px; min-width: 0; }
     .prose{ max-width: 90ch; }
     .prose p{ margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.9; transition: color .3s ease, opacity .3s ease; }
@@ -258,7 +251,6 @@
     @media (prefers-color-scheme: light){ html:not([data-theme]) figure{ background: rgba(255,255,255,.75); } }
     figure img{ width: 100%; display:block; aspect-ratio: 16 / 9; object-fit: cover; cursor: zoom-in; filter: saturate(1.04) contrast(1.02); }
     figcaption{ padding: 12px 14px 14px; color: var(--muted2); font-size: 12px; line-height: 1.6; }
-    
     .callout{ margin-top: 16px; border-radius: var(--r20); border: 1px solid rgba(56,189,248,.18); background: radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.14), transparent 55%), rgba(255,255,255,.045); box-shadow: 0 0 0 1px rgba(56,189,248,.08) inset; padding: 16px; }
     .callout h3{ margin: 0 0 6px; font-size: 14px; letter-spacing: -.01em; }
     .callout p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
@@ -282,7 +274,6 @@
     .toc-nav a:hover{ background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.10); }
     .toc-nav a.active{ color: color-mix(in srgb, var(--text) 92%, transparent); background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08)); border-color: rgba(56,189,248,.25); box-shadow: 0 0 0 1px rgba(56,189,248,.10) inset; }
     .toc-nav a[data-level="3"]{ padding-left: 18px; }
-    
     .lightbox{ display:none; position:fixed; inset:0; z-index: 2000; background-color: rgba(7,10,18,.92); backdrop-filter: blur(10px); align-items:center; justify-content:center; flex-direction: column; padding: 20px; }
     html[data-theme="light"] .lightbox{ background-color: rgba(255,255,255,.92); }
     @media (prefers-color-scheme: light){ html:not([data-theme]) .lightbox{ background-color: rgba(255,255,255,.92); } }
@@ -294,7 +285,6 @@
     .lb-btn:hover{ transform: translateY(-1px); border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.10); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
     .lb-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
     @keyframes zoom{ from{ transform: scale(.98); opacity: 0;} to{ transform: scale(1); opacity: 1;} }
-    
     .footer{ margin-top: 16px; padding: 14px 16px; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(255,255,255,.03); color: var(--muted2); font-size: 12px; line-height: 1.5; text-align:center; box-shadow: var(--shadow); }
     :focus-visible{ outline: none; box-shadow: var(--ring); border-radius: 12px; }
     @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } *{ transition: none !important; animation: none !important; } }
@@ -440,14 +430,25 @@
 
       <div class="meta-row" aria-label="Post metadata">
         <div class="pill"><b>Author</b> Luat (Luke) Nguyen</div>
-        <div class="pill"><b>Topic</b> AI-native Drug Discovery</div>
+        
+        <div class="pill"><b>Focus</b> AI-native Drug Discovery</div>
+        
         <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
-        <div class="pill"><b>Reading</b> <span id="readTime">—</span></div>
+        
+        <div class="pill" title="Reading Time">
+          <svg class="read-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          &nbsp;<span id="readTime">—</span>
+        </div>
         
         <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
         
-        <div class="pill like-pill"></div>
-        
+        <div class="pill like-pill">
+           <span class="like-btn" title="Like">
+             <svg class="heart-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>
+           </span>
+           <span class="like-count">0</span>
+        </div>
+
         <button class="pill icon-pill" id="signalBtn" title="AI Signal Mode (Highlight Key Insights)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
@@ -460,7 +461,7 @@
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
         </button>
-
+        
         <button class="pill icon-pill" id="shareBtn" title="Share Article">
           <svg class="share-icon" viewBox="0 0 24 24">
             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
@@ -478,18 +479,16 @@
             Here is how each model in the biological and clinical hierarchy justifies its place in the future of medicine—connecting
             the molecular “why” of biology to the clinical “what” of patient outcomes.
           </p>
-
           <figure class="panel">
             <img class="zoomable"
                  loading="eager" decoding="async"
                  src="https://1u477n.github.io/images/deepmind_models.jpg"
-                 alt="Diagram: Google DeepMind AI models across the biological-to-clinical hierarchy" />
+                 alt="Diagram: Google DeepMind AI models across the biological-to-clinical hierarchy—AlphaFold 3, AlphaGenome, AlphaMissense, C2S-Scale, and Med-Gemini—mapped along a molecular → cellular → clinical pathway (click to zoom)." />
             <figcaption>
               <strong>Figure:</strong> DeepMind’s model stack spans molecular structure, genome regulation, variant interpretation,
               cellular response simulation, and multimodal clinical reasoning. (Click to zoom.)
             </figcaption>
           </figure>
-
           <div class="callout panel" aria-label="Key takeaway callout">
             <h3><span class="grad-text">Core idea</span></h3>
             <p>
@@ -497,19 +496,17 @@
               These models act like a ladder, where each rung supports the next—molecular truth feeding cellular simulations, which then inform clinical decisions.
             </p>
           </div>
-
           <div class="divider"></div>
-
           <h2>1) AlphaFold 3: The Blueprint of Interaction</h2>
           <p>
             While its predecessors mastered protein folding, AlphaFold 3 is the master of molecular sociology. <span class="ai-signal">It doesn’t just predict
-            what a protein looks like; it predicts how that protein interacts with DNA, RNA, ions, and—most crucially for medicine—ligands (drug molecules).</span>
+            what a protein looks like; it predicts how that protein interacts with DNA, RNA, ions, and—most crucially for medicine—ligands
+            (drug molecules).</span>
           </p>
           <p>
-            <strong>Benefit to Medicine:</strong> <span class="ai-signal">By visualizing the 3D structure of how a potential drug binds to its target, scientists can
-            design “key-and-lock” therapies with surgical precision, drastically reducing the time spent in the hit-to-lead phase of drug discovery.</span>
+            <strong>Benefit to Medicine:</strong> <span class="ai-signal">By visualizing the 3D structure of how a potential drug binds to its target, <a href="https://1u477n.github.io/blogs/basic-research-ai-era.html">scientists can
+            design “key-and-lock” therapies with surgical precision, drastically reducing the time spent in the hit-to-lead phase of drug discovery</a>.</span>
           </p>
-
           <h2>2) AlphaGenome: Deciphering the Regulatory Grammar</h2>
           <p>
             Launched in early 2026, AlphaGenome tackles the 98% of our DNA once dismissively called “junk DNA.” This model analyzes stretches
@@ -520,7 +517,6 @@
             that is turned too high or too low. <span class="ai-signal">AlphaGenome helps identify these regulatory “typos,” opening the door for gene-silencing therapies and
             treatments for rare genetic disorders that were previously misunderstood.</span>
           </p>
-
           <h2>3) AlphaMissense: Filtering the Genetic Noise</h2>
           <p>
             The human genome contains millions of missense variants—single-letter changes in DNA. <span class="ai-signal">AlphaMissense acts as a high-powered filter,
@@ -530,7 +526,6 @@
             <strong>Benefit to Medicine:</strong> In the invention of medicines, identifying the exact mutation driving a disease is half the battle.
             AlphaMissense lets researchers prioritize the most dangerous mutations for study—so new drugs target true drivers rather than harmless background noise.
           </p>
-
           <h2>4) C2S-Scale: The Virtual Cellular Laboratory</h2>
           <p>
             Cell2Sentence-Scale (C2S-Scale) is a massive 27B-parameter model that treats the behavior of individual cells like a language. <span class="ai-signal">It “reads”
@@ -541,7 +536,6 @@
             scientists can run virtual screens. C2S-Scale has already predicted drug combinations that turn “cold” tumors into “hot” ones—designing new cancer
             immunotherapies in silico.
           </p>
-
           <h2>5) Med-Gemini: The Clinical Compass</h2>
           <p>
             The journey of a medicine doesn’t end in the lab; it ends with a patient. <span class="ai-signal">Med-Gemini is a multimodal powerhouse capable of reasoning across
@@ -551,10 +545,8 @@
             <strong>Benefit to Medicine:</strong> It bridges biological discovery and clinical application—helping identify which patient populations will respond
             best to a new drug (precision medicine) and spotting subtle temporal changes in health that a human might miss during clinical trials.
           </p>
-
           <div class="divider"></div>
           <h2>Summary Table: The Molecular-to-Clinical Pipeline</h2>
-
           <div class="table-wrap panel" role="region" aria-label="Summary table: DeepMind AI pipeline" tabindex="0">
             <table>
               <thead>
@@ -593,7 +585,6 @@
               </tbody>
             </table>
           </div>
-
           <div class="callout panel" aria-label="Practical takeaway callout">
             <h3><span class="grad-text">Practical takeaway</span></h3>
             <p>
@@ -601,7 +592,6 @@
               and clinical feedback refining the next generation of biological hypotheses.
             </p>
           </div>
-
           <div class="divider"></div>
           <h2>References</h2>
           <p>
@@ -619,7 +609,6 @@
           <p>
             <a href="https://arxiv.org/abs/2404.18416"><strong>Med-Gemini:</strong></a> Capabilities of Gemini Models in Medicine (arXiv)
           </p>
-
           <h2>Tags</h2>
           <p>
             #DeepMind #AlphaFold3 #AlphaGenome #AlphaMissense #C2SScale #MedGemini #DrugDiscovery #PrecisionMedicine #AI
@@ -649,10 +638,6 @@
   </main>
 
   <script>
-    // ------------------------------------------------------------
-    // Shared UI Logic: Theme, Date, TOC, Menu, Zen, Signal
-    // ------------------------------------------------------------
-    
     // Theme
     (function(){
       const root = document.documentElement;
@@ -684,28 +669,55 @@
       });
     })();
 
-    // Date & Zen/Signal/Share Buttons
-    (function(){
+    // Reading Time, Year, Zen/Signal
+    window.addEventListener('DOMContentLoaded', () => {
+      const prose = document.getElementById("prose");
+      const readTime = document.getElementById("readTime");
+      const progressBar = document.getElementById("progressBar");
+      
+      // Reading Time (using textContent for reliability)
+      const text = (prose?.textContent || "").trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      const wpm = 220;
+      const mins = Math.max(1, Math.round(words / wpm));
+      if(readTime) readTime.textContent = `${mins} min`;
+
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
-      
+
       // Date
       const d = new Date();
       const timeEl = document.getElementById("today");
-      const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
-      timeEl.textContent = fmt.format(d);
-      const iso = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
-      timeEl.setAttribute("datetime", iso);
+      if (timeEl) {
+          const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
+          timeEl.textContent = fmt.format(d);
+          const iso = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
+          timeEl.setAttribute("datetime", iso);
+      }
+
+      // Progress Bar
+      let ticking = false;
+      function updateProgress(){
+        ticking = false;
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop || document.body.scrollTop;
+        const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+        const p = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
+        if(progressBar) progressBar.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
+      }
+      window.addEventListener("scroll", () => {
+        if (!ticking){ ticking = true; requestAnimationFrame(updateProgress); }
+      }, { passive: true });
+      updateProgress();
 
       // Zen Mode
       const zenBtn = document.getElementById("zenBtn");
       if(zenBtn) {
         zenBtn.addEventListener("click", () => {
           document.body.classList.toggle("zen-mode");
-          // Toggle icon color manually if needed, or rely on CSS .active state
-          const isActive = document.body.classList.contains("zen-mode");
-          zenBtn.style.color = isActive ? "var(--a1)" : "";
-          zenBtn.style.background = isActive ? "rgba(56,189,248,.15)" : "";
+          const active = document.body.classList.contains("zen-mode");
+          zenBtn.style.color = active ? "#38BDF8" : "";
+          zenBtn.style.background = active ? "rgba(56,189,248,.15)" : "";
         });
       }
 
@@ -714,9 +726,9 @@
       if(signalBtn) {
         signalBtn.addEventListener("click", () => {
           document.body.classList.toggle("signal-mode");
-          const isActive = document.body.classList.contains("signal-mode");
-          signalBtn.style.color = isActive ? "#A78BFA" : "";
-          signalBtn.style.background = isActive ? "rgba(167,139,250,.15)" : "";
+          const active = document.body.classList.contains("signal-mode");
+          signalBtn.style.color = active ? "#A78BFA" : "";
+          signalBtn.style.background = active ? "rgba(167,139,250,.15)" : "";
         });
       }
 
@@ -732,51 +744,19 @@
           }
         });
       }
-    })();
-
-    // Reading Time
-    (function(){
-      const prose = document.getElementById("prose");
-      const readTime = document.getElementById("readTime");
-      const progressBar = document.getElementById("progressBar");
-      const text = (prose?.innerText || "").trim();
-      const words = text ? text.split(/\s+/).length : 0;
-      const wpm = 220;
-      const mins = Math.max(1, Math.round(words / wpm));
-      readTime.textContent = `${mins} min`;
-
-      let ticking = false;
-      function updateProgress(){
-        ticking = false;
-        const doc = document.documentElement;
-        const scrollTop = doc.scrollTop || document.body.scrollTop;
-        const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
-        const p = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
-        progressBar.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
-      }
-      window.addEventListener("scroll", () => {
-        if (!ticking){ ticking = true; requestAnimationFrame(updateProgress); }
-      }, { passive: true });
-      updateProgress();
-    })();
+    });
 
     // Menu
     (function(){
       const menuBtn = document.getElementById("menuBtn");
       const menuPanel = document.getElementById("menuPanel");
       if (!menuBtn || !menuPanel) return;
-
-      const focusables = (root) => Array.from(root.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(el => el.offsetParent !== null);
-
       function openMenu(){ menuPanel.classList.add("open"); menuBtn.setAttribute("aria-expanded", "true"); }
       function closeMenu(){ menuPanel.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
-      function toggleMenu(){ if(menuPanel.classList.contains("open")) closeMenu(); else openMenu(); }
-
-      menuBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleMenu(); });
-      document.addEventListener("click", () => { if (menuPanel.classList.contains("open")) closeMenu(); });
+      menuBtn.addEventListener("click", (e) => { e.stopPropagation(); if(menuPanel.classList.contains("open")) closeMenu(); else openMenu(); });
+      document.addEventListener("click", () => { if(menuPanel.classList.contains("open")) closeMenu(); });
       menuPanel.addEventListener("click", (e) => e.stopPropagation());
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
-      menuPanel.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+      document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeMenu(); });
     })();
 
     // TOC
@@ -834,69 +814,87 @@
 
     // Related Posts
     (async function(){
-      const container = document.getElementById("relatedGrid");
-      if(!container) return;
-
-      function parseCSV(text){
-        const lines = text.split("\n");
-        const rows = [];
-        // Simple parser handling quotes roughly
-        for (let i=1; i<lines.length; i++) {
-          const line = lines[i].trim();
-          if(line) {
-             // Split by comma but respect quotes
-             const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-             if(parts) rows.push(parts.map(p => p.replace(/^"|"$/g, '').trim()));
-          }
-        }
-        return rows;
-      }
-
-      // Fallback manual data if CSV fails (for reliability)
-      const manualData = [
-        { title: "Apple Intelligence & Gemini", url: "https://1u477n.github.io/blogs/apple-gemini-healthcare.html", date: "Oct 2025" },
-        { title: "The AI Blueprint", url: "https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html", date: "Jan 2026" },
-        { title: "Basic Research in AI Era", url: "https://1u477n.github.io/blogs/basic-research-ai-era.html", date: "Jan 2026" },
-        { title: "Trial and Error is Over", url: "https://1u477n.github.io/blogs/20260123_trialanderror_over.html", date: "Jan 2026" }
-      ];
-
+      const grid = document.getElementById("relatedGrid");
+      if(!grid) return;
       try {
-        const currentHref = window.location.href;
-        // Filter out current page
-        let others = manualData.filter(d => !currentHref.includes(d.url.split("/").pop()));
+        const res = await fetch("blogs_mainpage.csv");
+        if(!res.ok) return;
+        const text = await res.text();
         
-        // Try fetch
-        const res = await fetch("blogs_mainpage.csv").catch(()=>null);
-        if(res && res.ok){
-           // If CSV fetch works, implement real parsing here, otherwise use manualData fallback
+        // Exact same CSV algorithm as requested
+        function parseCSV(text){
+          const rows = [];
+          let row = [];
+          let field = "";
+          let inQuotes = false;
+          for (let i = 0; i < text.length; i++){
+            const c = text[i];
+            if (inQuotes){
+              if (c === '"'){
+                if (text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; }
+              } else { field += c; }
+            } else {
+              if (c === '"'){ inQuotes = true; }
+              else if (c === ","){ row.push(field); field = ""; }
+              else if (c === "\n"){ row.push(field); field = ""; if(row.some(v=>v.trim())) rows.push(row); row=[]; }
+              else if (c !== "\r"){ field += c; }
+            }
+          }
+          row.push(field);
+          if(row.some(v=>v.trim())) rows.push(row);
+          return rows;
         }
-        
+
+        function toObjects(raw){
+          if (!raw.length) return [];
+          const headers = raw[0].map(h => (h||"").trim().toLowerCase());
+          const out = [];
+          for (let i = 1; i < raw.length; i++){
+            const r = raw[i];
+            const obj = {};
+            for (let j = 0; j < headers.length; j++){
+              obj[headers[j]] = (r[j] ?? "").toString().trim();
+            }
+            out.push(obj);
+          }
+          return out;
+        }
+
+        const data = toObjects(parseCSV(text));
+        const currentHref = window.location.href.split("#")[0];
+
+        // Filter out current page
+        let others = data.filter(d => {
+          const url = d.blog_url || "";
+          // Exclude if current page URL contains the slug from CSV
+          return url && !currentHref.includes(url.split("/").pop());
+        });
+
         // Shuffle
         others.sort(() => 0.5 - Math.random());
-        const selected = others.slice(0, 2);
 
-        container.innerHTML = selected.map(item => `
-            <a href="${item.url}" class="rel-card">
-              <h4 class="rel-title">${item.title}</h4>
-              <div class="rel-date">${item.date}</div>
-            </a>
+        // Take 2
+        const selected = others.slice(0, 2);
+        
+        if (selected.length === 0) {
+            document.querySelector(".related-section").style.display = "none";
+            return;
+        }
+
+        grid.innerHTML = selected.map(item => `
+          <a href="${item.blog_url}" class="rel-card">
+            <h4 class="rel-title">${item.title}</h4>
+            <div class="rel-date">${item.date || ""}</div>
+          </a>
         `).join("");
+
       } catch(e){}
     })();
   </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      getDoc,
-      onSnapshot,
-      runTransaction,
-      increment,
-      updateDoc
-    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, onSnapshot, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
@@ -911,139 +909,70 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const COLLECTION = "blogLikes";
-
-    function fnv1a(str){
-      let h = 0x811c9dc5;
-      for (let i = 0; i < str.length; i++){
-        h ^= str.charCodeAt(i);
-        h = Math.imul(h, 0x01000193);
-      }
-      return (h >>> 0).toString(16).padStart(8, "0");
-    }
-
-    // --------------------------------------------------------------------------------
-    // HARDCODED KEY for this specific blog post
-    // --------------------------------------------------------------------------------
     const postKey = "https://1u477n.github.io/blogs/deepmind-ai-pipeline.html";
 
-    function safeGet(key){ try { return localStorage.getItem(key); } catch { return null; } }
-    function safeSet(key, val){ try { localStorage.setItem(key, val); } catch {} }
-    function safeRemove(key){ try { localStorage.removeItem(key); } catch {} }
+    // Hash ID
+    function fnv1a(str){
+      let h = 0x811c9dc5;
+      for (let i=0; i<str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+      return (h >>> 0).toString(16).padStart(8, "0");
+    }
+    const docId = fnv1a(postKey);
+    const ref = doc(db, COLLECTION, docId);
 
+    // Elements
     function heartSVG(){
-      return `<svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="transparent"/></svg>`;
+      return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>`;
+    }
+    
+    // Inject heart into container if needed
+    const pill = document.querySelector(".like-pill");
+    if(pill && !pill.innerHTML.trim()){
+       pill.innerHTML = `
+         <span class="like-btn" title="Like">${heartSVG()}</span>
+         <span class="like-count">0</span>
+       `;
     }
 
-    // Logic to hook into the EXISTING HTML structure for likes
-    function injectLikePill(){
-      const metaRow = document.querySelector(".meta-row");
-      // Look for the empty container placed in HTML
-      let pill = document.querySelector(".like-pill");
-      
-      // Fallback create if missing
-      if (!pill && metaRow) {
-        pill = document.createElement("div");
-        pill.className = "pill like-pill";
-        metaRow.appendChild(pill);
+    const likeBtn = document.querySelector(".like-btn");
+    const countEl = document.querySelector(".like-count");
+    const viewEl = document.getElementById("viewCount");
+
+    // 1. Safe Init
+    getDoc(ref).then(snap => {
+      if(!snap.exists()) setDoc(ref, { count: 0, views: 1, postKey }, { merge: true });
+      else updateDoc(ref, { views: increment(1) });
+    });
+
+    // 2. Listen
+    onSnapshot(ref, (snap) => {
+      if(snap.exists()){
+        const d = snap.data();
+        if(countEl) countEl.textContent = d.count || 0;
+        if(viewEl) viewEl.textContent = d.views || 0;
       }
-      if (!pill) return null;
+    });
 
-      // Only populate if empty
-      if (!pill.querySelector(".like-btn")){
-        pill.innerHTML = `
-          <span class="like-btn" role="button" tabindex="0" title="Like">${heartSVG()}</span>
-          <span class="like-count">0</span>
-        `;
-      }
-      return {
-        btn: pill.querySelector(".like-btn"),
-        count: pill.querySelector(".like-count")
-      };
-    }
+    // 3. Toggle Like
+    if(likeBtn){
+        const storageKey = `liked_${docId}`;
+        let isLiked = localStorage.getItem(storageKey) === "1";
+        if(isLiked) likeBtn.classList.add("liked");
 
-    async function toggleLike({ ref, postKey, docId, btn }) {
-      const likedStorageKey = `liked_${docId}`;
-      const isLiked = safeGet(likedStorageKey) === "1";
-      const nextLiked = !isLiked;
+        likeBtn.addEventListener("click", async () => {
+          const next = !isLiked;
+          likeBtn.classList.toggle("liked", next);
+          if(next) localStorage.setItem(storageKey, "1"); else localStorage.removeItem(storageKey);
+          isLiked = next;
 
-      // UI
-      btn.classList.toggle("liked", nextLiked);
-      btn.setAttribute("aria-pressed", nextLiked ? "true" : "false");
-
-      // Storage
-      if (nextLiked) safeSet(likedStorageKey, "1");
-      else safeRemove(likedStorageKey);
-
-      const delta = nextLiked ? 1 : -1;
-
-      try{
-        // Safe Transaction
-        await runTransaction(db, async (tx) => {
-          const snap = await tx.get(ref);
-          if (!snap.exists()){
-             const start = (delta > 0) ? 1 : 0;
-             tx.set(ref, { count: start, postKey, views: 1 });
-          } else {
-             const cur = snap.data().count || 0;
-             const next = Math.max(0, cur + delta);
-             tx.update(ref, { count: next });
+          try {
+            await updateDoc(ref, { count: increment(next ? 1 : -1) });
+          } catch(e) {
+            console.error(e);
+            likeBtn.classList.toggle("liked", !next);
           }
         });
-      } catch (err) {
-        // Revert UI
-        btn.classList.toggle("liked", isLiked);
-        if (isLiked) safeSet(likedStorageKey, "1"); else safeRemove(likedStorageKey);
-        console.error("Like op failed", err);
-      }
     }
-
-    async function setupLikesAndViews(){
-      const ui = injectLikePill();
-      const viewEl = document.getElementById("viewCount");
-
-      const docId = fnv1a(postKey);
-      const ref = doc(db, COLLECTION, docId);
-
-      // 1. Like UI Init
-      if (ui) {
-        const likedStorageKey = `liked_${docId}`;
-        const isLiked = safeGet(likedStorageKey) === "1";
-        ui.btn.classList.toggle("liked", isLiked);
-        ui.btn.setAttribute("aria-pressed", isLiked ? "true" : "false");
-
-        ui.btn.addEventListener("click", (e) => {
-          e.preventDefault(); e.stopPropagation();
-          toggleLike({ ref, postKey, docId, btn: ui.btn });
-        });
-        ui.btn.addEventListener("keydown", (e) => {
-          if(e.key==="Enter"||e.key===" ") { e.preventDefault(); toggleLike({ ref, postKey, docId, btn: ui.btn }); }
-        });
-      }
-
-      // 2. View Counter Increment
-      try {
-        await runTransaction(db, async (tx) => {
-          const snap = await tx.get(ref);
-          if (!snap.exists()) {
-            tx.set(ref, { count: 0, views: 1, postKey });
-          } else {
-            const newViews = (snap.data().views || 0) + 1;
-            tx.update(ref, { views: newViews });
-          }
-        });
-      } catch (e) {
-        console.warn("View increment failed", e);
-      }
-
-      // 3. Live Listen
-      onSnapshot(ref, (snap) => {
-        const data = snap.exists() ? snap.data() : null;
-        if (ui) ui.count.textContent = String(data?.count || 0);
-        if (viewEl) viewEl.textContent = String(data?.views || 0);
-      });
-    }
-
-    setupLikesAndViews();
   </script>
 </body>
 </html>
