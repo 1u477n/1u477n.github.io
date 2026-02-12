@@ -127,10 +127,10 @@
     .skip-link:focus{ transform: translateY(0); box-shadow: var(--ring); }
     .bg-grid{ position: fixed; inset: 0; pointer-events:none; opacity:.25; background-image: linear-gradient(var(--gridline) 1px, transparent 1px), linear-gradient(90deg, var(--gridline) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(700px 400px at 50% 12%, var(--gridmask), transparent 70%); z-index: 0; }
     .top-vignette{ position: fixed; top: 0; left: 0; right: 0; height: 220px; pointer-events:none; background: radial-gradient(800px 180px at 50% 0%, var(--vignette), transparent 70%); opacity: .8; z-index: 1; }
-    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; transition: max-width .3s ease; }
+    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; }
     .panel{ position: relative; overflow: hidden; }
     .panel:after{ content:""; position:absolute; inset:0; pointer-events:none; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(56,189,248,.34), rgba(167,139,250,.28), rgba(52,211,153,.18), rgba(255,255,255,.06)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .55; }
-    .topbar { position: sticky; top: 0; z-index: 80; padding: 10px 0; backdrop-filter: blur(14px); background: linear-gradient(180deg, var(--topbarA), var(--topbarB)); border-bottom: 1px solid rgba(255,255,255,.02); transition: transform .3s ease, opacity .3s ease; }
+    .topbar { position: sticky; top: 0; z-index: 80; padding: 10px 0; backdrop-filter: blur(14px); background: linear-gradient(180deg, var(--topbarA), var(--topbarB)); border-bottom: 1px solid rgba(255,255,255,.02); }
     .nav { display: flex; align-items: center; justify-content: space-between; gap: 14px; max-width: var(--max); margin: 0 auto; padding: 0 18px; }
     .progress { height: 3px; width: 100%; background: transparent; position: absolute; bottom: 0; left: 0; }
     .progress > span { display: block; height: 100%; width: 0%; background: var(--grad); transform-origin: left center; }
@@ -183,20 +183,15 @@
     h1{ margin: 14px 0 10px; font-size: clamp(26px, 4.2vw, 42px); letter-spacing: -0.02em; line-height: 1.08; }
     .grad-text{ background: var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
     .lead{ margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; max-width: 92ch; }
-    .meta-row{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
+    .meta-row{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
     .pill{ border-radius: 999px; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); padding: 9px 12px; font-size: 12px; color: var(--muted); display:inline-flex; align-items:center; gap: 8px; }
     .pill b{ color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; }
     
-    /* Interactive Pills */
+    /* Share btn */
     .icon-pill{ width: 34px; height: 34px; padding:0; display:grid; place-items:center; cursor:pointer; color: var(--muted); transition: color .2s ease, background .2s ease, transform .15s ease; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); }
     .icon-pill:hover{ color: var(--text); background: rgba(255,255,255,.08); transform: translateY(-1px); }
     .icon-pill:active{ transform: scale(.97); }
-    .icon-pill svg{ width: 16px; height: 16px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    
-    /* Zen Mode Overrides */
-    body.zen-mode .topbar, body.zen-mode .footer, body.zen-mode .related-section, body.zen-mode .toc { display: none !important; }
-    body.zen-mode .container { max-width: 740px; }
-    body.zen-mode .content-grid { grid-template-columns: 1fr; }
+    .share-icon{ width: 16px; height: 16px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
     
     .like-pill{ user-select:none; }
     .like-btn{ display:inline-flex; align-items:center; justify-content:center; width: 18px; height: 18px; cursor: pointer; }
@@ -410,20 +405,6 @@
         
         <div class="pill like-pill"></div>
         
-        <button class="pill icon-pill" id="listenBtn" title="Listen to Article">
-          <svg class="listen-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
-        </button>
-
-        <button class="pill icon-pill" id="zenBtn" title="Zen Mode">
-          <svg class="zen-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <circle cx="12" cy="12" r="4"></circle>
-          </svg>
-        </button>
-
         <button class="pill icon-pill" id="shareBtn" title="Share Article">
           <svg class="share-icon" viewBox="0 0 24 24">
             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
@@ -916,197 +897,6 @@
         trapFocus(modal, e);
       });
     })();
-
-    // --------------------------------------------------------------------------------
-    // Share Button Logic (Native Share)
-    // --------------------------------------------------------------------------------
-    (function(){
-      const btn = document.getElementById("shareBtn");
-      if(!btn) return;
-      btn.addEventListener("click", async () => {
-        const data = {
-          title: document.title,
-          text: document.querySelector('meta[name="description"]')?.content || "",
-          url: window.location.href
-        };
-        // Try native share
-        if (navigator.share) {
-          try { await navigator.share(data); } catch (err) { /* ignore cancel */ }
-        } else {
-          // Fallback
-          try {
-            await navigator.clipboard.writeText(window.location.href);
-            alert("Link copied to clipboard");
-          } catch(e){
-            prompt("Copy link:", window.location.href);
-          }
-        }
-      });
-    })();
-
-    // --------------------------------------------------------------------------------
-    // Listen to Article (Text-to-Speech)
-    // --------------------------------------------------------------------------------
-    (function(){
-      const btn = document.getElementById("listenBtn");
-      if(!btn) return;
-      
-      let speaking = false;
-      const synth = window.speechSynthesis;
-      let utterance = null;
-      
-      function stop(){
-        if(synth.speaking) synth.cancel();
-        speaking = false;
-        btn.innerHTML = `<svg class="listen-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
-        btn.setAttribute("title", "Listen to Article");
-        btn.style.color = "";
-      }
-      
-      function play(){
-        const prose = document.getElementById("prose");
-        const text = prose ? prose.innerText : "";
-        if(!text) return;
-        
-        utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "en-US";
-        utterance.rate = 1.0;
-        
-        utterance.onend = stop;
-        utterance.onerror = stop;
-        
-        synth.speak(utterance);
-        speaking = true;
-        
-        // Show Stop Icon
-        btn.innerHTML = `<svg class="listen-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>`;
-        btn.setAttribute("title", "Stop Listening");
-        btn.style.color = "#ef4444"; // red to indicate active
-      }
-      
-      btn.addEventListener("click", () => {
-        if(speaking) stop(); else play();
-      });
-      
-      // Stop if leaving page
-      window.addEventListener("beforeunload", stop);
-    })();
-
-    // --------------------------------------------------------------------------------
-    // Zen Mode Toggle
-    // --------------------------------------------------------------------------------
-    (function(){
-      const btn = document.getElementById("zenBtn");
-      if(!btn) return;
-      
-      btn.addEventListener("click", () => {
-        document.body.classList.toggle("zen-mode");
-        const isZen = document.body.classList.contains("zen-mode");
-        btn.style.color = isZen ? "#38BDF8" : ""; // blue active state
-      });
-      
-      // ESC key to exit zen mode
-      document.addEventListener("keydown", (e) => {
-        if(e.key === "Escape" && document.body.classList.contains("zen-mode")){
-          document.body.classList.remove("zen-mode");
-          btn.style.color = "";
-        }
-      });
-    })();
-
-    // --------------------------------------------------------------------------------
-    // Related Posts Loader (CSV Fetch)
-    // --------------------------------------------------------------------------------
-    (function(){
-      // Find insertion point (after prose)
-      const article = document.getElementById("post");
-      if(!article) return;
-
-      // Create container
-      const section = document.createElement("section");
-      section.className = "related-section";
-      section.innerHTML = `
-        <div class="divider"></div>
-        <div class="related-head">Read Next</div>
-        <div id="relatedGrid" class="related-grid"></div>
-      `;
-      article.appendChild(section);
-
-      const container = document.getElementById("relatedGrid");
-
-      function parseCSV(text){
-        const rows = [];
-        let row = [];
-        let field = "";
-        let inQuotes = false;
-        for (let i = 0; i < text.length; i++){
-          const c = text[i];
-          if (inQuotes){
-            if (c === '"'){
-              if (text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; }
-            } else { field += c; }
-          } else {
-            if (c === '"'){ inQuotes = true; }
-            else if (c === ","){ row.push(field); field = ""; }
-            else if (c === "\n"){ row.push(field); field = ""; if(row.some(v=>v.trim())) rows.push(row); row=[]; }
-            else if (c !== "\r"){ field += c; }
-          }
-        }
-        row.push(field);
-        if(row.some(v=>v.trim())) rows.push(row);
-        return rows;
-      }
-
-      function toObjects(raw){
-        if (!raw.length) return [];
-        const headers = raw[0].map(h => (h||"").trim().toLowerCase());
-        const out = [];
-        for (let i = 1; i < raw.length; i++){
-          const r = raw[i];
-          const obj = {};
-          for (let j = 0; j < headers.length; j++){
-            obj[headers[j]] = (r[j] ?? "").toString().trim();
-          }
-          out.push(obj);
-        }
-        return out;
-      }
-
-      async function loadRelated(){
-        try {
-          const res = await fetch("blogs_mainpage.csv");
-          if (!res.ok) return;
-          const text = await res.text();
-          const data = toObjects(parseCSV(text));
-
-          const currentHref = window.location.href.split("#")[0];
-
-          // Filter out current page
-          let others = data.filter(d => {
-            const url = d.blog_url || "";
-            return url && !currentHref.includes(url) && !url.includes("deepmind-ai-pipeline");
-          });
-
-          // Shuffle
-          others.sort(() => 0.5 - Math.random());
-
-          const selected = others.slice(0, 2);
-          if (selected.length === 0) {
-            section.style.display = "none";
-            return;
-          }
-
-          container.innerHTML = selected.map(item => `
-            <a href="${item.blog_url}" class="rel-card">
-              <h4 class="rel-title">${item.title}</h4>
-              <div class="rel-date">${item.date || ""}</div>
-            </a>
-          `).join("");
-
-        } catch (e) { console.warn("Related load failed", e); }
-      }
-      loadRelated();
-    })();
   </script>
 
   <script type="module">
@@ -1122,6 +912,7 @@
       updateDoc
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+    // Firebase config (same as your other pages)
     const firebaseConfig = {
       apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
       authDomain: "searchablevideos.firebaseapp.com",
@@ -1134,8 +925,10 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
     const COLLECTION = "blogLikes";
 
+    // Same deterministic id function (stable per post)
     function fnv1a(str){
       let h = 0x811c9dc5;
       for (let i = 0; i < str.length; i++){
@@ -1146,16 +939,31 @@
     }
 
     // --------------------------------------------------------------------------------
-    // HARDCODED KEY for this specific blog post
+    // HARDCODED FIX: Manually set key to match the CSV entry exactly.
     // --------------------------------------------------------------------------------
     const postKey = "https://1u477n.github.io/blogs/deepmind-ai-pipeline.html";
 
-    function safeGet(key){ try { return localStorage.getItem(key); } catch { return null; } }
-    function safeSet(key, val){ try { localStorage.setItem(key, val); } catch {} }
-    function safeRemove(key){ try { localStorage.removeItem(key); } catch {} }
+    function safeGet(key){
+      try { return localStorage.getItem(key); } catch { return null; }
+    }
+    function safeSet(key, val){
+      try { localStorage.setItem(key, val); } catch {}
+    }
+    function safeRemove(key){
+      try { localStorage.removeItem(key); } catch {}
+    }
 
     function heartSVG(){
-      return `<svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="transparent"/></svg>`;
+      return `
+        <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            class="heart-fill"
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            fill="transparent"
+          />
+        </svg>
+      `;
     }
 
     // Logic to hook into the EXISTING HTML structure for likes
@@ -1265,6 +1073,127 @@
         if (viewEl) viewEl.textContent = String(data?.views || 0);
       });
     }
+
+    // --------------------------------------------------------------------------------
+    // Share Button Logic (Native Share)
+    // --------------------------------------------------------------------------------
+    (function(){
+      const btn = document.getElementById("shareBtn");
+      if(!btn) return;
+      btn.addEventListener("click", async () => {
+        const data = {
+          title: document.title,
+          text: document.querySelector('meta[name="description"]')?.content || "",
+          url: window.location.href
+        };
+        // Try native share
+        if (navigator.share) {
+          try { await navigator.share(data); } catch (err) { /* ignore cancel */ }
+        } else {
+          // Fallback
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            alert("Link copied to clipboard");
+          } catch(e){
+            prompt("Copy link:", window.location.href);
+          }
+        }
+      });
+    })();
+
+    // --------------------------------------------------------------------------------
+    // Related Posts Loader (CSV Fetch)
+    // --------------------------------------------------------------------------------
+    (function(){
+      // Find insertion point (after prose)
+      const article = document.getElementById("post");
+      if(!article) return;
+
+      // Create container
+      const section = document.createElement("section");
+      section.className = "related-section";
+      section.innerHTML = `
+        <div class="divider"></div>
+        <div class="related-head">Read Next</div>
+        <div id="relatedGrid" class="related-grid"></div>
+      `;
+      article.appendChild(section);
+
+      const container = document.getElementById("relatedGrid");
+
+      function parseCSV(text){
+        const rows = [];
+        let row = [];
+        let field = "";
+        let inQuotes = false;
+        for (let i = 0; i < text.length; i++){
+          const c = text[i];
+          if (inQuotes){
+            if (c === '"'){
+              if (text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; }
+            } else { field += c; }
+          } else {
+            if (c === '"'){ inQuotes = true; }
+            else if (c === ","){ row.push(field); field = ""; }
+            else if (c === "\n"){ row.push(field); field = ""; if(row.some(v=>v.trim())) rows.push(row); row=[]; }
+            else if (c !== "\r"){ field += c; }
+          }
+        }
+        row.push(field);
+        if(row.some(v=>v.trim())) rows.push(row);
+        return rows;
+      }
+
+      function toObjects(raw){
+        if (!raw.length) return [];
+        const headers = raw[0].map(h => (h||"").trim().toLowerCase());
+        const out = [];
+        for (let i = 1; i < raw.length; i++){
+          const r = raw[i];
+          const obj = {};
+          for (let j = 0; j < headers.length; j++){
+            obj[headers[j]] = (r[j] ?? "").toString().trim();
+          }
+          out.push(obj);
+        }
+        return out;
+      }
+
+      async function loadRelated(){
+        try {
+          const res = await fetch("blogs_mainpage.csv");
+          if (!res.ok) return;
+          const text = await res.text();
+          const data = toObjects(parseCSV(text));
+
+          const currentHref = window.location.href.split("#")[0];
+
+          // Filter out current page
+          let others = data.filter(d => {
+            const url = d.blog_url || "";
+            return url && !currentHref.includes(url) && !url.includes("deepmind-ai-pipeline");
+          });
+
+          // Shuffle
+          others.sort(() => 0.5 - Math.random());
+
+          const selected = others.slice(0, 2);
+          if (selected.length === 0) {
+            section.style.display = "none";
+            return;
+          }
+
+          container.innerHTML = selected.map(item => `
+            <a href="${item.blog_url}" class="rel-card">
+              <h4 class="rel-title">${item.title}</h4>
+              <div class="rel-date">${item.date || ""}</div>
+            </a>
+          `).join("");
+
+        } catch (e) { console.warn("Related load failed", e); }
+      }
+      loadRelated();
+    })();
 
     setupLikesAndViews();
   </script>
