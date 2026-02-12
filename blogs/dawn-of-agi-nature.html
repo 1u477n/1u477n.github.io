@@ -929,14 +929,6 @@
     </div>
   </div>
 
-  <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
-    <div class="lightbox-actions" aria-hidden="false">
-      <button class="lb-btn" id="lightboxClose" aria-label="Close">×</button>
-    </div>
-    <img class="lightbox-content" id="img01" alt="" />
-    <div id="caption" class="caption"></div>
-  </div>
-
   <main class="container" id="main">
     <section class="hero panel" aria-label="Blog post header">
       <div class="kicker"><i></i> Nature · AGI · The third cognitive revolution</div>
@@ -1519,8 +1511,8 @@
       btn.classList.toggle("liked", isLiked);
       btn.setAttribute("aria-pressed", isLiked ? "true" : "false");
 
-      // Ensure doc exists
-      setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
+      // Ensure doc exists, but DO NOT overwrite count to 0
+      setDoc(ref, { postKey }, { merge: true }).catch(() => {});
 
       // Live count updates
       onSnapshot(ref, (snap) => {
