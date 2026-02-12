@@ -1511,7 +1511,7 @@
       btn.classList.toggle("liked", isLiked);
       btn.setAttribute("aria-pressed", isLiked ? "true" : "false");
 
-      // Ensure doc exists, but DO NOT overwrite count to 0
+      // Ensure doc exists, but DO NOT overwrite count to 0. Only update postKey if needed.
       setDoc(ref, { postKey }, { merge: true }).catch(() => {});
 
       // Live count updates
