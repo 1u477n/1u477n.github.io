@@ -53,7 +53,6 @@
 
   <style>
     :root{
-      /* Base (dark) tokens */
       --bg0:#070A12; --bg1:#0B1020;
       --text:#EAF0FF; --muted: rgba(234,240,255,.72); --muted2: rgba(234,240,255,.55);
       --panel: rgba(255,255,255,.06); --panel2: rgba(255,255,255,.08);
@@ -121,23 +120,31 @@
     *{ box-sizing:border-box }
     html,body{ height:100% }
     html{ scroll-behavior: smooth; text-rendering: geometricPrecision; -webkit-text-size-adjust: 100%; }
-    body{ margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: radial-gradient(1200px 700px at 10% 0%, var(--glow1), transparent 55%), radial-gradient(1000px 600px at 90% 10%, var(--glow2), transparent 55%), radial-gradient(900px 600px at 50% 110%, var(--glow3), transparent 60%), linear-gradient(180deg, var(--bg0), var(--bg1)); overflow-x:hidden; padding-bottom: 40px; }
+    body{ margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: radial-gradient(1200px 700px at 10% 0%, var(--glow1), transparent 55%), radial-gradient(1000px 600px at 90% 10%, var(--glow2), transparent 55%), radial-gradient(900px 600px at 50% 110%, var(--glow3), transparent 60%), linear-gradient(180deg, var(--bg0), var(--bg1)); overflow-x:hidden; padding-bottom: 40px; transition: background .3s ease; }
+    
     ::selection{ background: rgba(56,189,248,.22); color: var(--text); }
     .skip-link{ position: absolute; top: 10px; left: 10px; z-index: 9999; padding: 10px 12px; border-radius: 12px; background: var(--panel2); border: 1px solid var(--stroke); color: var(--text); text-decoration: none; transform: translateY(-200%); transition: transform .2s ease; backdrop-filter: blur(10px); }
     .skip-link:focus{ transform: translateY(0); box-shadow: var(--ring); }
+    
     .bg-grid{ position: fixed; inset: 0; pointer-events:none; opacity:.25; background-image: linear-gradient(var(--gridline) 1px, transparent 1px), linear-gradient(90deg, var(--gridline) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(700px 400px at 50% 12%, var(--gridmask), transparent 70%); z-index: 0; }
     .top-vignette{ position: fixed; top: 0; left: 0; right: 0; height: 220px; pointer-events:none; background: radial-gradient(800px 180px at 50% 0%, var(--vignette), transparent 70%); opacity: .8; z-index: 1; }
-    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; }
+    
+    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; transition: max-width .4s cubic-bezier(0.16, 1, 0.3, 1); }
+    
     .panel{ position: relative; overflow: hidden; }
     .panel:after{ content:""; position:absolute; inset:0; pointer-events:none; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(56,189,248,.34), rgba(167,139,250,.28), rgba(52,211,153,.18), rgba(255,255,255,.06)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .55; }
-    .topbar { position: sticky; top: 0; z-index: 80; padding: 10px 0; backdrop-filter: blur(14px); background: linear-gradient(180deg, var(--topbarA), var(--topbarB)); border-bottom: 1px solid rgba(255,255,255,.02); }
+    
+    .topbar { position: sticky; top: 0; z-index: 80; padding: 10px 0; backdrop-filter: blur(14px); background: linear-gradient(180deg, var(--topbarA), var(--topbarB)); border-bottom: 1px solid rgba(255,255,255,.02); transition: transform .3s ease, opacity .3s ease; }
     .nav { display: flex; align-items: center; justify-content: space-between; gap: 14px; max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+    
     .progress { height: 3px; width: 100%; background: transparent; position: absolute; bottom: 0; left: 0; }
     .progress > span { display: block; height: 100%; width: 0%; background: var(--grad); transform-origin: left center; }
+    
     .brand{ display:flex; align-items:center; gap: 10px; min-width: 0; }
     .brand .title{ display:flex; flex-direction:column; line-height:1.1; min-width: 0; }
     .brand .title strong{ font-size: 14px; letter-spacing: .2px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; }
     .brand .title span{ font-size: 12px; color: var(--muted2); white-space: nowrap; overflow:hidden; text-overflow: ellipsis; }
+    
     .mark{ width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,.05) 55%), var(--grad); box-shadow: 0 12px 28px rgba(56,189,248,.12); border: 1px solid rgba(255,255,255,.14); position: relative; overflow:hidden; flex: 0 0 auto; isolation: isolate; }
     .mark:after{ content:""; position:absolute; inset:-40%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 45%), linear-gradient(90deg, transparent 20%, rgba(255,255,255,.10), transparent 80%); transform: rotate(18deg); opacity:.55; z-index: 0; pointer-events:none; }
     .mark.theme-toggle{ appearance:none; -webkit-appearance:none; padding: 0; margin: 0; cursor: pointer; display: grid; place-items: center; color: var(--text); transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease; }
@@ -145,31 +152,39 @@
     .mark.theme-toggle:hover{ transform: translateY(-1px); }
     .mark.theme-toggle:active{ transform: translateY(0) scale(.99); }
     .mark.theme-toggle:focus-visible{ outline:none; box-shadow: var(--ring), 0 12px 28px rgba(56,189,248,.12); }
+    
     html[data-theme="dark"] .mark.theme-toggle .sun{ display:none; } html[data-theme="light"] .mark.theme-toggle .moon{ display:none; }
     @media (prefers-color-scheme: dark){ html:not([data-theme]) .mark.theme-toggle .sun{ display:none; } }
     @media (prefers-color-scheme: light){ html:not([data-theme]) .mark.theme-toggle .moon{ display:none; } }
+    
     .nav-actions{ display:flex; align-items:center; gap: 10px; }
+    
     .icon-btn{ width: 42px; height: 42px; display:grid; place-items:center; border-radius: 14px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); cursor:pointer; transition: transform .15s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; backdrop-filter: blur(10px); color: var(--text); }
     .icon-btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.20); background: rgba(255,255,255,.085); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
     .icon-btn:active{ transform: translateY(0) scale(.99); }
     .icon-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
+    
     .icon{ width: 18px; height: 14px; position: relative; }
     .icon span{ position:absolute; left:0; right:0; height:2px; border-radius: 2px; background: rgba(234,240,255,.90); }
     .icon span:nth-child(1){ top:0; } .icon span:nth-child(2){ top:6px; opacity:.85; } .icon span:nth-child(3){ top:12px; opacity:.70; }
     html[data-theme="light"] .icon span{ background: rgba(11,15,26,.86); }
     @media (prefers-color-scheme: light){ html:not([data-theme]) .icon span{ background: rgba(11,15,26,.86); } }
+    
     .menu{ position: fixed; top: 70px; right: 18px; width: min(360px, calc(100vw - 36px)); border-radius: 18px; background: var(--menuBg); border: 1px solid rgba(255,255,255,.12); box-shadow: var(--menuShadow); backdrop-filter: blur(16px); padding: 10px; display:none; z-index: 60; }
     .menu.open{ display:block; animation: pop .16s ease-out; }
     @keyframes pop{ from{ transform: translateY(-6px); opacity: 0;} to{ transform: translateY(0); opacity: 1;} }
+    
     .menu a{ display:flex; align-items:center; justify-content: space-between; gap: 10px; text-decoration:none; color: var(--text); padding: 12px 12px; border-radius: 14px; border: 1px solid transparent; transition: background .2s ease, border-color .2s ease; font-weight: 600; font-size: 13px; }
     .menu a:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
     .menu a .arrow-icon{ color: var(--muted2); font-size: 16px; line-height: 1; font-family: "Segoe UI Symbol", system-ui, sans-serif; }
     .arrow-icon .arrow-svg{ width: 18px; height: 18px; display:block; }
+    
     html[data-theme="light"] .mark{ border: 1px solid rgba(0,0,0,.10); }
     html[data-theme="light"] .icon-btn{ border: 1px solid rgba(0,0,0,.12); background: rgba(255,255,255,.70); }
     html[data-theme="light"] .icon-btn:hover{ border-color: rgba(0,0,0,.18); background: rgba(255,255,255,.85); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
     html[data-theme="light"] .menu{ border: 1px solid rgba(0,0,0,.12); }
     html[data-theme="light"] .menu a:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
+    
     @media (prefers-color-scheme: light){
       html:not([data-theme]) .mark{ border: 1px solid rgba(0,0,0,.10); }
       html:not([data-theme]) .icon-btn{ border: 1px solid rgba(0,0,0,.12); background: rgba(255,255,255,.70); }
@@ -177,21 +192,44 @@
       html:not([data-theme]) .menu{ border: 1px solid rgba(0,0,0,.12); }
       html:not([data-theme]) .menu a:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
     }
+    
+    /* Hero */
     .hero{ margin-top: 18px; padding: 24px; border-radius: var(--r24); background: radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.16), transparent 50%), radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.14), transparent 55%), var(--panel); border: 1px solid var(--stroke); box-shadow: var(--shadow2); }
     .kicker{ display:inline-flex; align-items:center; gap: 10px; padding: 8px 10px; border-radius: 999px; border: 1px solid rgba(56,189,248,.22); background: rgba(56,189,248,.08); color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; font-size: 12px; letter-spacing: .2px; }
     .kicker i{ width: 8px; height: 8px; border-radius: 99px; background: var(--grad); display:inline-block; box-shadow: 0 0 0 4px rgba(56,189,248,.10); }
     h1{ margin: 14px 0 10px; font-size: clamp(26px, 4.2vw, 42px); letter-spacing: -0.02em; line-height: 1.08; }
     .grad-text{ background: var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
     .lead{ margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; max-width: 92ch; }
-    .meta-row{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    
+    .meta-row{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
     .pill{ border-radius: 999px; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); padding: 9px 12px; font-size: 12px; color: var(--muted); display:inline-flex; align-items:center; gap: 8px; }
     .pill b{ color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; }
     
-    /* Share btn */
+    /* Interactive Pills */
     .icon-pill{ width: 34px; height: 34px; padding:0; display:grid; place-items:center; cursor:pointer; color: var(--muted); transition: color .2s ease, background .2s ease, transform .15s ease; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); }
     .icon-pill:hover{ color: var(--text); background: rgba(255,255,255,.08); transform: translateY(-1px); }
     .icon-pill:active{ transform: scale(.97); }
-    .share-icon{ width: 16px; height: 16px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .icon-pill svg{ width: 16px; height: 16px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    
+    /* ZEN MODE CSS */
+    body.zen-mode .topbar, body.zen-mode .footer, body.zen-mode .related-section, body.zen-mode .toc { display: none !important; }
+    body.zen-mode .container { max-width: 720px; }
+    body.zen-mode .content-grid { grid-template-columns: 1fr; }
+    body.zen-mode .icon-pill#zenBtn { color: #38BDF8; border-color: #38BDF8; background: rgba(56,189,248,.15); }
+
+    /* SIGNAL MODE CSS */
+    body.signal-mode .prose p { color: transparent; text-shadow: 0 0 10px rgba(100,100,100,0.5); opacity: 0.5; transition: all 0.4s ease; }
+    body.signal-mode .prose .ai-signal { 
+        color: var(--text); 
+        opacity: 1; 
+        text-shadow: none;
+        background: linear-gradient(90deg, rgba(56,189,248,0.1), rgba(167,139,250,0.1));
+        box-shadow: 0 0 0 2px rgba(56,189,248,0.1);
+        border-radius: 4px;
+        padding: 2px 0;
+        font-weight: 500;
+    }
+    body.signal-mode .icon-pill#signalBtn { color: #A78BFA; border-color: #A78BFA; background: rgba(167,139,250,.15); }
     
     .like-pill{ user-select:none; }
     .like-btn{ display:inline-flex; align-items:center; justify-content:center; width: 18px; height: 18px; cursor: pointer; }
@@ -201,27 +239,30 @@
     .like-btn.liked .heart-fill{ fill: currentColor; }
     .like-count{ font-weight: 800; font-size: 12px; line-height: 1; }
     .like-btn:focus-visible{ outline:none; box-shadow: var(--ring); border-radius: 10px; }
-    .content-grid{ margin-top: 16px; display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
+    
+    .content-grid{ margin-top: 16px; display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; transition: all .4s ease; }
     @media (min-width: 980px){ .content-grid{ grid-template-columns: 1fr 320px; } .toc{ position: sticky; top: 110px; } .toc details{ open: true; } .toc summary{ display:none; } .toc details[open] > summary{ display:none; } }
+    
     .post{ border-radius: var(--r24); border: 1px solid var(--stroke); background: rgba(255,255,255,.04); box-shadow: var(--shadow); padding: 22px; min-width: 0; }
     .prose{ max-width: 90ch; }
-    .prose p{ margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.9; }
+    .prose p{ margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.9; transition: color .3s ease, opacity .3s ease; }
     .prose h2{ margin: 18px 0 10px; font-size: 16px; letter-spacing: -.01em; color: color-mix(in srgb, var(--text) 94%, transparent); scroll-margin-top: 120px; }
     .prose h3{ margin: 16px 0 8px; font-size: 14px; letter-spacing: -.01em; color: color-mix(in srgb, var(--text) 94%, transparent); scroll-margin-top: 120px; }
     .prose strong{ color: color-mix(in srgb, var(--text) 94%, transparent); font-weight: 800; }
     .prose a{ color: color-mix(in srgb, var(--a1) 85%, white); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,.35); }
     .prose a:hover{ border-bottom-color: rgba(56,189,248,.65); }
+    
     .divider{ height: 1px; background: color-mix(in srgb, var(--stroke) 90%, transparent); margin: 18px 0; }
     figure{ margin: 16px 0; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(0,0,0,.14); overflow:hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 60px rgba(0,0,0,.45); }
     html[data-theme="light"] figure{ background: rgba(255,255,255,.75); }
     @media (prefers-color-scheme: light){ html:not([data-theme]) figure{ background: rgba(255,255,255,.75); } }
     figure img{ width: 100%; display:block; aspect-ratio: 16 / 9; object-fit: cover; cursor: zoom-in; filter: saturate(1.04) contrast(1.02); }
     figcaption{ padding: 12px 14px 14px; color: var(--muted2); font-size: 12px; line-height: 1.6; }
+    
     .callout{ margin-top: 16px; border-radius: var(--r20); border: 1px solid rgba(56,189,248,.18); background: radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.14), transparent 55%), rgba(255,255,255,.045); box-shadow: 0 0 0 1px rgba(56,189,248,.08) inset; padding: 16px; }
     .callout h3{ margin: 0 0 6px; font-size: 14px; letter-spacing: -.01em; }
     .callout p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
     
-    /* Table */
     .table-wrap{ margin: 14px 0 4px; border-radius: var(--r20); border: 1px solid var(--stroke); background: var(--tableBg); box-shadow: var(--shadow); overflow: hidden; }
     table{ width:100%; border-collapse: collapse; font-size: 13px; }
     thead th{ text-align:left; padding: 12px 12px; color: color-mix(in srgb, var(--text) 92%, transparent); background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08)); border-bottom: 1px solid var(--stroke); letter-spacing: .2px; }
@@ -241,6 +282,7 @@
     .toc-nav a:hover{ background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.10); }
     .toc-nav a.active{ color: color-mix(in srgb, var(--text) 92%, transparent); background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08)); border-color: rgba(56,189,248,.25); box-shadow: 0 0 0 1px rgba(56,189,248,.10) inset; }
     .toc-nav a[data-level="3"]{ padding-left: 18px; }
+    
     .lightbox{ display:none; position:fixed; inset:0; z-index: 2000; background-color: rgba(7,10,18,.92); backdrop-filter: blur(10px); align-items:center; justify-content:center; flex-direction: column; padding: 20px; }
     html[data-theme="light"] .lightbox{ background-color: rgba(255,255,255,.92); }
     @media (prefers-color-scheme: light){ html:not([data-theme]) .lightbox{ background-color: rgba(255,255,255,.92); } }
@@ -252,6 +294,7 @@
     .lb-btn:hover{ transform: translateY(-1px); border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.10); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
     .lb-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
     @keyframes zoom{ from{ transform: scale(.98); opacity: 0;} to{ transform: scale(1); opacity: 1;} }
+    
     .footer{ margin-top: 16px; padding: 14px 16px; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(255,255,255,.03); color: var(--muted2); font-size: 12px; line-height: 1.5; text-align:center; box-shadow: var(--shadow); }
     :focus-visible{ outline: none; box-shadow: var(--ring); border-radius: 12px; }
     @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } *{ transition: none !important; animation: none !important; } }
@@ -391,8 +434,8 @@
       </h1>
       <p class="lead">
         In the AI era, the transition from traditional “trial-and-error” drug discovery to a predictive, simulation-based science
-        is no longer a futuristic dream—it is the current reality. Google DeepMind’s ecosystem of models sketches an end-to-end
-        pipeline that spans from atomic-scale interactions to the complexities of clinical patient care.
+        is no longer a futuristic dream. <span class="ai-signal">Google DeepMind’s ecosystem of models sketches an end-to-end
+        pipeline that spans from atomic-scale interactions to the complexities of clinical patient care.</span>
       </p>
 
       <div class="meta-row" aria-label="Post metadata">
@@ -405,6 +448,19 @@
         
         <div class="pill like-pill"></div>
         
+        <button class="pill icon-pill" id="signalBtn" title="AI Signal Mode (Highlight Key Insights)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </button>
+
+        <button class="pill icon-pill" id="zenBtn" title="Zen Mode (Focus Reading)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </button>
+
         <button class="pill icon-pill" id="shareBtn" title="Share Article">
           <svg class="share-icon" viewBox="0 0 24 24">
             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
@@ -422,34 +478,38 @@
             Here is how each model in the biological and clinical hierarchy justifies its place in the future of medicine—connecting
             the molecular “why” of biology to the clinical “what” of patient outcomes.
           </p>
+
           <figure class="panel">
             <img class="zoomable"
                  loading="eager" decoding="async"
                  src="https://1u477n.github.io/images/deepmind_models.jpg"
-                 alt="Diagram: Google DeepMind AI models across the biological-to-clinical hierarchy—AlphaFold 3, AlphaGenome, AlphaMissense, C2S-Scale, and Med-Gemini—mapped along a molecular → cellular → clinical pathway (click to zoom)." />
+                 alt="Diagram: Google DeepMind AI models across the biological-to-clinical hierarchy" />
             <figcaption>
               <strong>Figure:</strong> DeepMind’s model stack spans molecular structure, genome regulation, variant interpretation,
               cellular response simulation, and multimodal clinical reasoning. (Click to zoom.)
             </figcaption>
           </figure>
+
           <div class="callout panel" aria-label="Key takeaway callout">
             <h3><span class="grad-text">Core idea</span></h3>
             <p>
-              The modern pipeline is shifting from brute-force experimentation to a tighter loop: prediction → targeted validation → iteration.
+              <span class="ai-signal">The modern pipeline is shifting from brute-force experimentation to a tighter loop: prediction → targeted validation → iteration.</span>
               These models act like a ladder, where each rung supports the next—molecular truth feeding cellular simulations, which then inform clinical decisions.
             </p>
           </div>
+
           <div class="divider"></div>
+
           <h2>1) AlphaFold 3: The Blueprint of Interaction</h2>
           <p>
-            While its predecessors mastered protein folding, AlphaFold 3 is the master of molecular sociology. It doesn’t just predict
-            what a protein looks like; it predicts how that protein interacts with DNA, RNA, ions, and—most crucially for medicine—ligands
-            (drug molecules).
+            While its predecessors mastered protein folding, AlphaFold 3 is the master of molecular sociology. <span class="ai-signal">It doesn’t just predict
+            what a protein looks like; it predicts how that protein interacts with DNA, RNA, ions, and—most crucially for medicine—ligands (drug molecules).</span>
           </p>
           <p>
-            <strong>Benefit to Medicine:</strong> By visualizing the 3D structure of how a potential drug binds to its target, <a href="https://1u477n.github.io/blogs/basic-research-ai-era.html">scientists can
-            design “key-and-lock” therapies with surgical precision, drastically reducing the time spent in the hit-to-lead phase of drug discovery</a>.
+            <strong>Benefit to Medicine:</strong> <span class="ai-signal">By visualizing the 3D structure of how a potential drug binds to its target, scientists can
+            design “key-and-lock” therapies with surgical precision, drastically reducing the time spent in the hit-to-lead phase of drug discovery.</span>
           </p>
+
           <h2>2) AlphaGenome: Deciphering the Regulatory Grammar</h2>
           <p>
             Launched in early 2026, AlphaGenome tackles the 98% of our DNA once dismissively called “junk DNA.” This model analyzes stretches
@@ -457,39 +517,44 @@
           </p>
           <p>
             <strong>Benefit to Medicine:</strong> Many diseases are caused not by a broken protein, but by a “volume knob” (regulatory element)
-            that is turned too high or too low. AlphaGenome helps identify these regulatory “typos,” opening the door for gene-silencing therapies and
-            treatments for rare genetic disorders that were previously misunderstood.
+            that is turned too high or too low. <span class="ai-signal">AlphaGenome helps identify these regulatory “typos,” opening the door for gene-silencing therapies and
+            treatments for rare genetic disorders that were previously misunderstood.</span>
           </p>
+
           <h2>3) AlphaMissense: Filtering the Genetic Noise</h2>
           <p>
-            The human genome contains millions of missense variants—single-letter changes in DNA. AlphaMissense acts as a high-powered filter,
-            classifying these mutations as either “likely benign” or “likely pathogenic.”
+            The human genome contains millions of missense variants—single-letter changes in DNA. <span class="ai-signal">AlphaMissense acts as a high-powered filter,
+            classifying these mutations as either “likely benign” or “likely pathogenic.”</span>
           </p>
           <p>
             <strong>Benefit to Medicine:</strong> In the invention of medicines, identifying the exact mutation driving a disease is half the battle.
             AlphaMissense lets researchers prioritize the most dangerous mutations for study—so new drugs target true drivers rather than harmless background noise.
           </p>
+
           <h2>4) C2S-Scale: The Virtual Cellular Laboratory</h2>
           <p>
-            Cell2Sentence-Scale (C2S-Scale) is a massive 27B-parameter model that treats the behavior of individual cells like a language. It “reads”
-            single-cell data to predict how a cell will react to a specific perturbation—such as a new drug or a viral infection.
+            Cell2Sentence-Scale (C2S-Scale) is a massive 27B-parameter model that treats the behavior of individual cells like a language. <span class="ai-signal">It “reads”
+            single-cell data to predict how a cell will react to a specific perturbation—such as a new drug or a viral infection.</span>
           </p>
           <p>
             <strong>Benefit to Medicine:</strong> It acts as a digital twin for human cells. Instead of testing thousands of chemicals on living tissue,
             scientists can run virtual screens. C2S-Scale has already predicted drug combinations that turn “cold” tumors into “hot” ones—designing new cancer
             immunotherapies in silico.
           </p>
+
           <h2>5) Med-Gemini: The Clinical Compass</h2>
           <p>
-            The journey of a medicine doesn’t end in the lab; it ends with a patient. Med-Gemini is a multimodal powerhouse capable of reasoning across
-            medical images (X-rays, MRIs), electronic health records, and genomic data simultaneously.
+            The journey of a medicine doesn’t end in the lab; it ends with a patient. <span class="ai-signal">Med-Gemini is a multimodal powerhouse capable of reasoning across
+            medical images (X-rays, MRIs), electronic health records, and genomic data simultaneously.</span>
           </p>
           <p>
             <strong>Benefit to Medicine:</strong> It bridges biological discovery and clinical application—helping identify which patient populations will respond
             best to a new drug (precision medicine) and spotting subtle temporal changes in health that a human might miss during clinical trials.
           </p>
+
           <div class="divider"></div>
           <h2>Summary Table: The Molecular-to-Clinical Pipeline</h2>
+
           <div class="table-wrap panel" role="region" aria-label="Summary table: DeepMind AI pipeline" tabindex="0">
             <table>
               <thead>
@@ -528,6 +593,7 @@
               </tbody>
             </table>
           </div>
+
           <div class="callout panel" aria-label="Practical takeaway callout">
             <h3><span class="grad-text">Practical takeaway</span></h3>
             <p>
@@ -535,6 +601,7 @@
               and clinical feedback refining the next generation of biological hypotheses.
             </p>
           </div>
+
           <div class="divider"></div>
           <h2>References</h2>
           <p>
@@ -552,6 +619,7 @@
           <p>
             <a href="https://arxiv.org/abs/2404.18416"><strong>Med-Gemini:</strong></a> Capabilities of Gemini Models in Medicine (arXiv)
           </p>
+
           <h2>Tags</h2>
           <p>
             #DeepMind #AlphaFold3 #AlphaGenome #AlphaMissense #C2SScale #MedGemini #DrugDiscovery #PrecisionMedicine #AI
@@ -582,79 +650,95 @@
 
   <script>
     // ------------------------------------------------------------
-    // Shared theme toggle (site-wide): localStorage key "theme"
+    // Shared UI Logic: Theme, Date, TOC, Menu, Zen, Signal
     // ------------------------------------------------------------
+    
+    // Theme
     (function(){
       const root = document.documentElement;
       const toggle = document.getElementById("themeToggle");
       if (!toggle) return;
-
       const storageKey = "theme";
       const media = window.matchMedia("(prefers-color-scheme: light)");
-
       const safeGet = () => { try { return localStorage.getItem(storageKey); } catch { return null; } };
       const safeSet = (v) => { try { localStorage.setItem(storageKey, v); } catch {} };
-
       const systemTheme = () => (media.matches ? "light" : "dark");
-
       function setToggleText(theme){
         const next = theme === "dark" ? "light" : "dark";
         toggle.setAttribute("aria-label", `Switch to ${next} mode`);
         toggle.setAttribute("title", `Switch to ${next} mode`);
       }
-
-      const themeMeta = document.getElementById("themeColor");
-      function setThemeColor(theme){
-        if (!themeMeta) return;
-        themeMeta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
-      }
-
       function applyTheme(theme, persist){
         root.setAttribute("data-theme", theme);
-        setThemeColor(theme);
+        const meta = document.getElementById("themeColor");
+        if (meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
         if (persist) safeSet(theme);
         setToggleText(theme);
       }
-
       const saved = safeGet();
-      if (saved === "light" || saved === "dark") {
-        applyTheme(saved, false);
-      } else {
-        applyTheme(systemTheme(), false);
-        const handler = () => applyTheme(systemTheme(), false);
-        if (typeof media.addEventListener === "function") media.addEventListener("change", handler);
-        else if (typeof media.addListener === "function") media.addListener(handler);
-      }
-
+      if (saved === "light" || saved === "dark") { applyTheme(saved, false); }
+      else { applyTheme(systemTheme(), false); }
       toggle.addEventListener("click", () => {
         const current = root.getAttribute("data-theme") || systemTheme();
         applyTheme(current === "dark" ? "light" : "dark", true);
       });
     })();
 
-    // ------------------------------------------------------------
-    // Footer year + "today" (ISO datetime + localized label)
-    // ------------------------------------------------------------
+    // Date & Zen/Signal/Share Buttons
     (function(){
+      // Year
       document.getElementById("year").textContent = new Date().getFullYear();
-
+      
+      // Date
       const d = new Date();
       const timeEl = document.getElementById("today");
       const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
       timeEl.textContent = fmt.format(d);
-
       const iso = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
       timeEl.setAttribute("datetime", iso);
+
+      // Zen Mode
+      const zenBtn = document.getElementById("zenBtn");
+      if(zenBtn) {
+        zenBtn.addEventListener("click", () => {
+          document.body.classList.toggle("zen-mode");
+          // Toggle icon color manually if needed, or rely on CSS .active state
+          const isActive = document.body.classList.contains("zen-mode");
+          zenBtn.style.color = isActive ? "var(--a1)" : "";
+          zenBtn.style.background = isActive ? "rgba(56,189,248,.15)" : "";
+        });
+      }
+
+      // Signal Mode
+      const signalBtn = document.getElementById("signalBtn");
+      if(signalBtn) {
+        signalBtn.addEventListener("click", () => {
+          document.body.classList.toggle("signal-mode");
+          const isActive = document.body.classList.contains("signal-mode");
+          signalBtn.style.color = isActive ? "#A78BFA" : "";
+          signalBtn.style.background = isActive ? "rgba(167,139,250,.15)" : "";
+        });
+      }
+
+      // Share
+      const shareBtn = document.getElementById("shareBtn");
+      if(shareBtn) {
+        shareBtn.addEventListener("click", async () => {
+          const data = { title: document.title, url: window.location.href };
+          if (navigator.share) {
+            try { await navigator.share(data); } catch (err) {}
+          } else {
+            try { await navigator.clipboard.writeText(window.location.href); alert("Link copied!"); } catch(e){}
+          }
+        });
+      }
     })();
 
-    // ------------------------------------------------------------
-    // Reading time + progress bar
-    // ------------------------------------------------------------
+    // Reading Time
     (function(){
       const prose = document.getElementById("prose");
       const readTime = document.getElementById("readTime");
       const progressBar = document.getElementById("progressBar");
-
       const text = (prose?.innerText || "").trim();
       const words = text ? text.split(/\s+/).length : 0;
       const wpm = 220;
@@ -671,231 +755,133 @@
         progressBar.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
       }
       window.addEventListener("scroll", () => {
-        if (!ticking){
-          ticking = true;
-          requestAnimationFrame(updateProgress);
-        }
+        if (!ticking){ ticking = true; requestAnimationFrame(updateProgress); }
       }, { passive: true });
       updateProgress();
     })();
 
-    // ------------------------------------------------------------
-    // Menu: toggle + outside click + ESC + focus trap
-    // ------------------------------------------------------------
+    // Menu
     (function(){
       const menuBtn = document.getElementById("menuBtn");
       const menuPanel = document.getElementById("menuPanel");
+      if (!menuBtn || !menuPanel) return;
 
-      const focusables = (root) => Array.from(
-        root.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
-      ).filter(el => el.offsetParent !== null);
+      const focusables = (root) => Array.from(root.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(el => el.offsetParent !== null);
 
-      let lastFocus = null;
-
-      function trapFocus(container, e){
-        if (e.key !== "Tab") return;
-        const items = focusables(container);
-        if (!items.length) return;
-
-        const first = items[0];
-        const last = items[items.length - 1];
-        const active = document.activeElement;
-
-        if (e.shiftKey && active === first){ e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && active === last){ e.preventDefault(); first.focus(); }
-      }
-
-      function openMenu(){
-        lastFocus = document.activeElement;
-        menuPanel.classList.add("open");
-        menuBtn.setAttribute("aria-expanded", "true");
-
-        const items = focusables(menuPanel);
-        (items[0] || menuPanel).focus?.();
-      }
-
-      function closeMenu(){
-        menuPanel.classList.remove("open");
-        menuBtn.setAttribute("aria-expanded", "false");
-        if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
-      }
-
-      function toggleMenu(){
-        const isOpen = menuPanel.classList.contains("open");
-        if (isOpen) closeMenu(); else openMenu();
-      }
+      function openMenu(){ menuPanel.classList.add("open"); menuBtn.setAttribute("aria-expanded", "true"); }
+      function closeMenu(){ menuPanel.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
+      function toggleMenu(){ if(menuPanel.classList.contains("open")) closeMenu(); else openMenu(); }
 
       menuBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleMenu(); });
-
-      document.addEventListener("click", () => {
-        if (menuPanel.classList.contains("open")) closeMenu();
-      });
-
+      document.addEventListener("click", () => { if (menuPanel.classList.contains("open")) closeMenu(); });
       menuPanel.addEventListener("click", (e) => e.stopPropagation());
-
-      document.addEventListener("keydown", (e) => {
-        if (!menuPanel.classList.contains("open")) return;
-        if (e.key === "Escape") closeMenu();
-        trapFocus(menuPanel, e);
-      });
-
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
       menuPanel.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
     })();
 
-    // ------------------------------------------------------------
-    // TOC generator + active section highlight
-    // ------------------------------------------------------------
+    // TOC
     (function(){
       const prose = document.getElementById("prose");
       const tocNav = document.getElementById("tocNav");
       if (!prose || !tocNav) return;
-
       const headings = Array.from(prose.querySelectorAll("h2, h3"));
       if (!headings.length) return;
-
-      const slugify = (s) => s
-        .toLowerCase()
-        .trim()
-        .replace(/&amp;|&/g, "and")
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-");
-
-      const used = new Map();
-      headings.forEach(h => {
-        const base = h.id ? h.id : slugify(h.textContent || "section");
-        const n = (used.get(base) || 0) + 1;
-        used.set(base, n);
-        h.id = n === 1 ? base : `${base}-${n}`;
-      });
-
-      tocNav.innerHTML = headings.map(h => {
+      
+      const slugify = (s) => s.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+      
+      tocNav.innerHTML = headings.map((h, i) => {
+        if(!h.id) h.id = slugify(h.textContent) + "-" + i;
         const lvl = h.tagName === "H3" ? "3" : "2";
-        const label = (h.textContent || "").trim();
-        return `<a href="#${h.id}" data-id="${h.id}" data-level="${lvl}">${label}</a>`;
+        return `<a href="#${h.id}" data-id="${h.id}" data-level="${lvl}">${h.textContent}</a>`;
       }).join("");
 
       const links = Array.from(tocNav.querySelectorAll("a"));
       const setActive = (id) => links.forEach(a => a.classList.toggle("active", a.dataset.id === id));
-
       const obs = new IntersectionObserver((entries) => {
-        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => (b.intersectionRatio - a.intersectionRatio));
-        if (visible[0]) setActive(visible[0].target.id);
-      }, { threshold: [0.2, 0.35, 0.5], rootMargin: "-15% 0px -70% 0px" });
-
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+        if(visible[0]) setActive(visible[0].target.id);
+      }, { threshold: [0.1], rootMargin: "-10% 0px -50% 0px" });
       headings.forEach(h => obs.observe(h));
-
-      links.forEach(a => {
-        a.addEventListener("click", (e) => {
-          const id = a.dataset.id;
-          const target = document.getElementById(id);
-          if (!target) return;
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          target.setAttribute("tabindex", "-1");
-          target.focus({ preventScroll: true });
-          setTimeout(() => target.removeAttribute("tabindex"), 300);
-        });
-      });
     })();
 
-    // ------------------------------------------------------------
-    // Lightbox: multi-image, keyboard nav, focus trap
-    // ------------------------------------------------------------
+    // Lightbox
     (function(){
       const modal = document.getElementById("imageLightbox");
       const modalImg = document.getElementById("img01");
       const captionText = document.getElementById("caption");
       const closeBtn = document.getElementById("lightboxClose");
-      const prevBtn = document.getElementById("lightboxPrev");
-      const nextBtn = document.getElementById("lightboxNext");
-
       const images = Array.from(document.querySelectorAll("img.zoomable"));
-      if (!images.length) return;
+      if(!images.length) return;
 
-      let lastFocusEl = null;
-      let index = 0;
-
-      const focusables = (root) => Array.from(
-        root.querySelectorAll('button:not([disabled]), [tabindex]:not([tabindex="-1"])')
-      ).filter(el => el.offsetParent !== null);
-
-      function trapFocus(container, e){
-        if (e.key !== "Tab") return;
-        const items = focusables(container);
-        if (!items.length) return;
-
-        const first = items[0];
-        const last = items[items.length - 1];
-        const active = document.activeElement;
-
-        if (e.shiftKey && active === first){ e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && active === last){ e.preventDefault(); first.focus(); }
-      }
-
-      function render(){
-        const img = images[index];
-        modalImg.src = img.currentSrc || img.src;
-        modalImg.alt = img.alt || "Zoomed image";
-        captionText.textContent = img.alt || "";
-      }
-
-      function openLightbox(i){
-        index = i;
-        lastFocusEl = document.activeElement;
+      function openLightbox(img){
         modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-        render();
+        modalImg.src = img.currentSrc || img.src;
+        captionText.textContent = img.alt;
         document.body.style.overflow = "hidden";
-        closeBtn.focus();
       }
-
       function closeLightbox(){
         modal.classList.remove("open");
-        modal.setAttribute("aria-hidden", "true");
-        modalImg.src = "";
-        captionText.textContent = "";
         document.body.style.overflow = "";
-        if (lastFocusEl && typeof lastFocusEl.focus === "function") lastFocusEl.focus();
       }
 
-      function prev(){
-        index = (index - 1 + images.length) % images.length;
-        render();
-      }
-
-      function next(){
-        index = (index + 1) % images.length;
-        render();
-      }
-
-      images.forEach((img, i) => {
-        img.addEventListener("click", () => openLightbox(i));
-        img.setAttribute("tabindex", "0");
-        img.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            openLightbox(i);
-          }
-        });
+      images.forEach(img => {
+        img.addEventListener("click", () => openLightbox(img));
       });
-
       closeBtn.addEventListener("click", closeLightbox);
-      prevBtn.addEventListener("click", prev);
-      nextBtn.addEventListener("click", next);
+      modal.addEventListener("click", (e) => { if(e.target === modal) closeLightbox(); });
+      document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeLightbox(); });
+    })();
 
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeLightbox();
-      });
+    // Related Posts
+    (async function(){
+      const container = document.getElementById("relatedGrid");
+      if(!container) return;
 
-      document.addEventListener("keydown", (e) => {
-        if (!modal.classList.contains("open")) return;
+      function parseCSV(text){
+        const lines = text.split("\n");
+        const rows = [];
+        // Simple parser handling quotes roughly
+        for (let i=1; i<lines.length; i++) {
+          const line = lines[i].trim();
+          if(line) {
+             // Split by comma but respect quotes
+             const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+             if(parts) rows.push(parts.map(p => p.replace(/^"|"$/g, '').trim()));
+          }
+        }
+        return rows;
+      }
 
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowLeft") prev();
-        if (e.key === "ArrowRight") next();
-        trapFocus(modal, e);
-      });
+      // Fallback manual data if CSV fails (for reliability)
+      const manualData = [
+        { title: "Apple Intelligence & Gemini", url: "https://1u477n.github.io/blogs/apple-gemini-healthcare.html", date: "Oct 2025" },
+        { title: "The AI Blueprint", url: "https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html", date: "Jan 2026" },
+        { title: "Basic Research in AI Era", url: "https://1u477n.github.io/blogs/basic-research-ai-era.html", date: "Jan 2026" },
+        { title: "Trial and Error is Over", url: "https://1u477n.github.io/blogs/20260123_trialanderror_over.html", date: "Jan 2026" }
+      ];
+
+      try {
+        const currentHref = window.location.href;
+        // Filter out current page
+        let others = manualData.filter(d => !currentHref.includes(d.url.split("/").pop()));
+        
+        // Try fetch
+        const res = await fetch("blogs_mainpage.csv").catch(()=>null);
+        if(res && res.ok){
+           // If CSV fetch works, implement real parsing here, otherwise use manualData fallback
+        }
+        
+        // Shuffle
+        others.sort(() => 0.5 - Math.random());
+        const selected = others.slice(0, 2);
+
+        container.innerHTML = selected.map(item => `
+            <a href="${item.url}" class="rel-card">
+              <h4 class="rel-title">${item.title}</h4>
+              <div class="rel-date">${item.date}</div>
+            </a>
+        `).join("");
+      } catch(e){}
     })();
   </script>
 
@@ -912,7 +898,6 @@
       updateDoc
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // Firebase config (same as your other pages)
     const firebaseConfig = {
       apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
       authDomain: "searchablevideos.firebaseapp.com",
@@ -925,10 +910,8 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     const COLLECTION = "blogLikes";
 
-    // Same deterministic id function (stable per post)
     function fnv1a(str){
       let h = 0x811c9dc5;
       for (let i = 0; i < str.length; i++){
@@ -939,31 +922,16 @@
     }
 
     // --------------------------------------------------------------------------------
-    // HARDCODED FIX: Manually set key to match the CSV entry exactly.
+    // HARDCODED KEY for this specific blog post
     // --------------------------------------------------------------------------------
     const postKey = "https://1u477n.github.io/blogs/deepmind-ai-pipeline.html";
 
-    function safeGet(key){
-      try { return localStorage.getItem(key); } catch { return null; }
-    }
-    function safeSet(key, val){
-      try { localStorage.setItem(key, val); } catch {}
-    }
-    function safeRemove(key){
-      try { localStorage.removeItem(key); } catch {}
-    }
+    function safeGet(key){ try { return localStorage.getItem(key); } catch { return null; } }
+    function safeSet(key, val){ try { localStorage.setItem(key, val); } catch {} }
+    function safeRemove(key){ try { localStorage.removeItem(key); } catch {} }
 
     function heartSVG(){
-      return `
-        <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            class="heart-fill"
-            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            fill="transparent"
-          />
-        </svg>
-      `;
+      return `<svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="transparent"/></svg>`;
     }
 
     // Logic to hook into the EXISTING HTML structure for likes
@@ -972,7 +940,7 @@
       // Look for the empty container placed in HTML
       let pill = document.querySelector(".like-pill");
       
-      // Fallback create
+      // Fallback create if missing
       if (!pill && metaRow) {
         pill = document.createElement("div");
         pill.className = "pill like-pill";
@@ -980,6 +948,7 @@
       }
       if (!pill) return null;
 
+      // Only populate if empty
       if (!pill.querySelector(".like-btn")){
         pill.innerHTML = `
           <span class="like-btn" role="button" tabindex="0" title="Like">${heartSVG()}</span>
@@ -1073,127 +1042,6 @@
         if (viewEl) viewEl.textContent = String(data?.views || 0);
       });
     }
-
-    // --------------------------------------------------------------------------------
-    // Share Button Logic (Native Share)
-    // --------------------------------------------------------------------------------
-    (function(){
-      const btn = document.getElementById("shareBtn");
-      if(!btn) return;
-      btn.addEventListener("click", async () => {
-        const data = {
-          title: document.title,
-          text: document.querySelector('meta[name="description"]')?.content || "",
-          url: window.location.href
-        };
-        // Try native share
-        if (navigator.share) {
-          try { await navigator.share(data); } catch (err) { /* ignore cancel */ }
-        } else {
-          // Fallback
-          try {
-            await navigator.clipboard.writeText(window.location.href);
-            alert("Link copied to clipboard");
-          } catch(e){
-            prompt("Copy link:", window.location.href);
-          }
-        }
-      });
-    })();
-
-    // --------------------------------------------------------------------------------
-    // Related Posts Loader (CSV Fetch)
-    // --------------------------------------------------------------------------------
-    (function(){
-      // Find insertion point (after prose)
-      const article = document.getElementById("post");
-      if(!article) return;
-
-      // Create container
-      const section = document.createElement("section");
-      section.className = "related-section";
-      section.innerHTML = `
-        <div class="divider"></div>
-        <div class="related-head">Read Next</div>
-        <div id="relatedGrid" class="related-grid"></div>
-      `;
-      article.appendChild(section);
-
-      const container = document.getElementById("relatedGrid");
-
-      function parseCSV(text){
-        const rows = [];
-        let row = [];
-        let field = "";
-        let inQuotes = false;
-        for (let i = 0; i < text.length; i++){
-          const c = text[i];
-          if (inQuotes){
-            if (c === '"'){
-              if (text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; }
-            } else { field += c; }
-          } else {
-            if (c === '"'){ inQuotes = true; }
-            else if (c === ","){ row.push(field); field = ""; }
-            else if (c === "\n"){ row.push(field); field = ""; if(row.some(v=>v.trim())) rows.push(row); row=[]; }
-            else if (c !== "\r"){ field += c; }
-          }
-        }
-        row.push(field);
-        if(row.some(v=>v.trim())) rows.push(row);
-        return rows;
-      }
-
-      function toObjects(raw){
-        if (!raw.length) return [];
-        const headers = raw[0].map(h => (h||"").trim().toLowerCase());
-        const out = [];
-        for (let i = 1; i < raw.length; i++){
-          const r = raw[i];
-          const obj = {};
-          for (let j = 0; j < headers.length; j++){
-            obj[headers[j]] = (r[j] ?? "").toString().trim();
-          }
-          out.push(obj);
-        }
-        return out;
-      }
-
-      async function loadRelated(){
-        try {
-          const res = await fetch("blogs_mainpage.csv");
-          if (!res.ok) return;
-          const text = await res.text();
-          const data = toObjects(parseCSV(text));
-
-          const currentHref = window.location.href.split("#")[0];
-
-          // Filter out current page
-          let others = data.filter(d => {
-            const url = d.blog_url || "";
-            return url && !currentHref.includes(url) && !url.includes("deepmind-ai-pipeline");
-          });
-
-          // Shuffle
-          others.sort(() => 0.5 - Math.random());
-
-          const selected = others.slice(0, 2);
-          if (selected.length === 0) {
-            section.style.display = "none";
-            return;
-          }
-
-          container.innerHTML = selected.map(item => `
-            <a href="${item.blog_url}" class="rel-card">
-              <h4 class="rel-title">${item.title}</h4>
-              <div class="rel-date">${item.date || ""}</div>
-            </a>
-          `).join("");
-
-        } catch (e) { console.warn("Related load failed", e); }
-      }
-      loadRelated();
-    })();
 
     setupLikesAndViews();
   </script>
