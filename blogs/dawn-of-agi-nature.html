@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="A Nature perspective argues AGI has arrived: human-level intelligence as broad, flexible competence — and a call to move from fear to partnership." />
 
-  <link rel="canonical" href="https://1u477n.github.io/blogs/dawn-of-agi-nature2.html" />
+  <link rel="canonical" href="https://1u477n.github.io/blogs/dawn-of-agi-nature.html" />
 
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://1u477n.github.io/blogs/dawn-of-agi-nature2.html">
+  <meta property="og:url" content="https://1u477n.github.io/blogs/dawn-of-agi-nature.html">
   <meta property="og:title" content="The Dawn of AGI: Nature Declares Human-Level Intelligence is Already Here">
   <meta property="og:description" content="A February 2026 Nature perspective reframes “human-level” intelligence and calls for a shift from fear to partnership.">
   <meta property="og:image" content="https://1u477n.github.io/images/human-machine-partnership.png">
@@ -504,7 +504,7 @@
       const readTime = document.getElementById("readTime");
       const progressBar = document.getElementById("progressBar");
 
-      const text = (prose?.innerText || "").trim();
+      const text = (prose.innerText || "").trim();
       const words = text ? text.split(/\s+/).length : 0;
       const wpm = 220;
       const mins = Math.max(1, Math.round(words / wpm));
@@ -788,13 +788,10 @@
       return (h >>> 0).toString(16).padStart(8, "0");
     }
 
-    // IMPORTANT: use canonical href so it matches the mainpage card href exactly
-    function getPostKey(){
-      const canonical = document.querySelector('link[rel="canonical"]');
-      const raw = canonical?.getAttribute("href");
-      if (raw) return raw;
-      return `${location.origin}${location.pathname}`;
-    }
+    // --------------------------------------------------------------------------------
+    // HARDCODED FIX: Manually set key to match the CSV entry exactly.
+    // --------------------------------------------------------------------------------
+    const postKey = "https://1u477n.github.io/blogs/dawn-of-agi-nature.html";
 
     function safeGet(key){
       try { return localStorage.getItem(key); } catch { return null; }
@@ -891,9 +888,12 @@
 
       const { btn, count } = ui;
 
-      const postKey = getPostKey();
+      // Use the hardcoded key
       const docId = fnv1a(postKey);
       const ref = doc(db, COLLECTION, docId);
+
+      // DEBUG: Verify generated ID in console
+      console.log("PostKey:", postKey, "DocID:", docId);
 
       // Set initial UI state from localStorage
       const likedStorageKey = `liked_${docId}`;
@@ -902,17 +902,14 @@
       btn.setAttribute("aria-pressed", isLiked ? "true" : "false");
 
       // -------------------------------------------------------------
-      // SAFE INITIALIZATION (THE FIX)
-      // Check if doc exists first. Only write count:0 if MISSING.
-      // This prevents overwriting existing counts on reload.
+      // STRICT INITIALIZATION (THE FIX)
+      // 1. Read document first
+      // 2. ONLY create if missing (with count:0 to satisfy create rule)
+      // 3. If exists, do nothing (avoids update rule violation)
       // -------------------------------------------------------------
       getDoc(ref).then(snap => {
         if (!snap.exists()) {
           setDoc(ref, { count: 0, postKey }, { merge: true }).catch(() => {});
-        } else {
-          // If doc exists, just update postKey if needed (optional)
-          // but DO NOT touch 'count'
-          setDoc(ref, { postKey }, { merge: true }).catch(() => {});
         }
       });
 
