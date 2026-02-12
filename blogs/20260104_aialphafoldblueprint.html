@@ -431,11 +431,24 @@
 
       <div class="meta-row" aria-label="Post metadata">
         <div class="pill"><b>Author</b> Luat (Luke) Nguyen</div>
-        <div class="pill"><b>Topic</b> AI-native R&amp;D</div>
         
+        <div class="pill"><b>Focus</b> AI-native R&amp;D</div>
+        
+        <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
+        
+        <div class="pill" title="Reading Time">
+          <svg class="read-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          &nbsp;<span id="readTime">—</span>
+        </div>
+
         <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
         
-        <div class="pill like-pill"></div>
+        <div class="pill like-pill">
+          <span class="like-btn" title="Like">
+             <svg class="heart-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>
+          </span>
+          <span class="like-count">0</span>
+        </div>
         
         <button class="pill icon-pill" id="signalBtn" title="AI Signal Mode (Highlight Key Insights)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -449,11 +462,6 @@
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
         </button>
-        
-        <div class="pill" title="Reading Time">
-          <svg class="read-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          &nbsp;<span id="readTime">—</span>
-        </div>
         
         <button class="pill icon-pill" id="shareBtn" title="Share Article">
           <svg class="share-icon" viewBox="0 0 24 24">
@@ -783,12 +791,10 @@
     const ref = doc(db, COLLECTION, docId);
 
     // Elements
-    // Use logic to inject SVG if missing
     function heartSVG(){
-      return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"></path></svg>`;
+      return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>`;
     }
     
-    // Inject heart into container if needed
     const pill = document.querySelector(".like-pill");
     if(pill && !pill.innerHTML.trim()){
        pill.innerHTML = `
