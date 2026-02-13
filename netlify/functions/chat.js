@@ -27,6 +27,12 @@ export default async (request, context) => {
     });
 
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Failed to fetch from AI" }), { status: 500 });
+    return new Response(JSON.stringify({ reply: data.candidates[0].content.parts[0].text }), {
+      headers: { 
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*", // Allows your GitHub site to talk to Netlify
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
+    });
   }
 };
