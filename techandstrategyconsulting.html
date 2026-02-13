@@ -3,32 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
-  <!-- SEO / Social -->
+  
   <meta name="description" content="AI-native consulting for biotech & pharma" />
-
   <link rel="canonical" href="https://1u477n.github.io/techandstrategyconsulting.html" />
-
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://1u477n.github.io/techandstrategyconsulting.html">
   <meta property="og:title" content="AI-native consulting for biotech & pharma">
   <meta property="og:description" content="IT, AI & Strategy Consulting for modern R&D organizations">
   <meta property="og:image" content="https://1u477n.github.io/images/datainfrastructures.jpg">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI-native consulting for biotech & pharma">
   <meta name="twitter:description" content="IT, AI & Strategy Consulting for modern R&D organizations">
   <meta name="twitter:image" content="https://1u477n.github.io/images/datainfrastructures.jpg">
 
-  <!-- Support both light & dark based on device setting -->
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#070A12" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-
+  <meta name="theme-color" content="#070A12" id="themeColor">
+  
   <title>IT & Strategy Consulting</title>
-
-  <!-- Google Analytics (kept) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW323NJP26"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -36,1469 +29,757 @@
     gtag('config', 'G-VW323NJP26');
   </script>
 
-  <!-- Modern font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Base (dark) tokens — MATCHES your blog page */
-      --bg0:#070A12;
-      --bg1:#0B1020;
-
-      --text:#EAF0FF;
-      --muted: rgba(234,240,255,.72);
-      --muted2: rgba(234,240,255,.55);
-
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.10);
-      --stroke2: rgba(255,255,255,.16);
-
-      --a1:#38BDF8; /* sky */
-      --a2:#A78BFA; /* violet */
-      --a3:#34D399; /* emerald */
+      /* Dark Theme (Default) - 2026 Palette */
+      --bg0: #050505;
+      --bg1: #0A0A0A;
+      --text: #F2F2F2;
+      --muted: rgba(255,255,255,0.7);
+      --muted2: rgba(255,255,255,0.5);
+      
+      --panel: rgba(20, 20, 20, 0.6);
+      --panel-hover: rgba(30, 30, 30, 0.8);
+      --stroke: rgba(255,255,255,0.08);
+      --stroke-hover: rgba(255,255,255,0.2);
+      
+      --a1: #38BDF8; /* Sky */
+      --a2: #818CF8; /* Violet */
+      --a3: #34D399; /* Emerald */
+      
       --grad: linear-gradient(135deg, var(--a1), var(--a2));
-
-      --shadow: 0 0 0 1px var(--stroke), 0 18px 60px rgba(0,0,0,.55);
-      --shadow2: 0 0 0 1px var(--stroke), 0 22px 80px rgba(0,0,0,.62);
-
-      --ring: 0 0 0 2px rgba(56,189,248,.55);
-
-      --r12: 12px;
-      --r16: 16px;
-      --r20: 20px;
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 20px rgba(0,0,0,0.4);
+      --glow: 0 0 40px -10px var(--a1);
+      
+      --max: 1200px;
       --r24: 24px;
-
-      /* Keep your page width */
-      --max: 1160px;
-
-      /* Background accents */
-      --glow1: rgba(56,189,248,.18);
-      --glow2: rgba(167,139,250,.16);
-      --glow3: rgba(52,211,153,.10);
-
-      --gridline: rgba(255,255,255,.06);
-      --gridmask: rgba(0,0,0,.85);
-      --vignette: rgba(255,255,255,.06);
-
-      --topbarA: rgba(7,10,18,.88);
-      --topbarB: rgba(7,10,18,.55);
-
-      --menuBg: rgba(8,12,22,.78);
-      --menuShadow: 0 30px 80px rgba(0,0,0,.55);
+      --r20: 20px;
+      --r16: 16px;
     }
 
-    /* LIGHT MODE (device setting) — MATCHES your blog page */
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#ffffff;
-        --bg1:#f6f8ff;
-
-        --text:#0b0f1a;
-        --muted: rgba(11,15,26,.74);
-        --muted2: rgba(11,15,26,.58);
-
-        --panel: rgba(255,255,255,.72);
-        --panel2: rgba(255,255,255,.86);
-        --stroke: rgba(0,0,0,.10);
-        --stroke2: rgba(0,0,0,.14);
-
-        --shadow: 0 0 0 1px rgba(0,0,0,.08), 0 18px 60px rgba(0,0,0,.10);
-        --shadow2: 0 0 0 1px rgba(0,0,0,.08), 0 22px 80px rgba(0,0,0,.12);
-
-        --ring: 0 0 0 2px rgba(56,189,248,.45);
-
-        --glow1: rgba(56,189,248,.14);
-        --glow2: rgba(167,139,250,.12);
-        --glow3: rgba(52,211,153,.08);
-
-        --gridline: rgba(0,0,0,.06);
-        --gridmask: rgba(0,0,0,.55);
-        --vignette: rgba(0,0,0,.06);
-
-        --topbarA: rgba(255,255,255,.88);
-        --topbarB: rgba(255,255,255,.65);
-
-        --menuBg: rgba(255,255,255,.86);
-        --menuShadow: 0 30px 80px rgba(0,0,0,.14);
-      }
+    /* Light Theme Override */
+    [data-theme="light"] {
+      --bg0: #F9FAFB;
+      --bg1: #F3F4F6;
+      --text: #111827;
+      --muted: rgba(0,0,0,0.7);
+      --muted2: rgba(0,0,0,0.5);
+      
+      --panel: rgba(255, 255, 255, 0.7);
+      --panel-hover: rgba(255, 255, 255, 0.95);
+      --stroke: rgba(0,0,0,0.08);
+      --stroke-hover: rgba(0,0,0,0.2);
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0,0,0,0.05);
+      --glow: 0 0 30px -10px var(--a2);
     }
 
-    /* Manual theme override (wins over prefers-color-scheme) — MATCHES your blog page */
-    html[data-theme="light"]{
-      color-scheme: light;
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    
+    html { scroll-behavior: smooth; }
 
-      --bg0:#ffffff;
-      --bg1:#f6f8ff;
-
-      --text:#0b0f1a;
-      --muted: rgba(11,15,26,.74);
-      --muted2: rgba(11,15,26,.58);
-
-      --panel: rgba(255,255,255,.72);
-      --panel2: rgba(255,255,255,.86);
-      --stroke: rgba(0,0,0,.10);
-      --stroke2: rgba(0,0,0,.14);
-
-      --shadow: 0 0 0 1px rgba(0,0,0,.08), 0 18px 60px rgba(0,0,0,.10);
-      --shadow2: 0 0 0 1px rgba(0,0,0,.08), 0 22px 80px rgba(0,0,0,.12);
-
-      --ring: 0 0 0 2px rgba(56,189,248,.45);
-
-      --glow1: rgba(56,189,248,.14);
-      --glow2: rgba(167,139,250,.12);
-      --glow3: rgba(52,211,153,.08);
-
-      --gridline: rgba(0,0,0,.06);
-      --gridmask: rgba(0,0,0,.55);
-      --vignette: rgba(0,0,0,.06);
-
-      --topbarA: rgba(255,255,255,.88);
-      --topbarB: rgba(255,255,255,.65);
-
-      --menuBg: rgba(255,255,255,.86);
-      --menuShadow: 0 30px 80px rgba(0,0,0,.14);
-    }
-
-    /* Force DARK (overrides device light mode too) — MATCHES your blog page */
-    html[data-theme="dark"]{
-      color-scheme: dark;
-
-      --bg0:#070A12;
-      --bg1:#0B1020;
-
-      --text:#EAF0FF;
-      --muted: rgba(234,240,255,.72);
-      --muted2: rgba(234,240,255,.55);
-
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.10);
-      --stroke2: rgba(255,255,255,.16);
-
-      --shadow: 0 0 0 1px var(--stroke), 0 18px 60px rgba(0,0,0,.55);
-      --shadow2: 0 0 0 1px var(--stroke), 0 22px 80px rgba(0,0,0,.62);
-
-      --ring: 0 0 0 2px rgba(56,189,248,.55);
-
-      --glow1: rgba(56,189,248,.18);
-      --glow2: rgba(167,139,250,.16);
-      --glow3: rgba(52,211,153,.10);
-
-      --gridline: rgba(255,255,255,.06);
-      --gridmask: rgba(0,0,0,.85);
-      --vignette: rgba(255,255,255,.06);
-
-      --topbarA: rgba(7,10,18,.88);
-      --topbarB: rgba(7,10,18,.55);
-
-      --menuBg: rgba(8,12,22,.78);
-      --menuShadow: 0 30px 80px rgba(0,0,0,.55);
-    }
-
-    *{ box-sizing:border-box }
-    html,body{ height:100% }
-    html{
-      scroll-behavior: smooth;
-      text-rendering: geometricPrecision;
-      -webkit-text-size-adjust: 100%;
-    }
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg0);
       color: var(--text);
-      background:
-        radial-gradient(1200px 700px at 10% 0%, var(--glow1), transparent 55%),
-        radial-gradient(1000px 600px at 90% 10%, var(--glow2), transparent 55%),
-        radial-gradient(900px 600px at 50% 110%, var(--glow3), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-      padding-bottom: 40px;
+      overflow-x: hidden;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    ::selection{ background: rgba(56,189,248,.22); color: var(--text); }
-
-    /* Background grid + vignette — MATCHES your blog page */
-    .bg-grid{
+    /* --- Atmospheric Backgrounds --- */
+    .bg-orbs {
       position: fixed;
       inset: 0;
-      pointer-events:none;
-      opacity:.25;
-      background-image:
-        linear-gradient(var(--gridline) 1px, transparent 1px),
-        linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
-      background-size: 54px 54px;
-      mask-image: radial-gradient(700px 400px at 50% 12%, var(--gridmask), transparent 70%);
-      z-index: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--bg0);
+      overflow: hidden;
     }
-    .top-vignette{
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 10s infinite ease-in-out alternate;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--a1); top: -10%; left: -10%; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: var(--a2); bottom: -10%; right: -10%; animation-delay: -2s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--a3); top: 40%; left: 40%; opacity: 0.2; animation-delay: -5s; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(30px, 30px); }
+    }
+
+    .bg-noise {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 220px;
-      pointer-events:none;
-      background: radial-gradient(800px 180px at 50% 0%, var(--vignette), transparent 70%);
-      opacity: .8;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      position: relative;
       z-index: 1;
     }
 
-    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; }
-
-    /* Panel border effect — MATCHES your blog page */
-    .panel{ position: relative; overflow: hidden; }
-    .panel:after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      border-radius: inherit;
-      padding: 1px;
-      background: linear-gradient(135deg,
-        rgba(56,189,248,.34),
-        rgba(167,139,250,.28),
-        rgba(52,211,153,.18),
-        rgba(255,255,255,.06)
-      );
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: .55;
-    }
-
-    /* Top nav (sticky) — MATCHES your blog page */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 80;
-      padding: 10px 0;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, var(--topbarA), var(--topbarB));
-      border-bottom: 1px solid var(--stroke);
-    }
-    .nav{
-      display:flex;
-      align-items:center;
+    /* --- Floating Navigation (Pill) --- */
+    .topbar {
+      display: flex;
       justify-content: space-between;
-      gap: 14px;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 18px;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--stroke);
+      border-radius: 99px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 0;
-    }
-    .brand .title{
-      display:flex;
-      flex-direction:column;
-      line-height:1.1;
-      min-width: 0;
-    }
-    .brand .title strong{
-      font-size: 14px;
-      letter-spacing: .2px;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
-    .brand .title span{
-      font-size: 12px;
-      color: var(--muted2);
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
+    .brand { display: flex; align-items: center; gap: 12px; }
 
-    /* Theme toggle — MATCHES your blog page */
-    .mark{
-      width: 34px; height: 34px;
+    .theme-toggle {
+      width: 36px; height: 36px;
       border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,.05) 55%),
-        var(--grad);
-      box-shadow: 0 12px 28px rgba(56,189,248,.12);
-      border: 1px solid rgba(255,255,255,.14);
-      position: relative;
-      overflow:hidden;
-      flex: 0 0 auto;
-      isolation: isolate;
-    }
-    .mark:after{
-      content:"";
-      position:absolute; inset:-40%;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 45%),
-        linear-gradient(90deg, transparent 20%, rgba(255,255,255,.10), transparent 80%);
-      transform: rotate(18deg);
-      opacity:.55;
-      z-index: 0;
-      pointer-events:none;
-    }
-    .mark.theme-toggle{
-      appearance:none;
-      -webkit-appearance:none;
-      padding: 0;
-      margin: 0;
+      background: var(--grad);
+      border: 0;
       cursor: pointer;
       display: grid;
       place-items: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+      transition: transform 0.2s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    [data-theme="dark"] .sun { display: none; }
+    [data-theme="light"] .moon { display: none; }
+
+    .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .brand-text strong { font-size: 14px; font-weight: 700; }
+    .brand-text span { font-size: 12px; color: var(--muted2); }
+
+    .menu-btn {
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.05);
       color: var(--text);
-      transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+      cursor: pointer;
+      transition: 0.2s;
     }
-    .mark.theme-toggle svg{
-      width: 18px;
-      height: 18px;
-      position: relative;
-      z-index: 1;
-      display: block;
-      pointer-events: none;
-      opacity: .92;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
-    }
-    .mark.theme-toggle:hover{ transform: translateY(-1px); }
-    .mark.theme-toggle:active{ transform: translateY(0) scale(.99); }
-    .mark.theme-toggle:focus-visible{ outline:none; box-shadow: var(--ring), 0 12px 28px rgba(56,189,248,.12); }
+    .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
 
-    /* Show ☀️ in light mode, 🌙 in dark mode — MATCHES your blog page */
-    html[data-theme="dark"] .mark.theme-toggle .sun{ display:none; }
-    html[data-theme="light"] .mark.theme-toggle .moon{ display:none; }
-    @media (prefers-color-scheme: dark){
-      html:not([data-theme]) .mark.theme-toggle .sun{ display:none; }
-    }
-    @media (prefers-color-scheme: light){
-      html:not([data-theme]) .mark.theme-toggle .moon{ display:none; }
-    }
-
-    .nav-actions{ display:flex; align-items:center; gap: 10px; }
-
-    /* Hamburger — MATCHES your blog page */
-    .icon-btn{
-      width: 42px; height: 42px;
-      display:grid;
-      place-items:center;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      cursor:pointer;
-      transition: transform .15s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
-      backdrop-filter: blur(10px);
-      color: var(--text);
-    }
-    .icon-btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.20); background: rgba(255,255,255,.085); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
-    .icon-btn:active{ transform: translateY(0) scale(.99); }
-    .icon-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
-
-    .icon{ width: 18px; height: 14px; position: relative; }
-    .icon span{
-      position:absolute; left:0; right:0; height:2px; border-radius: 2px;
-      background: rgba(234,240,255,.90);
-    }
-    .icon span:nth-child(1){ top:0; }
-    .icon span:nth-child(2){ top:6px; opacity:.85; }
-    .icon span:nth-child(3){ top:12px; opacity:.70; }
-    html[data-theme="light"] .icon span{ background: rgba(11,15,26,.86); }
-    @media (prefers-color-scheme: light){
-      html:not([data-theme]) .icon span{ background: rgba(11,15,26,.86); }
-    }
-
-    /* Menu — MATCHES your blog page */
     .menu{
-      position: fixed;
-      top: 70px;
-      right: 18px;
-      width: min(360px, calc(100vw - 36px));
-      border-radius: 18px;
-      background: var(--menuBg);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--menuShadow);
-      backdrop-filter: blur(16px);
-      padding: 10px;
-      display:none;
-      z-index: 60;
-    }
-    .menu.open{ display:block; animation: pop .16s ease-out; }
-    @keyframes pop{ from{ transform: translateY(-6px); opacity: 0;} to{ transform: translateY(0); opacity: 1;} }
-
-    .menu a{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      text-decoration:none;
-      color: var(--text);
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      transition: background .2s ease, border-color .2s ease;
-      font-weight: 600;
-      font-size: 13px;
-    }
-    .menu a:hover{
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.10);
-    }
-    .menu a span{
-      font-weight: 600;
-      font-size: 12px;
-    }
-    /* Menu external-link arrow: force text glyph + bigger size */
-    .menu a .arrow-icon{
-      color: var(--muted2);   /* explicitly muted */
-      font-size: 16px;
-      line-height: 1;
-      font-family: "Segoe UI Symbol", system-ui, sans-serif;
-    }
-    .arrow-icon .arrow-svg{
-      width: 18px;
-      height: 18px;
-      display:block;
-    } 
-    
-    /* Light-mode control surfaces — MATCHES your blog page */
-    html[data-theme="light"] .mark{ border: 1px solid rgba(0,0,0,.10); }
-    html[data-theme="light"] .icon-btn{
-      border: 1px solid rgba(0,0,0,.12);
-      background: rgba(255,255,255,.70);
-    }
-    html[data-theme="light"] .icon-btn:hover{
-      border-color: rgba(0,0,0,.18);
-      background: rgba(255,255,255,.85);
-      box-shadow: 0 14px 30px rgba(0,0,0,.12);
-    }
-    html[data-theme="light"] .menu{ border: 1px solid rgba(0,0,0,.12); }
-    html[data-theme="light"] .menu a:hover{
-      background: rgba(0,0,0,.04);
-      border-color: rgba(0,0,0,.08);
-    }
-
-    /* No-JS fallback for light-mode surfaces — MATCHES your blog page */
-    @media (prefers-color-scheme: light){
-      html:not([data-theme]) .mark{ border: 1px solid rgba(0,0,0,.10); }
-      html:not([data-theme]) .icon-btn{
-        border: 1px solid rgba(0,0,0,.12);
-        background: rgba(255,255,255,.70);
-      }
-      html:not([data-theme]) .icon-btn:hover{
-        border-color: rgba(0,0,0,.18);
-        background: rgba(255,255,255,.85);
-        box-shadow: 0 14px 30px rgba(0,0,0,.12);
-      }
-      html:not([data-theme]) .menu{ border: 1px solid rgba(0,0,0,.12); }
-      html:not([data-theme]) .menu a:hover{
-        background: rgba(0,0,0,.04);
-        border-color: rgba(0,0,0,.08);
-      }
-    }
-
-    /* Page typography + components (content unchanged) */
-    .hero{
-      margin-top: 18px;
-      padding: 26px;
-      border-radius: var(--r24);
-      background:
-        radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.16), transparent 50%),
-        radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.14), transparent 55%),
-        var(--panel);
+      position: fixed; top: 80px; right: 20px;
+      width: min(300px, 90vw);
+      background: var(--panel-hover);
       border: 1px solid var(--stroke);
-      box-shadow: var(--shadow2);
-    }
-
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(56,189,248,.22);
-      background: rgba(56,189,248,.08);
-      color: color-mix(in srgb, var(--text) 92%, transparent);
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: .2px;
-    }
-    .kicker i{
-      width: 8px; height: 8px;
-      border-radius: 99px;
-      background: var(--grad);
-      display:inline-block;
-      box-shadow: 0 0 0 4px rgba(56,189,248,.10);
-    }
-
-    h1{
-      margin: 14px 0 10px;
-      font-size: clamp(26px, 4.2vw, 42px);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-    }
-    .grad-text{
-      background: var(--grad);
-      -webkit-background-clip:text;
-      background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .lead{
-      margin: 0;
-      color: var(--muted);
-      font-size: clamp(14px, 2vw, 16px);
-      line-height: 1.65;
-      max-width: 78ch;
-    }
-
-    .meta-row{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .pill{
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      padding: 9px 12px;
-      font-size: 12px;
-      color: var(--muted);
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .pill b{ color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; }
-
-    .quote{
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: var(--r16);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: color-mix(in srgb, var(--text) 82%, var(--muted));
-      line-height: 1.6;
-      box-shadow: var(--shadow);
-    }
-    .quote em{ color: color-mix(in srgb, var(--text) 92%, transparent); font-style: italic; }
-    .quote .by{ color: var(--muted2); font-weight: 700; margin-left: 6px; }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.25fr .85fr;
-      gap: 18px;
-      margin-top: 18px;
-      align-items: start;
-    }
-    @media (max-width: 920px){
-      .hero-grid{ grid-template-columns: 1fr; }
-    }
-
-    .gift{
-      border-radius: var(--r20);
-      border: 1px solid rgba(56,189,248,.18);
-      background:
-        radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.14), transparent 55%),
-        rgba(255,255,255,.045);
-      box-shadow: 0 0 0 1px rgba(56,189,248,.08) inset;
-      padding: 18px;
-      overflow:hidden;
-    }
-    .gift h2{
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: -.01em;
-      scroll-margin-top: 120px;
-    }
-    .gift p{ margin: 0 0 10px; color: var(--muted); line-height: 1.6; font-size: 13px; }
-    .gift ul{ margin: 10px 0 0; padding: 0; list-style:none; display:grid; gap: 10px; }
-    .gift li{
-      display:flex;
-      gap: 10px;
-      padding: 12px;
-      border-radius: var(--r16);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: color-mix(in srgb, var(--text) 86%, transparent);
-      line-height: 1.5;
-      font-size: 13px;
-    }
-    .gift li:before{
-      content:"";
-      width: 10px; height: 10px;
-      border-radius: 99px;
-      background: var(--grad);
-      margin-top: 4px;
-      flex: 0 0 auto;
-      box-shadow: 0 0 0 4px rgba(56,189,248,.10);
-    }
-
-    .section{ margin-top: 22px; }
-    .section-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 18px 0 12px;
-    }
-    .section-head h2{
-      margin: 0;
-      font-size: 16px;
-      letter-spacing: -.01em;
-      scroll-margin-top: 120px;
-    }
-    .section-head p{
-      margin: 0;
-      color: var(--muted2);
-      font-size: 12px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-    }
-    .card{
-      grid-column: span 6;
-      border-radius: var(--r20);
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      position: relative;
-      overflow:hidden;
-      transition: transform .6s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
-    }
-    .card.panel:after{ opacity: .45; }
-    .card:before{
-      content:"";
-      position:absolute;
-      inset: -2px -2px auto auto;
-      width: 240px; height: 240px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(56,189,248,.16), transparent 60%),
-        radial-gradient(circle at 65% 40%, rgba(167,139,250,.14), transparent 62%);
-      opacity: .9;
-      pointer-events:none;
-    }
-    .card:hover{
-      transform: translateY(-4px);
-      border-color: rgba(56,189,248,.32);
-      background: rgba(255,255,255,.06);
-      box-shadow: var(--shadow2);
-    }
-    .card:focus-within{
-      box-shadow: var(--ring), 0 22px 80px rgba(0,0,0,.22);
-      border-color: rgba(56,189,248,.45);
-    }
-    .card h3{
-      margin: 0 0 6px;
-      font-size: 14px;
-      letter-spacing: -.01em;
-      scroll-margin-top: 120px;
-    }
-    .card .sub{
-      margin: 0 0 10px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-    .list{
-      margin: 0;
-      padding: 0;
-      list-style:none;
-      display:grid;
-      gap: 10px;
-    }
-    .list li{
-      display:flex;
-      gap: 10px;
-      padding: 12px 12px;
-      border-radius: var(--r16);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      color: color-mix(in srgb, var(--text) 86%, transparent);
-      line-height: 1.55;
-      font-size: 13px;
-    }
-    .list li:before{
-      content:"";
-      width: 8px; height: 8px;
-      border-radius: 99px;
-      background: rgba(56,189,248,.95);
-      margin-top: 6px;
-      flex: 0 0 auto;
-      box-shadow: 0 0 0 4px rgba(56,189,248,.08);
-    }
-
-    @media (max-width: 920px){
-      .card{ grid-column: span 12; }
-    }
-
-    .media{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      align-items: stretch;
-      grid-auto-rows: 1fr;
-    }
-    .media-card{
-      grid-column: span 6;
-      border-radius: var(--r20);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      transition: transform .6s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
-      display:flex;
+      border-radius: 20px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      padding: 8px;
+      display: none;
+      z-index: 999;
       flex-direction: column;
-      min-width: 0;
+      gap: 4px;
     }
-    .media-card.panel:after{ opacity: .42; }
-    .media-card:hover{
-      transform: translateY(-3px);
-      border-color: rgba(56,189,248,.32);
-      box-shadow: var(--shadow2);
-      background: rgba(255,255,255,.045);
-    }
-    .media-card:focus-within{
-      box-shadow: var(--ring), 0 22px 80px rgba(0,0,0,.22);
-      border-color: rgba(56,189,248,.45);
-    }
+    .menu.open { display: flex; animation: fadeDown 0.2s ease-out; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-    .media-img{
-      width: 100%;
-      display:block;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      cursor: zoom-in;
-      filter: saturate(1.05) contrast(1.02);
-      flex: 0 0 auto;
-    }
-
-    .media-body{
-      padding: 14px 14px 16px;
-      display:flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1 1 auto;
-      min-height: 0;
-    }
-
-    .media-body h4{
-      margin: 0;
-      font-size: 13px;
-      color: color-mix(in srgb, var(--text) 92%, transparent);
-      line-height: 1.35;
-      font-weight: 800;
-
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: break-word;
-    }
-
-    .media-body p{
-      margin: 0;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.5;
-
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: break-word;
-    }
-
-    .media-body a{
-      color: color-mix(in srgb, var(--a1) 70%, var(--text));
+    .menu a {
+      padding: 12px 16px;
       text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
     }
-    .media-body a:hover{ text-decoration: underline; }
+    .menu a:hover { background: rgba(255,255,255,0.08); }
+    .menu a span { font-size: 16px; opacity: 0.5; }
 
-    @media (max-width: 920px){
-      .media-card{ grid-column: span 12; }
-    }
-
-    /* Layout + TOC (kept) */
-    .content-grid{
-      margin-top: 0;
+    /* --- Page Layout --- */
+    .content-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 24px;
       align-items: start;
     }
     @media (min-width: 980px){
-      .content-grid{
-        grid-template-columns: 1fr 320px;
-      }
-      .toc{
-        position: sticky;
-        top: 110px;
-      }
-      .toc details{ open: true; }
-      .toc summary{ display:none; }
-      .toc details[open] > summary{ display:none; }
+      .content-grid { grid-template-columns: 1fr 300px; }
+      .toc-wrapper { position: sticky; top: 100px; }
     }
 
-    .toc{
-      border-radius: var(--r24);
+    /* --- Hero Section --- */
+    .hero {
+      padding: 32px;
+      background: var(--panel);
       border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-      box-shadow: var(--shadow);
-      padding: 14px;
-    }
-    .toc details{ border-radius: 16px; }
-    .toc summary{
-      cursor: pointer;
-      user-select:none;
-      list-style: none;
-      font-weight: 800;
-      font-size: 13px;
-      color: color-mix(in srgb, var(--text) 92%, transparent);
-      padding: 8px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .toc summary::-webkit-details-marker{ display:none; }
-    .toc-nav{
-      margin-top: 10px;
-      display: grid;
-      gap: 6px;
-    }
-    .toc-nav a{
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.4;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      transition: background .2s ease, border-color .2s ease;
-    }
-    .toc-nav a:hover{
-      background: rgba(255,255,255,.05);
-      border-color: rgba(255,255,255,.10);
-    }
-    .toc-nav a.active{
-      color: color-mix(in srgb, var(--text) 92%, transparent);
-      background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08));
-      border-color: rgba(56,189,248,.25);
-      box-shadow: 0 0 0 1px rgba(56,189,248,.10) inset;
-    }
-    .toc-nav a[data-level="3"]{ padding-left: 18px; }
-
-    /* Lightbox (kept, theme-consistent) */
-    .lightbox{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index: 2000;
-      background-color: rgba(7,10,18,.92);
+      border-radius: 32px;
       backdrop-filter: blur(10px);
-      align-items:center;
-      justify-content:center;
-      flex-direction: column;
-      padding: 20px;
-    }
-    html[data-theme="light"] .lightbox{ background-color: rgba(255,255,255,.92); }
-    @media (prefers-color-scheme: light){
-      html:not([data-theme]) .lightbox{ background-color: rgba(255,255,255,.92); }
-    }
-
-    .lightbox.open{ display:flex; }
-    .lightbox-content{
-      max-width: min(1100px, 96vw);
-      max-height: 78vh;
-      object-fit: contain;
-      border-radius: 16px;
-      box-shadow: 0 40px 120px rgba(0,0,0,.7);
-      border: 1px solid var(--stroke);
-      animation: zoom .18s ease-out;
-      background: rgba(0,0,0,.08);
-    }
-    .caption{
-      max-width: min(900px, 92vw);
-      margin-top: 14px;
-      color: color-mix(in srgb, var(--text) 80%, transparent);
-      font-size: 13px;
-      line-height: 1.5;
-      text-align: center;
-    }
-    .close{
-      position:absolute;
-      top: 14px;
-      right: 16px;
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
-      color: color-mix(in srgb, var(--text) 92%, transparent);
-      font-size: 20px;
-      font-weight: 900;
-      border-color: rgba(56,189,248,.35);
-      box-shadow: 0 16px 40px rgba(0,0,0,.25);
-    }
-    .close:hover{
-      transform: translateY(-1px);
-      border-color: rgba(56,189,248,.35);
-      background: rgba(56,189,248,.10);
-      box-shadow: 0 16px 40px rgba(0,0,0,.25);
-    }
-    .close:focus-visible{ outline:none; box-shadow: var(--ring); }
-
-    @keyframes zoom{ from{ transform: scale(.98); opacity: 0;} to{ transform: scale(1); opacity: 1;} }
-
-    /* Footer */
-    .footer{
-      margin-top: 22px;
-      padding: 16px;
-      border-radius: var(--r20);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.5;
-      text-align:center;
+      margin-bottom: 24px;
       box-shadow: var(--shadow);
     }
 
-    :focus-visible{ outline: none; box-shadow: var(--ring); border-radius: 12px; }
-
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior: auto; }
-      *{ transition: none !important; animation: none !important; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.2);
+      color: var(--a1);
+      font-size: 12px; font-weight: 700;
+      margin-bottom: 16px;
     }
+    .kicker i {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--a1); box-shadow: 0 0 8px var(--a1);
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(28px, 5vw, 42px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 78ch;
+      margin-bottom: 24px;
+    }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .pill {
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+    }
+    .pill b { color: var(--text); margin-right: 4px; }
+
+    .quote {
+      padding: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      margin-bottom: 32px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+    .quote em { color: var(--text); font-style: italic; display: block; margin-bottom: 8px; }
+    .quote .by { font-weight: 700; color: var(--muted2); }
+
+    /* --- Hero Grid (Bio + Gift Sidebar) --- */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media(max-width: 920px) { .hero-split { grid-template-columns: 1fr; } }
+
+    .bio-text p { font-size: 15px; line-height: 1.6; color: var(--muted); margin-bottom: 16px; }
+    .bio-text a { color: var(--a1); text-decoration: none; }
+
+    .gift-card {
+      background: radial-gradient(at top left, rgba(56,189,248,0.1), transparent), rgba(255,255,255,0.04);
+      border: 1px solid rgba(56,189,248,0.2);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .gift-card h2 { margin-top: 0; font-size: 18px; margin-bottom: 10px; }
+    .gift-list { list-style: none; padding: 0; margin: 16px 0; display: grid; gap: 12px; }
+    .gift-list li {
+      display: flex; gap: 10px;
+      font-size: 13px; line-height: 1.5; color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+    }
+    .gift-list li::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%; 
+      background: var(--grad); margin-top: 6px; flex-shrink: 0;
+    }
+
+    /* --- Services Grid (G I F T) --- */
+    .section-head { margin: 40px 0 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .section-head h2 { font-size: 20px; margin: 0; }
+    .section-head p { margin: 0; font-size: 13px; color: var(--muted2); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 24px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    /* Glimmer Effect */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--a1);
+      box-shadow: 0 10px 30px rgba(56,189,248,0.15);
+    }
+    .card:hover::before { transform: translateX(100%); }
+
+    .card h3 { margin: 0 0 8px; font-size: 18px; color: var(--text); }
+    .card .sub { font-size: 13px; color: var(--muted2); margin-bottom: 16px; display: block; }
+    
+    .check-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .check-list li {
+      font-size: 13px; color: var(--muted); line-height: 1.5;
+      padding: 10px; background: rgba(255,255,255,0.03);
+      border-radius: 12px; border: 1px solid var(--stroke);
+      display: flex; gap: 10px;
+    }
+    .check-list li::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--a1); margin-top: 6px; flex-shrink: 0;
+    }
+
+    /* --- Media Grid --- */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .media-card {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .media-card:hover { transform: translateY(-4px); border-color: var(--stroke-hover); }
+    
+    .media-img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      cursor: zoom-in;
+    }
+    .media-body { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .media-body h4 { margin: 0; font-size: 14px; line-height: 1.4; font-weight: 700; }
+    .media-body h4 a { color: var(--text); text-decoration: none; }
+    .media-body h4 a:hover { color: var(--a1); }
+    .media-body p { margin: 0; font-size: 12px; color: var(--muted2); line-height: 1.5; }
+
+    /* --- Sidebar TOC --- */
+    .toc {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 24px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .toc h4 { margin: 0 0 12px; font-size: 13px; color: var(--muted2); font-weight: 700; }
+    .toc-nav { display: flex; flex-direction: column; gap: 6px; }
+    .toc-nav a {
+      text-decoration: none;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 12px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .toc-nav a:hover { background: rgba(255,255,255,0.05); border-color: var(--stroke); color: var(--text); }
+    .toc-nav a.active {
+      background: rgba(56,189,248,0.1);
+      color: var(--text);
+      border-color: rgba(56,189,248,0.25);
+    }
+
+    /* --- Lightbox --- */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+      align-items: center; justify-content: center; flex-direction: column;
+    }
+    .lightbox.open { display: flex; animation: fadein 0.2s; }
+    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+    
+    .lightbox-content { max-width: 90vw; max-height: 80vh; border-radius: 12px; box-shadow: 0 0 50px rgba(0,0,0,0.5); border: 1px solid var(--stroke); }
+    .lightbox-caption { margin-top: 16px; color: #fff; font-size: 14px; text-align: center; }
+    .close-lightbox {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff;
+      width: 44px; height: 44px; border-radius: 12px; font-size: 24px; cursor: pointer;
+      display: grid; place-items: center;
+    }
+    .close-lightbox:hover { background: rgba(255,255,255,0.2); }
+
+    .footer {
+      margin-top: 40px;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted2);
+      border-top: 1px solid var(--stroke);
+    }
+
   </style>
 </head>
-
 <body>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="top-vignette" aria-hidden="true"></div>
 
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="nav" role="navigation" aria-label="Site">
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="bg-noise"></div>
+
+  <div class="container">
+    
+    <header class="topbar">
       <div class="brand">
-        <button class="mark theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-          <!-- Sun (light) -->
-          <svg class="sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <!-- Moon (dark) -->
-          <svg class="moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 13.2A8.4 8.4 0 0 1 10.8 3a7.6 7.6 0 1 0 10.2 10.2Z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
-
-        <div class="title">
+        <div class="brand-text">
           <strong>IT & Strategy Consulting</strong>
           <span>AI-ready R&amp;D, data, and fundraising strategy</span>
         </div>
       </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </header>
 
-      <div class="nav-actions">
-        <button class="icon-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel" title="Menu">
-          <div class="icon" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-        </button>
-      </div>
-    </div>
+    <nav class="menu" id="menuPanel">
+      <a href="https://1u477n.github.io/">Home <span>→</span></a>
+      <a href="https://1u477n.github.io/about.html">About Me <span>→</span></a>
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Consulting <span>→</span></a>
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works <span>→</span></a>
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>→</span></a>
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>→</span></a>
+      <a href="https://1u477n.github.io/images/cv.pdf">CV (PDF) <span>↓</span></a>
+      <a href="https://www.linkedin.com/in/1u477n/" target="_blank">LinkedIn <span>↗</span></a>
+    </nav>
 
-    <!-- Menu panel -->
-    <div class="menu" id="menuPanel" aria-label="Menu">
-      <a href="https://1u477n.github.io/">Home 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/about.html">About Me 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/publishedworks.html">Published Works 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn 
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Lightbox -->
-  <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
-    <button class="close" id="lightboxClose" aria-label="Close">×</button>
-    <img class="lightbox-content" id="img01" alt="" />
-    <div id="caption" class="caption"></div>
-  </div>
-
-  <main class="container">
     <div class="content-grid">
-      <div class="main">
-        <!-- HERO -->
-        <section class="hero panel">
+      <main>
+        
+        <section class="hero" id="intro">
           <div class="kicker"><i></i> AI-native consulting for biotech & pharma</div>
-
           <h1>
             <span class="grad-text">IT & Strategy Consulting</span><br />
             for modern R&amp;D organizations
           </h1>
-
           <p class="lead">
             Luat (Luke) Nguyen is an experienced technology strategist specializing in R&amp;D IT, AI/ML integration,
             and data analytics within the biotech and pharmaceutical industries. With a background in biochemistry/chemistry,
             computer science, and economics, he has developed a deep understanding of IT infrastructure, product management,
             and business analysis.
           </p>
-
-          <div class="meta-row" aria-label="Highlights">
-            <div class="pill"><b>Focus</b> R&amp;D IT · AI/ML · Data governance</div>
-            <div class="pill"><b>Domains</b> Biotech · Pharma · Scientific computing</div>
-            <div class="pill"><b>Outcomes</b> Digital transformation · Investor readiness</div>
+          
+          <div class="meta-row">
+            <span class="pill"><b>Focus</b> R&amp;D IT · AI/ML · Data governance</span>
+            <span class="pill"><b>Domains</b> Biotech · Pharma · Scientific computing</span>
+            <span class="pill"><b>Outcomes</b> Digital transformation · Investor readiness</span>
           </div>
 
           <div class="quote">
             <em>“It doesn’t matter how beautiful your theory is, it doesn’t matter how smart you are. If it doesn’t agree with experiment, it’s wrong.”</em>
             <span class="by">— Richard Feynman</span>
-            <div style="margin-top:10px; font-size: 12.5px;">
-              (...inspired by
-              <a href="https://www.linkedin.com/posts/adammgrant_have-you-ever-hesitated-to-share-your-work-activity-7311774949793234944-9rme?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAMcMqIBGCZJXmtjKkgejIZlsIYP2oLhPJU"
-                 style="color: rgba(56,189,248,.95); text-decoration:none;" target="_blank" rel="noreferrer">
-                a video from Adam Grant
-              </a>)
+            <div style="margin-top:8px; font-size: 12px; opacity: 0.7;">
+              (...inspired by <a href="https://www.linkedin.com/posts/adammgrant_have-you-ever-hesitated-to-share-your-work-activity-7311774949793234944-9rme?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAMcMqIBGCZJXmtjKkgejIZlsIYP2oLhPJU" target="_blank" rel="noreferrer" style="color:inherit">a video from Adam Grant</a>)
             </div>
           </div>
 
-          <div class="hero-grid">
-            <div>
-              <p class="lead" style="margin-top:0;">
+          <div class="hero-split">
+            <div class="bio-text">
+              <p>
                 Luke is also an inventor with hands-on experience and proprietary, data-driven scientific expertise in the discovery of highly selective
                 and specific small-molecule drug candidates—over 70% of his proposed compounds were independently validated through experimental studies
-                by scientists at the <a href="https://www.ucsf.edu/" target="_blank" rel="noreferrer" style="color: rgba(56,189,248,.95); text-decoration:none;">University of California, San Francisco</a>.
+                by scientists at the <a href="https://www.ucsf.edu/" target="_blank" rel="noreferrer">University of California, San Francisco</a>.
               </p>
-
-              <p class="lead" style="margin-top:12px;">
+              <p>
                 He is a co-author of patents in
-                <a href="https://1u477n.github.io/publishedworks/Patent_US6699719.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">biosensor arrays</a> (from a spin-off of 
-                <a href="https://www.berkeley.edu" style="color: rgba(56,189,248,.95); text-decoration:none;">UC Berkeley</a> and 
-                <a href="https://www.stanford.edu" style="color: rgba(56,189,248,.95); text-decoration:none;">Stanford</a>), 
-                <a href="https://1u477n.github.io/publishedworks/Patent_US8586619.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">calcium ion channel modulators</a>, and 
-                <a href="https://1u477n.github.io/publishedworks/Patent_PCT_US2009_067197.pdf" style="color: rgba(56,189,248,.95); text-decoration:none;">receptor tyrosine kinase inhibitors</a> 
+                <a href="https://1u477n.github.io/publishedworks/Patent_US6699719.pdf">biosensor arrays</a> (from a spin-off of 
+                <a href="https://www.berkeley.edu">UC Berkeley</a> and 
+                <a href="https://www.stanford.edu">Stanford</a>), 
+                <a href="https://1u477n.github.io/publishedworks/Patent_US8586619.pdf">calcium ion channel modulators</a>, and 
+                <a href="https://1u477n.github.io/publishedworks/Patent_PCT_US2009_067197.pdf">receptor tyrosine kinase inhibitors</a> 
                 (<a href="https://www.genengnews.com/topics/drug-discovery/purdue-pharma-acquires-trka-inhibitor-program-for-up-to-213m/">TrkA program was later acquired by Purdue Pharma</a>), 
                 demonstrating an innovative approach to tackling complex scientific and technological challenges. 
                 He is passionate about leveraging cutting-edge technologies to drive business value and enhance R&amp;D processes.
               </p>
             </div>
-
-            <aside class="gift panel" aria-label="GIFT service model">
+            
+            <aside class="gift-card">
               <h2><span class="grad-text">Our GIFT service model</span></h2>
-              <p>To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
-              <ul>
-                <li>1.5% success fee on the first $10M raised, then 1% on all additional funds—aligning our incentives with your growth and fundraising success.</li>
-                <li>For identifying and developing small-molecule drug candidates: 2% success fee on the first $10M raised, then a tiered structure up to 3.5% on later rounds or milestone-based fees—supporting capital-intensive biotech innovation.</li>
+              <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">To empower biologists with innovative startup ideas to turn scientific expertise into entrepreneurial ventures.</p>
+              <ul class="gift-list">
+                <li>1.5% success fee on the first $10M raised, then 1% on all additional funds.</li>
+                <li>For identifying and developing small-molecule drug candidates: 2% success fee on the first $10M raised, then a tiered structure up to 3.5%.</li>
                 <li>Revenue-sharing or royalties can be structured flexibly to align with long-term success.</li>
               </ul>
-              <p style="margin-top:12px;">
-                We’re here to drive your success—flexible, scalable economics designed to maximize value at every stage.
-              </p>
+              <p style="font-size:12px; opacity:0.7; margin-top:12px;">We’re here to drive your success—flexible, scalable economics designed to maximize value at every stage.</p>
             </aside>
           </div>
         </section>
 
-        <!-- SERVICES -->
-        <section class="section" aria-label="Consulting services">
-          <div class="section-head">
-            <h2>Consulting Services</h2>
-            <p>G · I · F · T — a structured engagement model</p>
+        <div class="section-head">
+          <h2>Consulting Services</h2>
+          <p>G · I · F · T — a structured engagement model</p>
+        </div>
+
+        <section class="services-grid" id="services">
+          <div class="card" id="srv-g">
+            <h3 class="grad-text">G — Growth &amp; Fundraising Strategy</h3>
+            <span class="sub">Capital strategy, investor readiness, and technical diligence.</span>
+            <ul class="check-list">
+              <li>Capital strategy for biotech ventures — success-fee &amp; revenue-sharing models aligned to growth.</li>
+              <li>Fundraising &amp; investor readiness — support for early-stage and milestone-based funding.</li>
+              <li>Technology due diligence — evaluate scientific feasibility &amp; IT infrastructure for investors/startups.</li>
+            </ul>
+          </div>
+          
+          <div class="card" id="srv-i">
+            <h3 class="grad-text">I — Informatics &amp; AI-Driven R&amp;D</h3>
+            <span class="sub">Modern scientific platforms that move data reliably from bench to insight.</span>
+            <ul class="check-list">
+              <li>Scientific informatics strategy — Entity &amp; Assay Registration, Sample Management, ELN, LIMS, lab automation.</li>
+              <li>AI &amp; computational chemistry platforms — AI-driven pipelines integrating bioinformatics, ML, and HPC.</li>
+              <li>Data governance &amp; security — GxP, HIPAA, GDPR, FDA-aligned integrity and security controls.</li>
+            </ul>
           </div>
 
-          <div class="grid">
-            <article class="card panel">
-              <h3 class="grad-text">G — Growth &amp; Fundraising Strategy</h3>
-              <p class="sub">Capital strategy, investor readiness, and technical diligence.</p>
-              <ul class="list">
-                <li>Capital strategy for biotech ventures — success-fee &amp; revenue-sharing models aligned to growth.</li>
-                <li>Fundraising &amp; investor readiness — support for early-stage and milestone-based funding.</li>
-                <li>Technology due diligence — evaluate scientific feasibility &amp; IT infrastructure for investors/startups.</li>
-              </ul>
-            </article>
+          <div class="card" id="srv-f">
+            <h3 class="grad-text">F — Future-Ready IT &amp; Digital Transformation</h3>
+            <span class="sub">Cloud, hybrid, and on-prem strategies built for regulated R&amp;D reality.</span>
+            <ul class="check-list">
+              <li>R&amp;D IT strategy &amp; infrastructure — cloud-based, hybrid, and on-prem environments for R&amp;D.</li>
+              <li>Enterprise integration &amp; SaaS strategy — vendor selection, implementation, interoperability.</li>
+              <li>Agile product management &amp; roadmaps — scalable IT solutions aligned to R&amp;D execution.</li>
+            </ul>
+          </div>
 
-            <article class="card panel">
-              <h3 class="grad-text">I — Informatics &amp; AI-Driven R&amp;D</h3>
-              <p class="sub">Modern scientific platforms that move data reliably from bench to insight.</p>
-              <ul class="list">
-                <li>Scientific informatics strategy — Entity &amp; Assay Registration, Sample Management, ELN, LIMS, lab automation.</li>
-                <li>AI &amp; computational chemistry platforms — AI-driven pipelines integrating bioinformatics, ML, and HPC.</li>
-                <li>Data governance &amp; security — GxP, HIPAA, GDPR, FDA-aligned integrity and security controls.</li>
-              </ul>
-            </article>
-
-            <article class="card panel">
-              <h3 class="grad-text">F — Future-Ready IT &amp; Digital Transformation</h3>
-              <p class="sub">Cloud, hybrid, and on-prem strategies built for regulated R&amp;D reality.</p>
-              <ul class="list">
-                <li>R&amp;D IT strategy &amp; infrastructure — cloud-based, hybrid, and on-prem environments for R&amp;D.</li>
-                <li>Enterprise integration &amp; SaaS strategy — vendor selection, implementation, interoperability.</li>
-                <li>Agile product management &amp; roadmaps — scalable IT solutions aligned to R&amp;D execution.</li>
-              </ul>
-            </article>
-
-            <article class="card panel">
-              <h3 class="grad-text">T — Technology-Driven Drug Discovery &amp; Cybersecurity</h3>
-              <p class="sub">Secure, scalable compute + modern model lifecycle practices.</p>
-              <ul class="list">
-                <li>Computational drug discovery &amp; bioinformatics — AI/ML modeling for small molecules &amp; biologics.</li>
-                <li>Cybersecurity &amp; compliance — access controls, vulnerability management, disaster recovery planning.</li>
-                <li>Scalable AI/ML infrastructure — automated pipelines, workflow optimization, model lifecycle management.</li>
-              </ul>
-            </article>
+          <div class="card" id="srv-t">
+            <h3 class="grad-text">T — Technology-Driven Drug Discovery &amp; Cybersecurity</h3>
+            <span class="sub">Secure, scalable compute + modern model lifecycle practices.</span>
+            <ul class="check-list">
+              <li>Computational drug discovery &amp; bioinformatics — AI/ML modeling for small molecules &amp; biologics.</li>
+              <li>Cybersecurity &amp; compliance — access controls, vulnerability management, disaster recovery planning.</li>
+              <li>Scalable AI/ML infrastructure — automated pipelines, workflow optimization, model lifecycle management.</li>
+            </ul>
           </div>
         </section>
 
-        <!-- MEDIA / DIAGRAMS -->
-        <section class="section" aria-label="Featured visuals and references">
-          <div class="section-head">
-            <h2>Featured</h2>
-            <p>Click any image to zoom</p>
-          </div>
+        <div class="section-head">
+          <h2>Featured</h2>
+          <p>Click any image to zoom</p>
+        </div>
 
-          <div class="media">
-            <figure class="media-card panel">
-              <img class="media-img zoomable"
-                   loading="lazy" decoding="async"
-                   src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg"
-                   alt="Preclinical Drug Discovery Data Life Cycle" />
-              <figcaption class="media-body">
-                <h4>
-                  <a href="https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html" rel="noreferrer">
-                    The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research
-                  </a>
-                </h4>
-                <p>Data lifecycle framing for AI-first preclinical discovery.</p>
-              </figcaption>
-            </figure>
+        <section class="media-grid" id="featured">
+          <figure class="media-card">
+            <img class="media-img zoomable" 
+                 loading="lazy" decoding="async"
+                 src="https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg" 
+                 alt="Preclinical Drug Discovery Data Life Cycle">
+            <figcaption class="media-body">
+              <h4><a href="https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html">The AI Blueprint: Why AlphaFold is the New Foundation of Preclinical Drug Discovery Research</a></h4>
+              <p>Data lifecycle framing for AI-first preclinical discovery.</p>
+            </figcaption>
+          </figure>
+          
+          <figure class="media-card">
+            <img class="media-img zoomable" 
+                 loading="lazy" decoding="async"
+                 src="https://1u477n.github.io/images/bresearch_preclinical_datalifecycle.jpeg" 
+                 alt="Basic Research and Drug Discovery Data Life Cycle">
+            <figcaption class="media-body">
+              <h4>The Importance of Basic Research During #AI Era — The Billion-Dollar Shortcut</h4>
+              <p>How we stopped guessing and started engineering better drugs.</p>
+            </figcaption>
+          </figure>
 
-            <figure class="media-card panel">
-              <img class="media-img zoomable"
-                   loading="lazy" decoding="async"
-                   src="https://1u477n.github.io/images/bresearch_preclinical_datalifecycle.jpeg"
-                   alt="Basic Research and Drug Discovery Data Life Cycle" />
-              <figcaption class="media-body">
-                <h4>The Importance of Basic Research During #AI Era — The Billion-Dollar Shortcut</h4>
-                <p>How we stopped guessing and started engineering better drugs.</p>
-              </figcaption>
-            </figure>
+          <figure class="media-card">
+            <img class="media-img zoomable" 
+                 loading="lazy" decoding="async"
+                 src="https://1u477n.github.io/images/datainfrastructures.jpg" 
+                 alt="Integrated Research Data Infrastructures">
+            <figcaption class="media-body">
+              <h4><a href="https://www.nature.com/articles/s44401-025-00058-9" target="_blank" rel="noreferrer">Ref: Modernizing Data and Data Science Infrastructure as a Strategic Asset for Cancer Centers</a></h4>
+              <p>Position data platforms as a strategic asset, not overhead.</p>
+            </figcaption>
+          </figure>
 
-            <figure class="media-card panel">
-              <img class="media-img zoomable"
-                   loading="lazy" decoding="async"
-                   src="https://1u477n.github.io/images/datainfrastructures.jpg"
-                   alt="Integrated Research Data Infrastructures" />
-              <figcaption class="media-body">
-                <h4>
-                  <a href="https://www.nature.com/articles/s44401-025-00058-9" target="_blank" rel="noreferrer">
-                    Ref: Modernizing Data and Data Science Infrastructure as a Strategic Asset for Cancer Centers
-                  </a>
-                </h4>
-                <p>Position data platforms as a strategic asset, not overhead.</p>
-              </figcaption>
-            </figure>
-
-            <figure class="media-card panel">
-              <img class="media-img zoomable"
-                   loading="lazy" decoding="async"
-                   src="https://1u477n.github.io/images/modalities.PNG"
-                   alt="Drug Modalities Illustration and Definition" />
-              <figcaption class="media-body">
-                <h4>Drug Modalities</h4>
-                <p>Illustration and definitions across modern therapeutic modalities.</p>
-              </figcaption>
-            </figure>
-          </div>
+          <figure class="media-card">
+            <img class="media-img zoomable" 
+                 loading="lazy" decoding="async"
+                 src="https://1u477n.github.io/images/modalities.PNG" 
+                 alt="Drug Modalities Illustration and Definition">
+            <figcaption class="media-body">
+              <h4>Drug Modalities</h4>
+              <p>Illustration and definitions across modern therapeutic modalities.</p>
+            </figcaption>
+          </figure>
         </section>
-      </div>
 
-      <aside class="toc panel" aria-label="On this page">
-        <details open>
-          <summary>On this page</summary>
-          <nav class="toc-nav" id="tocNav" aria-label="Table of contents"></nav>
-        </details>
+      </main>
+
+      <aside class="toc-wrapper">
+        <nav class="toc">
+          <h4>On this page</h4>
+          <div class="toc-nav" id="tocNav">
+            </div>
+        </nav>
       </aside>
+
     </div>
 
-    <footer class="footer panel">
-      © <span id="year"></span> · IT &amp; Strategy Consulting · 
-      <a href="https://1u477n.github.io/">Home</a>
+    <footer class="footer">
+      © <span id="year"></span> · IT & Strategy Consulting · <a href="https://1u477n.github.io/">Home</a>
     </footer>
-  </main>
+  </div>
+
+  <div id="imageLightbox" class="lightbox">
+    <button class="close-lightbox" id="lightboxClose">×</button>
+    <img class="lightbox-content" id="img01" alt="">
+    <div id="caption" class="lightbox-caption"></div>
+  </div>
 
   <script>
-    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ------------------------------------------------------------
-    // Shared theme toggle (site-wide): localStorage key "theme"
-    // MATCHES your blog page algorithm (safe storage + system tracking)
-    // ------------------------------------------------------------
+    // Theme Toggle
     (function(){
       const root = document.documentElement;
       const toggle = document.getElementById("themeToggle");
-      if (!toggle) return;
-
       const storageKey = "theme";
-      const media = window.matchMedia("(prefers-color-scheme: light)");
-
-      const safeGet = () => {
-        try { return localStorage.getItem(storageKey); } catch { return null; }
-      };
-      const safeSet = (v) => {
-        try { localStorage.setItem(storageKey, v); } catch {}
-      };
-
-      const systemTheme = () => (media.matches ? "light" : "dark");
-
-      function setToggleText(theme){
-        const next = theme === "dark" ? "light" : "dark";
-        toggle.setAttribute("aria-label", `Switch to ${next} mode`);
-        toggle.setAttribute("title", `Switch to ${next} mode`);
-      }
-
-      function applyTheme(theme, persist){
+      
+      function updateTheme(theme){
         root.setAttribute("data-theme", theme);
-        if (persist) safeSet(theme);
-        setToggleText(theme);
+        const meta = document.getElementById("themeColor");
+        if(meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#F9FAFB");
       }
 
-      const saved = safeGet();
-      if (saved === "light" || saved === "dark") {
-        applyTheme(saved, false);
-      } else {
-        applyTheme(systemTheme(), false);
-
-        // Track system changes only when user hasn't manually chosen a theme
-        const handler = () => applyTheme(systemTheme(), false);
-        if (typeof media.addEventListener === "function") media.addEventListener("change", handler);
-        else if (typeof media.addListener === "function") media.addListener(handler);
-      }
+      const saved = localStorage.getItem(storageKey);
+      const media = window.matchMedia("(prefers-color-scheme: light)");
+      
+      if(saved) updateTheme(saved);
+      else updateTheme(media.matches ? "light" : "dark");
 
       toggle.addEventListener("click", () => {
-        const current = root.getAttribute("data-theme") || systemTheme();
+        const current = root.getAttribute("data-theme");
         const next = current === "dark" ? "light" : "dark";
-        applyTheme(next, true);
+        updateTheme(next);
+        localStorage.setItem(storageKey, next);
       });
     })();
 
-    // ------------------------------------------------------------
-    // Menu toggle (kept)
-    // ------------------------------------------------------------
+    // Menu Logic
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
+    menuBtn.addEventListener("click", (e) => { e.stopPropagation(); menuPanel.classList.toggle("open"); });
+    document.addEventListener("click", (e) => { if(!menuPanel.contains(e.target) && e.target !== menuBtn) menuPanel.classList.remove("open"); });
 
-    function closeMenu() {
-      menuPanel.classList.remove("open");
-      menuBtn.setAttribute("aria-expanded", "false");
-    }
-    function toggleMenu() {
-      const open = menuPanel.classList.toggle("open");
-      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    }
-
-    menuBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-
-    menuPanel.addEventListener("click", (e) => {
-      e.stopPropagation();
-    });
-
-    document.addEventListener("click", () => {
-      if (menuPanel.classList.contains("open")) closeMenu();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeMenu();
-    });
-
-    // ------------------------------------------------------------
-    // Lightbox (zoom) + focus restore (kept)
-    // ------------------------------------------------------------
-    const modal = document.getElementById("imageLightbox");
-    const modalImg = document.getElementById("img01");
-    const captionText = document.getElementById("caption");
-    const closeBtn = document.getElementById("lightboxClose");
-
-    const images = document.querySelectorAll("img.zoomable");
-    let lastFocusEl = null;
-
-    function openLightbox(img) {
-      lastFocusEl = document.activeElement;
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-      modalImg.src = img.currentSrc || img.src;
-      modalImg.alt = img.alt || "Zoomed image";
-      captionText.textContent = img.alt || "";
-      document.body.style.overflow = "hidden";
-      closeBtn.focus();
-    }
-
-    function closeLightbox() {
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      modalImg.src = "";
-      captionText.textContent = "";
-      document.body.style.overflow = "";
-      if (lastFocusEl && typeof lastFocusEl.focus === "function") lastFocusEl.focus();
-    }
-
-    images.forEach(img => {
-      img.addEventListener("click", () => openLightbox(img));
-      img.setAttribute("tabindex", "0");
-      img.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openLightbox(img);
-        }
-      });
-    });
-
-    closeBtn.addEventListener("click", closeLightbox);
-
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) closeLightbox();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("open")) closeLightbox();
-    });
-
-    // ------------------------------------------------------------
-    // "On this page" (TOC) generator + active section highlight (kept)
-    // ------------------------------------------------------------
-    (function(){
-      const tocNav = document.getElementById("tocNav");
-      const scope = document.querySelector("main.container");
-      if (!tocNav || !scope) return;
-
-      const headings = Array.from(scope.querySelectorAll(".gift h2, .section-head h2, .card h3"));
-      if (!headings.length) return;
-
-      const slugify = (s) => (s || "")
-        .toLowerCase()
-        .trim()
-        .replace(/&amp;|&/g, "and")
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-");
-
-      const used = new Map();
-      function uniqueId(base){
-        const n = (used.get(base) || 0) + 1;
-        used.set(base, n);
-        return n === 1 ? base : `${base}-${n}`;
-      }
-
-      headings.forEach(h => {
-        const raw = (h.textContent || "").trim();
-        const base = slugify(raw) || "section";
-        if (!h.id) h.id = uniqueId(base);
-      });
-
-      tocNav.innerHTML = headings.map(h => {
-        const lvl = h.tagName === "H3" ? "3" : "2";
-        const label = (h.textContent || "").trim();
-        return `<a href="#${h.id}" data-id="${h.id}" data-level="${lvl}">${label}</a>`;
-      }).join("");
-
-      const links = Array.from(tocNav.querySelectorAll("a"));
-      const setActive = (id) => links.forEach(a => a.classList.toggle("active", a.dataset.id === id));
-
-      const obs = new IntersectionObserver((entries) => {
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a,b) => (b.intersectionRatio - a.intersectionRatio));
-        if (visible[0]) setActive(visible[0].target.id);
-      }, { root: null, threshold: [0.2, 0.35, 0.5], rootMargin: "-15% 0px -70% 0px" });
-
-      headings.forEach(h => obs.observe(h));
-
-      links.forEach(a => {
-        a.addEventListener("click", (e) => {
-          const id = a.dataset.id;
-          const target = document.getElementById(id);
-          if (!target) return;
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          target.setAttribute("tabindex", "-1");
-          target.focus({ preventScroll: true });
-          setTimeout(() => target.removeAttribute("tabindex"), 300);
+    // Auto-TOC Generator
+    const headings = document.querySelectorAll("h2, h3");
+    const nav = document.getElementById("tocNav");
+    
+    headings.forEach((h, index) => {
+        if(!h.id) h.id = "section-" + index;
+        const link = document.createElement("a");
+        link.href = "#" + h.id;
+        // Clean text content for nav display
+        link.textContent = h.childNodes[0].textContent; 
+        
+        // Indent H3s
+        if(h.tagName === "H3") link.style.paddingLeft = "20px";
+        
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            document.querySelector(link.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
         });
+        nav.appendChild(link);
+    });
+
+    // Scroll Spy for TOC
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelectorAll(".toc-nav a").forEach(a => a.classList.remove("active"));
+                const activeLink = document.querySelector(`.toc-nav a[href="#${entry.target.id}"]`);
+                if(activeLink) activeLink.classList.add("active");
+            }
+        });
+    }, { threshold: 0.5 });
+    headings.forEach(h => observer.observe(h));
+
+    // Lightbox Logic
+    const lightbox = document.getElementById("imageLightbox");
+    const lbImg = document.getElementById("img01");
+    const lbCap = document.getElementById("caption");
+    
+    document.querySelectorAll(".zoomable").forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.classList.add("open");
+        lbImg.src = img.src;
+        lbCap.textContent = img.alt;
       });
-    })();
+    });
+    
+    document.getElementById("lightboxClose").addEventListener("click", () => {
+      lightbox.classList.remove("open");
+    });
+    lightbox.addEventListener("click", (e) => {
+      if(e.target === lightbox) lightbox.classList.remove("open");
+    });
   </script>
 </body>
 </html>
