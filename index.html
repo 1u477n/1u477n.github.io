@@ -4,15 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="Profile Home" />
-
   <link rel="canonical" href="https://1u477n.github.io/index.html" />
-  
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://1u477n.github.io/index.html">
   <meta property="og:title" content="Profile Home">
   <meta property="og:description" content="Quick access to background, consulting, publications, and recognitions.">
   <meta property="og:image" content="https://1u477n.github.io/images/avatar.jpeg">
-  
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Profile Home">
   <meta name="twitter:description" content="Quick access to background, consulting, publications, and recognitions.">
@@ -20,13 +17,11 @@
 
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#070A12" id="themeColor">
-
   <link rel="manifest" href="/manifest/manifest.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-192.png">
 
   <title>Profile Home</title>
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW323NJP26"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -47,21 +42,16 @@
       --text: #F2F2F2;
       --muted: rgba(255,255,255,0.7);
       --muted2: rgba(255,255,255,0.5);
-      
       --panel: rgba(20, 20, 20, 0.6);
       --panel-hover: rgba(30, 30, 30, 0.8);
       --stroke: rgba(255,255,255,0.08);
       --stroke-hover: rgba(255,255,255,0.2);
-      
       --a1: #38BDF8; /* Sky */
       --a2: #818CF8; /* Violet */
       --a3: #34D399; /* Emerald */
-      
       --grad: linear-gradient(135deg, var(--a1), var(--a2));
-      
       --shadow: 0 0 0 1px var(--stroke), 0 4px 20px rgba(0,0,0,0.4);
       --glow: 0 0 40px -10px var(--a1);
-      
       --max: 900px;
       --r24: 24px;
     }
@@ -73,12 +63,10 @@
       --text: #111827;
       --muted: rgba(0,0,0,0.7);
       --muted2: rgba(0,0,0,0.5);
-      
       --panel: rgba(255, 255, 255, 0.7);
       --panel-hover: rgba(255, 255, 255, 0.95);
       --stroke: rgba(0,0,0,0.08);
       --stroke-hover: rgba(0,0,0,0.2);
-      
       --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0,0,0,0.05);
       --glow: 0 0 30px -10px var(--a2);
     }
@@ -137,7 +125,7 @@
       z-index: 1;
     }
 
-    /* --- Components --- */
+    /* --- Floating Pill Topbar --- */
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -148,8 +136,13 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--stroke);
       border-radius: 99px;
-      margin-bottom: 24px;
+      margin-bottom: 40px;
       box-shadow: var(--shadow);
+      
+      /* Sticky Positioning */
+      position: sticky;
+      top: 20px;
+      z-index: 100;
     }
 
     .brand {
@@ -183,6 +176,52 @@
     }
     .brand-text strong { font-size: 14px; font-weight: 700; }
     .brand-text span { font-size: 12px; color: var(--muted2); }
+
+    /* Menu Button */
+    .menu-btn {
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
+
+    /* Menu Panel */
+    .menu{
+      position: fixed; top: 80px; right: 20px;
+      width: min(300px, 90vw);
+      background: var(--panel-hover);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      padding: 8px;
+      display: none;
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .menu.open { display: flex; animation: fadeDown 0.2s ease-out; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .menu a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .menu a:hover { background: rgba(255,255,255,0.08); }
+    .menu a span { font-size: 16px; opacity: 0.5; }
 
     /* Hero Section */
     .hero {
@@ -347,7 +386,22 @@
           <span>AI-ready R&amp;D, data, and strategy</span>
         </div>
       </div>
+      
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
     </header>
+
+    <nav class="menu" id="menuPanel">
+      <a href="https://1u477n.github.io/">Home <span>→</span></a>
+      <a href="https://1u477n.github.io/about.html">About Me <span>→</span></a>
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Consulting <span>→</span></a>
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works <span>→</span></a>
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>→</span></a>
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>→</span></a>
+      <a href="https://1u477n.github.io/images/cv.pdf">CV (PDF) <span>↓</span></a>
+      <a href="https://www.linkedin.com/in/1u477n/" target="_blank">LinkedIn <span>↗</span></a>
+    </nav>
 
     <main class="hero">
       <div class="avatar-wrap">
@@ -480,6 +534,18 @@
         localStorage.setItem(storageKey, next);
       });
     })();
+
+    // 3. Menu Toggle
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+        
+    menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menuPanel.classList.toggle("open");
+    });
+    document.addEventListener("click", (e) => {
+        if(!menuPanel.contains(e.target) && e.target !== menuBtn) menuPanel.classList.remove("open");
+    });
   </script>
 </body>
 </html>
