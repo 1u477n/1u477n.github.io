@@ -83,6 +83,31 @@
       --tableRow: rgba(255,255,255,.04);
     }
 
+/* Accessibility Skip Links */
+.skip-link {
+  position: absolute;
+  top: -100px; /* Hidden by default */
+  left: 20px;
+  z-index: 9999;
+  background: var(--text);
+  color: var(--bg0);
+  padding: 12px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  transition: top 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* Show only when focused (Tab key) */
+.skip-link:focus {
+  top: 20px;
+  outline: 2px solid var(--a1);
+}    
+
     /* Light Theme Override */
     [data-theme="light"] {
       --bg0: #F9FAFB;
@@ -454,6 +479,11 @@
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+    <button id="a11y-speak-btn" class="skip-link" style="left: 140px;">
+      Listen to this article (Press Enter)
+    </button>
+  
   <div class="progress-fixed"><div class="progress-bar" id="progressBar"></div></div>
 
   <div class="bg-orbs">
@@ -921,14 +951,18 @@
       } catch(e){}
     })();
 
-// Web Speech API - Text to Speech
+// Web Speech API - Accessibility First
 (function(){
-  const btn = document.getElementById("speakBtn");
+  // Get both triggers
+  const visualBtn = document.getElementById("speakBtn");
+  const a11yBtn = document.getElementById("a11y-speak-btn");
   const icon = document.getElementById("speakIcon");
   const prose = document.getElementById("prose");
   
-  if (!btn || !prose || !('speechSynthesis' in window)) {
-    if(btn) btn.style.display = 'none'; // Hide if not supported
+  // Guard clause: Check support
+  if (!prose || !('speechSynthesis' in window)) {
+    if(visualBtn) visualBtn.style.display = 'none';
+    if(a11yBtn) a11yBtn.style.display = 'none';
     return; 
   }
 
@@ -937,50 +971,42 @@
   let isSpeaking = false;
   let isPaused = false;
 
-  // SVG Icons
+  // Icons
   const playIcon = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
   const pauseIcon = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
-  const stopIcon = `<rect x="6" y="6" width="12" height="12"></rect>`;
 
   function reset(){
     synth.cancel();
     isSpeaking = false;
     isPaused = false;
-    icon.innerHTML = playIcon;
-    btn.style.color = "";
-    btn.style.background = "";
-    btn.style.borderColor = "";
+    if(icon) icon.innerHTML = playIcon;
+    if(visualBtn) {
+        visualBtn.style.color = "";
+        visualBtn.style.background = "";
+        visualBtn.title = "Listen to Article";
+    }
+    if(a11yBtn) a11yBtn.innerText = "Listen to this article (Press Enter)";
   }
 
-  // Cleanup on page leave
-  window.addEventListener('beforeunload', reset);
-
-  btn.addEventListener("click", () => {
+  function toggleSpeech() {
     if (isSpeaking && !isPaused) {
-      // Pause
       synth.pause();
       isPaused = true;
-      icon.innerHTML = playIcon; // Show play to resume
-      btn.title = "Resume";
+      if(icon) icon.innerHTML = playIcon;
+      if(a11yBtn) a11yBtn.innerText = "Resume listening";
     } else if (isPaused) {
-      // Resume
       synth.resume();
       isPaused = false;
-      icon.innerHTML = pauseIcon;
-      btn.title = "Pause";
+      if(icon) icon.innerHTML = pauseIcon;
+      if(a11yBtn) a11yBtn.innerText = "Pause listening";
     } else {
-      // Start
-      const text = prose.innerText; // Get readable text only
+      // Setup Utterance
+      const text = prose.innerText;
       utterance = new SpeechSynthesisUtterance(text);
-      
-      // Optional: Select a better voice preference
       const voices = synth.getVoices();
       const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
       if(preferred) utterance.voice = preferred;
-
-      utterance.rate = 1;
-      utterance.pitch = 1;
-
+      
       utterance.onend = reset;
       utterance.onerror = reset;
 
@@ -988,15 +1014,31 @@
       isSpeaking = true;
       isPaused = false;
       
-      // Visual Feedback (Active State)
-      icon.innerHTML = pauseIcon;
-      btn.title = "Pause";
-      btn.style.color = "var(--a3)"; // Emerald color for active
-      btn.style.borderColor = "var(--a3)";
-      btn.style.background = "rgba(52, 211, 153, 0.1)";
+      // Update UI
+      if(icon) icon.innerHTML = pauseIcon;
+      if(visualBtn) {
+          visualBtn.style.color = "var(--a3)";
+          visualBtn.style.background = "rgba(52, 211, 153, 0.1)";
+          visualBtn.title = "Pause";
+      }
+      if(a11yBtn) a11yBtn.innerText = "Pause listening";
     }
-  });
-})();    
+  }
+
+  // Bind Events
+  if(visualBtn) visualBtn.addEventListener("click", toggleSpeech);
+  
+  if(a11yBtn) {
+      a11yBtn.addEventListener("click", toggleSpeech);
+      // Ensure 'Enter' key works on the focused button (standard a11y behavior)
+      a11yBtn.addEventListener("keypress", (e) => {
+          if (e.key === 'Enter') toggleSpeech();
+      });
+  }
+
+  // Cleanup
+  window.addEventListener('beforeunload', reset);
+})();
 
   </script>
 
