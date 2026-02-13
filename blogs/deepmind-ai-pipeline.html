@@ -106,9 +106,9 @@
 .skip-link:focus {
   top: 20px;
   outline: 2px solid var(--a1);
-}    
-    
-    /* Light Theme Override */
+}
+      
+      /* Light Theme Override */
     [data-theme="light"] {
       --bg0: #F9FAFB;
       --bg1: #F3F4F6;
@@ -202,7 +202,7 @@
       z-index: 100;
     }
 
-    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 12px; overflow: hidden; }
 
     .theme-toggle {
       width: 36px; height: 36px;
@@ -215,15 +215,23 @@
       color: white;
       box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
       transition: transform 0.2s ease;
+      flex-shrink: 0;
     }
     .theme-toggle:hover { transform: scale(1.05); }
     .theme-toggle svg { width: 18px; height: 18px; }
     [data-theme="dark"] .sun { display: none; }
     [data-theme="light"] .moon { display: none; }
 
-    .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.2; overflow: hidden; }
     .brand-text strong { font-size: 14px; font-weight: 700; }
-    .brand-text span { font-size: 12px; color: var(--muted2); }
+    
+    /* FIX: Truncate long subheader text on mobile to match reference algorithm */
+    .brand-text span { 
+      font-size: 12px; color: var(--muted2); 
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 140px; /* Constrain on mobile */
+    }
+    @media (min-width: 480px) { .brand-text span { max-width: none; } }
 
     .menu-btn {
       width: 40px; height: 40px;
@@ -235,6 +243,7 @@
       color: var(--text);
       cursor: pointer;
       transition: 0.2s;
+      flex-shrink: 0;
     }
     .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
 
@@ -378,6 +387,8 @@
       border-radius: 24px;
       padding: 32px;
       box-shadow: var(--shadow);
+      /* FIX: Ensure grid item does not overflow due to wide children (tables/code) */
+      min-width: 0; 
     }
     
     .prose p { margin-bottom: 24px; line-height: 1.8; color: var(--muted); font-size: 15px; }
@@ -411,7 +422,11 @@
     /* Tables */
     .table-wrap {
       margin: 32px 0; border-radius: 16px; border: 1px solid var(--stroke);
-      background: var(--tableBg); overflow-x: auto;
+      background: var(--tableBg); 
+      overflow-x: auto;
+      /* FIX: Mobile scrolling behavior consistency */
+      width: 100%;
+      -webkit-overflow-scrolling: touch; 
     }
     table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
     th { text-align: left; padding: 16px; color: var(--text); border-bottom: 1px solid var(--stroke); background: rgba(56,189,248,0.05); }
@@ -495,11 +510,11 @@
 <body>
 
   <a href="#main" class="skip-link">Skip to content</a>
-    <button id="a11y-speak-btn" class="skip-link" style="left: 140px;">
+  
+  <button id="a11y-speak-btn" class="skip-link" style="left: 140px;">
       Listen to this article (Press Enter)
     </button>
-  
-  <div class="progress-fixed"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-fixed"><div class="progress-bar" id="progressBar"></div></div>
 
   <div class="bg-orbs">
     <div class="orb orb-1"></div>
@@ -570,8 +585,7 @@
   <svg id="speakIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
     <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-  </svg>
-</button>     
+  </svg></button>
           
           <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
           
@@ -1037,7 +1051,7 @@
     if(visualBtn) visualBtn.style.display = 'none';
     if(a11yBtn) a11yBtn.style.display = 'none';
     return; 
-  }
+   }
 
   const synth = window.speechSynthesis;
   let utterance = null;
@@ -1111,9 +1125,8 @@
 
   // Cleanup
   window.addEventListener('beforeunload', reset);
-})();    
-    
-  </script>
+})();
+          </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
