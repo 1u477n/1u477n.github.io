@@ -48,594 +48,691 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="preload" as="image" href="https://1u477n.github.io/images/deepmind_models.jpg" />
 
   <style>
     :root{
-      /* Base (dark) tokens */
-      --bg0:#070A12; --bg1:#0B1020;
-      --text:#EAF0FF; --muted: rgba(234,240,255,.72); --muted2: rgba(234,240,255,.55);
-      --panel: rgba(255,255,255,.06); --panel2: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.10); --stroke2: rgba(255,255,255,.16);
-      --a1:#38BDF8; --a2:#A78BFA; --a3:#34D399;
+      /* Dark Theme (Default) - 2026 Palette */
+      --bg0: #050505;
+      --bg1: #0A0A0A;
+      --text: #F2F2F2;
+      --muted: rgba(255,255,255,0.7);
+      --muted2: rgba(255,255,255,0.5);
+      
+      --panel: rgba(20, 20, 20, 0.6);
+      --panel-hover: rgba(30, 30, 30, 0.8);
+      --stroke: rgba(255,255,255,0.08);
+      --stroke-hover: rgba(255,255,255,0.2);
+      
+      --a1: #38BDF8; /* Sky */
+      --a2: #818CF8; /* Violet */
+      --a3: #34D399; /* Emerald */
+      
       --grad: linear-gradient(135deg, var(--a1), var(--a2));
-      --shadow: 0 0 0 1px var(--stroke), 0 18px 60px rgba(0,0,0,.55);
-      --shadow2: 0 0 0 1px var(--stroke), 0 22px 80px rgba(0,0,0,.62);
-      --ring: 0 0 0 2px rgba(56,189,248,.55);
-      --r12: 12px; --r16: 16px; --r20: 20px; --r24: 24px;
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 20px rgba(0,0,0,0.4);
+      --glow: 0 0 40px -10px var(--a1);
+      
       --max: 1100px;
-      --glow1: rgba(56,189,248,.18); --glow2: rgba(167,139,250,.16); --glow3: rgba(52,211,153,.10);
-      --gridline: rgba(255,255,255,.06); --gridmask: rgba(0,0,0,.85); --vignette: rgba(255,255,255,.06);
-      --topbarA: rgba(7,10,18,.88); --topbarB: rgba(7,10,18,.55);
-      --menuBg: rgba(8,12,22,.78); --menuShadow: 0 30px 80px rgba(0,0,0,.55);
-      --tableBg: rgba(255,255,255,.03); --tableRow: rgba(255,255,255,.04); --tableRow2: rgba(255,255,255,.025);
-    }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg0:#ffffff; --bg1:#f6f8ff;
-        --text:#0b0f1a; --muted: rgba(11,15,26,.74); --muted2: rgba(11,15,26,.58);
-        --panel: rgba(255,255,255,.72); --panel2: rgba(255,255,255,.86);
-        --stroke: rgba(0,0,0,.10); --stroke2: rgba(0,0,0,.14);
-        --shadow: 0 0 0 1px rgba(0,0,0,.08), 0 18px 60px rgba(0,0,0,.10);
-        --shadow2: 0 0 0 1px rgba(0,0,0,.08), 0 22px 80px rgba(0,0,0,.12);
-        --ring: 0 0 0 2px rgba(56,189,248,.45);
-        --glow1: rgba(56,189,248,.14); --glow2: rgba(167,139,250,.12); --glow3: rgba(52,211,153,.08);
-        --gridline: rgba(0,0,0,.06); --gridmask: rgba(0,0,0,.55); --vignette: rgba(0,0,0,.06);
-        --topbarA: rgba(255,255,255,.88); --topbarB: rgba(255,255,255,.65);
-        --menuBg: rgba(255,255,255,.86); --menuShadow: 0 30px 80px rgba(0,0,0,.14);
-        --tableBg: rgba(0,0,0,.03); --tableRow: rgba(0,0,0,.03); --tableRow2: rgba(0,0,0,.02);
-      }
-    }
-    html[data-theme="light"]{
-      color-scheme: light;
-      --bg0:#ffffff; --bg1:#f6f8ff;
-      --text:#0b0f1a; --muted: rgba(11,15,26,.74); --muted2: rgba(11,15,26,.58);
-      --panel: rgba(255,255,255,.72); --panel2: rgba(255,255,255,.86);
-      --stroke: rgba(0,0,0,.10); --stroke2: rgba(0,0,0,.14);
-      --shadow: 0 0 0 1px rgba(0,0,0,.08), 0 18px 60px rgba(0,0,0,.10);
-      --shadow2: 0 0 0 1px rgba(0,0,0,.08), 0 22px 80px rgba(0,0,0,.12);
-      --ring: 0 0 0 2px rgba(56,189,248,.45);
-      --glow1: rgba(56,189,248,.14); --glow2: rgba(167,139,250,.12); --glow3: rgba(52,211,153,.08);
-      --gridline: rgba(0,0,0,.06); --gridmask: rgba(0,0,0,.55); --vignette: rgba(0,0,0,.06);
-      --topbarA: rgba(255,255,255,.88); --topbarB: rgba(255,255,255,.65);
-      --menuBg: rgba(255,255,255,.86); --menuShadow: 0 30px 80px rgba(0,0,0,.14);
-      --tableBg: rgba(0,0,0,.03); --tableRow: rgba(0,0,0,.03); --tableRow2: rgba(0,0,0,.02);
-    }
-    html[data-theme="dark"]{
-      color-scheme: dark;
-      --bg0:#070A12; --bg1:#0B1020;
-      --text:#EAF0FF; --muted: rgba(234,240,255,.72); --muted2: rgba(234,240,255,.55);
-      --panel: rgba(255,255,255,.06); --panel2: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.10); --stroke2: rgba(255,255,255,.16);
-      --shadow: 0 0 0 1px var(--stroke), 0 18px 60px rgba(0,0,0,.55);
-      --shadow2: 0 0 0 1px var(--stroke), 0 22px 80px rgba(0,0,0,.62);
-      --ring: 0 0 0 2px rgba(56,189,248,.55);
-      --glow1: rgba(56,189,248,.18); --glow2: rgba(167,139,250,.16); --glow3: rgba(52,211,153,.10);
-      --gridline: rgba(255,255,255,.06); --gridmask: rgba(0,0,0,.85); --vignette: rgba(255,255,255,.06);
-      --topbarA: rgba(7,10,18,.88); --topbarB: rgba(7,10,18,.55);
-      --menuBg: rgba(8,12,22,.78); --menuShadow: 0 30px 80px rgba(0,0,0,.55);
-      --tableBg: rgba(255,255,255,.03); --tableRow: rgba(255,255,255,.04); --tableRow2: rgba(255,255,255,.025);
+      --r24: 24px;
+      --r20: 20px;
+      --r16: 16px;
+      
+      /* Blog Specifics */
+      --tableBg: rgba(255,255,255,.03);
+      --tableRow: rgba(255,255,255,.04);
     }
 
-    *{ box-sizing:border-box }
-    html,body{ height:100% }
-    html{ scroll-behavior: smooth; text-rendering: geometricPrecision; -webkit-text-size-adjust: 100%; }
-    body{ margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: radial-gradient(1200px 700px at 10% 0%, var(--glow1), transparent 55%), radial-gradient(1000px 600px at 90% 10%, var(--glow2), transparent 55%), radial-gradient(900px 600px at 50% 110%, var(--glow3), transparent 60%), linear-gradient(180deg, var(--bg0), var(--bg1)); overflow-x:hidden; padding-bottom: 40px; transition: background .3s ease; }
-    
-    ::selection{ background: rgba(56,189,248,.22); color: var(--text); }
-    .skip-link{ position: absolute; top: 10px; left: 10px; z-index: 9999; padding: 10px 12px; border-radius: 12px; background: var(--panel2); border: 1px solid var(--stroke); color: var(--text); text-decoration: none; transform: translateY(-200%); transition: transform .2s ease; backdrop-filter: blur(10px); }
-    .skip-link:focus{ transform: translateY(0); box-shadow: var(--ring); }
-    
-    .bg-grid{ position: fixed; inset: 0; pointer-events:none; opacity:.25; background-image: linear-gradient(var(--gridline) 1px, transparent 1px), linear-gradient(90deg, var(--gridline) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(700px 400px at 50% 12%, var(--gridmask), transparent 70%); z-index: 0; }
-    .top-vignette{ position: fixed; top: 0; left: 0; right: 0; height: 220px; pointer-events:none; background: radial-gradient(800px 180px at 50% 0%, var(--vignette), transparent 70%); opacity: .8; z-index: 1; }
-    
-    .container{ max-width:var(--max); margin:0 auto; padding: 18px; position: relative; z-index: 2; transition: max-width .3s ease; }
-    
-    .panel{ position: relative; overflow: hidden; }
-    .panel:after{ content:""; position:absolute; inset:0; pointer-events:none; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(56,189,248,.34), rgba(167,139,250,.28), rgba(52,211,153,.18), rgba(255,255,255,.06)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .55; }
-    
-    .topbar { position: sticky; top: 0; z-index: 80; padding: 10px 0; backdrop-filter: blur(14px); background: linear-gradient(180deg, var(--topbarA), var(--topbarB)); border-bottom: 1px solid rgba(255,255,255,.02); transition: transform .3s ease, opacity .3s ease; }
-    .nav { display: flex; align-items: center; justify-content: space-between; gap: 14px; max-width: var(--max); margin: 0 auto; padding: 0 18px; }
-    
-    .progress { height: 3px; width: 100%; background: transparent; position: absolute; bottom: 0; left: 0; }
-    .progress > span { display: block; height: 100%; width: 0%; background: var(--grad); transform-origin: left center; }
-    
-    .brand{ display:flex; align-items:center; gap: 10px; min-width: 0; }
-    .brand .title{ display:flex; flex-direction:column; line-height:1.1; min-width: 0; }
-    .brand .title strong{ font-size: 14px; letter-spacing: .2px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; }
-    .brand .title span{ font-size: 12px; color: var(--muted2); white-space: nowrap; overflow:hidden; text-overflow: ellipsis; }
-    
-    .mark{ width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,.05) 55%), var(--grad); box-shadow: 0 12px 28px rgba(56,189,248,.12); border: 1px solid rgba(255,255,255,.14); position: relative; overflow:hidden; flex: 0 0 auto; isolation: isolate; }
-    .mark:after{ content:""; position:absolute; inset:-40%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 45%), linear-gradient(90deg, transparent 20%, rgba(255,255,255,.10), transparent 80%); transform: rotate(18deg); opacity:.55; z-index: 0; pointer-events:none; }
-    .mark.theme-toggle{ appearance:none; -webkit-appearance:none; padding: 0; margin: 0; cursor: pointer; display: grid; place-items: center; color: var(--text); transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease; }
-    .mark.theme-toggle svg{ width: 18px; height: 18px; position: relative; z-index: 1; display: block; pointer-events: none; opacity: .92; filter: drop-shadow(0 10px 18px rgba(0,0,0,.18)); }
-    .mark.theme-toggle:hover{ transform: translateY(-1px); }
-    .mark.theme-toggle:active{ transform: translateY(0) scale(.99); }
-    .mark.theme-toggle:focus-visible{ outline:none; box-shadow: var(--ring), 0 12px 28px rgba(56,189,248,.12); }
-    html[data-theme="dark"] .mark.theme-toggle .sun{ display:none; } html[data-theme="light"] .mark.theme-toggle .moon{ display:none; }
-    @media (prefers-color-scheme: dark){ html:not([data-theme]) .mark.theme-toggle .sun{ display:none; } }
-    @media (prefers-color-scheme: light){ html:not([data-theme]) .mark.theme-toggle .moon{ display:none; } }
-    .nav-actions{ display:flex; align-items:center; gap: 10px; }
-    .icon-btn{ width: 42px; height: 42px; display:grid; place-items:center; border-radius: 14px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); cursor:pointer; transition: transform .15s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; backdrop-filter: blur(10px); color: var(--text); }
-    .icon-btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.20); background: rgba(255,255,255,.085); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
-    .icon-btn:active{ transform: translateY(0) scale(.99); }
-    .icon-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
-    .icon{ width: 18px; height: 14px; position: relative; }
-    .icon span{ position:absolute; left:0; right:0; height:2px; border-radius: 2px; background: rgba(234,240,255,.90); }
-    .icon span:nth-child(1){ top:0; } .icon span:nth-child(2){ top:6px; opacity:.85; } .icon span:nth-child(3){ top:12px; opacity:.70; }
-    html[data-theme="light"] .icon span{ background: rgba(11,15,26,.86); }
-    @media (prefers-color-scheme: light){ html:not([data-theme]) .icon span{ background: rgba(11,15,26,.86); } }
-    .menu{ position: fixed; top: 70px; right: 18px; width: min(360px, calc(100vw - 36px)); border-radius: 18px; background: var(--menuBg); border: 1px solid rgba(255,255,255,.12); box-shadow: var(--menuShadow); backdrop-filter: blur(16px); padding: 10px; display:none; z-index: 60; }
-    .menu.open{ display:block; animation: pop .16s ease-out; }
-    @keyframes pop{ from{ transform: translateY(-6px); opacity: 0;} to{ transform: translateY(0); opacity: 1;} }
-    .menu a{ display:flex; align-items:center; justify-content: space-between; gap: 10px; text-decoration:none; color: var(--text); padding: 12px 12px; border-radius: 14px; border: 1px solid transparent; transition: background .2s ease, border-color .2s ease; font-weight: 600; font-size: 13px; }
-    .menu a:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); }
-    .menu a .arrow-icon{ color: var(--muted2); font-size: 16px; line-height: 1; font-family: "Segoe UI Symbol", system-ui, sans-serif; }
-    .arrow-icon .arrow-svg{ width: 18px; height: 18px; display:block; }
-    html[data-theme="light"] .mark{ border: 1px solid rgba(0,0,0,.10); }
-    html[data-theme="light"] .icon-btn{ border: 1px solid rgba(0,0,0,.12); background: rgba(255,255,255,.70); }
-    html[data-theme="light"] .icon-btn:hover{ border-color: rgba(0,0,0,.18); background: rgba(255,255,255,.85); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
-    html[data-theme="light"] .menu{ border: 1px solid rgba(0,0,0,.12); }
-    html[data-theme="light"] .menu a:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
-    @media (prefers-color-scheme: light){
-      html:not([data-theme]) .mark{ border: 1px solid rgba(0,0,0,.10); }
-      html:not([data-theme]) .icon-btn{ border: 1px solid rgba(0,0,0,.12); background: rgba(255,255,255,.70); }
-      html:not([data-theme]) .icon-btn:hover{ border-color: rgba(0,0,0,.18); background: rgba(255,255,255,.85); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
-      html:not([data-theme]) .menu{ border: 1px solid rgba(0,0,0,.12); }
-      html:not([data-theme]) .menu a:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
+    /* Light Theme Override */
+    [data-theme="light"] {
+      --bg0: #F9FAFB;
+      --bg1: #F3F4F6;
+      --text: #111827;
+      --muted: rgba(0,0,0,0.7);
+      --muted2: rgba(0,0,0,0.5);
+      
+      --panel: rgba(255, 255, 255, 0.7);
+      --panel-hover: rgba(255, 255, 255, 0.95);
+      --stroke: rgba(0,0,0,0.08);
+      --stroke-hover: rgba(0,0,0,0.2);
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0,0,0,0.05);
+      --glow: 0 0 30px -10px var(--a2);
+      
+      --tableBg: rgba(0,0,0,.03);
+      --tableRow: rgba(0,0,0,.03);
     }
-    .hero{ margin-top: 18px; padding: 24px; border-radius: var(--r24); background: radial-gradient(900px 340px at 20% 0%, rgba(56,189,248,.16), transparent 50%), radial-gradient(900px 340px at 80% 0%, rgba(167,139,250,.14), transparent 55%), var(--panel); border: 1px solid var(--stroke); box-shadow: var(--shadow2); }
-    .kicker{ display:inline-flex; align-items:center; gap: 10px; padding: 8px 10px; border-radius: 999px; border: 1px solid rgba(56,189,248,.22); background: rgba(56,189,248,.08); color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; font-size: 12px; letter-spacing: .2px; }
-    .kicker i{ width: 8px; height: 8px; border-radius: 99px; background: var(--grad); display:inline-block; box-shadow: 0 0 0 4px rgba(56,189,248,.10); }
-    h1{ margin: 14px 0 10px; font-size: clamp(26px, 4.2vw, 42px); letter-spacing: -0.02em; line-height: 1.08; }
-    .grad-text{ background: var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-    .lead{ margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; max-width: 92ch; }
-    
-    .meta-row{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
-    .pill{ border-radius: 999px; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); padding: 9px 12px; font-size: 12px; color: var(--muted); display:inline-flex; align-items:center; gap: 8px; }
-    .pill b{ color: color-mix(in srgb, var(--text) 92%, transparent); font-weight: 800; }
-    
-    /* NEW: Reading Clock Icon */
-    .read-icon{ width: 14px; height: 14px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 
-    /* Interactive Pills */
-    .icon-pill{ width: 34px; height: 34px; padding:0; display:grid; place-items:center; cursor:pointer; color: var(--muted); transition: color .2s ease, background .2s ease, transform .15s ease; border: 1px solid var(--stroke); background: rgba(255,255,255,.04); }
-    .icon-pill:hover{ color: var(--text); background: rgba(255,255,255,.08); transform: translateY(-1px); }
-    .icon-pill:active{ transform: scale(.97); }
-    .icon-pill svg{ width: 16px; height: 16px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     
-    /* ZEN MODE CSS */
+    html { scroll-behavior: smooth; text-rendering: geometricPrecision; -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg0);
+      color: var(--text);
+      overflow-x: hidden;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* --- Atmospheric Backgrounds --- */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--bg0);
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 10s infinite ease-in-out alternate;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--a1); top: -10%; left: -10%; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: var(--a2); bottom: -10%; right: -10%; animation-delay: -2s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--a3); top: 40%; left: 40%; opacity: 0.2; animation-delay: -5s; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(30px, 30px); }
+    }
+
+    .bg-noise {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Floating Navigation (Pill) --- */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--stroke);
+      border-radius: 99px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+
+    .theme-toggle {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--grad);
+      border: 0;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+      transition: transform 0.2s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    [data-theme="dark"] .sun { display: none; }
+    [data-theme="light"] .moon { display: none; }
+
+    .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .brand-text strong { font-size: 14px; font-weight: 700; }
+    .brand-text span { font-size: 12px; color: var(--muted2); }
+
+    .menu-btn {
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
+
+    .menu{
+      position: fixed; top: 80px; right: 20px;
+      width: min(300px, 90vw);
+      background: var(--panel-hover);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      padding: 8px;
+      display: none;
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .menu.open { display: flex; animation: fadeDown 0.2s ease-out; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .menu a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .menu a:hover { background: rgba(255,255,255,0.08); }
+    .menu a span { font-size: 16px; opacity: 0.5; }
+
+    /* Progress Bar (Fixed to Top of Window) */
+    .progress-fixed {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200; pointer-events: none;
+    }
+    .progress-bar {
+      height: 100%; width: 0%; background: var(--grad); transition: width 0.1s linear;
+    }
+
+    /* --- Hero & Content --- */
+    .hero {
+      padding: 32px;
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 32px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.2);
+      color: var(--a1);
+      font-size: 12px; font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .kicker i {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--a1); box-shadow: 0 0 8px var(--a1);
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(28px, 5vw, 42px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 90ch;
+      margin-bottom: 24px;
+    }
+
+    /* Pills */
+    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; align-items: center; }
+    .pill {
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 99px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pill b { color: var(--text); }
+    .read-icon { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* Interactive Icon Pills */
+    .icon-pill {
+      width: 36px; height: 36px; padding: 0;
+      display: grid; place-items: center;
+      cursor: pointer; color: var(--muted);
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+    .icon-pill:hover { color: var(--text); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .icon-pill svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* Like Button Pill */
+    .like-pill { user-select: none; padding-right: 14px; }
+    .like-btn { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; cursor: pointer; }
+    .like-btn svg { width: 16px; height: 16px; }
+    .like-btn .heart-fill { fill: transparent; transition: fill 0.2s; }
+    .like-btn.liked { color: #ef4444; }
+    .like-btn.liked .heart-fill { fill: currentColor; }
+    .like-count { font-weight: 700; font-size: 12px; margin-left: 4px; }
+
+    /* Layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (min-width: 980px){
+      .content-grid { grid-template-columns: 1fr 300px; }
+      .toc { position: sticky; top: 100px; }
+    }
+
+    /* Article Content */
+    .post {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    
+    .prose p { margin-bottom: 24px; line-height: 1.8; color: var(--muted); font-size: 15px; }
+    .prose h2 { margin: 40px 0 16px; font-size: 20px; color: var(--text); }
+    .prose h3 { margin: 30px 0 12px; font-size: 17px; color: var(--text); }
+    .prose strong { color: var(--text); font-weight: 600; }
+    .prose a { color: var(--a1); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,0.3); }
+    
+    .divider { height: 1px; background: var(--stroke); margin: 32px 0; }
+
+    figure {
+      margin: 32px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      background: rgba(0,0,0,0.2);
+    }
+    figure img { width: 100%; display: block; cursor: zoom-in; }
+    figcaption { padding: 16px; font-size: 13px; color: var(--muted2); text-align: center; background: rgba(255,255,255,0.02); }
+
+    .callout {
+      margin-top: 32px;
+      padding: 24px;
+      border-radius: 20px;
+      background: radial-gradient(at top left, rgba(56,189,248,0.1), transparent), rgba(255,255,255,0.03);
+      border: 1px solid rgba(56,189,248,0.2);
+    }
+    .callout h3 { margin-top: 0; font-size: 16px; }
+    .callout p { margin-bottom: 0; }
+
+    /* Tables */
+    .table-wrap {
+      margin: 32px 0; border-radius: 16px; border: 1px solid var(--stroke);
+      background: var(--tableBg); overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+    th { text-align: left; padding: 16px; color: var(--text); border-bottom: 1px solid var(--stroke); background: rgba(56,189,248,0.05); }
+    td { padding: 16px; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .chip { 
+        display: inline-block; padding: 4px 10px; border-radius: 99px; 
+        font-size: 12px; font-weight: 700; color: var(--text);
+        background: rgba(255,255,255,0.05); border: 1px solid var(--stroke);
+    }
+
+    /* Modes */
     body.zen-mode .topbar, body.zen-mode .footer, body.zen-mode .related-section, body.zen-mode .toc { display: none !important; }
-    body.zen-mode .container { max-width: 720px; }
+    body.zen-mode .container { max-width: 760px; }
     body.zen-mode .content-grid { grid-template-columns: 1fr; }
-    body.zen-mode .icon-pill#zenBtn { color: #38BDF8; border-color: #38BDF8; background: rgba(56,189,248,.15); }
+    body.zen-mode #zenBtn { color: var(--a1); border-color: var(--a1); background: rgba(56,189,248,0.15); }
 
-    /* SIGNAL MODE CSS */
-    body.signal-mode .prose p { color: transparent; text-shadow: 0 0 10px rgba(100,100,100,0.5); opacity: 0.5; transition: all 0.4s ease; }
+    body.signal-mode .prose p { color: transparent; text-shadow: 0 0 10px rgba(120,120,120,0.3); }
     body.signal-mode .prose .ai-signal { 
-        color: var(--text); 
-        opacity: 1; 
-        text-shadow: none;
-        background: linear-gradient(90deg, rgba(56,189,248,0.1), rgba(167,139,250,0.1));
-        box-shadow: 0 0 0 2px rgba(56,189,248,0.1);
-        border-radius: 4px;
-        padding: 2px 0;
-        font-weight: 500;
+      color: var(--text); opacity: 1; text-shadow: none;
+      background: rgba(167,139,250,0.15); padding: 2px 4px; border-radius: 4px;
     }
-    body.signal-mode .icon-pill#signalBtn { color: #A78BFA; border-color: #A78BFA; background: rgba(167,139,250,.15); }
-    
-    .like-pill{ user-select:none; }
-    .like-btn{ display:inline-flex; align-items:center; justify-content:center; width: 18px; height: 18px; cursor: pointer; }
-    .like-btn .heart-svg{ width: 18px; height: 18px; display:block; }
-    .like-btn .heart-fill{ fill: transparent; transition: fill .18s ease; }
-    .like-btn.liked{ color: #ef4444; }
-    .like-btn.liked .heart-fill{ fill: currentColor; }
-    .like-count{ font-weight: 800; font-size: 12px; line-height: 1; }
-    .like-btn:focus-visible{ outline:none; box-shadow: var(--ring); border-radius: 10px; }
-    
-    .content-grid{ margin-top: 16px; display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; transition: all .4s ease; }
-    @media (min-width: 980px){ .content-grid{ grid-template-columns: 1fr 320px; } .toc{ position: sticky; top: 110px; } .toc details{ open: true; } .toc summary{ display:none; } .toc details[open] > summary{ display:none; } }
-    .post{ border-radius: var(--r24); border: 1px solid var(--stroke); background: rgba(255,255,255,.04); box-shadow: var(--shadow); padding: 22px; min-width: 0; }
-    .prose{ max-width: 90ch; }
-    .prose p{ margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.9; transition: color .3s ease, opacity .3s ease; }
-    .prose h2{ margin: 18px 0 10px; font-size: 16px; letter-spacing: -.01em; color: color-mix(in srgb, var(--text) 94%, transparent); scroll-margin-top: 120px; }
-    .prose h3{ margin: 16px 0 8px; font-size: 14px; letter-spacing: -.01em; color: color-mix(in srgb, var(--text) 94%, transparent); scroll-margin-top: 120px; }
-    .prose strong{ color: color-mix(in srgb, var(--text) 94%, transparent); font-weight: 800; }
-    .prose a{ color: color-mix(in srgb, var(--a1) 85%, white); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,.35); }
-    .prose a:hover{ border-bottom-color: rgba(56,189,248,.65); }
-    
-    .divider{ height: 1px; background: color-mix(in srgb, var(--stroke) 90%, transparent); margin: 18px 0; }
-    figure{ margin: 16px 0; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(0,0,0,.14); overflow:hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 18px 60px rgba(0,0,0,.45); }
-    html[data-theme="light"] figure{ background: rgba(255,255,255,.75); }
-    @media (prefers-color-scheme: light){ html:not([data-theme]) figure{ background: rgba(255,255,255,.75); } }
-    figure img{ width: 100%; display:block; aspect-ratio: 16 / 9; object-fit: cover; cursor: zoom-in; filter: saturate(1.04) contrast(1.02); }
-    figcaption{ padding: 12px 14px 14px; color: var(--muted2); font-size: 12px; line-height: 1.6; }
-    .callout{ margin-top: 16px; border-radius: var(--r20); border: 1px solid rgba(56,189,248,.18); background: radial-gradient(600px 260px at 0% 0%, rgba(56,189,248,.14), transparent 55%), rgba(255,255,255,.045); box-shadow: 0 0 0 1px rgba(56,189,248,.08) inset; padding: 16px; }
-    .callout h3{ margin: 0 0 6px; font-size: 14px; letter-spacing: -.01em; }
-    .callout p{ margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
-    
-    .table-wrap{ margin: 14px 0 4px; border-radius: var(--r20); border: 1px solid var(--stroke); background: var(--tableBg); box-shadow: var(--shadow); overflow: hidden; }
-    table{ width:100%; border-collapse: collapse; font-size: 13px; }
-    thead th{ text-align:left; padding: 12px 12px; color: color-mix(in srgb, var(--text) 92%, transparent); background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08)); border-bottom: 1px solid var(--stroke); letter-spacing: .2px; }
-    tbody td{ padding: 12px 12px; color: var(--muted); border-bottom: 1px solid color-mix(in srgb, var(--stroke) 85%, transparent); vertical-align: top; line-height: 1.6; }
-    tbody tr:last-child td{ border-bottom: none; }
-    tbody tr:hover td{ background: var(--tableRow); color: color-mix(in srgb, var(--text) 82%, var(--muted)); }
-    .chip{ display:inline-flex; align-items:center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); color: color-mix(in srgb, var(--text) 88%, transparent); font-weight: 800; font-size: 12px; white-space: nowrap; }
-    html[data-theme="light"] .chip{ border: 1px solid rgba(0,0,0,.10); background: rgba(255,255,255,.70); }
-    @media (prefers-color-scheme: light){ html:not([data-theme]) .chip{ border: 1px solid rgba(0,0,0,.10); background: rgba(255,255,255,.70); } }
+    body.signal-mode #signalBtn { color: var(--a2); border-color: var(--a2); background: rgba(167,139,250,0.15); }
 
-    .toc{ border-radius: var(--r24); border: 1px solid var(--stroke); background: rgba(255,255,255,.03); box-shadow: var(--shadow); padding: 14px; }
-    .toc details{ border-radius: 16px; }
-    .toc summary{ cursor: pointer; user-select:none; list-style: none; font-weight: 800; font-size: 13px; color: color-mix(in srgb, var(--text) 92%, transparent); padding: 8px 10px; border-radius: 14px; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); }
-    .toc summary::-webkit-details-marker{ display:none; }
-    .toc-nav{ margin-top: 10px; display: grid; gap: 6px; }
-    .toc-nav a{ text-decoration: none; color: var(--muted); font-size: 12px; line-height: 1.4; padding: 8px 10px; border-radius: 12px; border: 1px solid transparent; transition: background .2s ease, border-color .2s ease; }
-    .toc-nav a:hover{ background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.10); }
-    .toc-nav a.active{ color: color-mix(in srgb, var(--text) 92%, transparent); background: linear-gradient(135deg, rgba(56,189,248,.10), rgba(167,139,250,.08)); border-color: rgba(56,189,248,.25); box-shadow: 0 0 0 1px rgba(56,189,248,.10) inset; }
-    .toc-nav a[data-level="3"]{ padding-left: 18px; }
-    .lightbox{ display:none; position:fixed; inset:0; z-index: 2000; background-color: rgba(7,10,18,.92); backdrop-filter: blur(10px); align-items:center; justify-content:center; flex-direction: column; padding: 20px; }
-    html[data-theme="light"] .lightbox{ background-color: rgba(255,255,255,.92); }
-    @media (prefers-color-scheme: light){ html:not([data-theme]) .lightbox{ background-color: rgba(255,255,255,.92); } }
-    .lightbox.open{ display:flex; }
-    .lightbox-content{ max-width: min(1100px, 96vw); max-height: 78vh; object-fit: contain; border-radius: 16px; box-shadow: 0 40px 120px rgba(0,0,0,.7); border: 1px solid var(--stroke); animation: zoom .18s ease-out; background: rgba(0,0,0,.08); }
-    .caption{ max-width: min(900px, 92vw); margin-top: 14px; color: color-mix(in srgb, var(--text) 80%, transparent); font-size: 13px; line-height: 1.55; text-align: center; }
-    .lightbox-actions{ display: flex; gap: 10px; position: absolute; top: calc(14px + env(safe-area-inset-top)); right: calc(14px + env(safe-area-inset-right)); left: auto; }
-    .lb-btn{ width: 46px; height: 46px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); border-color: rgba(56,189,248,.35); box-shadow: 0 16px 40px rgba(0,0,0,.25); display:grid; place-items:center; cursor:pointer; transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease; color: color-mix(in srgb, var(--text) 92%, transparent); font-size: 18px; font-weight: 900; }
-    .lb-btn:hover{ transform: translateY(-1px); border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.10); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
-    .lb-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
-    @keyframes zoom{ from{ transform: scale(.98); opacity: 0;} to{ transform: scale(1); opacity: 1;} }
-    .footer{ margin-top: 16px; padding: 14px 16px; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(255,255,255,.03); color: var(--muted2); font-size: 12px; line-height: 1.5; text-align:center; box-shadow: var(--shadow); }
-    :focus-visible{ outline: none; box-shadow: var(--ring); border-radius: 12px; }
-    @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } *{ transition: none !important; animation: none !important; } }
+    /* TOC Sidebar */
+    .toc {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 24px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+    }
+    
+    .toc details summary {
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      outline: none;
+      list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .toc details summary::after { content: "−"; font-size: 16px; font-weight: 400; }
+    .toc details:not([open]) summary::after { content: "+"; }
+    .toc details summary::-webkit-details-marker { display: none; }
+
+    .toc-nav { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+    .toc-nav a {
+      text-decoration: none; font-size: 12px; color: var(--muted);
+      padding: 8px 12px; border-radius: 12px; transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .toc-nav a:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+    .toc-nav a.active { background: rgba(56,189,248,0.1); color: var(--text); border-color: rgba(56,189,248,0.25); }
 
     /* Related Grid */
-    .related-section{ margin-top: 40px; }
-    .related-head{ font-size: 14px; font-weight: 800; color: color-mix(in srgb, var(--text) 90%, transparent); margin-bottom: 14px; }
-    .related-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    @media(max-width: 600px){ .related-grid{ grid-template-columns: 1fr; } }
-    .rel-card{ display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: var(--r20); border: 1px solid var(--stroke); background: rgba(255,255,255,.03); text-decoration: none; transition: transform .2s ease, border-color .2s ease; }
-    .rel-card:hover{ transform: translateY(-2px); border-color: rgba(56,189,248,.25); background: rgba(255,255,255,.05); }
-    .rel-title{ font-size: 13px; font-weight: 700; color: var(--text); margin:0; line-height: 1.4; }
-    .rel-date{ font-size: 11px; color: var(--muted2); }
+    .related-section { margin-top: 40px; }
+    .related-head { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+    .rel-card {
+      display: flex; flex-direction: column; gap: 8px; padding: 16px;
+      background: var(--panel); border: 1px solid var(--stroke);
+      border-radius: 20px; text-decoration: none; transition: transform 0.2s;
+    }
+    .rel-card:hover { transform: translateY(-2px); border-color: var(--a1); }
+    .rel-title { font-size: 14px; font-weight: 600; color: var(--text); margin: 0; line-height: 1.4; }
+    .rel-date { font-size: 11px; color: var(--muted2); }
+
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); align-items: center; justify-content: center; flex-direction: column; }
+    .lightbox.open { display: flex; }
+    .lightbox-content { max-width: 90vw; max-height: 80vh; border-radius: 12px; border: 1px solid var(--stroke); }
+    .caption { margin-top: 16px; color: #fff; font-size: 14px; text-align: center; }
+    .lb-btn { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 44px; height: 44px; border-radius: 12px; font-size: 24px; cursor: pointer; display: grid; place-items: center; }
+
+    .footer { margin-top: 40px; padding: 20px; text-align: center; font-size: 12px; color: var(--muted2); border-top: 1px solid var(--stroke); }
   </style>
 </head>
-
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="top-vignette" aria-hidden="true"></div>
+  <div class="progress-fixed"><div class="progress-bar" id="progressBar"></div></div>
 
-  <div class="topbar" role="banner">
-    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="bg-noise"></div>
 
-    <div class="nav" role="navigation" aria-label="Site">
+  <div class="container">
+    
+    <header class="topbar">
       <div class="brand">
-        <button class="mark theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-          <svg class="sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <svg class="moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 13.2A8.4 8.4 0 0 1 10.8 3a7.6 7.6 0 1 0 10.2 10.2Z"
-                  stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
-
-        <div class="title">
+        <div class="brand-text">
           <strong>Blog</strong>
           <span>DeepMind Models · Molecular → Clinical</span>
         </div>
       </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </header>
 
-      <div class="nav-actions">
-        <button class="icon-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel" title="Menu">
-          <div class="icon" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-        </button>
-      </div>
-    </div>
+    <nav class="menu" id="menuPanel">
+      <a href="https://1u477n.github.io/">Home <span>→</span></a>
+      <a href="https://1u477n.github.io/about.html">About Me <span>→</span></a>
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Consulting <span>→</span></a>
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works <span>→</span></a>
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>→</span></a>
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>→</span></a>
+      <a href="https://1u477n.github.io/images/cv.pdf">CV (PDF) <span>↓</span></a>
+      <a href="https://www.linkedin.com/in/1u477n/" target="_blank">LinkedIn <span>↗</span></a>
+    </nav>
 
-    <div class="menu" id="menuPanel" aria-label="Menu">
-      <a href="https://1u477n.github.io/">Home
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/about.html">About Me
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Technology & Strategy Consulting
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/publishedworks.html">Published Works
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://1u477n.github.io/images/cv.pdf">Curriculum Vitae
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-      <a href="https://www.linkedin.com/in/1u477n/">LinkedIn
-        <span class="arrow-icon">
-          <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-      </a>
-    </div>
-  </div>
-
-  <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
-    <div class="lightbox-actions" aria-hidden="false">
+    <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
       <button class="lb-btn" id="lightboxClose" aria-label="Close">×</button>
+      <img class="lightbox-content" id="img01" alt="" />
+      <div id="caption" class="caption"></div>
     </div>
-    <img class="lightbox-content" id="img01" alt="" />
-    <div id="caption" class="caption"></div>
-  </div>
 
-  <main class="container" id="main">
-    <section class="hero panel" aria-label="Blog post header">
-      <div class="kicker"><i></i> DeepMind · AI Models · Medicine</div>
-      <h1>
-        <span class="grad-text">From Molecules to Medicine</span>
-        <br/>DeepMind’s End-to-End AI Pipeline 🧬🩺
-      </h1>
-      <p class="lead">
-        In the AI era, the transition from traditional “trial-and-error” drug discovery to a predictive, simulation-based science
-        is no longer a futuristic dream. <span class="ai-signal">Google DeepMind’s ecosystem of models sketches an end-to-end
-        pipeline that spans from atomic-scale interactions to the complexities of clinical patient care.</span>
-      </p>
+    <main class="container" id="main">
+      
+      <section class="hero panel" aria-label="Blog post header">
+        <div class="kicker"><i></i> DeepMind · AI Models · Medicine</div>
+        <h1>
+          <span class="grad-text">From Molecules to Medicine</span>
+          <br/>DeepMind’s End-to-End AI Pipeline 🧬🩺
+        </h1>
+        <p class="lead">
+          In the AI era, the transition from traditional “trial-and-error” drug discovery to a predictive, simulation-based science
+          is no longer a futuristic dream. <span class="ai-signal">Google DeepMind’s ecosystem of models sketches an end-to-end
+          pipeline that spans from atomic-scale interactions to the complexities of clinical patient care.</span>
+        </p>
 
-      <div class="meta-row" aria-label="Post metadata">
-        <div class="pill"><b>Author</b> Luat (Luke) Nguyen</div>
-        
-        <div class="pill"><b>Focus</b> AI-native Drug Discovery</div>
-        
-        <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
-        
-        <div class="pill" title="Reading Time">
-          <svg class="read-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          &nbsp;<span id="readTime">—</span>
+        <div class="meta-row" aria-label="Post metadata">
+          <div class="pill"><b>Author</b> Luat (Luke) Nguyen</div>
+          <div class="pill"><b>Focus</b> AI-native Drug Discovery</div>
+          <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
+          <div class="pill" title="Reading Time">
+            <svg class="read-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            &nbsp;<span id="readTime">—</span>
+          </div>
+          <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
+          
+          <div class="pill like-pill">
+             <span class="like-btn" title="Like">
+               <svg class="heart-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>
+             </span>
+             <span class="like-count">0</span>
+          </div>
+
+          <button class="icon-pill" id="signalBtn" title="AI Signal Mode (Highlight Key Insights)">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </button>
+
+          <button class="icon-pill" id="zenBtn" title="Zen Mode (Focus Reading)">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+          
+          <button class="icon-pill" id="shareBtn" title="Share Article">
+            <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+          </button>
         </div>
-        
-        <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
-        
-        <div class="pill like-pill">
-           <span class="like-btn" title="Like">
-             <svg class="heart-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>
-           </span>
-           <span class="like-count">0</span>
-        </div>
+      </section>
 
-        <button class="pill icon-pill" id="signalBtn" title="AI Signal Mode (Highlight Key Insights)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-          </svg>
-        </button>
-
-        <button class="pill icon-pill" id="zenBtn" title="Zen Mode (Focus Reading)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        </button>
-        
-        <button class="pill icon-pill" id="shareBtn" title="Share Article">
-          <svg class="share-icon" viewBox="0 0 24 24">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-            <polyline points="16 6 12 2 8 6"></polyline>
-            <line x1="12" y1="2" x2="12" y2="15"></line>
-          </svg>
-        </button>
-      </div>
-    </section>
-
-    <div class="content-grid">
-      <article class="post panel" id="post" aria-label="Blog post content">
-        <div class="prose" id="prose">
-          <p>
-            Here is how each model in the biological and clinical hierarchy justifies its place in the future of medicine—connecting
-            the molecular “why” of biology to the clinical “what” of patient outcomes.
-          </p>
-          <figure class="panel">
-            <img class="zoomable"
-                 loading="eager" decoding="async"
-                 src="https://1u477n.github.io/images/deepmind_models.jpg"
-                 alt="Diagram: Google DeepMind AI models across the biological-to-clinical hierarchy—AlphaFold 3, AlphaGenome, AlphaMissense, C2S-Scale, and Med-Gemini—mapped along a molecular → cellular → clinical pathway (click to zoom)." />
-            <figcaption>
-              <strong>Figure:</strong> DeepMind’s model stack spans molecular structure, genome regulation, variant interpretation,
-              cellular response simulation, and multimodal clinical reasoning. (Click to zoom.)
-            </figcaption>
-          </figure>
-          <div class="callout panel" aria-label="Key takeaway callout">
-            <h3><span class="grad-text">Core idea</span></h3>
+      <div class="content-grid">
+        <article class="post panel" id="post" aria-label="Blog post content">
+          <div class="prose" id="prose">
             <p>
-              <span class="ai-signal">The modern pipeline is shifting from brute-force experimentation to a tighter loop: prediction → targeted validation → iteration.</span>
-              These models act like a ladder, where each rung supports the next—molecular truth feeding cellular simulations, which then inform clinical decisions.
+              Here is how each model in the biological and clinical hierarchy justifies its place in the future of medicine—connecting
+              the molecular “why” of biology to the clinical “what” of patient outcomes.
             </p>
-          </div>
-          <div class="divider"></div>
-          <h2>1) AlphaFold 3: The Blueprint of Interaction</h2>
-          <p>
-            While its predecessors mastered protein folding, AlphaFold 3 is the master of molecular sociology. <span class="ai-signal">It doesn’t just predict
-            what a protein looks like; it predicts how that protein interacts with DNA, RNA, ions, and—most crucially for medicine—ligands
-            (drug molecules).</span>
-          </p>
-          <p>
-            <strong>Benefit to Medicine:</strong> <span class="ai-signal">By visualizing the 3D structure of how a potential drug binds to its target, <a href="https://1u477n.github.io/blogs/basic-research-ai-era.html">scientists can
-            design “key-and-lock” therapies with surgical precision, drastically reducing the time spent in the hit-to-lead phase of drug discovery</a>.</span>
-          </p>
-          <h2>2) AlphaGenome: Deciphering the Regulatory Grammar</h2>
-          <p>
-            Launched in early 2026, AlphaGenome tackles the 98% of our DNA once dismissively called “junk DNA.” This model analyzes stretches
-            of up to one million base pairs to understand how non-coding regions regulate gene activity.
-          </p>
-          <p>
-            <strong>Benefit to Medicine:</strong> Many diseases are caused not by a broken protein, but by a “volume knob” (regulatory element)
-            that is turned too high or too low. <span class="ai-signal">AlphaGenome helps identify these regulatory “typos,” opening the door for gene-silencing therapies and
-            treatments for rare genetic disorders that were previously misunderstood.</span>
-          </p>
-          <h2>3) AlphaMissense: Filtering the Genetic Noise</h2>
-          <p>
-            The human genome contains millions of missense variants—single-letter changes in DNA. <span class="ai-signal">AlphaMissense acts as a high-powered filter,
-            classifying these mutations as either “likely benign” or “likely pathogenic.”</span>
-          </p>
-          <p>
-            <strong>Benefit to Medicine:</strong> In the invention of medicines, identifying the exact mutation driving a disease is half the battle.
-            AlphaMissense lets researchers prioritize the most dangerous mutations for study—so new drugs target true drivers rather than harmless background noise.
-          </p>
-          <h2>4) C2S-Scale: The Virtual Cellular Laboratory</h2>
-          <p>
-            Cell2Sentence-Scale (C2S-Scale) is a massive 27B-parameter model that treats the behavior of individual cells like a language. <span class="ai-signal">It “reads”
-            single-cell data to predict how a cell will react to a specific perturbation—such as a new drug or a viral infection.</span>
-          </p>
-          <p>
-            <strong>Benefit to Medicine:</strong> It acts as a digital twin for human cells. Instead of testing thousands of chemicals on living tissue,
-            scientists can run virtual screens. C2S-Scale has already predicted drug combinations that turn “cold” tumors into “hot” ones—designing new cancer
-            immunotherapies in silico.
-          </p>
-          <h2>5) Med-Gemini: The Clinical Compass</h2>
-          <p>
-            The journey of a medicine doesn’t end in the lab; it ends with a patient. <span class="ai-signal">Med-Gemini is a multimodal powerhouse capable of reasoning across
-            medical images (X-rays, MRIs), electronic health records, and genomic data simultaneously.</span>
-          </p>
-          <p>
-            <strong>Benefit to Medicine:</strong> It bridges biological discovery and clinical application—helping identify which patient populations will respond
-            best to a new drug (precision medicine) and spotting subtle temporal changes in health that a human might miss during clinical trials.
-          </p>
-          <div class="divider"></div>
-          <h2>Summary Table: The Molecular-to-Clinical Pipeline</h2>
-          <div class="table-wrap panel" role="region" aria-label="Summary table: DeepMind AI pipeline" tabindex="0">
-            <table>
-              <thead>
-                <tr>
-                  <th style="width: 28%;">Model</th>
-                  <th style="width: 22%;">Focus Level</th>
-                  <th>Scientific Value-Add</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span class="chip">AlphaFold 3</span></td>
-                  <td>Molecular</td>
-                  <td>Precise drug-target binding predictions.</td>
-                </tr>
-                <tr>
-                  <td><span class="chip">AlphaGenome</span></td>
-                  <td>Genomic</td>
-                  <td>Mapping the “instruction manual” of gene control.</td>
-                </tr>
-                <tr>
-                  <td><span class="chip">AlphaMissense</span></td>
-                  <td>Proteomic</td>
-                  <td>Identifying pathogenic “typos” in our code.</td>
-                </tr>
-                <tr>
-                  <td><span class="chip">C2S-Scale</span></td>
-                  <td>Cellular</td>
-                  <td>Simulating drug responses in “virtual cells.”</td>
-                </tr>
-                <tr>
-                  <td><span class="chip">Med-Gemini</span></td>
-                  <td>Clinical</td>
-                  <td>Translating lab breakthroughs into patient care.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="callout panel" aria-label="Practical takeaway callout">
-            <h3><span class="grad-text">Practical takeaway</span></h3>
-            <p>
-              The acceleration isn’t just “more AI.” It’s tighter coupling across layers—molecular constraints shaping cellular predictions,
-              and clinical feedback refining the next generation of biological hypotheses.
-            </p>
-          </div>
-          <div class="divider"></div>
-          <h2>References</h2>
-          <p>
-            <a href="https://academic.oup.com/pcm/article/8/3/pbaf015/8180385"><strong>AlphaFold 3:</strong></a> An unprecedented opportunity for drug development (2025/2026)
-          </p>
-          <p>
-            <a href="https://today.rtl.lu/news/world/google-unveils-ai-tool-probing-mysteries-of-human-genome-1977546198"><strong>AlphaGenome:</strong></a> Google unveils AI tool probing mysteries of human genome (Jan 2026)
-          </p>
-          <p>
-            <a href="https://www.science.org/doi/10.1126/science.adg7492"><strong>AlphaMissense:</strong></a> Accurate proteome-wide missense variant effect prediction with AlphaMissense (Science)
-          </p>
-          <p>
-            <a href="https://research.google/blog/teaching-machines-the-language-of-biology-scaling-large-language-models-for-next-generation-single-cell-analysis/"><strong>C2S-Scale:</strong></a> Teaching machines the language of biology (Google Research)
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2404.18416"><strong>Med-Gemini:</strong></a> Capabilities of Gemini Models in Medicine (arXiv)
-          </p>
-          <h2>Tags</h2>
-          <p>
-            #DeepMind #AlphaFold3 #AlphaGenome #AlphaMissense #C2SScale #MedGemini #DrugDiscovery #PrecisionMedicine #AI
-          </p>
-        </div>
-
-        <div class="divider"></div>
-        <section class="related-section">
-          <div class="related-head">Read Next</div>
-          <div id="relatedGrid" class="related-grid">
+            
+            <figure class="panel">
+              <img class="zoomable" loading="eager" decoding="async" src="https://1u477n.github.io/images/deepmind_models.jpg"  alt="Diagram: Google DeepMind AI models across the biological-to-clinical hierarchy—AlphaFold 3, AlphaGenome, AlphaMissense, C2S-Scale, and Med-Gemini—mapped along a molecular → cellular → clinical pathway (click to zoom)." />
+              <figcaption>
+                <strong>Figure:</strong> DeepMind’s model stack spans molecular structure, genome regulation, variant interpretation,
+                cellular response simulation, and multimodal clinical reasoning. (Click to zoom.)
+              </figcaption>
+            </figure>
+            
+            <div class="callout panel" aria-label="Key takeaway callout">
+              <h3><span class="grad-text">Core idea</span></h3>
+              <p>
+                <span class="ai-signal">The modern pipeline is shifting from brute-force experimentation to a tighter loop: prediction → targeted validation → iteration.</span>
+                These models act like a ladder, where each rung supports the next—molecular truth feeding cellular simulations, which then inform clinical decisions.
+              </p>
             </div>
-        </section>
-      </article>
+            
+            <div class="divider"></div>
+            
+            <h2>1) AlphaFold 3: The Blueprint of Interaction</h2>
+            <p>
+              While its predecessors mastered protein folding, AlphaFold 3 is the master of molecular sociology. <span class="ai-signal">It doesn’t just predict
+              what a protein looks like; it predicts how that protein interacts with DNA, RNA, ions, and—most crucially for medicine—ligands
+              (drug molecules).</span>
+            </p>
+            <p>
+              <strong>Benefit to Medicine:</strong> <span class="ai-signal">By visualizing the 3D structure of how a potential drug binds to its target, <a href="https://1u477n.github.io/blogs/basic-research-ai-era.html">scientists can
+              design “key-and-lock” therapies with surgical precision, drastically reducing the time spent in the hit-to-lead phase of drug discovery</a>.</span>
+            </p>
+            
+            <h2>2) AlphaGenome: Deciphering the Regulatory Grammar</h2>
+            <p>
+              Launched in early 2026, AlphaGenome tackles the 98% of our DNA once dismissively called “junk DNA.” This model analyzes stretches
+              of up to one million base pairs to understand how non-coding regions regulate gene activity.
+            </p>
+            <p>
+              <strong>Benefit to Medicine:</strong> Many diseases are caused not by a broken protein, but by a “volume knob” (regulatory element)
+              that is turned too high or too low. <span class="ai-signal">AlphaGenome helps identify these regulatory “typos,” opening the door for gene-silencing therapies and
+              treatments for rare genetic disorders that were previously misunderstood.</span>
+            </p>
+            
+            <h2>3) AlphaMissense: Filtering the Genetic Noise</h2>
+            <p>
+              The human genome contains millions of missense variants—single-letter changes in DNA. <span class="ai-signal">AlphaMissense acts as a high-powered filter,
+              classifying these mutations as either “likely benign” or “likely pathogenic.”</span>
+            </p>
+            <p>
+              <strong>Benefit to Medicine:</strong> In the invention of medicines, identifying the exact mutation driving a disease is half the battle.
+              AlphaMissense lets researchers prioritize the most dangerous mutations for study—so new drugs target true drivers rather than harmless background noise.
+            </p>
+            
+            <h2>4) C2S-Scale: The Virtual Cellular Laboratory</h2>
+            <p>
+              Cell2Sentence-Scale (C2S-Scale) is a massive 27B-parameter model that treats the behavior of individual cells like a language. <span class="ai-signal">It “reads”
+              single-cell data to predict how a cell will react to a specific perturbation—such as a new drug or a viral infection.</span>
+            </p>
+            <p>
+              <strong>Benefit to Medicine:</strong> It acts as a digital twin for human cells. Instead of testing thousands of chemicals on living tissue,
+              scientists can run virtual screens. C2S-Scale has already predicted drug combinations that turn “cold” tumors into “hot” ones—designing new cancer
+              immunotherapies in silico.
+            </p>
+            
+            <h2>5) Med-Gemini: The Clinical Compass</h2>
+            <p>
+              The journey of a medicine doesn’t end in the lab; it ends with a patient. <span class="ai-signal">Med-Gemini is a multimodal powerhouse capable of reasoning across
+              medical images (X-rays, MRIs), electronic health records, and genomic data simultaneously.</span>
+            </p>
+            <p>
+              <strong>Benefit to Medicine:</strong> It bridges biological discovery and clinical application—helping identify which patient populations will respond
+              best to a new drug (precision medicine) and spotting subtle temporal changes in health that a human might miss during clinical trials.
+            </p>
+            
+            <div class="divider"></div>
+            
+            <h2>Summary Table: The Molecular-to-Clinical Pipeline</h2>
+            <div class="table-wrap panel" role="region" aria-label="Summary table: DeepMind AI pipeline" tabindex="0">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 28%;">Model</th>
+                    <th style="width: 22%;">Focus Level</th>
+                    <th>Scientific Value-Add</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="chip">AlphaFold 3</span></td>
+                    <td>Molecular</td>
+                    <td>Precise drug-target binding predictions.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="chip">AlphaGenome</span></td>
+                    <td>Genomic</td>
+                    <td>Mapping the “instruction manual” of gene control.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="chip">AlphaMissense</span></td>
+                    <td>Proteomic</td>
+                    <td>Identifying pathogenic “typos” in our code.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="chip">C2S-Scale</span></td>
+                    <td>Cellular</td>
+                    <td>Simulating drug responses in “virtual cells.”</td>
+                  </tr>
+                  <tr>
+                    <td><span class="chip">Med-Gemini</span></td>
+                    <td>Clinical</td>
+                    <td>Translating lab breakthroughs into patient care.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="callout panel" aria-label="Practical takeaway callout">
+              <h3><span class="grad-text">Practical takeaway</span></h3>
+              <p>
+                The acceleration isn’t just “more AI.” It’s tighter coupling across layers—molecular constraints shaping cellular predictions,
+                and clinical feedback refining the next generation of biological hypotheses.
+              </p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <h2>References</h2>
+            <p>
+              <a href="https://academic.oup.com/pcm/article/8/3/pbaf015/8180385"><strong>AlphaFold 3:</strong></a> An unprecedented opportunity for drug development (2025/2026)
+            </p>
+            <p>
+              <a href="https://today.rtl.lu/news/world/google-unveils-ai-tool-probing-mysteries-of-human-genome-1977546198"><strong>AlphaGenome:</strong></a> Google unveils AI tool probing mysteries of human genome (Jan 2026)
+            </p>
+            <p>
+              <a href="https://www.science.org/doi/10.1126/science.adg7492"><strong>AlphaMissense:</strong></a> Accurate proteome-wide missense variant effect prediction with AlphaMissense (Science)
+            </p>
+            <p>
+              <a href="https://research.google/blog/teaching-machines-the-language-of-biology-scaling-large-language-models-for-next-generation-single-cell-analysis/"><strong>C2S-Scale:</strong></a> Teaching machines the language of biology (Google Research)
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2404.18416"><strong>Med-Gemini:</strong></a> Capabilities of Gemini Models in Medicine (arXiv)
+            </p>
+            
+            <h2>Tags</h2>
+            <p>
+              #DeepMind #AlphaFold3 #AlphaGenome #AlphaMissense #C2SScale #MedGemini #DrugDiscovery #PrecisionMedicine #AI
+            </p>
+          </div>
 
-      <aside class="toc panel" aria-label="On this page">
-        <details open>
-          <summary>On this page</summary>
-          <nav class="toc-nav" id="tocNav" aria-label="Table of contents"></nav>
-        </details>
-      </aside>
-    </div>
+          <div class="divider"></div>
+          
+          <section class="related-section">
+            <div class="related-head">Read Next</div>
+            <div id="relatedGrid" class="related-grid"></div>
+          </section>
+        </article>
 
-    <footer class="footer panel">
-      © <span id="year"></span> · <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs</a> ·
-      <a href="https://1u477n.github.io/">Home</a>
-    </footer>
-  </main>
+        <aside class="toc panel" aria-label="On this page">
+          <details open>
+            <summary>On this page</summary>
+            <nav class="toc-nav" id="tocNav" aria-label="Table of contents"></nav>
+          </details>
+        </aside>
+      </div>
+
+      <footer class="footer panel">
+        © <span id="year"></span> · <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs</a> · <a href="https://1u477n.github.io/">Home</a>
+      </footer>
+    </main>
+  </div>
 
   <script>
     // Theme
@@ -675,7 +772,7 @@
       const readTime = document.getElementById("readTime");
       const progressBar = document.getElementById("progressBar");
       
-      // Reading Time (using textContent for reliability)
+      // Reading Time
       const text = (prose?.textContent || "").trim();
       const words = text ? text.split(/\s+/).length : 0;
       const wpm = 220;
@@ -821,7 +918,6 @@
         if(!res.ok) return;
         const text = await res.text();
         
-        // Exact same CSV algorithm as requested
         function parseCSV(text){
           const rows = [];
           let row = [];
@@ -866,7 +962,6 @@
         // Filter out current page
         let others = data.filter(d => {
           const url = d.blog_url || "";
-          // Exclude if current page URL contains the slug from CSV
           return url && !currentHref.includes(url.split("/").pop());
         });
 
