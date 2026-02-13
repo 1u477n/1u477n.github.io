@@ -520,6 +520,14 @@
             <svg class="read-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             &nbsp;<span id="readTime">—</span>
           </div>
+
+ <button class="icon-pill" id="speakBtn" title="Listen to Article" aria-label="Listen to article">
+  <svg id="speakIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+  </svg>
+</button>         
+
           <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
           
           <div class="pill like-pill">
@@ -912,6 +920,84 @@
 
       } catch(e){}
     })();
+
+// Web Speech API - Text to Speech
+(function(){
+  const btn = document.getElementById("speakBtn");
+  const icon = document.getElementById("speakIcon");
+  const prose = document.getElementById("prose");
+  
+  if (!btn || !prose || !('speechSynthesis' in window)) {
+    if(btn) btn.style.display = 'none'; // Hide if not supported
+    return; 
+  }
+
+  const synth = window.speechSynthesis;
+  let utterance = null;
+  let isSpeaking = false;
+  let isPaused = false;
+
+  // SVG Icons
+  const playIcon = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
+  const pauseIcon = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+  const stopIcon = `<rect x="6" y="6" width="12" height="12"></rect>`;
+
+  function reset(){
+    synth.cancel();
+    isSpeaking = false;
+    isPaused = false;
+    icon.innerHTML = playIcon;
+    btn.style.color = "";
+    btn.style.background = "";
+    btn.style.borderColor = "";
+  }
+
+  // Cleanup on page leave
+  window.addEventListener('beforeunload', reset);
+
+  btn.addEventListener("click", () => {
+    if (isSpeaking && !isPaused) {
+      // Pause
+      synth.pause();
+      isPaused = true;
+      icon.innerHTML = playIcon; // Show play to resume
+      btn.title = "Resume";
+    } else if (isPaused) {
+      // Resume
+      synth.resume();
+      isPaused = false;
+      icon.innerHTML = pauseIcon;
+      btn.title = "Pause";
+    } else {
+      // Start
+      const text = prose.innerText; // Get readable text only
+      utterance = new SpeechSynthesisUtterance(text);
+      
+      // Optional: Select a better voice preference
+      const voices = synth.getVoices();
+      const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+      if(preferred) utterance.voice = preferred;
+
+      utterance.rate = 1;
+      utterance.pitch = 1;
+
+      utterance.onend = reset;
+      utterance.onerror = reset;
+
+      synth.speak(utterance);
+      isSpeaking = true;
+      isPaused = false;
+      
+      // Visual Feedback (Active State)
+      icon.innerHTML = pauseIcon;
+      btn.title = "Pause";
+      btn.style.color = "var(--a3)"; // Emerald color for active
+      btn.style.borderColor = "var(--a3)";
+      btn.style.background = "rgba(52, 211, 153, 0.1)";
+    }
+  });
+})();    
+
   </script>
 
   <script type="module">
