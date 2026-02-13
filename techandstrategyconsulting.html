@@ -415,16 +415,51 @@
     .media-body h4 a:hover { color: var(--a1); }
     .media-body p { margin: 0; font-size: 12px; color: var(--muted2); line-height: 1.5; }
 
-    /* --- Sidebar TOC --- */
+    /* --- Sidebar TOC (Collapsible) --- */
     .toc {
       background: var(--panel);
       border: 1px solid var(--stroke);
       border-radius: 24px;
-      padding: 20px;
+      padding: 16px;
       backdrop-filter: blur(12px);
     }
-    .toc h4 { margin: 0 0 12px; font-size: 13px; color: var(--muted2); font-weight: 700; }
-    .toc-nav { display: flex; flex-direction: column; gap: 6px; }
+    
+    .toc details summary {
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      outline: none;
+      list-style: none; /* Hide default marker */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    /* Custom marker for open/close state */
+    .toc details summary::after {
+      content: "−"; /* Open state (minus) */
+      font-size: 16px;
+      font-weight: 400;
+    }
+    
+    .toc details:not([open]) summary::after {
+      content: "+"; /* Closed state (plus) */
+    }
+
+    /* Hide standard webkit marker */
+    .toc details summary::-webkit-details-marker { display: none; }
+
+    .toc-nav { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 6px; 
+      margin-top: 12px;
+      animation: fadein 0.3s ease;
+    }
+
     .toc-nav a {
       text-decoration: none;
       font-size: 12px;
@@ -674,9 +709,11 @@
 
       <aside class="toc-wrapper">
         <nav class="toc">
-          <h4>On this page</h4>
-          <div class="toc-nav" id="tocNav">
-            </div>
+          <details open>
+            <summary>On this page</summary>
+            <div class="toc-nav" id="tocNav">
+              </div>
+          </details>
         </nav>
       </aside>
 
@@ -736,8 +773,9 @@
         if(!h.id) h.id = "section-" + index;
         const link = document.createElement("a");
         link.href = "#" + h.id;
-        // Clean text content for nav display
-        link.textContent = h.childNodes[0].textContent; 
+        
+        // Use text content but clean up any excessive spacing/newlines
+        link.textContent = h.textContent.replace(/\s+/g, " ").trim();
         
         // Indent H3s
         if(h.tagName === "H3") link.style.paddingLeft = "20px";
