@@ -29,9 +29,9 @@ exports.handler = async function(event, context) {
     if (!apiKey) throw new Error("GEMINI_API_KEY environment variable is missing.");
 
     // ==========================================
-    // THE FIX: Reverted to the correct, working 1.5 Flash model
+    // THE FIX: Upgrading to the active model (Gemini 2.5 Flash)
     // ==========================================
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     // 4. Fetch from Gemini
     const response = await fetch(apiUrl, {
@@ -49,7 +49,7 @@ exports.handler = async function(event, context) {
 
     const data = await response.json();
 
-    // 5. Safety Check: Prevent the "ReferenceError" if Google sends a weird response
+    // 5. Safety Check: Prevent crashes on unexpected data
     if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
         throw new Error("Unexpected response structure from Google: " + JSON.stringify(data));
     }
