@@ -29,9 +29,9 @@ exports.handler = async function(event, context) {
     if (!apiKey) throw new Error("GEMINI_API_KEY environment variable is missing.");
 
     // ==========================================
-    // THE FIX: Changed the model name to "-latest"
+    // THE FIX: Using the universally unlocked 'gemini-pro' model
     // ==========================================
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
 
     // 4. Fetch from Gemini
     const response = await fetch(apiUrl, {
