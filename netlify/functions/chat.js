@@ -1,26 +1,32 @@
-export default async (request, context) => {
-  // 1. Handle Pre-flight requests (CORS)
-  // This allows the browser to confirm the "neural connection" is safe.
-  if (request.method === "OPTIONS") {
-    return new Response("ok", {
+exports.handler = async function(event, context) {
+  // 1. Handle CORS Pre-flight requests (Allows your website to connect)
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
-    });
+      body: "ok"
+    };
   }
 
   try {
-    // 2. Get the user's message
-    const body = await request.json();
+    // 2. Parse the incoming data from your website
+    const body = JSON.parse(event.body);
     const userMessage = body.prompt;
 
-    // 3. Prepare the API request to Gemini
-    const apiKey = Netlify.env.get("GEMINI_API_KEY");
+    // 3. Get the API key securely from Netlify Environment Variables
+    const apiKey = process.env.GEMINI_API_KEY;
+    
+    if (!apiKey) {
+        throw new Error("API Key is missing. Please check Netlify Environment Variables.");
+    }
+
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-    // 4. Call the AI
+    // 4. Send the request to Google Gemini
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -30,32 +36,34 @@ export default async (request, context) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Gemini API error: ${response.statusText}`);
+      const errorText = await response.text();
+      throw new Error(`Gemini API Error: ${response.status} - ${errorText}`);
     }
 
-    const data = await response.json(); // Variable is defined here
-
-    // 5. Send the successful answer back with CORS headers
+    const data = await response.json();
     const botReply = data.candidates[0].content.parts[0].text;
 
-    return new Response(JSON.stringify({ reply: botReply }), {
+    // 5. Return the successful response to your website
+    return {
+      statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "*" // Required for CORS
       },
-    });
+      body: JSON.stringify({ reply: botReply })
+    };
 
   } catch (error) {
-    // 6. Handle errors gracefully
-    console.error("Function Error:", error.message);
+    // 6. Log the exact error to the Netlify dashboard and return a 500 status
+    console.error("Backend Error:", error.message);
     
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
+    return {
+      statusCode: 500,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*"
       },
-    });
+      body: JSON.stringify({ error: error.message })
+    };
   }
 };
