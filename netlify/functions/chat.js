@@ -1,5 +1,5 @@
 exports.handler = async function(event, context) {
-  // 1. Handle CORS Pre-flight requests (Allows your website to connect)
+  // 1. Handle CORS Pre-flight
   if (event.httpMethod === "OPTIONS") {
     return {
       statusCode: 200,
@@ -8,25 +8,32 @@ exports.handler = async function(event, context) {
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
-      body: "ok"
+      body: ""
     };
   }
 
   try {
-    // 2. Parse the incoming data from your website
-    const body = JSON.parse(event.body);
-    const userMessage = body.prompt;
-
-    // 3. Get the API key securely from Netlify Environment Variables
-    const apiKey = process.env.GEMINI_API_KEY;
-    
-    if (!apiKey) {
-        throw new Error("API Key is missing. Please check Netlify Environment Variables.");
+    // 2. Parse Body Safely
+    let body;
+    try {
+        body = JSON.parse(event.body);
+    } catch(e) {
+        body = event.body; 
     }
+    
+    const userMessage = body.prompt;
+    if (!userMessage) throw new Error("No prompt provided from the website.");
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // 3. API Key Check
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error("GEMINI_API_KEY environment variable is missing.");
 
-    // 4. Send the request to Google Gemini
+    // ==========================================
+    // THE FIX: Changed the model name to "-latest"
+    // ==========================================
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+
+    // 4. Fetch from Gemini
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,26 +44,25 @@ exports.handler = async function(event, context) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Gemini API Error: ${response.status} - ${errorText}`);
+      throw new Error(`Gemini API Error (${response.status}): ${errorText}`);
     }
 
     const data = await response.json();
     const botReply = data.candidates[0].content.parts[0].text;
 
-    // 5. Return the successful response to your website
+    // 5. Success Return
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*" // Required for CORS
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({ reply: botReply })
     };
 
   } catch (error) {
-    // 6. Log the exact error to the Netlify dashboard and return a 500 status
+    // 6. Diagnostic Error Return
     console.error("Backend Error:", error.message);
-    
     return {
       statusCode: 500,
       headers: {
