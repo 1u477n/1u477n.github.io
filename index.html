@@ -670,6 +670,7 @@
       const text = input.value.trim();
       if(!text) return;
       
+      // 1. Display User Message
       const userMsg = document.createElement('div');
       userMsg.className = 'msg msg-user';
       userMsg.textContent = text;
@@ -677,37 +678,71 @@
       input.value = '';
       chatArea.scrollTop = chatArea.scrollHeight;
 
+      // 2. Create the Bot Message Bubble
       const botMsg = document.createElement('div');
       botMsg.className = 'msg msg-bot';
-      botMsg.innerHTML = "<i style='opacity: 0.7;'>Connecting to neural network...</i>";
+      // Start with a blinking cursor to show instant reaction
+      botMsg.innerHTML = "<span style='opacity: 0.5;'>...</span>"; 
       chatArea.appendChild(botMsg);
       chatArea.scrollTop = chatArea.scrollHeight;
 
       try {
         const fullPrompt = luatContext + text;
 
-        // Use the ABSOLUTE Netlify URL for cross-domain calls
-        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/.netlify/functions/chat', {
+        // 3. Call the new Edge Function mapped to /api/chat
+        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: fullPrompt })
         });
 
-        // Diagnostic parsing
-        const data = await response.json().catch(() => null);
-
         if (!response.ok) {
-            throw new Error(data && data.error ? data.error : "HTTP Error " + response.status);
+          const errData = await response.json().catch(() => null);
+          throw new Error(errData && errData.error ? errData.error : "HTTP Error " + response.status);
         }
 
-        if (data && data.reply) {
-            botMsg.innerHTML = data.reply.replace(/\n/g, '<br>');
-        } else {
-            throw new Error("Received an empty response from the AI.");
+        // 4. Set up the Stream Reader
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        let aiFullText = "";
+        botMsg.innerHTML = ""; // Clear the dots
+
+        // 5. The Streaming Loop: Read network packets as they arrive
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          buffer += decoder.decode(value, { stream: true });
+          
+          // Gemini SSE chunks are separated by double line breaks
+          let boundary = buffer.indexOf('\n\n');
+          while (boundary !== -1) {
+            let chunkText = buffer.slice(0, boundary).trim();
+            buffer = buffer.slice(boundary + 2); // Remove processed chunk from buffer
+            
+            if (chunkText.startsWith("data:")) {
+              const dataStr = chunkText.substring(5).trim();
+              
+              try {
+                const json = JSON.parse(dataStr);
+                if (json.candidates && json.candidates[0].content) {
+                  // Append the new letters/words
+                  aiFullText += json.candidates[0].content.parts[0].text;
+                  // Update the UI instantly
+                  botMsg.innerHTML = aiFullText.replace(/\n/g, '<br>');
+                  chatArea.scrollTop = chatArea.scrollHeight;
+                }
+              } catch (e) {
+                // Ignore incomplete JSON chunks (safeguard)
+              }
+            }
+            boundary = buffer.indexOf('\n\n');
+          }
         }
 
       } catch (error) {
-        console.error("Diagnostic Error:", error);
+        console.error("Stream Error:", error);
         botMsg.innerHTML = "<span style='color: #fb4934;'><b>System Error:</b> " + error.message + "</span>";
       }
       chatArea.scrollTop = chatArea.scrollHeight;
