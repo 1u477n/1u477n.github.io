@@ -8,7 +8,7 @@ exports.handler = async function(event, context) {
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
-      body: ""
+      body: "ok"
     };
   }
 
@@ -21,7 +21,7 @@ exports.handler = async function(event, context) {
         body = event.body; 
     }
     
-    const userMessage = body.prompt;
+    const userMessage = body?.prompt;
     if (!userMessage) throw new Error("No prompt provided from the website.");
 
     // 3. API Key Check
@@ -29,9 +29,9 @@ exports.handler = async function(event, context) {
     if (!apiKey) throw new Error("GEMINI_API_KEY environment variable is missing.");
 
     // ==========================================
-    // THE FIX: Using the universally unlocked 'gemini-pro' model
+    // THE FIX: Reverted to the correct, working 1.5 Flash model
     // ==========================================
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     // 4. Fetch from Gemini
     const response = await fetch(apiUrl, {
@@ -48,9 +48,15 @@ exports.handler = async function(event, context) {
     }
 
     const data = await response.json();
+
+    // 5. Safety Check: Prevent the "ReferenceError" if Google sends a weird response
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+        throw new Error("Unexpected response structure from Google: " + JSON.stringify(data));
+    }
+
     const botReply = data.candidates[0].content.parts[0].text;
 
-    // 5. Success Return
+    // 6. Success Return
     return {
       statusCode: 200,
       headers: {
@@ -61,7 +67,7 @@ exports.handler = async function(event, context) {
     };
 
   } catch (error) {
-    // 6. Diagnostic Error Return
+    // 7. Diagnostic Error Return
     console.error("Backend Error:", error.message);
     return {
       statusCode: 500,
