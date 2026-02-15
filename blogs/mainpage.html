@@ -3,27 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
   <meta name="description" content="Innovating in AI, prioritizing health, discovering the world - Mapping the intersection of artificial minds and biological systems." />
-
   <link rel="canonical" href="https://1u477n.github.io/blogs/mainpage.html" />
-
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://1u477n.github.io/blogs/mainpage.html">
   <meta property="og:title" content="Innovating in AI, prioritizing health, discovering the world">
   <meta property="og:description" content="Mapping the intersection of artificial minds and biological systems.">
   <meta property="og:image" content="https://1u477n.github.io/images/syntheticchronicles.jpg">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Innovating in AI, prioritizing health, discovering the world">
   <meta name="twitter:description" content="Mapping the intersection of artificial minds and biological systems.">
   <meta name="twitter:image" content="https://1u477n.github.io/images/syntheticchronicles.jpg">
-
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#070A12" id="themeColor">
-
   <title>Blogs · Synthetic Chronicles</title>
-
+  
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW323NJP26"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -35,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+  
   <style>
     :root{
       /* Dark Theme (Default) */
@@ -93,295 +87,102 @@
     }
 
     /* --- 2026 Background FX --- */
-    .bg-orbs {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background: var(--bg0);
-      overflow: hidden;
-    }
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.4;
-      animation: float 10s infinite ease-in-out alternate;
-    }
+    .bg-orbs { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--bg0); overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
     .orb-1 { width: 600px; height: 600px; background: var(--a1); top: -10%; left: -10%; animation-delay: 0s; }
     .orb-2 { width: 500px; height: 500px; background: var(--a2); bottom: -10%; right: -10%; animation-delay: -2s; }
     .orb-3 { width: 400px; height: 400px; background: var(--a3); top: 40%; left: 40%; opacity: 0.2; animation-delay: -5s; }
 
-    @keyframes float {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(30px, 30px); }
-    }
+    @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 30px); } }
 
-    .bg-noise {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    }
+    .bg-noise { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
 
-    .container{
-      max-width: var(--max);
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
+    .container{ max-width: var(--max); margin: 0 auto; position: relative; z-index: 1; }
 
     /* Top Bar */
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      background: var(--panel);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--stroke);
-      border-radius: 99px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 20px;
-      z-index: 100;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .theme-toggle {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: var(--grad);
-      border: 0;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      color: white;
-      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
-      transition: transform 0.2s ease;
-    }
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--panel); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--stroke); border-radius: 99px; margin-bottom: 24px; box-shadow: var(--shadow); position: sticky; top: 20px; z-index: 100; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .theme-toggle { width: 36px; height: 36px; border-radius: 50%; background: var(--grad); border: 0; cursor: pointer; display: grid; place-items: center; color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); transition: transform 0.2s ease; }
     .theme-toggle:hover { transform: scale(1.05); }
     .theme-toggle svg { width: 18px; height: 18px; }
     [data-theme="dark"] .sun { display: none; }
     [data-theme="light"] .moon { display: none; }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
     .brand-text strong { font-size: 14px; font-weight: 700; }
     .brand-text span { font-size: 12px; color: var(--muted2); }
 
-    .menu-btn {
-      width: 40px; height: 40px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      cursor: pointer;
-      transition: 0.2s;
-    }
+    .menu-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--stroke); background: rgba(255,255,255,0.05); color: var(--text); cursor: pointer; transition: 0.2s; }
     .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
     
     /* Menu Panel */
-    .menu{
-      position: fixed; top: 80px; right: 20px;
-      width: min(300px, 90vw);
-      background: var(--panel-hover);
-      border: 1px solid var(--stroke);
-      border-radius: 20px;
-      backdrop-filter: blur(24px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-      padding: 8px;
-      display: none;
-      z-index: 999;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .menu{ position: fixed; top: 80px; right: 20px; width: min(300px, 90vw); background: var(--panel-hover); border: 1px solid var(--stroke); border-radius: 20px; backdrop-filter: blur(24px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); padding: 8px; display: none; z-index: 999; flex-direction: column; gap: 4px; }
     .menu.open { display: flex; animation: fadeDown 0.2s ease-out; }
     @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    
-    .menu a {
-      padding: 12px 16px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 14px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.2s;
-    }
+    .menu a { padding: 12px 16px; text-decoration: none; color: var(--text); font-size: 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
     .menu a:hover { background: rgba(255,255,255,0.08); }
 
     /* Hero */
-    .hero {
-      text-align: center;
-      padding: 60px 20px;
-      margin-bottom: 40px;
-    }
-    .hero h1 {
-      font-size: clamp(32px, 6vw, 56px);
-      margin: 0 0 16px;
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-    .grad-text {
-      background: linear-gradient(135deg, var(--text) 30%, var(--a1));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .subhead {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
+    .hero { text-align: center; padding: 60px 20px 40px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
+    .hero h1 { font-size: clamp(32px, 6vw, 56px); margin: 0 0 16px; letter-spacing: -0.03em; line-height: 1; }
+    .grad-text { background: linear-gradient(135deg, var(--text) 30%, var(--a1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subhead { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 32px auto; line-height: 1.6; }
+    
+    .hero-visual { width: 100%; max-width: 800px; border-radius: 24px; overflow: hidden; border: 1px solid var(--stroke); box-shadow: var(--shadow); margin-top: 20px; background: rgba(0,0,0,0.2); }
 
     /* Controls (Search/Filter) */
-    .controls {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
+    .controls { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 32px; }
     @media(max-width: 768px) { .controls { grid-template-columns: 1fr; } }
-
-    .control {
-      background: var(--panel);
-      border: 1px solid var(--stroke);
-      border-radius: 20px;
-      padding: 14px;
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow);
-    }
-    .label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--muted2);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .label i {
-      width: 6px; height: 6px;
-      background: var(--a1);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--a1);
-    }
-
-    input, select {
-      width: 100%;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      font-size: 15px;
-      font-family: inherit;
-      outline: none;
-      padding: 0;
-    }
+    .control { background: var(--panel); border: 1px solid var(--stroke); border-radius: 20px; padding: 14px; backdrop-filter: blur(10px); box-shadow: var(--shadow); }
+    .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .label i { width: 6px; height: 6px; background: var(--a1); border-radius: 50%; box-shadow: 0 0 8px var(--a1); }
+    input, select { width: 100%; background: transparent; border: none; color: var(--text); font-size: 15px; font-family: inherit; outline: none; padding: 0; }
     input::placeholder { color: var(--muted2); }
     select { cursor: pointer; }
+
+    /* Blog Grid (Magazine Layout) */
+    .blogs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
     
-    /* Blog Grid */
-    .blogs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 20px;
-    }
+    /* Make the newest post a featured hero card */
+    .blog-card:not(.hidden):first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.5fr; min-height: 350px; }
+    @media(max-width: 768px) { .blog-card:not(.hidden):first-child { grid-template-columns: 1fr; } }
+    .blog-card:not(.hidden):first-child .blog-thumb { height: 100%; min-height: 250px; }
+    .blog-card:not(.hidden):first-child .blog-title { font-size: 28px; line-height: 1.2; }
 
     .blog-card {
       background: var(--panel);
       border: 1px solid var(--stroke);
       border-radius: 24px;
-      padding: 24px;
+      padding: 0; 
       display: flex;
       flex-direction: column;
-      gap: 16px;
       text-decoration: none;
       color: var(--text);
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
       overflow: hidden;
-      min-height: 220px;
+      min-height: 320px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
     }
     
-    /* Hover Glow Effect */
-    .blog-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
-      transform: translateX(-100%);
-      transition: transform 0.6s;
-    }
+    .blog-thumb { height: 180px; width: 100%; background: var(--bg1); position: relative; overflow: hidden; }
+    .blog-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, var(--panel) 100%); }
+    
+    .blog-content { padding: 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; z-index: 2; }
 
-    .blog-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--a2);
-      background: var(--panel-hover);
-      box-shadow: 0 15px 40px -10px rgba(129, 140, 248, 0.2);
-    }
+    .blog-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.6s; z-index: 3; pointer-events: none; }
+    .blog-card:hover { transform: translateY(-6px) scale(1.01); border-color: var(--a2); background: var(--panel-hover); box-shadow: 0 20px 40px -10px rgba(129, 140, 248, 0.25); }
     .blog-card:hover::before { transform: translateX(100%); }
 
-    .blog-title {
-      font-size: 18px;
-      line-height: 1.4;
-      margin: 0;
-      font-weight: 700;
-    }
-    
-    .meta {
-      margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
+    .blog-title { font-size: 20px; line-height: 1.4; margin: 0; font-weight: 700; transition: color 0.3s; }
+    .blog-card:hover .blog-title { color: var(--a1); }
+
+    .meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
     .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-    
-    .chip {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 99px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--stroke);
-      color: var(--muted);
-    }
+    .chip { font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 99px; background: rgba(255,255,255,0.05); border: 1px solid var(--stroke); color: var(--muted); backdrop-filter: blur(4px); }
     
     /* Arrow / Actions */
-    .arrow {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--stroke);
-      display: grid;
-      place-items: center;
-      transition: 0.3s;
-      color: var(--text);
-    }
-    .blog-card:hover .arrow {
-      background: var(--text);
-      color: var(--bg0);
-      transform: rotate(-45deg);
-    }
+    .arrow { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--stroke); display: grid; place-items: center; transition: 0.3s; color: var(--text); }
+    .blog-card:hover .arrow { background: var(--text); color: var(--bg0); transform: rotate(-45deg); }
     
     /* Like Button Styles */
     .like-btn { cursor: pointer; transition: transform 0.2s; }
@@ -389,37 +190,17 @@
     .like-btn.liked { color: #ef4444; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.1); }
     .like-btn.liked .arrow { background: transparent; border: none; transform: none; color: inherit; }
     .like-btn.liked svg { fill: currentColor; }
-    
-    .like-wrap {
-       display: flex;
-       align-items: center;
-       gap: 8px;
-       background: rgba(0,0,0,0.3);
-       padding: 4px 4px 4px 12px;
-       border-radius: 99px;
-       border: 1px solid var(--stroke);
-    }
-    .like-count { font-size: 12px; font-weight: 700; color: var(--muted); }
-    .blog-card:hover .like-wrap .arrow {
-       transform: none; /* Don't rotate heart */
-       background: transparent;
-       color: var(--text);
-    }
+    .like-wrap { display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.3); padding: 4px 4px 4px 14px; border-radius: 99px; border: 1px solid var(--stroke); backdrop-filter: blur(4px); }
+    .like-count { font-size: 13px; font-weight: 700; color: var(--text); }
+    .blog-card:hover .like-wrap .arrow { transform: none; background: transparent; color: var(--text); }
 
     .hidden { display: none !important; }
 
-    .footer {
-      margin-top: 40px;
-      padding: 24px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--muted2);
-    }
+    .footer { margin-top: 60px; padding: 24px; text-align: center; font-size: 13px; color: var(--muted2); border-top: 1px solid var(--stroke); }
   </style>
 </head>
 
 <body>
-
   <div class="bg-orbs">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -459,9 +240,11 @@
     <section class="hero">
       <h1><span class="grad-text">Synthetic Chronicles</span></h1>
       <p class="subhead">
-        Mapping the intersection of artificial minds and biological systems.
-        Innovating in AI, prioritizing health, discovering the world.
+        Mapping the intersection of artificial minds and biological systems. Innovating in AI, prioritizing health, discovering the world.
       </p>
+      <div class="hero-visual">
+        
+      </div>
     </section>
 
     <section class="controls">
@@ -469,14 +252,12 @@
         <div class="label"><i></i> Search</div>
         <input type="text" id="searchInput" placeholder="Type to search..." autocomplete="off" />
       </div>
-
       <div class="control">
         <div class="label"><i></i> Category</div>
         <select id="categoryFilter">
           <option value="">All Categories</option>
-          </select>
+        </select>
       </div>
-
       <div class="control">
         <div class="label"><i></i> Sort</div>
         <select id="sortSelect">
@@ -492,7 +273,6 @@
     <footer class="footer">
       © <span id="year"></span> · Synthetic Chronicles · <a href="https://1u477n.github.io/" style="color:inherit">Profile Home</a>
     </footer>
-
   </div>
 
   <script>
@@ -538,7 +318,7 @@
     document.addEventListener("keydown", (e) => { if(e.key === "Escape") menuPanel.classList.remove("open"); });
 
     // ---------------------------------------------------------
-    // CSV Logic
+    // CSV Logic & Dynamic Graphics
     // ---------------------------------------------------------
     window.__BLOGS_READY__ = new Promise((resolve) => { window.__resolveBlogsReady__ = resolve; });
     const CSV_PATH = "blogs_mainpage.csv";
@@ -589,6 +369,16 @@
       return out;
     }
 
+    // Generate a beautiful, unique CSS gradient string based on the blog title
+    function generateGradient(title) {
+        let hash = 0;
+        for (let i = 0; i < title.length; i++) hash = title.charCodeAt(i) + ((hash << 5) - hash);
+        const c1 = `hsl(${Math.abs(hash) % 360}, 70%, 50%)`;
+        const c2 = `hsl(${Math.abs(hash * 2) % 360}, 80%, 40%)`;
+        const c3 = `hsl(${Math.abs(hash * 3) % 360}, 60%, 30%)`;
+        return `background: radial-gradient(circle at top left, ${c1}, transparent 80%), radial-gradient(circle at bottom right, ${c2}, transparent 80%), ${c3};`;
+    }
+
     function renderBlogs(rows){
       grid.innerHTML = "";
       const categories = new Set();
@@ -598,9 +388,20 @@
         const title = (r.title || "").trim();
         const category = (r.category || "").trim();
         const date = (r.date || "").trim();
+        const imageUrl = (r.image_url || "").trim();
+        
         if (!url || !title) continue;
 
         categories.add(category);
+        
+        let thumbStyle = "";
+        if (imageUrl) {
+            // Apply the image as a background to the thumbnail div
+            thumbStyle = `background: url('${imageUrl}') center/cover no-repeat;`;
+        } else {
+            // Fallback to auto-generated gradient if image_url is missing
+            thumbStyle = generateGradient(title);
+        }
 
         const card = document.createElement("a");
         card.className = "blog-card";
@@ -610,14 +411,17 @@
         card.setAttribute("data-title", title);
         
         card.innerHTML = `
-          <h3 class="blog-title">${title}</h3>
-          <div class="meta">
-            <div class="chips">
-              <span class="chip">${category}</span>
-              <span class="chip">${date}</span>
-            </div>
-            <div class="arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          <div class="blog-thumb" style="${thumbStyle}"></div>
+          <div class="blog-content">
+            <h3 class="blog-title">${title}</h3>
+            <div class="meta">
+              <div class="chips">
+                <span class="chip">${category}</span>
+                <span class="chip">${date}</span>
+              </div>
+              <div class="arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </div>
             </div>
           </div>
         `;
@@ -652,7 +456,6 @@
       const visible = cards.filter(c => !c.classList.contains("hidden"));
       visible.sort((a,b) => {
          if(sort === "title_asc") return a.getAttribute("data-title").localeCompare(b.getAttribute("data-title"));
-         // Date Desc
          const dA = new Date(a.getAttribute("data-date"));
          const dB = new Date(b.getAttribute("data-date"));
          return dB - dA;
@@ -728,7 +531,6 @@
     }
 
     async function setupLikes(){
-      // Wait for CSV rendering
       if (window.__BLOGS_READY__) await window.__BLOGS_READY__;
       
       const cards = document.querySelectorAll(".blog-card");
@@ -741,26 +543,21 @@
          const ref = doc(db, COLLECTION, docId);
          const storageKey = `liked_${docId}`;
 
-         // Init state
          let isLiked = localStorage.getItem(storageKey) === "1";
          if(isLiked) btn.classList.add("liked");
 
-         // DB Listener
          onSnapshot(ref, (snap) => {
              if(snap.exists()) count.textContent = snap.data().count || 0;
          });
 
-         // Init Doc
          getDoc(ref).then(snap => {
              if(!snap.exists()) setDoc(ref, { count: 0, postKey: url }, { merge: true });
          });
 
-         // Click Handler
          btn.addEventListener("click", async (e) => {
              e.preventDefault(); e.stopPropagation();
              const next = !isLiked;
              
-             // Optimistic UI
              btn.classList.toggle("liked", next);
              if(next) localStorage.setItem(storageKey, "1"); else localStorage.removeItem(storageKey);
              isLiked = next;
