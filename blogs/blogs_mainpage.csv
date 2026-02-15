@@ -1,8 +1,8 @@
-blog_uid,title,category,blog_url,date
-blog_1,From Molecules to Medicine: DeepMind's AI Pipeline,AI & Medicine,https://1u477n.github.io/blogs/deepmind-ai-pipeline.html,2026-01-28
-blog_2,The Synergy of the Century: Why Apple Intelligence Needs Google's Gemini,AI & Healthcare,https://1u477n.github.io/blogs/apple-gemini-healthcare.html,2026-01-25
-blog_3,The Enduring Power of Basic Research in the AI Era,AI & Drug Discovery,https://1u477n.github.io/blogs/basic-research-ai-era.html,2026-01-24
-blog_4,The Trial-and-Error Era Is Over,AI & Drug Discovery,https://1u477n.github.io/blogs/20260123_trialanderror_over.html,2026-01-23
-blog_5,AI AlphaFold Blueprint - New Foundation in Drug Discovery,AI & Drug Discovery,https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html,2026-01-04
-blog_6,The Dawn of AGI: Landmark Nature Study Declares Human-Level Intelligence is Already Here,AI & Innovation,https://1u477n.github.io/blogs/dawn-of-agi-nature.html,2026-02-09
-blog_7,Serverless AI Agent Architecture: Securely Embedding Gemini into Static Websites,AI & Innovation,https://1u477n.github.io/blogs/serverless-ai-agent.html,2026-02-14
+blog_uid,title,category,blog_url,image_url,date
+blog_1,From Molecules to Medicine: DeepMind's AI Pipeline,AI & Medicine,https://1u477n.github.io/blogs/deepmind-ai-pipeline.html,https://1u477n.github.io/images/deepmind_models.jpg,2026-01-28
+blog_2,The Synergy of the Century: Why Apple Intelligence Needs Google's Gemini,AI & Healthcare,https://1u477n.github.io/blogs/apple-gemini-healthcare.html,https://1u477n.github.io/images/apple_google_aihealthcare.jpg,2026-01-25
+blog_3,The Enduring Power of Basic Research in the AI Era,AI & Drug Discovery,https://1u477n.github.io/blogs/basic-research-ai-era.html,https://1u477n.github.io/images/bresearch_preclinical_datalifecycle.jpeg,2026-01-24
+blog_4,The Trial-and-Error Era Is Over,AI & Drug Discovery,https://1u477n.github.io/blogs/20260123_trialanderror_over.html,https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg,2026-01-23
+blog_5,AI AlphaFold Blueprint - New Foundation in Drug Discovery,AI & Drug Discovery,https://1u477n.github.io/blogs/20260104_aialphafoldblueprint.html,https://1u477n.github.io/images/datalifecycle_AF3_IT.jpeg,2026-01-04
+blog_6,The Dawn of AGI: Landmark Nature Study Declares Human-Level Intelligence is Already Here,AI & Innovation,https://1u477n.github.io/blogs/dawn-of-agi-nature.html,https://1u477n.github.io/images/human-machine-partnership.png,2026-02-09
+blog_7,Serverless AI Agent Architecture: Securely Embedding Gemini into Static Websites,AI & Innovation,https://1u477n.github.io/blogs/serverless-ai-agent.html,http://1u477n.github.io/images/Serverless_AIAgent.jpg,2026-02-14
