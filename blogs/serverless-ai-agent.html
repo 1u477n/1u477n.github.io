@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="A complete, professional guide to embedding a smart, context-aware AI Agent into a static website without exposing API keys." />
+  
+  <link rel="canonical" href="https://1u477n.github.io/blogs/serverless-ai-agent.html" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://1u477n.github.io/blogs/serverless-ai-agent.html">
+  <meta property="og:title" content="Serverless AI Agent Architecture: Secure LLM Integration">
+  <meta property="og:description" content="A complete, professional guide to embedding a smart, context-aware AI Agent into a static website without exposing API keys.">
+  <meta property="og:image" content="http://1u477n.github.io/images/Serverless_AIAgent.jpg">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Serverless AI Agent Architecture: Secure LLM Integration">
+  <meta name="twitter:description" content="A complete, professional guide to embedding a smart, context-aware AI Agent into a static website without exposing API keys.">
+  <meta name="twitter:image" content="http://1u477n.github.io/images/Serverless_AIAgent.jpg">
+  
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#070A12" id="themeColor">
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const storageKey = "theme";
+      const media = window.matchMedia("(prefers-color-scheme: light)");
+      let saved = null;
+      try { saved = localStorage.getItem(storageKey); } catch {}
+      const theme = (saved === "light" || saved === "dark") ? saved : (media.matches ? "light" : "dark");
+      root.setAttribute("data-theme", theme);
+      const meta = document.getElementById("themeColor");
+      if (meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
+    })();
+  </script>
+
+  <title>Serverless AI Agent Architecture: Secure LLM Integration</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW323NJP26"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VW323NJP26');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="http://1u477n.github.io/images/Serverless_AIAgent.jpg" />
+
+  <style>
+    :root{
+      /* Dark Theme (Default) - 2026 Palette */
+      --bg0: #050505;
+      --bg1: #0A0A0A;
+      --text: #F2F2F2;
+      --muted: rgba(255,255,255,0.7);
+      --muted2: rgba(255,255,255,0.5);
+      
+      --panel: rgba(20, 20, 20, 0.6);
+      --panel-hover: rgba(30, 30, 30, 0.8);
+      --stroke: rgba(255,255,255,0.08);
+      --stroke-hover: rgba(255,255,255,0.2);
+      
+      --a1: #38BDF8; /* Sky */
+      --a2: #818CF8; /* Violet */
+      --a3: #34D399; /* Emerald */
+      
+      --grad: linear-gradient(135deg, var(--a1), var(--a2));
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 20px rgba(0,0,0,0.4);
+      --glow: 0 0 40px -10px var(--a1);
+      
+      --max: 1100px;
+      --r24: 24px;
+      --r20: 20px;
+      --r16: 16px;
+      
+      /* Blog Specifics */
+      --tableBg: rgba(255,255,255,.03);
+      --tableRow: rgba(255,255,255,.04);
+    }
+
+    /* Accessibility Skip Links */
+    .skip-link {
+      position: absolute;
+      top: -100px; /* Hidden by default */
+      left: 20px;
+      z-index: 9999;
+      background: var(--text);
+      color: var(--bg0);
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: top 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .skip-link:focus { top: 20px; outline: 2px solid var(--a1); }    
+
+    /* Light Theme Override */
+    [data-theme="light"] {
+      --bg0: #F9FAFB;
+      --bg1: #F3F4F6;
+      --text: #111827;
+      --muted: rgba(0,0,0,0.7);
+      --muted2: rgba(0,0,0,0.5);
+      
+      --panel: rgba(255, 255, 255, 0.7);
+      --panel-hover: rgba(255, 255, 255, 0.95);
+      --stroke: rgba(0,0,0,0.08);
+      --stroke-hover: rgba(0,0,0,0.2);
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0,0,0,0.05);
+      --glow: 0 0 30px -10px var(--a2);
+      
+      --tableBg: rgba(0,0,0,.03);
+      --tableRow: rgba(0,0,0,.03);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    html { scroll-behavior: smooth; text-rendering: geometricPrecision; -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg0);
+      color: var(--text);
+      overflow-x: hidden;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* --- Atmospheric Backgrounds --- */
+    .bg-orbs { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--bg0); overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
+    .orb-1 { width: 600px; height: 600px; background: var(--a1); top: -10%; left: -10%; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: var(--a2); bottom: -10%; right: -10%; animation-delay: -2s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--a3); top: 40%; left: 40%; opacity: 0.2; animation-delay: -5s; }
+
+    @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 30px); } }
+
+    .bg-noise { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+
+    .container { max-width: var(--max); margin: 0 auto; position: relative; z-index: 1; }
+
+    /* --- Floating Navigation (Pill) --- */
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; background: var(--panel);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--stroke); border-radius: 99px;
+      margin-bottom: 40px; box-shadow: var(--shadow);
+      position: sticky; top: 20px; z-index: 100;
+    }
+
+    /* FIX: Replaced overflow: hidden with min-width: 0 to prevent box-shadow clipping */
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--grad); border: 0;
+      cursor: pointer; display: grid; place-items: center; color: white;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { transform: scale(1.05); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    [data-theme="dark"] .sun { display: none; }
+    [data-theme="light"] .moon { display: none; }
+
+    .brand-text { display: flex; flex-direction: column; line-height: 1.2; overflow: hidden; }
+    .brand-text strong { font-size: 14px; font-weight: 700; }
+    
+    .brand-text span { 
+       font-size: 12px; color: var(--muted2); 
+       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 140px; 
+    }
+    @media (min-width: 480px) { .brand-text span { max-width: none; } }
+
+    .menu-btn {
+      width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%;
+      border: 1px solid var(--stroke); background: rgba(255,255,255,0.05); color: var(--text);
+      cursor: pointer; transition: 0.2s; flex-shrink: 0;
+    }
+    .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
+
+    .menu{
+      position: fixed; top: 80px; right: 20px; width: min(300px, 90vw);
+      background: var(--panel-hover); border: 1px solid var(--stroke); border-radius: 20px;
+      backdrop-filter: blur(24px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      padding: 8px; display: none; z-index: 999; flex-direction: column; gap: 4px;
+    }
+    .menu.open { display: flex; animation: fadeDown 0.2s ease-out; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .menu a {
+      padding: 12px 16px; text-decoration: none; color: var(--text); font-size: 14px;
+      border-radius: 12px; display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.2s;
+    }
+    .menu a:hover { background: rgba(255,255,255,0.08); }
+    .menu a span { font-size: 16px; opacity: 0.5; }
+
+    /* Progress Bar */
+    .progress-fixed { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200; pointer-events: none; }
+    .progress-bar { height: 100%; width: 0%; background: var(--grad); transition: width 0.1s linear; }
+
+    /* --- Hero & Content --- */
+    .hero {
+      padding: 32px; background: var(--panel); border: 1px solid var(--stroke);
+      border-radius: 32px; backdrop-filter: blur(10px); margin-bottom: 24px; box-shadow: var(--shadow);
+    }
+
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px;
+      background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2); color: var(--a1);
+      font-size: 12px; font-weight: 700; margin-bottom: 16px;
+    }
+    .kicker i { width: 6px; height: 6px; border-radius: 50%; background: var(--a1); box-shadow: 0 0 8px var(--a1); }
+
+    h1 { margin: 0 0 16px; font-size: clamp(28px, 5vw, 42px); letter-spacing: -0.02em; line-height: 1.1; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .lead { font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 90ch; margin-bottom: 24px; }
+
+    /* Pills */
+    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; align-items: center; }
+    .pill {
+      font-size: 12px; padding: 8px 14px; border-radius: 99px; border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.03); color: var(--muted); display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pill b { color: var(--text); }
+    .read-icon { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    .icon-pill {
+      width: 36px; height: 36px; padding: 0; display: grid; place-items: center; cursor: pointer; color: var(--muted);
+      border: 1px solid var(--stroke); background: rgba(255,255,255,0.03); border-radius: 50%; transition: all 0.2s ease;
+    }
+    .icon-pill:hover { color: var(--text); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .icon-pill svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .like-pill { user-select: none; padding-right: 14px; }
+    .like-btn { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; cursor: pointer; }
+    .like-btn svg { width: 16px; height: 16px; }
+    .like-btn .heart-fill { fill: transparent; transition: fill 0.2s; }
+    .like-btn.liked { color: #ef4444; }
+    .like-btn.liked .heart-fill { fill: currentColor; }
+    .like-count { font-weight: 700; font-size: 12px; margin-left: 4px; }
+
+    /* Layout */
+    .content-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+    @media (min-width: 980px){ .content-grid { grid-template-columns: 1fr 300px; } .toc { position: sticky; top: 100px; } }
+
+    /* Article Content */
+    .post { 
+      background: var(--panel); border: 1px solid var(--stroke); border-radius: 24px; 
+      padding: 32px; box-shadow: var(--shadow); 
+      min-width: 0; 
+    }
+    
+    .prose p { margin-bottom: 24px; line-height: 1.8; color: var(--muted); font-size: 15px; }
+    .prose h2 { margin: 40px 0 16px; font-size: 20px; color: var(--text); }
+    .prose h3 { margin: 30px 0 12px; font-size: 17px; color: var(--text); }
+    .prose strong { color: var(--text); font-weight: 600; }
+    .prose a { color: var(--a1); text-decoration: none; border-bottom: 1px solid rgba(56,189,248,0.3); }
+    
+    /* Code Blocks */
+    .prose pre { 
+      background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; 
+      border: 1px solid var(--stroke); overflow-x: auto; 
+      font-family: 'Courier New', Courier, monospace; font-size: 13px; line-height: 1.5; 
+      color: var(--text); margin-bottom: 24px; 
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
+    [data-theme="light"] .prose pre { background: rgba(0,0,0,0.03); }
+    .prose code { font-family: 'Courier New', Courier, monospace; color: var(--a1); font-size: 0.9em; background: rgba(56,189,248,0.1); padding: 2px 4px; border-radius: 4px; }
+    .prose pre code { color: inherit; background: transparent; padding: 0; }
+    .prose ul { margin-bottom: 24px; color: var(--muted); line-height: 1.8; font-size: 15px; }
+    .prose li { margin-bottom: 8px; }
+
+    .divider { height: 1px; background: var(--stroke); margin: 32px 0; }
+
+    figure { margin: 32px 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--stroke); background: rgba(0,0,0,0.2); }
+    figure img { width: 100%; display: block; cursor: zoom-in; }
+    figcaption { padding: 16px; font-size: 13px; color: var(--muted2); text-align: center; background: rgba(255,255,255,0.02); }
+
+    .callout { margin-top: 32px; padding: 24px; border-radius: 20px; background: radial-gradient(at top left, rgba(56,189,248,0.1), transparent), rgba(255,255,255,0.03); border: 1px solid rgba(56,189,248,0.2); }
+    .callout h3 { margin-top: 0; font-size: 16px; }
+    .callout p { margin-bottom: 0; }
+
+    /* Modes */
+    body.zen-mode .topbar, body.zen-mode .footer, body.zen-mode .related-section, body.zen-mode .toc { display: none !important; }
+    body.zen-mode .container { max-width: 760px; }
+    body.zen-mode .content-grid { grid-template-columns: 1fr; }
+    body.zen-mode #zenBtn { color: var(--a1); border-color: var(--a1); background: rgba(56,189,248,0.15); }
+
+    body.signal-mode .prose p, body.signal-mode .prose ul, body.signal-mode .prose pre { color: transparent; text-shadow: 0 0 10px rgba(120,120,120,0.3); border-color: transparent; }
+    body.signal-mode .prose .ai-signal { color: var(--text); opacity: 1; text-shadow: none; background: rgba(167,139,250,0.15); padding: 2px 4px; border-radius: 4px; }
+    body.signal-mode #signalBtn { color: var(--a2); border-color: var(--a2); background: rgba(167,139,250,0.15); }
+
+    /* TOC Sidebar */
+    .toc { background: var(--panel); border: 1px solid var(--stroke); border-radius: 24px; padding: 16px; backdrop-filter: blur(12px); }
+    .toc details summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.05em; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .toc details summary::after { content: "−"; font-size: 16px; font-weight: 400; }
+    .toc details:not([open]) summary::after { content: "+"; }
+    .toc details summary::-webkit-details-marker { display: none; }
+
+    .toc-nav { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+    .toc-nav a { text-decoration: none; font-size: 12px; color: var(--muted); padding: 8px 12px; border-radius: 12px; transition: all 0.2s; border: 1px solid transparent; }
+    .toc-nav a:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+    .toc-nav a.active { background: rgba(56,189,248,0.1); color: var(--text); border-color: rgba(56,189,248,0.25); }
+
+    /* Related Grid */
+    .related-section { margin-top: 40px; }
+    .related-head { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+    .rel-card { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--panel); border: 1px solid var(--stroke); border-radius: 20px; text-decoration: none; transition: transform 0.2s; }
+    .rel-card:hover { transform: translateY(-2px); border-color: var(--a1); }
+    .rel-title { font-size: 14px; font-weight: 600; color: var(--text); margin: 0; line-height: 1.4; }
+    .rel-date { font-size: 11px; color: var(--muted2); }
+
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); align-items: center; justify-content: center; flex-direction: column; }
+    .lightbox.open { display: flex; }
+    .lightbox-content { max-width: 90vw; max-height: 80vh; border-radius: 12px; border: 1px solid var(--stroke); }
+    .caption { margin-top: 16px; color: #fff; font-size: 14px; text-align: center; }
+    .lb-btn { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 44px; height: 44px; border-radius: 12px; font-size: 24px; cursor: pointer; display: grid; place-items: center; }
+
+    .footer { margin-top: 40px; padding: 20px; text-align: center; font-size: 12px; color: var(--muted2); border-top: 1px solid var(--stroke); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <button id="a11y-speak-btn" class="skip-link" style="left: 140px;">
+    Listen to this article (Press Enter)
+  </button>
+  <div class="progress-fixed"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="bg-noise"></div>
+
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <div class="brand-text">
+          <strong>Blog</strong>
+          <span>Serverless · LLMs · Web Dev</span>
+        </div>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </header>
+
+    <nav class="menu" id="menuPanel">
+      <a href="https://1u477n.github.io/">Home <span>→</span></a>
+      <a href="https://1u477n.github.io/about.html">About Me <span>→</span></a>
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Consulting <span>→</span></a>
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works <span>→</span></a>
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>→</span></a>
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>→</span></a>
+      <a href="https://1u477n.github.io/images/cv.pdf">CV (PDF) <span>↓</span></a>
+      <a href="https://www.linkedin.com/in/1u477n/" target="_blank">LinkedIn <span>↗</span></a>
+    </nav>
+
+    <div id="imageLightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" aria-hidden="true">
+      <button class="lb-btn" id="lightboxClose" aria-label="Close">×</button>
+      <img class="lightbox-content" id="img01" alt="" />
+      <div id="caption" class="caption"></div>
+    </div>
+
+    <main class="container" id="main">
+      <section class="hero panel" aria-label="Blog post header">
+        <div class="kicker"><i></i> UI/UX · Web Dev · Agents</div>
+        <h1>
+          <span class="grad-text">Serverless AI Agent Architecture</span>
+          <br/>Securely Embedding Gemini into Static Websites
+        </h1>
+        <p class="lead">
+          A comprehensive guide to embedding a smart, context-aware AI Agent into a static website without exposing API keys. <span class="ai-signal">This setup features local rate-limiting for cost protection, a Serverless Middleman, and a simulated typewriter effect for premium UX.</span>
+        </p>
+
+        <div class="meta-row" aria-label="Post metadata">
+          <div class="pill"><b>Author</b> Luat (Luke) Nguyen</div>
+          <div class="pill"><b>Focus</b> System Architecture</div>
+          <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
+          <div class="pill" title="Reading Time">
+            <svg class="read-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            &nbsp;<span id="readTime">—</span>
+          </div>
+
+          <button class="icon-pill" id="speakBtn" title="Listen to Article" aria-label="Listen to article">
+            <svg id="speakIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>         
+          
+          <div class="pill" id="viewPill"><b>Views</b> <span id="viewCount">—</span></div>
+          
+          <div class="pill like-pill">
+             <span class="like-btn" title="Like">
+               <svg class="heart-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>
+             </span>
+             <span class="like-count">0</span>
+          </div>
+
+          <button class="icon-pill" id="signalBtn" title="AI Signal Mode (Highlight Key Insights)">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </button>
+
+          <button class="icon-pill" id="zenBtn" title="Zen Mode (Focus Reading)">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+          
+          <button class="icon-pill" id="shareBtn" title="Share Article">
+            <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+          </button>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <article class="post panel" id="post" aria-label="Blog post content">
+          <div class="prose" id="prose">
+            <p>
+              Here is the complete, professional documentation for implementing the Serverless AI Agent Architecture. You can use this guide as a reference to standardize deployments for your consulting clients, or use it to build out a custom bot—like your own "Virtual L.U.A.T"—for your personal blog.
+            </p>
+
+            <h2>1) Overview</h2>
+            <p>
+              This architecture allows you to embed a smart, context-aware AI Agent into a static website (like GitHub Pages) without exposing your secret API keys to the public.
+            </p>
+            <p>
+              It uses a Serverless Middleman (Netlify Functions) to securely route requests to the Google Gemini API, while the frontend handles advanced UX features like local rate-limiting (cost protection) and a simulated streaming (typewriter) effect.
+            </p>
+
+            <div class="callout panel" aria-label="Key features callout">
+              <h3><span class="grad-text">Key Features</span></h3>
+              <p>
+                <strong>Security:</strong> API keys are hidden on the backend. Cross-Origin Resource Sharing (CORS) allows secure cross-domain communication.<br>
+                <strong>Cost Protection:</strong> Client-side rate limiting using browser <code>localStorage</code> prevents API abuse.<br>
+                <strong>Premium UX:</strong> Employs a dynamic glass-morphism UI, modern message bubbles, and a simulated typewriter effect for instant feedback.
+              </p>
+            </div>
+
+            <h2>2) Architecture Diagram</h2>
+            <p>Below is the data flow diagram illustrating how the components interact.</p>
+
+            <figure class="panel">
+              <img class="zoomable" loading="eager" decoding="async" src="http://1u477n.github.io/images/Serverless_AIAgent.jpg"  alt="Serverless AI Agent Architecture diagram (click to zoom)." />
+              <figcaption>
+                <strong>Figure:</strong> Security and routing logic bridging the static frontend to the Gemini API. (Click to zoom.)
+              </figcaption>
+            </figure>
+
+            <p>For a detailed structural view of the application flow:</p>
+            
+<pre><code>sequenceDiagram
+    participant User as Website Visitor
+    participant Browser as Frontend (GitHub Pages)
+    participant Netlify as Serverless Function (Middleman)
+    participant Gemini as Google Gemini API
+
+    User-&gt;&gt;Browser: Clicks "Send" (Types question)
+    
+    rect rgb(30, 40, 50)
+    Note over Browser: Security Check
+    Browser-&gt;&gt;Browser: Check localStorage quota (Max 3/day)&lt;br/&gt;If quota exceeded, Block Request.
+    Browser-&gt;&gt;Browser: Combine User Question + Hidden System Prompt
+    end
+
+    Browser-&gt;&gt;Netlify: POST Request (Question Payload)
+    
+    rect rgb(40, 50, 60)
+    Note over Netlify: Authorization &amp; Routing
+    Netlify-&gt;&gt;Netlify: Handle CORS Pre-flight
+    Netlify-&gt;&gt;Netlify: Inject hidden GEMINI_API_KEY
+    end
+
+    Netlify-&gt;&gt;Gemini: POST Request to gemini-2.5-flash
+    Gemini--&gt;&gt;Netlify: JSON Response (AI Answer)
+    Netlify--&gt;&gt;Browser: JSON Response (Sanitized)
+    
+    rect rgb(30, 40, 50)
+    Note over Browser: UX Rendering
+    Browser-&gt;&gt;Browser: Deduct 1 from daily quota limit
+    Browser-&gt;&gt;User: Render text via Typewriter Effect UI
+    end</code></pre>
+
+            <h3>2.1 Explanation of the Flow</h3>
+            <p>
+              <span class="ai-signal"><strong>Frontend Assembly:</strong></span> The browser takes the user's short question and secretly appends a massive "System Prompt" (your resume/context) so the AI knows how to act.
+            </p>
+            <p>
+              <span class="ai-signal"><strong>The Middleman:</strong></span> Because GitHub Pages is static, it cannot hold secret keys. It sends the payload to Netlify. Netlify acts as a secure vault, attaches your billing API key, and forwards it to Google.
+            </p>
+            <p>
+              <span class="ai-signal"><strong>Sanitization:</strong></span> Google sends back a massive JSON object with metadata. Netlify strips out the junk and sends only the exact text string back to the browser to keep the payload lightweight.
+            </p>
+
+            <div class="divider"></div>
+
+            <h2>3) Step-by-Step Implementation Guide</h2>
+
+            <h3>Phase 1: The Backend (Netlify Function)</h3>
+            <p>This step creates the secure bridge between your website and Google.</p>
+
+            <p><strong>Step 1.1: Create the directory structure</strong><br>
+            In your GitHub repository, create the following exact folder structure at the root level:<br>
+            <code>netlify/functions/chat.js</code></p>
+
+            <p><strong>Step 1.2: Add the Serverless Code</strong><br>
+            Paste the following Node.js code into <code>chat.js</code>. This code uses the v1 CommonJS format, which is universally compatible with all Netlify environments.</p>
+
+<pre><code>// File: netlify/functions/chat.js
+exports.handler = async function(event, context) {
+  // 1. Handle CORS Pre-flight (Crucial for Cross-Domain requests)
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Allows GitHub Pages to connect
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
+      },
+      body: "ok"
+    };
+  }
+
+  try {
+    // 2. Parse the payload from the frontend
+    let body;
+    try {
+        body = JSON.parse(event.body);
+    } catch(e) {
+        body = event.body; 
+    }
+    
+    const userMessage = body?.prompt;
+    if (!userMessage) throw new Error("No prompt provided.");
+
+    // 3. Securely retrieve the API key from environment variables
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error("GEMINI_API_KEY is missing.");
+
+    // 4. Target the active Gemini model
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+    // 5. Fetch response from Google
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts: [{ text: userMessage }] }] })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Gemini API Error (${response.status}): ${errorText}`);
+    }
+
+    const data = await response.json();
+
+    // 6. Safety check for unexpected Google response structures
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+        throw new Error("Unexpected response structure from Google.");
+    }
+
+    const botReply = data.candidates[0].content.parts[0].text;
+
+    // 7. Return successful sanitized string to frontend
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify({ reply: botReply })
+    };
+
+  } catch (error) {
+    // 8. Error handling
+    console.error("Backend Error:", error.message);
+    return {
+      statusCode: 500,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify({ error: error.message })
+    };
+  }
+};</code></pre>
+
+            <p><strong>Step 1.3: Set the Environment Variable</strong></p>
+            <ul>
+              <li>Log into your Netlify dashboard.</li>
+              <li>Go to <strong>Site configuration &gt; Environment variables</strong>.</li>
+              <li>Add a new variable named <code>GEMINI_API_KEY</code> and paste your Google AI Studio key as the value.</li>
+            </ul>
+
+            <h3>Phase 2: The Frontend UI &amp; Logic</h3>
+            
+            <p><strong>Step 2.1: Implement the UI Shell (HTML)</strong><br>
+            Add the trigger button and the hidden chat window to the bottom of your <code>&lt;body&gt;</code> tag.</p>
+
+<pre><code>&lt;div class="agent-trigger" id="agentTrigger" title="Chat with Virtual L.U.A.T"&gt;
+  &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/div&gt;
+
+&lt;div class="agent-window" id="agentWindow"&gt;
+  &lt;div class="agent-header"&gt;
+    &lt;span&gt;Virtual L.U.A.T&lt;/span&gt;
+    &lt;span class="agent-close" id="agentClose"&gt;✕&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="chat-area" id="chatArea"&gt;
+    &lt;div class="msg msg-bot"&gt;Hello! How can I help you today?&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="input-area"&gt;
+    &lt;input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." autocomplete="off"&gt;
+    &lt;button class="send-btn" id="sendBtn"&gt;Send&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <p><strong>Step 2.2: Implement the Intelligence Engine (JavaScript)</strong><br>
+            This script handles the context injection, quota limits, and the typewriter effect. Note the use of the absolute Netlify URL to ensure the fetch works across domains.</p>
+
+<pre><code>&lt;script&gt;
+    const trigger = document.getElementById('agentTrigger');
+    const windowEl = document.getElementById('agentWindow');
+    const closeBtn = document.getElementById('agentClose');
+    const chatArea = document.getElementById('chatArea');
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    // UI Toggles
+    if(trigger) {
+        trigger.addEventListener('click', () =&gt; { windowEl.classList.add('active'); input.focus(); });
+        closeBtn.addEventListener('click', () =&gt; windowEl.classList.remove('active'));
+    }
+
+    // SYSTEM PROMPT (Hidden from User)
+    // E.g., You can tell it to act as Virtual L.U.A.T to represent you.
+    const systemPrompt = `You are Virtual L.U.A.T, a helpful AI assistant. 
+    Keep your answers concise, strictly under 3 sentences. Be professional and direct.
+    User question: `;
+
+    async function handleMessage() {
+      const text = input.value.trim();
+      if(!text) return;
+
+      // 1. COST PROTECTION: LocalStorage Daily Limit
+      const limitKey = "ai_daily_usage";
+      const maxQuestions = 3;
+      const today = new Date().toLocaleDateString();
+
+      let usage = JSON.parse(localStorage.getItem(limitKey)) || { count: 0, date: today };
+
+      if (usage.date !== today) {
+        usage = { count: 0, date: today }; // Reset at midnight
+      }
+
+      if (usage.count &gt;= maxQuestions) {
+        const limitMsg = document.createElement('div');
+        limitMsg.className = 'msg msg-bot';
+        limitMsg.innerHTML = `Daily limit reached to conserve resources. Please try again tomorrow.`;
+        chatArea.appendChild(limitMsg);
+        chatArea.scrollTop = chatArea.scrollHeight;
+        input.value = ''; 
+        return; 
+      }
+      
+      // 2. Process User Message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg msg-user';
+      userMsg.textContent = text;
+      chatArea.appendChild(userMsg);
+      input.value = '';
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      // Increment quota and save
+      usage.count++;
+      localStorage.setItem(limitKey, JSON.stringify(usage));
+
+      // 3. Display Loading Indicator
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg msg-bot';
+      botMsg.innerHTML = "Thinking...";
+      chatArea.appendChild(botMsg);
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      try {
+        const fullPrompt = systemPrompt + text;
+
+        // 4. CALL THE BACKEND (Use absolute URL if hosted separately)
+        const response = await fetch('https://YOUR_NETLIFY_URL.netlify.app/.netlify/functions/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: fullPrompt })
+        });
+
+        const data = await response.json().catch(() =&gt; null);
+
+        if (!response.ok) {
+            usage.count--; // Refund quota on API failure
+            localStorage.setItem(limitKey, JSON.stringify(usage));
+            throw new Error(data &amp;&amp; data.error ? data.error : "HTTP Error");
+        }
+
+        if (data &amp;&amp; data.reply) {
+            const fullText = data.reply.replace(/\n/g, '&lt;br&gt;');
+            botMsg.innerHTML = ""; 
+            
+            let i = 0;
+            let isTag = false;
+            
+            // 5. TYPEWRITER EFFECT RENDERING
+            function typeWriter() {
+                if (i &lt; fullText.length) {
+                    let char = fullText.charAt(i);
+                    if (char === '&lt;') isTag = true;
+                    
+                    botMsg.innerHTML += char;
+                    i++;
+                    
+                    if (isTag) {
+                        if (char === '&gt;') isTag = false;
+                        typeWriter(); // Skip delay for HTML code rendering
+                    } else {
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                        setTimeout(typeWriter, 10); // 10ms speed per character
+                    }
+                }
+            }
+            typeWriter();
+
+        } else {
+            throw new Error("Received an empty response.");
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        botMsg.innerHTML = "&lt;span style='color: red;'&gt;&lt;b&gt;System Error:&lt;/b&gt; " + error.message + "&lt;/span&gt;";
+      }
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', handleMessage);
+    input.addEventListener('keypress', (e) =&gt; { if(e.key === 'Enter') handleMessage(); });
+&lt;/script&gt;</code></pre>
+
+            <div class="divider"></div>
+
+            <h2>4) Troubleshooting &amp; Maintenance</h2>
+            <p>
+              <strong>Error: "Unable to reach the neural server" / CORS Error:</strong> Ensure your frontend fetch call is using the <code>https://...</code> absolute URL of your Netlify deployment, not a relative <code>/.netlify/...</code> path.
+            </p>
+            <p>
+              <strong>Error: "Gemini API Error (404)":</strong> This indicates the model name in your <code>chat.js</code> file is either deprecated or unsupported by your specific API key. Ensure you are using a current, active model tier like <code>gemini-2.5-flash</code>.
+            </p>
+            <p>
+              <strong>Resetting your Quota for Testing:</strong> Open your browser's Developer Tools (F12) -&gt; Application/Storage Tab -&gt; Local Storage -&gt; Delete the <code>ai_daily_usage</code> key. Refresh the page.
+            </p>
+
+          </div>
+
+          <div class="divider"></div>
+          
+          <section class="related-section">
+            <div class="related-head">Read Next</div>
+            <div id="relatedGrid" class="related-grid"></div>
+          </section>
+        </article>
+
+        <aside class="toc panel" aria-label="On this page">
+          <details open>
+            <summary>On this page</summary>
+            <nav class="toc-nav" id="tocNav" aria-label="Table of contents"></nav>
+          </details>
+        </aside>
+      </div>
+
+      <footer class="footer panel">
+        © <span id="year"></span> · <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs</a> · <a href="https://1u477n.github.io/">Home</a>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Theme
+    (function(){
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      if (!toggle) return;
+      const storageKey = "theme";
+      const media = window.matchMedia("(prefers-color-scheme: light)");
+      const safeGet = () => { try { return localStorage.getItem(storageKey); } catch { return null; } };
+      const safeSet = (v) => { try { localStorage.setItem(storageKey, v); } catch {} };
+      const systemTheme = () => (media.matches ? "light" : "dark");
+      function setToggleText(theme){
+        const next = theme === "dark" ? "light" : "dark";
+        toggle.setAttribute("aria-label", `Switch to ${next} mode`);
+        toggle.setAttribute("title", `Switch to ${next} mode`);
+      }
+      function applyTheme(theme, persist){
+        root.setAttribute("data-theme", theme);
+        const meta = document.getElementById("themeColor");
+        if (meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
+        if (persist) safeSet(theme);
+        setToggleText(theme);
+      }
+      const saved = safeGet();
+      if (saved === "light" || saved === "dark") { applyTheme(saved, false); }
+      else { applyTheme(systemTheme(), false); }
+      toggle.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") || systemTheme();
+        applyTheme(current === "dark" ? "light" : "dark", true);
+      });
+    })();
+
+    // Reading Time, Year, Zen/Signal
+    window.addEventListener('DOMContentLoaded', () => {
+      const prose = document.getElementById("prose");
+      const readTime = document.getElementById("readTime");
+      const progressBar = document.getElementById("progressBar");
+      
+      // Reading Time
+      const text = (prose?.textContent || "").trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      const wpm = 220;
+      const mins = Math.max(1, Math.round(words / wpm));
+      if(readTime) readTime.textContent = `${mins} min`;
+
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Date
+      const d = new Date();
+      const timeEl = document.getElementById("today");
+      if (timeEl) {
+          const fmt = new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "2-digit" });
+          timeEl.textContent = fmt.format(d);
+          const iso = new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0,10);
+          timeEl.setAttribute("datetime", iso);
+      }
+
+      // Progress Bar
+      let ticking = false;
+      function updateProgress(){
+        ticking = false;
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop || document.body.scrollTop;
+        const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+        const p = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
+        if(progressBar) progressBar.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
+      }
+      window.addEventListener("scroll", () => {
+        if (!ticking){ ticking = true; requestAnimationFrame(updateProgress); }
+      }, { passive: true });
+      updateProgress();
+
+      // Zen Mode
+      const zenBtn = document.getElementById("zenBtn");
+      if(zenBtn) {
+        zenBtn.addEventListener("click", () => {
+          document.body.classList.toggle("zen-mode");
+          const active = document.body.classList.contains("zen-mode");
+          zenBtn.style.color = active ? "#38BDF8" : "";
+          zenBtn.style.background = active ? "rgba(56,189,248,.15)" : "";
+        });
+      }
+
+      // Signal Mode
+      const signalBtn = document.getElementById("signalBtn");
+      if(signalBtn) {
+        signalBtn.addEventListener("click", () => {
+          document.body.classList.toggle("signal-mode");
+          const active = document.body.classList.contains("signal-mode");
+          signalBtn.style.color = active ? "#A78BFA" : "";
+          signalBtn.style.background = active ? "rgba(167,139,250,.15)" : "";
+        });
+      }
+
+      // Share
+      const shareBtn = document.getElementById("shareBtn");
+      if(shareBtn) {
+        shareBtn.addEventListener("click", async () => {
+          const data = { title: document.title, url: window.location.href };
+          if (navigator.share) {
+            try { await navigator.share(data); } catch (err) {}
+          } else {
+            try { await navigator.clipboard.writeText(window.location.href); alert("Link copied!"); } catch(e){}
+          }
+        });
+      }
+    });
+
+    // Menu
+    (function(){
+      const menuBtn = document.getElementById("menuBtn");
+      const menuPanel = document.getElementById("menuPanel");
+      if (!menuBtn || !menuPanel) return;
+      function openMenu(){ menuPanel.classList.add("open"); menuBtn.setAttribute("aria-expanded", "true"); }
+      function closeMenu(){ menuPanel.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
+      menuBtn.addEventListener("click", (e) => { e.stopPropagation(); if(menuPanel.classList.contains("open")) closeMenu(); else openMenu(); });
+      document.addEventListener("click", () => { if(menuPanel.classList.contains("open")) closeMenu(); });
+      menuPanel.addEventListener("click", (e) => e.stopPropagation());
+      document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeMenu(); });
+    })();
+
+    // TOC
+    (function(){
+      const prose = document.getElementById("prose");
+      const tocNav = document.getElementById("tocNav");
+      if (!prose || !tocNav) return;
+      const headings = Array.from(prose.querySelectorAll("h2, h3"));
+      if (!headings.length) return;
+      
+      const slugify = (s) => s.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+      
+      tocNav.innerHTML = headings.map((h, i) => {
+        if(!h.id) h.id = slugify(h.textContent) + "-" + i;
+        const lvl = h.tagName === "H3" ? "3" : "2";
+        return `<a href="#${h.id}" data-id="${h.id}" data-level="${lvl}">${h.textContent}</a>`;
+      }).join("");
+
+      const links = Array.from(tocNav.querySelectorAll("a"));
+      const setActive = (id) => links.forEach(a => a.classList.toggle("active", a.dataset.id === id));
+      const obs = new IntersectionObserver((entries) => {
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+        if(visible[0]) setActive(visible[0].target.id);
+      }, { threshold: [0.1], rootMargin: "-10% 0px -50% 0px" });
+      headings.forEach(h => obs.observe(h));
+    })();
+
+    // Lightbox
+    (function(){
+      const modal = document.getElementById("imageLightbox");
+      const modalImg = document.getElementById("img01");
+      const captionText = document.getElementById("caption");
+      const closeBtn = document.getElementById("lightboxClose");
+      const images = Array.from(document.querySelectorAll("img.zoomable"));
+      if(!images.length) return;
+
+      function openLightbox(img){
+        modal.classList.add("open");
+        modalImg.src = img.currentSrc || img.src;
+        captionText.textContent = img.alt;
+        document.body.style.overflow = "hidden";
+      }
+      function closeLightbox(){
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      images.forEach(img => {
+        img.addEventListener("click", () => openLightbox(img));
+      });
+      closeBtn.addEventListener("click", closeLightbox);
+      modal.addEventListener("click", (e) => { if(e.target === modal) closeLightbox(); });
+      document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeLightbox(); });
+    })();
+
+    // Related Posts
+    (async function(){
+      const grid = document.getElementById("relatedGrid");
+      if(!grid) return;
+      try {
+        const res = await fetch("blogs_mainpage.csv");
+        if(!res.ok) return;
+        const text = await res.text();
+        
+        function parseCSV(text){
+          const rows = [];
+          let row = [];
+          let field = "";
+          let inQuotes = false;
+          for (let i = 0; i < text.length; i++){
+            const c = text[i];
+            if (inQuotes){
+              if (c === '"'){
+                if (text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; }
+              } else { field += c; }
+            } else {
+              if (c === '"'){ inQuotes = true; }
+              else if (c === ","){ row.push(field); field = ""; }
+              else if (c === "\n"){ row.push(field); field = ""; if(row.some(v=>v.trim())) rows.push(row); row=[]; }
+              else if (c !== "\r"){ field += c; }
+            }
+          }
+          row.push(field);
+          if(row.some(v=>v.trim())) rows.push(row);
+          return rows;
+        }
+
+        function toObjects(raw){
+          if (!raw.length) return [];
+          const headers = raw[0].map(h => (h||"").trim().toLowerCase());
+          const out = [];
+          for (let i = 1; i < raw.length; i++){
+            const r = raw[i];
+            const obj = {};
+            for (let j = 0; j < headers.length; j++){
+              obj[headers[j]] = (r[j] ?? "").toString().trim();
+            }
+            out.push(obj);
+          }
+          return out;
+        }
+
+        const data = toObjects(parseCSV(text));
+        const currentHref = window.location.href.split("#")[0];
+
+        // Filter out current page
+        let others = data.filter(d => {
+          const url = d.blog_url || "";
+          return url && !currentHref.includes(url.split("/").pop());
+        });
+
+        // Shuffle
+        others.sort(() => 0.5 - Math.random());
+
+        // Take 2
+        const selected = others.slice(0, 2);
+        
+        if (selected.length === 0) {
+            document.querySelector(".related-section").style.display = "none";
+            return;
+        }
+
+        grid.innerHTML = selected.map(item => `
+          <a href="${item.blog_url}" class="rel-card">
+            <h4 class="rel-title">${item.title}</h4>
+            <div class="rel-date">${item.date || ""}</div>
+          </a>
+        `).join("");
+
+      } catch(e){}
+    })();
+
+// Web Speech API - Accessibility First
+(function(){
+  const visualBtn = document.getElementById("speakBtn");
+  const a11yBtn = document.getElementById("a11y-speak-btn");
+  const icon = document.getElementById("speakIcon");
+  const prose = document.getElementById("prose");
+  
+  // Guard clause: Check support
+  if (!prose || !('speechSynthesis' in window)) {
+    if(visualBtn) visualBtn.style.display = 'none';
+    if(a11yBtn) a11yBtn.style.display = 'none';
+    return; 
+  }
+
+  const synth = window.speechSynthesis;
+  let utterance = null;
+  let isSpeaking = false;
+  let isPaused = false;
+
+  const playIcon = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
+  const pauseIcon = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+
+  function reset(){
+    synth.cancel();
+    isSpeaking = false;
+    isPaused = false;
+    if(icon) icon.innerHTML = playIcon;
+    if(visualBtn) {
+        visualBtn.style.color = "";
+        visualBtn.style.background = "";
+        visualBtn.title = "Listen to Article";
+    }
+    if(a11yBtn) a11yBtn.innerText = "Listen to this article (Press Enter)";
+  }
+
+  function toggleSpeech() {
+    if (isSpeaking && !isPaused) {
+      synth.pause();
+      isPaused = true;
+      if(icon) icon.innerHTML = playIcon;
+      if(a11yBtn) a11yBtn.innerText = "Resume listening";
+    } else if (isPaused) {
+      synth.resume();
+      isPaused = false;
+      if(icon) icon.innerHTML = pauseIcon;
+      if(a11yBtn) a11yBtn.innerText = "Pause listening";
+    } else {
+      const text = prose.innerText;
+      utterance = new SpeechSynthesisUtterance(text);
+      const voices = synth.getVoices();
+      const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+      if(preferred) utterance.voice = preferred;
+      
+      utterance.onend = reset;
+      utterance.onerror = reset;
+
+      synth.speak(utterance);
+      isSpeaking = true;
+      isPaused = false;
+      
+      if(icon) icon.innerHTML = pauseIcon;
+      if(visualBtn) {
+          visualBtn.style.color = "var(--a3)";
+          visualBtn.style.background = "rgba(52, 211, 153, 0.1)";
+          visualBtn.title = "Pause";
+      }
+      if(a11yBtn) a11yBtn.innerText = "Pause listening";
+    }
+  }
+
+  if(visualBtn) visualBtn.addEventListener("click", toggleSpeech);
+  if(a11yBtn) {
+      a11yBtn.addEventListener("click", toggleSpeech);
+      a11yBtn.addEventListener("keypress", (e) => {
+          if (e.key === 'Enter') toggleSpeech();
+      });
+  }
+
+  window.addEventListener('beforeunload', reset);
+})();
+  </script>
+  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNsnOdNrG6D-wGpo8bRhqcadnGt-oUQmE",
+      authDomain: "searchablevideos.firebaseapp.com",
+      projectId: "searchablevideos",
+      storageBucket: "searchablevideos.firebasestorage.app",
+      messagingSenderId: "345918351272",
+      appId: "1:345918351272:web:82534dbe5b10dc8e131f9d",
+      measurementId: "G-VW323NJP26"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const COLLECTION = "blogLikes";
+    
+    // Updated postKey to reflect the new article location
+    const postKey = "https://1u477n.github.io/blogs/serverless-ai-agent.html";
+
+    function fnv1a(str){
+      let h = 0x811c9dc5;
+      for (let i=0; i<str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+      return (h >>> 0).toString(16).padStart(8, "0");
+    }
+    const docId = fnv1a(postKey);
+    const ref = doc(db, COLLECTION, docId);
+
+    function heartSVG(){
+      return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path class="heart-fill" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z" fill="transparent"></path></svg>`;
+    }
+    
+    const pill = document.querySelector(".like-pill");
+    if(pill && !pill.innerHTML.trim()){
+       pill.innerHTML = `
+         <span class="like-btn" title="Like">${heartSVG()}</span>
+         <span class="like-count">0</span>
+       `;
+    }
+
+    const likeBtn = document.querySelector(".like-btn");
+    const countEl = document.querySelector(".like-count");
+    const viewEl = document.getElementById("viewCount");
+
+    // 1. Safe Init
+    getDoc(ref).then(snap => {
+      if(!snap.exists()) setDoc(ref, { count: 0, views: 1, postKey }, { merge: true });
+      else updateDoc(ref, { views: increment(1) });
+    });
+
+    // 2. Listen
+    onSnapshot(ref, (snap) => {
+      if(snap.exists()){
+        const d = snap.data();
+        if(countEl) countEl.textContent = d.count || 0;
+        if(viewEl) viewEl.textContent = d.views || 0;
+      }
+    });
+
+    // 3. Toggle Like
+    if(likeBtn){
+        const storageKey = `liked_${docId}`;
+        let isLiked = localStorage.getItem(storageKey) === "1";
+        if(isLiked) likeBtn.classList.add("liked");
+
+        likeBtn.addEventListener("click", async () => {
+          const next = !isLiked;
+          likeBtn.classList.toggle("liked", next);
+          if(next) localStorage.setItem(storageKey, "1"); else localStorage.removeItem(storageKey);
+          isLiked = next;
+
+          try {
+            await updateDoc(ref, { count: increment(next ? 1 : -1) });
+          } catch(e) {
+            console.error(e);
+            likeBtn.classList.toggle("liked", !next);
+          }
+        });
+    }
+  </script>
+</body>
+</html>
