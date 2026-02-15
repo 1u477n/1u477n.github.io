@@ -200,21 +200,34 @@
        ========================================== */
     .agent-trigger {
       position: fixed; bottom: 30px; right: 30px;
-      width: 60px; height: 60px; border-radius: 50%; background: var(--bg0);
-      border: 2px solid var(--a1); box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+      width: 75px; height: 75px;
+      border-radius: 50%; background: var(--bg0);
+      border: 3px solid var(--a1);
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
       cursor: pointer; display: grid; place-items: center; z-index: 1000;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .agent-trigger::after {
-      content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--a1);
-      opacity: 0; animation: pulseRing 2s infinite;
+      content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--a1);
+      opacity: 0; animation: pulseRing 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.4); opacity: 0; } }
+    @keyframes pulseRing { 
+      0% { transform: scale(0.95); opacity: 0.8; } 
+      100% { transform: scale(1.5); opacity: 0; } 
+    }
     .agent-trigger:hover { transform: scale(1.1) rotate(10deg); }
-    .agent-trigger svg { color: var(--a1); width: 28px; height: 28px; }
+    
+    .agent-trigger svg { 
+      color: var(--a1); width: 36px; height: 36px; 
+      animation: iconHeartbeat 2s infinite ease-in-out;
+    }
+    @keyframes iconHeartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
     
     .agent-window {
-      position: fixed; bottom: 100px; right: 30px; 
+      position: fixed; bottom: 120px; right: 30px; 
       width: min(350px, 90vw); height: 500px; 
       background: var(--ai-window-bg); 
       backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
@@ -549,8 +562,8 @@
 
           if (data && data.reply) {
               const fullText = data.reply.replace(/\n/g, '<br>');
-              botMsg.innerHTML = ""; 
-              
+              botMsg.innerHTML = "";
+               
               let i = 0;
               let isTag = false;
               
@@ -587,6 +600,5 @@
       if(sendBtn) sendBtn.addEventListener('click', handleMessage);
       if(input) input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleMessage(); });
   </script>
-
 </body>
 </html>
