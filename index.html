@@ -251,28 +251,38 @@
 
     .footer { margin-top: 32px; text-align: center; font-size: 12px; color: var(--muted2); padding-bottom: 20px; }
 
-
     /* ==========================================
        VIRTUAL L.U.A.T STYLES (Polished Redesign)
        ========================================== */
     
     .agent-trigger {
-      position: absolute; top: -8px; right: -18px; 
-      width: 44px; height: 44px; border-radius: 50%; background: var(--bg0);
-      border: 2px solid var(--a1); box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+      position: absolute; top: -12px; right: -24px; 
+      width: 56px; height: 56px; border-radius: 50%; background: var(--bg0);
+      border: 3px solid var(--a1); box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
       cursor: pointer; display: grid; place-items: center; z-index: 10;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .agent-trigger::after {
-      content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--a1);
-      opacity: 0; animation: pulseRing 2s infinite;
+      content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 3px solid var(--a1);
+      opacity: 0; animation: pulseRing 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
     }
-    @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.4); opacity: 0; } }
+    @keyframes pulseRing { 
+      0% { transform: scale(0.95); opacity: 0.8; } 
+      100% { transform: scale(1.5); opacity: 0; } 
+    }
     .agent-trigger:hover { transform: scale(1.1) rotate(10deg); }
-    .agent-trigger svg { color: var(--a1); width: 20px; height: 20px; }
+    
+    .agent-trigger svg { 
+      color: var(--a1); width: 26px; height: 26px; 
+      animation: iconHeartbeat 2s infinite ease-in-out;
+    }
+    @keyframes iconHeartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
     
     .agent-window {
-      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) scale(0.9);
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) scale(0.9);
       width: min(350px, 90vw); height: 500px; 
       background: var(--ai-window-bg); /* Dynamic Glass Background */
       backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
@@ -524,18 +534,23 @@
           closeBtn.addEventListener('click', () => windowEl.classList.remove('active'));
       }
 
-      const luatContext = `Your name is Virtual L.U.A.T. You are the digital avatar for Luat T. Nguyen.
-      Core Identity: Senior Infrastructure Engineer and Technical Product Analyst with 20+ years bridging Life Sciences and IT.
-      Key Achievements:
+      const luatContext = `SYSTEM INSTRUCTIONS: You are Virtual L.U.A.T, the digital avatar and professional portfolio assistant for Luat T. Nguyen. 
+
+      CONTEXT (Luat's Background):
+      - Identity: Senior Infrastructure Engineer and Technical Product Analyst with 20+ years bridging Life Sciences and IT.
       - 4D Molecular Therapeutics (2024-2025): Led vulnerability management and network segmentation.
-      - Merck (2017-2024): Won 25 INSPIRE awards; led eROP AI/ML program.
-      - Pfizer/Medivation (2014-2017): Supported NGS Linux cluster.
+      - Merck (2017-2024): Won 25 INSPIRE awards; led eROP AI/ML program recognized by the Merck's CEO Robert Davis.
+      - Pfizer/Medivation (2014-2017): Led custom-built R&D sample invementory/management app; Supported NGS Linux cluster.
       - Early Career: Contributed to a $213M exit for TrkA program at VM Discovery.
-      Skills: AWS, Python, SQL, React, Linux/Windows, AI/ML, GxP Security.
-      Education: B.S. Biochemistry/Chemistry from UCSD.
-      
-      Answer in the first person ("I"). You MUST keep your answer extremely concise, strictly under 3 sentences. Be punchy, professional, and direct.
-      
+      - Skills: AWS, Python, SQL, React, Linux/Windows, AI/ML, GxP Security.
+      - Education: B.S. Biochemistry/Chemistry; Specialization in Economics and Computer Science from UCSD.
+
+      STRICT RULES:
+      1. Persona: Answer in the first person ("I", "my"). Be punchy, professional, and direct.
+      2. Length: Keep your answer extremely concise. Strictly 3 sentences maximum.
+      3. No Markdown: Do NOT use markdown formatting (no asterisks, bolding, or hashtags). Output plain text only.
+      4. Anti-Hallucination: ONLY answer based on the context above. If asked about something not in the context (like personal opinions, unlisted jobs, or unrelated topics), politely decline and direct the user to connect with Luat on LinkedIn.
+
       User question: `;
 
       async function handleMessage() {
@@ -606,8 +621,8 @@
 
           if (data && data.reply) {
               const fullText = data.reply.replace(/\n/g, '<br>');
-              botMsg.innerHTML = ""; 
-              
+              botMsg.innerHTML = "";
+               
               let i = 0;
               let isTag = false;
               
@@ -644,6 +659,5 @@
       if(sendBtn) sendBtn.addEventListener('click', handleMessage);
       if(input) input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleMessage(); });
   </script>
-
 </body>
 </html>
