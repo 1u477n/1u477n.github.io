@@ -416,143 +416,177 @@
     </div>
   </div>
 
-<script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    
-    // --- THEME LOGIC ---
-    (function(){
-      const root = document.documentElement;
-      const toggle = document.getElementById("themeToggle");
-      const storageKey = "theme";
-      const media = window.matchMedia("(prefers-color-scheme: light)");
-      function updateTheme(theme){
-        root.setAttribute("data-theme", theme);
-        const meta = document.getElementById("themeColor");
-        if(meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#F9FAFB");
-      }
-      const saved = localStorage.getItem(storageKey);
-      if(saved) updateTheme(saved);
-      else updateTheme(media.matches ? "light" : "dark");
-      toggle.addEventListener("click", () => {
-        const current = root.getAttribute("data-theme");
-        const next = current === "dark" ? "light" : "dark";
-        updateTheme(next);
-        localStorage.setItem(storageKey, next);
-      });
-    })();
-    
-    // --- MENU LOGIC ---
-    const menuBtn = document.getElementById("menuBtn");
-    const menuPanel = document.getElementById("menuPanel");
-    menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        menuPanel.classList.toggle("open");
-    });
-    document.addEventListener("click", (e) => {
-        if(!menuPanel.contains(e.target) && e.target !== menuBtn) menuPanel.classList.remove("open");
-    });
-
-    // ==========================================
-    //  VIRTUAL L.U.A.T AGENT
-    // ==========================================
-    const trigger = document.getElementById('agentTrigger');
-    const windowEl = document.getElementById('agentWindow');
-    const closeBtn = document.getElementById('agentClose');
-    const chatArea = document.getElementById('chatArea');
-    const input = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
-
-    if(trigger) {
-        trigger.addEventListener('click', () => { windowEl.classList.add('active'); input.focus(); });
-        closeBtn.addEventListener('click', () => windowEl.classList.remove('active'));
-    }
-
-    const luatContext = `Your name is Virtual L.U.A.T. You are the digital avatar for Luat T. Nguyen.
-    Core Identity: Senior Infrastructure Engineer and Technical Product Analyst with 20+ years bridging Life Sciences and IT.
-    Key Achievements:
-    - 4D Molecular Therapeutics (2024-2025): Led vulnerability management and network segmentation.
-    - Merck (2017-2024): Won 25 INSPIRE awards; led eROP AI/ML program.
-    - Pfizer/Medivation (2014-2017): Supported NGS Linux cluster.
-    - Early Career: Contributed to a $213M exit for TrkA program at VM Discovery.
-    Skills: AWS, Python, SQL, React, Linux/Windows, AI/ML, GxP Security.
-    Education: B.S. Biochemistry/Chemistry from UCSD.
-    
-    Answer in the first person ("I"). You MUST keep your answer extremely concise, strictly under 3 sentences. Be punchy, professional, and direct.
-    
-    User question: `;
-
-    async function handleMessage() {
-      const text = input.value.trim();
-      if(!text) return;
+  <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
       
-      const userMsg = document.createElement('div');
-      userMsg.className = 'msg msg-user';
-      userMsg.textContent = text;
-      chatArea.appendChild(userMsg);
-      input.value = '';
-      chatArea.scrollTop = chatArea.scrollHeight;
-
-      const botMsg = document.createElement('div');
-      botMsg.className = 'msg msg-bot';
-      botMsg.innerHTML = "Thinking<span class='typing-dot'>.</span><span class='typing-dot'>.</span><span class='typing-dot'>.</span>";
-      chatArea.appendChild(botMsg);
-      chatArea.scrollTop = chatArea.scrollHeight;
-
-      try {
-        const fullPrompt = luatContext + text;
-
-        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/.netlify/functions/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: fullPrompt })
+      // --- THEME LOGIC ---
+      (function(){
+        const root = document.documentElement;
+        const toggle = document.getElementById("themeToggle");
+        const storageKey = "theme";
+        const media = window.matchMedia("(prefers-color-scheme: light)");
+        function updateTheme(theme){
+          root.setAttribute("data-theme", theme);
+          const meta = document.getElementById("themeColor");
+          if(meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#F9FAFB");
+        }
+        const saved = localStorage.getItem(storageKey);
+        if(saved) updateTheme(saved);
+        else updateTheme(media.matches ? "light" : "dark");
+        toggle.addEventListener("click", () => {
+          const current = root.getAttribute("data-theme");
+          const next = current === "dark" ? "light" : "dark";
+          updateTheme(next);
+          localStorage.setItem(storageKey, next);
         });
+      })();
+      
+      // --- MENU LOGIC ---
+      const menuBtn = document.getElementById("menuBtn");
+      const menuPanel = document.getElementById("menuPanel");
+      menuBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          menuPanel.classList.toggle("open");
+      });
+      document.addEventListener("click", (e) => {
+          if(!menuPanel.contains(e.target) && e.target !== menuBtn) menuPanel.classList.remove("open");
+      });
 
-        const data = await response.json().catch(() => null);
+      // ==========================================
+      //  VIRTUAL L.U.A.T AGENT (With Cost Protection)
+      // ==========================================
+      const trigger = document.getElementById('agentTrigger');
+      const windowEl = document.getElementById('agentWindow');
+      const closeBtn = document.getElementById('agentClose');
+      const chatArea = document.getElementById('chatArea');
+      const input = document.getElementById('chatInput');
+      const sendBtn = document.getElementById('sendBtn');
 
-        if (!response.ok) {
-            throw new Error(data && data.error ? data.error : "HTTP Error " + response.status);
-        }
-
-        if (data && data.reply) {
-            const fullText = data.reply.replace(/\n/g, '<br>');
-            botMsg.innerHTML = ""; 
-            
-            let i = 0;
-            let isTag = false;
-            
-            function typeWriter() {
-                if (i < fullText.length) {
-                    let char = fullText.charAt(i);
-                    if (char === '<') isTag = true;
-                    
-                    botMsg.innerHTML += char;
-                    i++;
-                    
-                    if (isTag) {
-                        if (char === '>') isTag = false;
-                        typeWriter(); 
-                    } else {
-                        chatArea.scrollTop = chatArea.scrollHeight;
-                        setTimeout(typeWriter, 10); 
-                    }
-                }
-            }
-            typeWriter();
-
-        } else {
-            throw new Error("Received an empty response.");
-        }
-
-      } catch (error) {
-        console.error("Error:", error);
-        botMsg.innerHTML = "<span style='color: #fb4934;'><b>System Error:</b> " + error.message + "</span>";
+      if(trigger) {
+          trigger.addEventListener('click', () => { windowEl.classList.add('active'); input.focus(); });
+          closeBtn.addEventListener('click', () => windowEl.classList.remove('active'));
       }
-      chatArea.scrollTop = chatArea.scrollHeight;
-    }
 
-    if(sendBtn) sendBtn.addEventListener('click', handleMessage);
-    if(input) input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleMessage(); });
-</script>
+      const luatContext = `Your name is Virtual L.U.A.T. You are the digital avatar for Luat T. Nguyen.
+      Core Identity: Senior Infrastructure Engineer and Technical Product Analyst with 20+ years bridging Life Sciences and IT.
+      Key Achievements:
+      - 4D Molecular Therapeutics (2024-2025): Led vulnerability management and network segmentation.
+      - Merck (2017-2024): Won 25 INSPIRE awards; led eROP AI/ML program.
+      - Pfizer/Medivation (2014-2017): Supported NGS Linux cluster.
+      - Early Career: Contributed to a $213M exit for TrkA program at VM Discovery.
+      Skills: AWS, Python, SQL, React, Linux/Windows, AI/ML, GxP Security.
+      Education: B.S. Biochemistry/Chemistry from UCSD.
+      
+      Answer in the first person ("I"). You MUST keep your answer extremely concise, strictly under 3 sentences. Be punchy, professional, and direct.
+      
+      User question: `;
+
+      async function handleMessage() {
+        const text = input.value.trim();
+        if(!text) return;
+
+        // --- 1. DAILY LIMIT SECURITY CHECK ---
+        const limitKey = "luat_ai_usage";
+        const maxQuestions = 3;
+        const today = new Date().toLocaleDateString();
+
+        // Retrieve past usage from browser memory
+        let usage = JSON.parse(localStorage.getItem(limitKey)) || { count: 0, date: today };
+
+        // Reset count to 0 if it is a new day
+        if (usage.date !== today) {
+          usage = { count: 0, date: today };
+        }
+
+        // Block the request if they hit the limit
+        if (usage.count >= maxQuestions) {
+          const limitMsg = document.createElement('div');
+          limitMsg.className = 'msg msg-bot';
+          limitMsg.innerHTML = `I have reached my limit of ${maxQuestions} questions per day to conserve neural resources. Please reach out to Luat directly via <a href='https://www.linkedin.com/in/1u477n/' target='_blank' style='color: var(--a1); font-weight: bold;'>LinkedIn</a>, or try again tomorrow.`;
+          chatArea.appendChild(limitMsg);
+          chatArea.scrollTop = chatArea.scrollHeight;
+          input.value = ''; // Clear their input
+          return; // Stop the function before it hits the paid API
+        }
+        // -------------------------------------
+        
+        // 2. Display User Message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'msg msg-user';
+        userMsg.textContent = text;
+        chatArea.appendChild(userMsg);
+        input.value = '';
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+        // 3. Increment the counter & save immediately (Prevents spam-clicking)
+        usage.count++;
+        localStorage.setItem(limitKey, JSON.stringify(usage));
+
+        // 4. Display Thinking Indicator
+        const botMsg = document.createElement('div');
+        botMsg.className = 'msg msg-bot';
+        botMsg.innerHTML = "Thinking<span class='typing-dot'>.</span><span class='typing-dot'>.</span><span class='typing-dot'>.</span>";
+        chatArea.appendChild(botMsg);
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+        try {
+          const fullPrompt = luatContext + text;
+
+          const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/.netlify/functions/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: fullPrompt })
+          });
+
+          const data = await response.json().catch(() => null);
+
+          if (!response.ok) {
+              // If the API fails, refund their question token
+              usage.count--;
+              localStorage.setItem(limitKey, JSON.stringify(usage));
+              throw new Error(data && data.error ? data.error : "HTTP Error " + response.status);
+          }
+
+          if (data && data.reply) {
+              const fullText = data.reply.replace(/\n/g, '<br>');
+              botMsg.innerHTML = ""; 
+              
+              let i = 0;
+              let isTag = false;
+              
+              function typeWriter() {
+                  if (i < fullText.length) {
+                      let char = fullText.charAt(i);
+                      if (char === '<') isTag = true;
+                      
+                      botMsg.innerHTML += char;
+                      i++;
+                      
+                      if (isTag) {
+                          if (char === '>') isTag = false;
+                          typeWriter(); 
+                      } else {
+                          chatArea.scrollTop = chatArea.scrollHeight;
+                          setTimeout(typeWriter, 10); 
+                      }
+                  }
+              }
+              typeWriter();
+
+          } else {
+              throw new Error("Received an empty response.");
+          }
+
+        } catch (error) {
+          console.error("Error:", error);
+          botMsg.innerHTML = "<span style='color: #fb4934;'><b>System Error:</b> " + error.message + "</span>";
+        }
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+
+      if(sendBtn) sendBtn.addEventListener('click', handleMessage);
+      if(input) input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleMessage(); });
+  </script>
 
 </body>
 </html>
