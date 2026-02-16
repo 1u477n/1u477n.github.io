@@ -21,6 +21,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
 
   <style>
     :root{
@@ -49,6 +51,16 @@
       --r20: 20px;
       --r24: 24px;
       --max: 1160px;
+
+      /* AI Agent Specific Variables (Dark) */
+      --ai-window-bg: rgba(15, 15, 15, 0.85);
+      --ai-header-bg: rgba(255, 255, 255, 0.03);
+      --ai-input-base: rgba(0, 0, 0, 0.4);
+      --ai-bot-bubble: rgba(255, 255, 255, 0.06);
+      --ai-bot-border: rgba(255, 255, 255, 0.05);
+      --ai-user-bubble: var(--a1);
+      --ai-user-text: #050505;
+      --ai-accent: var(--a1);
     }
 
     /* Light Theme Override */
@@ -66,6 +78,16 @@
             
       --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0,0,0,0.05);
       --ring: 0 0 0 2px rgba(56,189,248,.45);
+
+      /* AI Agent Specific Variables (Light) */
+      --ai-window-bg: rgba(255, 255, 255, 0.9);
+      --ai-header-bg: rgba(0, 0, 0, 0.02);
+      --ai-input-base: rgba(240, 240, 240, 0.7);
+      --ai-bot-bubble: #FFFFFF;
+      --ai-bot-border: rgba(0, 0, 0, 0.08);
+      --ai-user-bubble: var(--a2);
+      --ai-user-text: #FFFFFF;
+      --ai-accent: var(--a2);
     }
 
     * { box-sizing: border-box; }
@@ -82,258 +104,151 @@
     }
 
     /* --- Background FX --- */
-    .bg-orbs {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background: var(--bg0);
-      overflow: hidden;
-    }
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.4;
-      animation: float 10s infinite ease-in-out alternate;
-    }
+    .bg-orbs { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--bg0); overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
     .orb-1 { width: 600px; height: 600px; background: var(--a1); top: -10%; left: -10%; animation-delay: 0s; }
     .orb-2 { width: 500px; height: 500px; background: var(--a2); bottom: -10%; right: -10%; animation-delay: -2s; }
     .orb-3 { width: 400px; height: 400px; background: var(--a3); top: 40%; left: 40%; opacity: 0.2; animation-delay: -5s; }
 
-    @keyframes float {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(30px, 30px); }
-    }
+    @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 30px); } }
 
-    .bg-noise {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.05;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    }
+    .bg-noise { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
 
-    .container{
-      max-width: var(--max);
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
+    .container{ max-width: var(--max); margin: 0 auto; position: relative; z-index: 1; }
 
-    /* Top Bar (Pill Style) */
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      background: var(--panel);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--stroke);
-      border-radius: 99px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 20px;
-      z-index: 100;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .theme-toggle {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: var(--grad);
-      border: 0;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      color: white;
-      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
-      transition: transform 0.2s ease;
-    }
+    /* Top Bar */
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--panel); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--stroke); border-radius: 99px; margin-bottom: 24px; box-shadow: var(--shadow); position: sticky; top: 20px; z-index: 100; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .theme-toggle { width: 36px; height: 36px; border-radius: 50%; background: var(--grad); border: 0; cursor: pointer; display: grid; place-items: center; color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); transition: transform 0.2s ease; }
     .theme-toggle:hover { transform: scale(1.05); }
     .theme-toggle svg { width: 18px; height: 18px; }
     [data-theme="dark"] .sun { display: none; }
     [data-theme="light"] .moon { display: none; }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
     .brand-text strong { font-size: 14px; font-weight: 700; }
     .brand-text span { font-size: 12px; color: var(--muted2); }
 
-    .menu-btn {
-      width: 40px; height: 40px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      cursor: pointer;
-      transition: 0.2s;
-    }
+    .menu-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--stroke); background: rgba(255,255,255,0.05); color: var(--text); cursor: pointer; transition: 0.2s; }
     .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
 
     /* Menu Panel */
-    .menu{
-      position: fixed; top: 80px; right: 20px;
-      width: min(300px, 90vw);
-      background: var(--panel-hover);
-      border: 1px solid var(--stroke);
-      border-radius: 20px;
-      backdrop-filter: blur(24px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-      padding: 8px;
-      display: none;
-      z-index: 999;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .menu{ position: fixed; top: 80px; right: 20px; width: min(300px, 90vw); background: var(--panel-hover); border: 1px solid var(--stroke); border-radius: 20px; backdrop-filter: blur(24px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); padding: 8px; display: none; z-index: 999; flex-direction: column; gap: 4px; }
     .menu.open { display: flex; animation: fadeDown 0.2s ease-out; }
     @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-    .menu a {
-      padding: 12px 16px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 14px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.2s;
-    }
+    .menu a { padding: 12px 16px; text-decoration: none; color: var(--text); font-size: 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
     .menu a:hover { background: rgba(255,255,255,0.08); }
     .menu a span { font-size: 16px; opacity: 0.5; }
 
     /* Hero */
-    .hero {
-      text-align: center;
-      padding: 60px 20px;
-      margin-bottom: 40px;
-    }
-    .hero h1 {
-      font-size: clamp(32px, 6vw, 56px);
-      margin: 0 0 16px;
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-    .grad-text {
-      background: linear-gradient(135deg, var(--text) 30%, var(--a1));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .subhead {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
+    .hero { text-align: center; padding: 60px 20px; margin-bottom: 40px; }
+    .hero h1 { font-size: clamp(32px, 6vw, 56px); margin: 0 0 16px; letter-spacing: -0.03em; line-height: 1; }
+    .grad-text { background: linear-gradient(135deg, var(--text) 30%, var(--a1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subhead { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
     /* Awards Grid */
-    .awards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 20px;
-    }
-
-    /* Redesigned Works Card to match "Award Card" style */
-    .award-card {
-      background: var(--panel);
-      border: 1px solid var(--stroke);
-      border-radius: 24px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      position: relative;
-      overflow: hidden;
-      min-height: 180px;
-    }
-
-    /* Hover Glimmer Effect */
-    .award-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
-      transform: translateX(-100%);
-      transition: transform 0.6s;
-    }
-
-    .award-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--a2);
-      background: var(--panel-hover);
-      box-shadow: 0 15px 40px -10px rgba(129, 140, 248, 0.2);
-    }
+    .awards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    .award-card { background: var(--panel); border: 1px solid var(--stroke); border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 16px; text-decoration: none; color: var(--text); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; min-height: 180px; }
+    .award-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.6s; }
+    .award-card:hover { transform: translateY(-5px); border-color: var(--a2); background: var(--panel-hover); box-shadow: 0 15px 40px -10px rgba(129, 140, 248, 0.2); }
     .award-card:hover::before { transform: translateX(100%); }
-
-    .award-title {
-      font-size: 16px;
-      line-height: 1.5;
-      margin: 0;
-      font-weight: 700;
-    }
-
-    .meta {
-      margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
+    .award-title { font-size: 16px; line-height: 1.5; margin: 0; font-weight: 700; }
+    .meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
     .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-    .chip {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 99px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--stroke);
-      color: var(--muted);
-    }
+    .chip { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: rgba(255,255,255,0.05); border: 1px solid var(--stroke); color: var(--muted); }
+    .arrow { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--stroke); display: grid; place-items: center; transition: 0.3s; color: var(--text); }
+    .award-card:hover .arrow { background: var(--text); color: var(--bg0); transform: rotate(-45deg); }
 
-    .arrow {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--stroke);
-      display: grid;
-      place-items: center;
-      transition: 0.3s;
-      color: var(--text);
-    }
-    .award-card:hover .arrow {
-      background: var(--text);
-      color: var(--bg0);
-      transform: rotate(-45deg);
-    }
+    .footer { margin-top: 40px; padding: 24px; text-align: center; font-size: 12px; color: var(--muted2); }
 
-    .footer {
-      margin-top: 40px;
-      padding: 24px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--muted2);
+    /* ==========================================
+       MOLECULE EXPLORER AGENT STYLES
+       ========================================== */
+    .agent-trigger {
+      position: fixed; bottom: 30px; right: 30px;
+      width: 75px; height: 75px;
+      border-radius: 50%; background: var(--bg0);
+      border: 3px solid var(--a1);
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
+      cursor: pointer; display: grid; place-items: center; z-index: 1000;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+    .agent-trigger::after {
+      content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--a1);
+      opacity: 0; animation: pulseRing 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    @keyframes pulseRing { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } }
+    .agent-trigger:hover { transform: scale(1.1) rotate(10deg); }
+    
+    /* Brain Icon Animation */
+    .agent-trigger svg { 
+      color: var(--a1); width: 36px; height: 36px; 
+      animation: brainPulse 2s infinite ease-in-out;
+    }
+    @keyframes brainPulse { 
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--a1)); } 
+      50% { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--a1)); } 
+    }
+    
+    .agent-window {
+      position: fixed; bottom: 120px; right: 30px; 
+      width: min(380px, 90vw); height: 580px; 
+      background: var(--ai-window-bg); 
+      backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+      border: 1px solid var(--stroke); border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px var(--stroke); 
+      display: flex; flex-direction: column;
+      transform: scale(0.9); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 1000; overflow: hidden;
+    }
+    .agent-window.active { transform: scale(1); opacity: 1; pointer-events: all; }
+    
+    .agent-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--stroke); 
+      font-weight: 700; font-size: 13px; letter-spacing: 0.5px; 
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--ai-header-bg); color: var(--text);
+    }
+    .agent-close { cursor: pointer; opacity: 0.5; padding: 4px; border-radius: 50%; display: grid; place-items: center; transition: 0.2s; } 
+    .agent-close:hover { opacity: 1; background: var(--stroke); }
+
+    /* The embedded 3D viewer container */
+    .viewer-container {
+        height: 0px; 
+        width: 100%; 
+        background: rgba(0,0,0,0.4); 
+        position: relative; 
+        transition: height 0.3s ease;
+        border-bottom: 1px solid var(--stroke);
+    }
+    .viewer-container.active { height: 220px; }
+    .molecule-tag {
+        position: absolute; top: 10px; left: 10px; z-index: 10;
+        background: rgba(0,0,0,0.7); border: 1px solid var(--a1);
+        color: var(--a1); font-size: 10px; padding: 4px 8px; border-radius: 8px;
+        font-weight: bold; letter-spacing: 1px; display: none;
+    }
+    
+    .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; font-size: 14px; }
+    .msg { padding: 12px 16px; max-width: 85%; line-height: 1.5; word-wrap: break-word; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .msg-bot { background: var(--ai-bot-bubble); color: var(--text); border: 1px solid var(--ai-bot-border); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .msg-user { background: var(--ai-user-bubble); color: var(--ai-user-text); align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+    
+    .chat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .chip-btn { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--a1); border-radius: 16px; padding: 6px 12px; font-size: 12px; cursor: pointer; transition: 0.2s; font-weight: 500; }
+    .chip-btn:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
+
+    .input-area { padding: 16px; border-top: 1px solid var(--stroke); display: flex; gap: 10px; background: var(--ai-input-base); }
+    .chat-input { flex: 1; background: var(--bg0); border: 1px solid var(--stroke); border-radius: 12px; padding: 10px 14px; color: var(--text); font-family: inherit; font-size: 14px; transition: 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+    .chat-input:focus { outline: none; border-color: var(--ai-accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
+    .send-btn { background: var(--ai-accent); border: none; border-radius: 12px; width: 42px; display: grid; place-items: center; cursor: pointer; color: var(--ai-user-text); transition: 0.2s; }
+    .send-btn:hover { transform: scale(1.05); }
+    .send-btn:active { transform: scale(0.95); }
+
+    .typing-dot { animation: blink 1.4s infinite both; font-size: 18px; margin: 0 1px; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0% { opacity: 0.2; } 20% { opacity: 1; } 100% { opacity: 0.2; } }
   </style>
 </head>
-
 <body>
   <div class="bg-orbs">
     <div class="orb orb-1"></div>
@@ -354,7 +269,7 @@
           <span>Synthetic Chronicles</span>
         </div>
       </div>
-            
+                  
       <button class="menu-btn" id="menuBtn" aria-label="Menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
@@ -379,7 +294,6 @@
     </section>
 
     <section class="awards-grid">
-      
       <a href="publishedworks/2003_Nanotech.pdf" class="award-card">
         <h3 class="award-title">(2003) MembraneChip - Arrays of Natively Displayed Membrane Targets for Novel Drug Discovery</h3>
         <div class="meta">
@@ -479,12 +393,49 @@
           </div>
         </div>
       </a>
-
     </section>
 
     <footer class="footer">
       © <span id="year"></span> · Published Works · <a href="https://1u477n.github.io/" style="color:inherit">Home</a>
     </footer>
+  </div>
+
+  <div class="agent-trigger" id="agentTrigger" title="Molecular Explorer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
+      <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
+    </svg>
+  </div>
+
+  <div class="agent-window" id="agentWindow">
+    <div class="agent-header">
+      <span>MOLECULAR EXPLORER</span>
+      <span class="agent-close" id="agentClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </span>
+    </div>
+    
+    <div id="molViewerContainer" class="viewer-container">
+        <span id="moleculeTag" class="molecule-tag">PDB</span>
+    </div>
+
+    <div class="chat-area" id="chatArea">
+      <div class="msg msg-bot">
+        I am the Molecular Explorer. Ask me to render a specific PDB ID or ask about the molecular targets associated with Luat's patents.
+        <div class="chat-chips">
+          <button class="chip-btn" onclick="triggerPDBQuery('Visualize TrkA Target')">Visualize TrkA Target</button>
+          <button class="chip-btn" onclick="triggerPDBQuery('Show a Calcium Ion Channel')">Calcium Ion Channel</button>
+          <button class="chip-btn" onclick="triggerPDBQuery('Tell me about the Biosensor Example')">Biosensor Example</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Enter PDB ID (e.g., 7XAF) or target name..." autocomplete="off">
+      <button class="send-btn" id="sendBtn" title="Send Message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
   </div>
 
   <script>
@@ -518,7 +469,7 @@
     // Menu Toggle
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
-        
+            
     menuBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         menuPanel.classList.toggle("open");
@@ -526,6 +477,216 @@
     document.addEventListener("click", (e) => {
         if(!menuPanel.contains(e.target) && e.target !== menuBtn) menuPanel.classList.remove("open");
     });
+
+    // ==========================================
+    //  MOLECULAR EXPLORER AI LOGIC & 3D VIEWER
+    // ==========================================
+    const trigger = document.getElementById('agentTrigger');
+    const windowEl = document.getElementById('agentWindow');
+    const closeBtn = document.getElementById('agentClose');
+    const chatArea = document.getElementById('chatArea');
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    
+    const molViewerContainer = document.getElementById('molViewerContainer');
+    const moleculeTag = document.getElementById('moleculeTag');
+    let viewer = null;
+
+    if(trigger) {
+        trigger.addEventListener('click', () => { windowEl.classList.add('active'); input.focus(); });
+        closeBtn.addEventListener('click', () => windowEl.classList.remove('active'));
+    }
+
+    // Initialize 3Dmol viewer
+    function initViewer() {
+        if(!viewer) {
+            viewer = $3Dmol.createViewer(molViewerContainer, { backgroundColor: "rgba(0,0,0,0)" });
+        }
+    }
+
+    // Function to download and render PDB file
+    function loadMolecule(pdbId) {
+        molViewerContainer.classList.add('active');
+        moleculeTag.style.display = 'block';
+        moleculeTag.innerText = `PDB: ${pdbId}`;
+        
+        initViewer();
+        viewer.clear();
+        
+        // Fetch from RCSB PDB
+        $3Dmol.download(`pdb:${pdbId}`, viewer, {onemol: true, multimer: true}, function() {
+            viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
+            viewer.zoomTo();
+            viewer.render();
+            viewer.zoom(0.8, 2000); // animate slight zoom out
+        });
+    }
+
+    // Hide the viewer if no PDB is triggered
+    function hideViewer() {
+        molViewerContainer.classList.remove('active');
+        moleculeTag.style.display = 'none';
+    }
+
+    // Expose for the quick-start chips
+    window.triggerPDBQuery = function(query) {
+        input.value = query;
+        handleMessage();
+    };
+
+    const luatContext = `SYSTEM INSTRUCTIONS: You are the Molecular Explorer, a digital computational chemistry assistant for Luat Nguyen.
+
+    CONTEXT:
+    - TrkA Target: Luat co-authored patents for Receptor Tyrosine Kinase inhibitors. The PDB ID for TrkA in complex with a Pan-Trk Kinase Inhibitor is 7XAF. The TrkA program was acquired by Purdue Pharma for up to $213M.
+    - Calcium Ion Channel: Luat holds patents for calcium ion channel modulators. The PDB ID for Human L-type voltage-gated calcium channel Cav1.2 (Class II) in the presence of pinaverium is 8WEA.
+    - Biosensor Example: Luat holds patents for biosensor arrays and membrane targets. When asked about this, summarize this article: https://pubmed.ncbi.nlm.nih.gov/15960850/. Explain that it details a technique using cell membrane microarrays to monitor the binding of specific ligands, proving highly effective for novel drug discovery.
+    
+    STRICT RULES:
+    1. Persona: Scientific, direct, and concise. Answer in the first person ("I").
+    2. Length: Strictly 3 sentences maximum.
+    3. Formatting: Plain text only (no Markdown like **).
+    4. Focus: If the user asks about TrkA, Calcium Channels, or Biosensors, mention Luat's specific work and explain the target.
+
+    User question: `;
+
+    let lastAiMessage = "";
+
+    async function handleMessage() {
+      const text = input.value.trim();
+      if(!text) return;
+
+      const limitKey = "luat_ai_usage";
+      const maxQuestions = 5; 
+      const today = new Date().toLocaleDateString();
+      let usage = JSON.parse(localStorage.getItem(limitKey)) || { count: 0, date: today };
+
+      if (usage.date !== today) usage = { count: 0, date: today };
+
+      if (usage.count >= maxQuestions) {
+        const limitMsg = document.createElement('div');
+        limitMsg.className = 'msg msg-bot';
+        limitMsg.innerHTML = `Molecular rendering limits reached for today to conserve compute. Reach out on <a href='https://www.linkedin.com/in/1u477n/' target='_blank' style='color: var(--a1); font-weight: bold;'>LinkedIn</a>.`;
+        chatArea.appendChild(limitMsg);
+        chatArea.scrollTop = chatArea.scrollHeight;
+        input.value = '';
+        return; 
+      }
+      
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg msg-user';
+      userMsg.textContent = text;
+      chatArea.appendChild(userMsg);
+      input.value = '';
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      usage.count++;
+      localStorage.setItem(limitKey, JSON.stringify(usage));
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg msg-bot';
+      botMsg.innerHTML = "Processing Structure<span class='typing-dot'>.</span><span class='typing-dot'>.</span><span class='typing-dot'>.</span>";
+      chatArea.appendChild(botMsg);
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      // ---- 3D Molecule Interception Logic ----
+      let pdbToLoad = null;
+      const lowerText = text.toLowerCase();
+      
+      // Strict mapping to your requested PDB IDs (Broadened to ensure clicks trigger correctly)
+      if (lowerText.includes('trka') || lowerText.includes('tyrosine') || lowerText.includes('7xaf')) {
+          pdbToLoad = '7XAF'; 
+      }
+      else if (lowerText.includes('calcium') || lowerText.includes('8wea')) {
+          pdbToLoad = '8WEA'; 
+      }
+      else if (lowerText.includes('biosensor') || lowerText.includes('pubmed')) {
+          hideViewer(); // No 3D model for the biosensor paper summary
+      }
+      else {
+          // Check if they typed a random direct 4-character PDB code
+          const match = text.match(/\b([1-9][a-zA-Z0-9]{3})\b/);
+          if(match) pdbToLoad = match[1].toUpperCase();
+      }
+
+      if(pdbToLoad) {
+          loadMolecule(pdbToLoad);
+      }
+
+      // ---- Send request to LLM ----
+      try {
+        let fullPrompt = luatContext;
+        if (lastAiMessage !== "") {
+            fullPrompt += `\n\nAI's previous message to user: "${lastAiMessage}"`;
+        }
+        
+        // Inject contextual awareness if a PDB is loaded
+        if (pdbToLoad) {
+            fullPrompt += `\n\n(System Note: The 3D viewer is currently displaying PDB ID ${pdbToLoad}.)`;
+        }
+        
+        fullPrompt += `\n\nUser's current reply: "${text}"`;
+
+        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/.netlify/functions/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: fullPrompt })
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (!response.ok) {
+            usage.count--;
+            localStorage.setItem(limitKey, JSON.stringify(usage));
+            throw new Error(data && data.error ? data.error : "HTTP Error " + response.status);
+        }
+
+        if (data && data.reply) {
+            lastAiMessage = data.reply; 
+
+            // Convert newlines to HTML breaks, and fix any stray **markdown**
+            const fullText = data.reply
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            botMsg.innerHTML = "";
+             
+            let i = 0;
+            let currentText = "";
+            
+            function typeWriter() {
+                if (i < fullText.length) {
+                    if (fullText.charAt(i) === '<') {
+                        let tagEnd = fullText.indexOf('>', i);
+                        if (tagEnd !== -1) {
+                            currentText += fullText.substring(i, tagEnd + 1);
+                            i = tagEnd + 1;
+                            botMsg.innerHTML = currentText;
+                            chatArea.scrollTop = chatArea.scrollHeight;
+                            typeWriter();
+                            return;
+                        }
+                    }
+                    
+                    currentText += fullText.charAt(i);
+                    botMsg.innerHTML = currentText;
+                    i++;
+                    
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                    setTimeout(typeWriter, 10); 
+                }
+            }
+            typeWriter();
+        } else {
+            throw new Error("Received an empty response.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        botMsg.innerHTML = "<span style='color: #fb4934;'><b>System Error:</b> " + error.message + "</span>";
+      }
+    }
+
+    if(sendBtn) sendBtn.addEventListener('click', handleMessage);
+    if(input) input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleMessage(); });
   </script>
 </body>
 </html>
