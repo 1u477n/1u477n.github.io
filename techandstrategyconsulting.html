@@ -224,7 +224,7 @@
     .footer { margin-top: 40px; padding: 20px; text-align: center; font-size: 12px; color: var(--muted2); border-top: 1px solid var(--stroke); }
 
     /* ==========================================
-       VIRTUAL L.U.A.T STYLES (Consulting Focus)
+       VIRTUAL L.U.A.T STYLES (Consulting + Simulator)
        ========================================== */
     .agent-trigger {
       position: fixed; bottom: 30px; right: 30px;
@@ -291,12 +291,18 @@
     .chat-chips {
       display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
     }
-    .chip {
+    .chip-btn {
       background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3);
       color: var(--a1); border-radius: 16px; padding: 6px 12px; font-size: 12px;
-      cursor: pointer; transition: 0.2s; font-weight: 500;
+      cursor: pointer; transition: 0.2s; font-weight: 500; text-align: left;
     }
-    .chip:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
+    .chip-btn:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
+    
+    /* Special styling for the Gamification Simulator button */
+    .chip-primary {
+      background: var(--grad); color: #fff; border: none; box-shadow: 0 4px 10px rgba(56,189,248,0.3);
+    }
+    .chip-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(56,189,248,0.4); }
 
     .input-area { padding: 16px; border-top: 1px solid var(--stroke); display: flex; gap: 10px; background: var(--ai-input-base); }
     .chat-input { flex: 1; background: var(--bg0); border: 1px solid var(--stroke); border-radius: 12px; padding: 10px 14px; color: var(--text); font-family: inherit; font-size: 14px; transition: 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
@@ -547,14 +553,14 @@
       <div class="msg msg-bot">
         Hello. I am the digital consultant for Luat (Luke) Nguyen. How can we help scale your biotech's R&D or data infrastructure today?
         <div class="chat-chips">
-          <button class="chip" onclick="document.getElementById('chatInput').value=this.innerText; document.getElementById('sendBtn').click();">Explain the GIFT model</button>
-          <button class="chip" onclick="document.getElementById('chatInput').value=this.innerText; document.getElementById('sendBtn').click();">What is your AI strategy?</button>
-          <button class="chip" onclick="document.getElementById('chatInput').value=this.innerText; document.getElementById('sendBtn').click();">Tell me about your patents</button>
+          <button class="chip-btn chip-primary" onclick="triggerSimulation()">Run Strategy Simulator 🚀</button>
+          <button class="chip-btn" onclick="triggerChat('Explain the GIFT model')">Explain the GIFT model</button>
+          <button class="chip-btn" onclick="triggerChat('What is your AI strategy?')">What is your AI strategy?</button>
         </div>
       </div>
     </div>
     <div class="input-area">
-      <input type="text" class="chat-input" id="chatInput" placeholder="Ask about strategy, IT, or AI..." autocomplete="off">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask about strategy, IT, or play..." autocomplete="off">
       <button class="send-btn" id="sendBtn" title="Send Message">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
       </button>
@@ -605,10 +611,8 @@
         const link = document.createElement("a");
         link.href = "#" + h.id;
         
-        // Use text content but clean up any excessive spacing/newlines
         link.textContent = h.textContent.replace(/\s+/g, " ").trim();
         
-        // Indent H3s
         if(h.tagName === "H3") link.style.paddingLeft = "20px";
         
         link.addEventListener("click", (e) => {
@@ -643,15 +647,11 @@
       });
     });
     
-    document.getElementById("lightboxClose").addEventListener("click", () => {
-      lightbox.classList.remove("open");
-    });
-    lightbox.addEventListener("click", (e) => {
-      if(e.target === lightbox) lightbox.classList.remove("open");
-    });
+    document.getElementById("lightboxClose").addEventListener("click", () => { lightbox.classList.remove("open"); });
+    lightbox.addEventListener("click", (e) => { if(e.target === lightbox) lightbox.classList.remove("open"); });
 
-    // ==========================================
-    //  VIRTUAL CONSULTANT AGENT
+// ==========================================
+    //  MULTI-MODAL AGENT (Consulting + Simulator)
     // ==========================================
     const trigger = document.getElementById('agentTrigger');
     const windowEl = document.getElementById('agentWindow');
@@ -665,6 +665,21 @@
         closeBtn.addEventListener('click', () => windowEl.classList.remove('active'));
     }
 
+    // Exported click handlers for UI buttons
+    window.triggerSimulation = function() {
+        input.value = "Run R&D Strategy Simulator";
+        handleMessage();
+    };
+    
+    window.triggerChat = function(query) {
+        input.value = query;
+        handleMessage();
+    };
+
+    // 1. Add a memory variable to track the conversation
+    let lastAiMessage = "";
+
+    // 2. Upgraded prompt to handle conversational context
     const luatContext = `SYSTEM INSTRUCTIONS: You are Virtual L.U.A.T, the digital consultant avatar for Luat (Luke) Nguyen.
 
     CONTEXT (Consulting Offerings - The G.I.F.T Model):
@@ -672,22 +687,32 @@
     - I (Informatics): Scientific informatics, AI-driven R&D, data governance (GxP, HIPAA).
     - F (Future-Ready IT): Cloud/hybrid R&D infrastructure, digital transformation, agile product management.
     - T (Technology): Computational drug discovery, cybersecurity, scalable AI/ML infrastructure.
-    - Background: Inventor with patents in biosensors, calcium ion channels, and TrkA inhibitors (acquired by Purdue Pharma). 70%+ experimental validation rate at UCSF.
+    - Background: Inventor with patents in biosensors, calcium ion channels, and TrkA inhibitors.
+
+    SIMULATOR MODE LOGIC:
+    If the user asks to "Run R&D Strategy Simulator":
+    1. Present a brief, high-stakes biotech scenario.
+    2. Offer exactly 2 distinct strategic choices (A or B).
+    
+    If the user replies with "A" or "B":
+    1. Read the "AI's previous message" below to understand what A and B were.
+    2. Evaluate their specific choice using Luat's GIFT framework.
+    3. State the business outcome (e.g., burn rate impact or time-to-market).
+    4. Immediately present the next scenario with 2 new choices.
 
     STRICT RULES:
-    1. Persona: Professional, strategic, and concise consultant. Use first-person ("I", "my team").
-    2. Length: Strictly 3 sentences maximum.
-    3. Formatting: Plain text only (no Markdown).
-    4. Focus: Only answer questions related to IT, AI, Biotech R&D consulting, or Luat's background. Deflect unrelated queries politely.
-
-    User question: `;
+    1. Persona: Professional, strategic. Use first-person ("I", "my team").
+    2. Length: Keep answers extremely punchy. Strictly 4 sentences maximum.
+    3. Formatting: Plain text only (no Markdown like ** or *).
+    4. Focus: Only answer questions related to IT, AI, Biotech R&D consulting, or Luat's background. Deflect unrelated queries.
+    `;
 
     async function handleMessage() {
       const text = input.value.trim();
       if(!text) return;
 
       const limitKey = "luat_ai_usage";
-      const maxQuestions = 3;
+      const maxQuestions = 6; 
       const today = new Date().toLocaleDateString();
       let usage = JSON.parse(localStorage.getItem(limitKey)) || { count: 0, date: today };
 
@@ -696,7 +721,7 @@
       if (usage.count >= maxQuestions) {
         const limitMsg = document.createElement('div');
         limitMsg.className = 'msg msg-bot';
-        limitMsg.innerHTML = `I have reached my limit of ${maxQuestions} questions per day to conserve resources. Please reach out to Luat directly via <a href='https://www.linkedin.com/in/1u477n/' target='_blank' style='color: var(--a1); font-weight: bold;'>LinkedIn</a> to continue the conversation.`;
+        limitMsg.innerHTML = `I have reached my daily limit to conserve resources. Please reach out to Luat directly via <a href='https://www.linkedin.com/in/1u477n/' target='_blank' style='color: var(--a1); font-weight: bold;'>LinkedIn</a> to continue the conversation.`;
         chatArea.appendChild(limitMsg);
         chatArea.scrollTop = chatArea.scrollHeight;
         input.value = '';
@@ -720,7 +745,13 @@
       chatArea.scrollTop = chatArea.scrollHeight;
 
       try {
-        const fullPrompt = luatContext + text;
+        // Build the contextual prompt, injecting the previous turn if it exists
+        let fullPrompt = luatContext;
+        if (lastAiMessage !== "") {
+            fullPrompt += `\n\nAI's previous message to user: "${lastAiMessage}"`;
+        }
+        fullPrompt += `\n\nUser's current reply: "${text}"`;
+
         const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/.netlify/functions/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -736,27 +767,41 @@
         }
 
         if (data && data.reply) {
-            const fullText = data.reply.replace(/\n/g, '<br>');
+            // Save the raw AI response to memory for the NEXT turn
+            lastAiMessage = data.reply; 
+
+            // Convert newlines to HTML breaks, and fix any stray **markdown**
+            const fullText = data.reply
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
             botMsg.innerHTML = "";
              
             let i = 0;
-            let isTag = false;
+            let currentText = "";
             
             function typeWriter() {
                 if (i < fullText.length) {
-                    let char = fullText.charAt(i);
-                    if (char === '<') isTag = true;
+                    // If we detect the start of an HTML tag, inject the whole tag at once
+                    if (fullText.charAt(i) === '<') {
+                        let tagEnd = fullText.indexOf('>', i);
+                        if (tagEnd !== -1) {
+                            currentText += fullText.substring(i, tagEnd + 1);
+                            i = tagEnd + 1;
+                            botMsg.innerHTML = currentText;
+                            chatArea.scrollTop = chatArea.scrollHeight;
+                            typeWriter(); // Instantly move to next character without delay
+                            return;
+                        }
+                    }
                     
-                    botMsg.innerHTML += char;
+                    // Otherwise, type the normal character
+                    currentText += fullText.charAt(i);
+                    botMsg.innerHTML = currentText;
                     i++;
                     
-                    if (isTag) {
-                        if (char === '>') isTag = false;
-                        typeWriter(); 
-                    } else {
-                        chatArea.scrollTop = chatArea.scrollHeight;
-                        setTimeout(typeWriter, 10); 
-                    }
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                    setTimeout(typeWriter, 10); 
                 }
             }
             typeWriter();
