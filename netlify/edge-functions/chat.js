@@ -1,8 +1,11 @@
 // netlify/edge-functions/chat.js
 
 // Define the required CORS headers for cross-domain communication
+
+// SECURITY UPGRADE: Only allow requests from github domain
+// "Access-Control-Allow-Origin": "*", // Or explicitly set "https://1u477n.github.io"
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*", // Or explicitly set "https://1u477n.github.io"
+  "Access-Control-Allow-Origin": "https://1u477n.github.io", 
   "Access-Control-Allow-Headers": "Content-Type",
   "Access-Control-Allow-Methods": "POST, OPTIONS"
 };
