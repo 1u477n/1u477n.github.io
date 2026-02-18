@@ -161,13 +161,14 @@
       display: flex;
       justify-content: center;
       margin-top: 40px;
+      margin-bottom: 20px;
       position: relative;
       z-index: 10;
     }
     
     .agent-trigger {
       position: relative;
-      width: 100px; height: 100px;
+      width: 120px; height: 120px;
       border-radius: 50%; background: var(--bg0);
       border: 3px solid var(--a1);
       box-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
@@ -179,7 +180,14 @@
       opacity: 0; animation: pulseRing 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     @keyframes pulseRing { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } }
-    .agent-trigger:hover { transform: scale(1.1) rotate(10deg); }
+    .agent-trigger:hover { transform: scale(1.1) rotate(0deg); }
+
+    .click-text {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        font-weight: 600;
+        opacity: 0.8;
+    }
     
     .trigger-img {
       width: 100%;
@@ -311,6 +319,7 @@
           <img src="https://blueprintaipartners.github.io/images/logo.gif" alt="AI Agent" class="trigger-img">
         </div>
       </div>
+      <div class="click-text">Click me to Chat</div>
     </section>
 
     <section class="awards-grid">
