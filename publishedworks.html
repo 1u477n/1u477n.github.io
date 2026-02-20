@@ -46,15 +46,19 @@
       --r24: 24px;
       --max: 1160px;
 
-      /* AI Agent Specific Variables (Dark) */
+    /* AI Agent Specific Variables (Dark) */
       --ai-window-bg: rgba(15, 15, 15, 0.85);
       --ai-header-bg: rgba(255, 255, 255, 0.03);
-      --ai-input-base: rgba(0, 0, 0, 0.4);
+      --ai-input-base: rgba(0, 0, 0, 0.3);
+      --ai-input-bg: rgba(0, 0, 0, 0.5); /* Dark input field */
       --ai-bot-bubble: rgba(255, 255, 255, 0.06);
       --ai-bot-border: rgba(255, 255, 255, 0.05);
-      --ai-user-bubble: var(--a1);
-      --ai-user-text: #050505;
+      --ai-user-bubble: linear-gradient(90deg, var(--a2), var(--a1));
+      --ai-user-text: #ffffff;
       --ai-accent: var(--a1);
+      --ai-scroll-thumb: rgba(255, 255, 255, 0.15);
+      --ai-send-icon: var(--a1);
+      --ai-send-hover-text: #000000;
     }
 
     /* Light Theme Override */
@@ -73,15 +77,19 @@
       --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0,0,0,0.05);
       --ring: 0 0 0 2px rgba(56,189,248,.45);
 
-      /* AI Agent Specific Variables (Light) */
-      --ai-window-bg: rgba(255, 255, 255, 0.9);
-      --ai-header-bg: rgba(0, 0, 0, 0.02);
-      --ai-input-base: rgba(240, 240, 240, 0.7);
-      --ai-bot-bubble: #FFFFFF;
+    /* AI Agent Specific Variables (Light) */
+      --ai-window-bg: rgba(255, 255, 255, 0.85);
+      --ai-header-bg: rgba(0, 0, 0, 0.04);
+      --ai-input-base: rgba(240, 240, 240, 0.5);
+      --ai-input-bg: rgba(255, 255, 255, 0.8); /* Light input field */
+      --ai-bot-bubble: rgba(0, 0, 0, 0.04);
       --ai-bot-border: rgba(0, 0, 0, 0.08);
-      --ai-user-bubble: var(--a2);
-      --ai-user-text: #FFFFFF;
+      --ai-user-bubble: linear-gradient(90deg, var(--a2), var(--a1));
+      --ai-user-text: #ffffff;
       --ai-accent: var(--a2);
+      --ai-scroll-thumb: rgba(0, 0, 0, 0.2); /* Dark scrollbar for light mode */
+      --ai-send-icon: var(--a2);
+      --ai-send-hover-text: #ffffff;
     }
 
     * { box-sizing: border-box; }
@@ -278,14 +286,15 @@
     .chat-area { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.15) transparent; }
     .chat-area::-webkit-scrollbar { width: 6px; }
     .chat-area::-webkit-scrollbar-track { background: transparent; margin-top: 10px; margin-bottom: 10px; }
+    /* --- Dynamically Themed Scrollbar --- */
     .chat-area::-webkit-scrollbar-thumb { 
-        background-color: rgba(255, 255, 255, 0.15); 
+        background-color: var(--ai-scroll-thumb); 
         border-radius: 10px; 
         transition: background-color 0.3s ease; 
     }
     .chat-area::-webkit-scrollbar-thumb:hover { 
-        background-color: var(--a1); 
-        box-shadow: 0 0 10px var(--a1); 
+        background-color: var(--ai-accent); 
+        box-shadow: 0 0 10px var(--ai-accent); 
     }
     /* --- 3. Message Bubbles & Animation --- */
     .msg { 
@@ -294,19 +303,63 @@
     }
     @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     .msg-bot { background: var(--ai-bot-bubble); color: var(--text); border: 1px solid var(--ai-bot-border); align-self: flex-start; border-bottom-left-radius: 4px; }
-    .msg-user { background: linear-gradient(90deg, var(--a2), var(--a1)); color: white; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; transform-origin: bottom right; }
-    .msg b, .msg strong { color: var(--a1); }
+    /* --- Dynamically Themed User Message --- */
+    .msg-user { 
+        background: var(--ai-user-bubble); 
+        color: var(--ai-user-text); 
+        align-self: flex-end; 
+        border-bottom-right-radius: 4px; 
+        font-weight: 500; 
+        transform-origin: bottom right; 
+    }
+    .msg b, .msg strong { color: var(--ai-accent); }
     
     .chat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
     .chip-btn { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--a1); border-radius: 16px; padding: 6px 12px; font-size: 12px; cursor: pointer; transition: 0.2s; font-weight: 500; }
     .chip-btn:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
 
-    .input-area { padding: 16px; border-top: 1px solid var(--stroke); display: flex; gap: 10px; background: var(--ai-input-base); }
-    .chat-input { flex: 1; background: var(--bg0); border: 1px solid var(--stroke); border-radius: 12px; padding: 10px 14px; color: var(--text); font-family: inherit; font-size: 14px; transition: 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
-    .chat-input:focus { outline: none; border-color: var(--ai-accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
-    .send-btn { background: var(--ai-accent); border: none; border-radius: 12px; width: 42px; display: grid; place-items: center; cursor: pointer; color: var(--ai-user-text); transition: 0.2s; }
-    .send-btn:hover { transform: scale(1.05); }
-    .send-btn:active { transform: scale(0.95); }
+    .input-area { 
+            padding: 16px; border-top: 1px solid var(--stroke); 
+            display: flex; gap: 10px; background: var(--ai-input-base); 
+        }
+        
+    /* --- Dynamically Themed Input Area --- */
+    .chat-input { 
+        flex: 1; 
+        background: var(--ai-input-bg); 
+        border: 1px solid var(--stroke); 
+        border-radius: 12px; 
+        padding: 12px 14px; 
+        color: var(--text); 
+        font-family: inherit; 
+        font-size: 16px; 
+        transition: 0.3s; 
+    }
+    .chat-input:focus { 
+        outline: none; 
+        border-color: var(--ai-accent); 
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); 
+        transform: translateY(-2px); 
+    }
+
+    /* --- Dynamically Themed Send Button --- */
+    .send-btn { 
+        background: transparent; 
+        border: 1px solid var(--stroke); 
+        border-radius: 12px; width: 46px; 
+        display: grid; place-items: center; cursor: pointer; 
+        color: var(--ai-send-icon); 
+        transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    }
+    .send-btn:hover { 
+        background: var(--ai-accent); 
+        color: var(--ai-send-hover-text); 
+        transform: scale(1.1); 
+    }
+        
+    .send-btn:active { 
+        transform: scale(0.9); 
+    }
 
     /* --- 4. Modern Glowing Typing Indicator --- */
     .typing-indicator {
