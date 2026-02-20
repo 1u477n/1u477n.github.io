@@ -1,7 +1,4 @@
-
-<!doctype html>
-<html lang="en">
-<head>
+<!doctype html><html lang="en"><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   
@@ -223,33 +220,17 @@
     .close-lightbox { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 44px; height: 44px; border-radius: 12px; font-size: 24px; cursor: pointer; display: grid; place-items: center; }
     .close-lightbox:hover { background: rgba(255,255,255,0.2); }
     .footer { margin-top: 40px; padding: 20px; text-align: center; font-size: 12px; color: var(--muted2); border-top: 1px solid var(--stroke); }
- 
+    
     /* ==========================================
        VIRTUAL L.U.A.T STYLES (Blueprint UI Applied)
        ========================================== */
-    
-    /* Fixed Avatar Trigger Wrapper */
     .agent-trigger-wrapper {
         position: fixed; bottom: 30px; right: 30px;
         z-index: 1000; display: flex; flex-direction: column;
         align-items: center; gap: 12px;
     }
-
-    /* AI Header Branding */
-    .header-brand { 
-        display: flex; 
-        align-items: center; 
-        gap: 10px; 
-    }
-    .header-logo { 
-        width: 24px; 
-        height: 24px; 
-        border-radius: 50%; 
-        object-fit: cover; 
-        box-shadow: 0 0 5px var(--a1); 
-    }
-
-    /* Avatar Group Styling */
+    .header-brand { display: flex; align-items: center; gap: 10px; }
+    .header-logo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 5px var(--a1); }
     .avatar-group { position: relative; width: 80px; height: 80px; }
     .avatar-wrap {
         width: 100%; height: 100%; border-radius: 50%; padding: 3px;
@@ -272,27 +253,30 @@
         content: ''; position: absolute; inset: -4px; border-radius: 50%;
         border: 2px solid var(--a1); opacity: 0; animation: pulseRing 2s infinite;
     }
-    @keyframes pulseRing {
-         0% { transform: scale(1); opacity: 0.8; }
-         100% { transform: scale(1.4); opacity: 0; }
-    }
+    @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.4); opacity: 0; } }
     .agent-trigger:hover { transform: scale(1.1) rotate(10deg); }
     .agent-trigger svg { color: var(--a1); width: 16px; height: 16px; }
 
-    /* Sliding AI Agent Window */
+    /* Sliding AI Agent Window & Glow */
     .agent-window {
         position: fixed; bottom: 130px; right: 30px;
         width: min(380px, 90vw); height: 550px;
         background: var(--ai-window-bg);
         backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-        border: 1px solid var(--a1); border-radius: 20px;
+        border: 1px solid var(--stroke); border-radius: 20px;
         box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--stroke);
         display: flex; flex-direction: column;
         transform: scale(0.9) translateY(20px); opacity: 0;
-        pointer-events: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        z-index: 1000; overflow: hidden;
+        pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+        z-index: 1000; overflow: hidden; will-change: transform, opacity, box-shadow, border-color;
     }
     .agent-window.active { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+    .agent-window.is-thinking { animation: windowPulseGlow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+    
+    @keyframes windowPulseGlow {
+      0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 10px 0px rgba(56, 189, 248, 0.2); border-color: var(--stroke); }
+      50% { box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px 5px rgba(56, 189, 248, 0.5); border-color: var(--a1); }
+    }
 
     .agent-header {
         padding: 16px 20px; border-bottom: 1px solid var(--stroke);
@@ -300,38 +284,64 @@
         justify-content: space-between; align-items: center;
         background: var(--ai-header-bg); color: var(--text);
     }
-
     .agent-close { cursor: pointer; opacity: 0.5; padding: 4px; border-radius: 50%; display: grid; place-items: center; transition: 0.2s; }
     .agent-close:hover { opacity: 1; background: var(--stroke); color: var(--a1); }
 
+    /* Glassmorphism Scrollbar */
     .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; font-size: 14.5px; }
+    .chat-area::-webkit-scrollbar { width: 6px; }
+    .chat-area::-webkit-scrollbar-track { background: transparent; margin: 10px 0; }
+    .chat-area::-webkit-scrollbar-thumb { background-color: var(--stroke); border-radius: 10px; }
+    .chat-area::-webkit-scrollbar-thumb:hover { background-color: var(--a1); box-shadow: 0 0 10px var(--a1); }
 
     .msg { padding: 12px 16px; max-width: 85%; line-height: 1.5; word-wrap: break-word; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .msg-bot { background: var(--ai-bot-bubble); color: var(--text); border: 1px solid var(--ai-bot-border); align-self: flex-start; border-bottom-left-radius: 4px; }
     .msg-user { background: linear-gradient(90deg, var(--a2), var(--a1)); color: white; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
 
     /* Interactive Consulting Chips */
-    .chat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .chat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .chip-btn { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--a1); border-radius: 16px; padding: 6px 12px; font-size: 12px; cursor: pointer; transition: 0.2s; font-weight: 500; text-align: left; }
     .chip-btn:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
     .chip-primary { background: var(--grad); color: #fff; border: none; box-shadow: 0 4px 10px rgba(56,189,248,0.3); }
     .chip-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(56,189,248,0.4); }
 
-    /* Input Area */
     .input-area { padding: 16px; border-top: 1px solid var(--stroke); display: flex; gap: 10px; background: var(--ai-input-base); }
-    .chat-input { flex: 1; background: var(--bg0); border: 1px solid var(--stroke); border-radius: 12px; padding: 12px 14px; color: var(--text); font-family: inherit; font-size: 14px; transition: 0.2s; }
+    .chat-input { flex: 1; background: var(--bg0); border: 1px solid var(--stroke); border-radius: 12px; padding: 12px 14px; color: var(--text); font-family: inherit; font-size: 14px; transition: 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
     .chat-input:focus { outline: none; border-color: var(--a1); box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
     .send-btn { background: var(--panel); border: 1px solid var(--stroke); border-radius: 12px; width: 46px; display: grid; place-items: center; cursor: pointer; color: var(--a1); transition: 0.2s; }
     .send-btn:hover { background: var(--a1); color: #000; }
 
-    .typing-dot { animation: blink 1.4s infinite both; font-size: 18px; margin: 0 1px; }
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes blink { 0% { opacity: 0.2; } 20% { opacity: 1; } 100% { opacity: 0.2; } }
-  </style>
+    /* Modern Typing Dots */
+    .typing-indicator { display: inline-flex; align-items: center; gap: 4px; height: 20px; }
+    .typing-dot { width: 5px; height: 5px; border-radius: 50%; background-color: var(--a1); animation: typingBounceGlow 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typingBounceGlow {
+      0%, 100% { transform: translateY(0) scale(0.8); opacity: 0.3; box-shadow: 0 0 0px transparent; }
+      50% { transform: translateY(-4px) scale(1.2); opacity: 1; box-shadow: 0 2px 8px 1px var(--a1); }
+    }
 
-</head>
-<body>
+    /* Particle Engine & Markdown Styles */
+    .floating-emoji { position: fixed; pointer-events: none; z-index: 999999; transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease-out; }
+
+    .msg-bot pre { background: var(--bg0); border: 1px solid var(--stroke); border-radius: 8px; padding: 12px; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; margin: 10px 0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+    .msg-bot code { background: rgba(56, 189, 248, 0.15); color: var(--a1); padding: 2px 6px; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12.5px; }
+    .msg-bot pre code { background: transparent; color: var(--text); padding: 0; }
+    .msg-bot a { color: var(--a1); text-decoration: none; border-bottom: 1px dashed var(--a1); transition: opacity 0.2s; }
+    .msg-bot a:hover { opacity: 0.7; }
+    .msg-bot table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+    .msg-bot th, .msg-bot td { border: 1px solid var(--stroke); padding: 8px; text-align: left; }
+    .msg-bot th { background: rgba(255,255,255,0.05); font-weight: 600; }
+
+    .msg-bot .code-wrapper { position: relative; margin: 10px 0; }
+    .msg-bot .code-wrapper pre { margin: 0; padding-top: 36px; }
+    .copy-code-btn { position: absolute; top: 8px; right: 8px; background: rgba(255, 255, 255, 0.1); border: 1px solid var(--stroke); color: var(--muted); border-radius: 6px; width: 28px; height: 28px; display: grid; place-items: center; cursor: pointer; transition: all 0.2s ease; z-index: 2; }
+    .copy-code-btn:hover { background: rgba(255, 255, 255, 0.2); color: var(--text); border-color: var(--a1); }
+    [data-theme="light"] .copy-code-btn { background: rgba(0, 0, 0, 0.05); }
+    [data-theme="light"] .copy-code-btn:hover { background: rgba(0, 0, 0, 0.1); }
+  </style>
+</head><body>
   <div class="bg-orbs">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -561,13 +571,12 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
         </div>
       </div>
-    </div>
+  </div>
 
-    <div class="agent-window" id="agentWindow">
+  <div class="agent-window" id="agentWindow">
       <div class="agent-header">
-        
         <div class="header-brand">
-          <img src="/images/avatar.gif" alt="Luat Avatar" class="header-logo">
+          <img src="https://1u477n.github.io/images/avatar.gif" alt="Luat Avatar" class="header-logo">
           <span>Virtual L.U.A.T</span>
         </div>
         <span class="agent-close" id="agentClose" title="Close">
@@ -592,7 +601,7 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
         </button>
       </div>
-    </div>
+  </div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -677,7 +686,78 @@
     document.getElementById("lightboxClose").addEventListener("click", () => { lightbox.classList.remove("open"); });
     lightbox.addEventListener("click", (e) => { if(e.target === lightbox) lightbox.classList.remove("open"); });
 
-// ==========================================
+    // Universal Audio & Haptics Engine
+    function playHapticAndSound() {
+      if (navigator.vibrate) navigator.vibrate(50);
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.1);
+      } catch(e) {}
+    }
+
+    // Anchored Particle Engine
+    function popConfettiAnchored(triggerElement) {
+      const emojis = ['⚡', '🚀', '💡', '🧬', '⚙️'];
+      const rect = triggerElement.getBoundingClientRect();
+      const centerX = rect.left + (rect.width / 2);
+      const centerY = rect.top + (rect.height / 2);
+
+      for(let i = 0; i < 12; i++) {
+        let el = document.createElement('div');
+        el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        el.className = 'floating-emoji';
+        el.style.left = centerX + 'px';
+        el.style.top = centerY + 'px';
+        el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        document.body.appendChild(el);
+        
+        requestAnimationFrame(() => {
+          const angle = Math.random() * Math.PI * 2;
+          const distance = Math.random() * 120 + 40;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance - 50; 
+          el.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random() * 360}deg) scale(${Math.random() + 0.5})`;
+          el.style.opacity = '0';
+        });
+        setTimeout(() => el.remove(), 1000);
+      }
+    }    
+    
+    // Streaming-Safe Markdown Parser (With Copy Button)
+    function renderMarkdown(text) {
+        let formatted = text;
+        
+        const tickCount = (formatted.match(/```/g) || []).length;
+        if (tickCount % 2 !== 0) {
+            formatted += '\n```'; 
+        }
+
+        formatted = formatted.replace(/```[a-z]*\n([\s\S]*?)```/gi, '<div class="code-wrapper"><button class="copy-code-btn" title="Copy Code"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button><pre><code>$1</code></pre></div>');
+        formatted = formatted.replace(/`([^`]+)`/g, '<code>$1</code>');
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+        formatted = formatted.replace(/^\s*[\*\-]\s+(.*)/gm, '• $1');
+
+        let parts = formatted.split(/(<div class="code-wrapper">[\s\S]*?<\/div>)/);
+        for(let i = 0; i < parts.length; i++) {
+            if(!parts[i].startsWith('<div')) {
+                parts[i] = parts[i].replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+            }
+        }
+        return parts.join('');
+    }
+
+    // ==========================================
     //  MULTI-MODAL AGENT (Consulting + Simulator)
     // ==========================================
     const trigger = document.getElementById('agentTrigger');
@@ -692,6 +772,35 @@
         closeBtn.addEventListener('click', () => windowEl.classList.remove('active'));
     }
 
+    // Event Delegation for Copy Buttons
+    if(chatArea) {
+      chatArea.addEventListener('click', async (e) => {
+          const btn = e.target.closest('.copy-code-btn');
+          if (!btn) return;
+          
+          const codeBlock = btn.nextElementSibling;
+          if (!codeBlock) return;
+          
+          const codeText = codeBlock.textContent;
+          
+          try {
+              await navigator.clipboard.writeText(codeText);
+              const originalHTML = btn.innerHTML;
+              btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+              btn.style.borderColor = '#34D399';
+              btn.style.background = 'rgba(52, 211, 153, 0.1)';
+              
+              setTimeout(() => {
+                  btn.innerHTML = originalHTML;
+                  btn.style.borderColor = '';
+                  btn.style.background = '';
+              }, 2000);
+          } catch (err) {
+              console.error('Failed to copy text: ', err);
+          }
+      });
+    }
+
     // Exported click handlers for UI buttons
     window.triggerSimulation = function() {
         input.value = "Run R&D Strategy Simulator";
@@ -703,10 +812,9 @@
         handleMessage();
     };
 
-    // 1. Add a memory variable to track the conversation
+    // Track conversation for simulator context
     let lastAiMessage = "";
 
-    // 2. Upgraded prompt to handle conversational context
     const luatContext = `SYSTEM INSTRUCTIONS: You are Virtual L.U.A.T, the digital consultant avatar for Luat (Luke) Nguyen.
 
     CONTEXT (Consulting Offerings - The G.I.F.T Model):
@@ -720,7 +828,6 @@
     If the user asks to "Run R&D Strategy Simulator":
     1. Present a brief, high-stakes biotech scenario.
     2. Offer exactly 2 distinct strategic choices (A or B).
-    
     If the user replies with "A" or "B":
     1. Read the "AI's previous message" below to understand what A and B were.
     2. Evaluate their specific choice using Luat's GIFT framework.
@@ -730,8 +837,8 @@
     STRICT RULES:
     1. Persona: Professional, strategic. Use first-person ("I", "my team").
     2. Length: Keep answers extremely punchy. Strictly 4 sentences maximum.
-    3. Formatting: Plain text only (no Markdown like ** or *).
-    4. Focus: Only answer questions related to IT, AI, Biotech R&D consulting, or Luat's background. Deflect unrelated queries.
+    3. Code Generation: You MAY generate code ONLY if it is directly relevant to Luat's core skills.
+    4. AI Strategy Query: If the user asks "What is your AI strategy?", explain your strategy and explicitly instruct them to visit the webpage of Blueprint AI Partners at [Blueprint AI Partners](https://blueprintaipartners.com/).
     `;
 
     async function handleMessage() {
@@ -760,6 +867,9 @@
       userMsg.textContent = text;
       chatArea.appendChild(userMsg);
       input.value = '';
+      
+      // Trigger the neon glow
+      windowEl.classList.add('is-thinking');
       chatArea.scrollTop = chatArea.scrollHeight;
 
       usage.count++;
@@ -767,77 +877,109 @@
 
       const botMsg = document.createElement('div');
       botMsg.className = 'msg msg-bot';
-      botMsg.innerHTML = "Thinking<span class='typing-dot'>.</span><span class='typing-dot'>.</span><span class='typing-dot'>.</span>";
+      botMsg.innerHTML = "<div class='typing-indicator'><span class='typing-dot'></span><span class='typing-dot'></span><span class='typing-dot'></span></div>";
       chatArea.appendChild(botMsg);
       chatArea.scrollTop = chatArea.scrollHeight;
 
       try {
-        // Build the contextual prompt, injecting the previous turn if it exists
         let fullPrompt = luatContext;
         if (lastAiMessage !== "") {
             fullPrompt += `\n\nAI's previous message to user: "${lastAiMessage}"`;
         }
         fullPrompt += `\n\nUser's current reply: "${text}"`;
 
-        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/.netlify/functions/chat', {
+        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: fullPrompt })
         });
 
-        const data = await response.json().catch(() => null);
+        if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
 
-        if (!response.ok) {
-            usage.count--;
-            localStorage.setItem(limitKey, JSON.stringify(usage));
-            throw new Error(data && data.error ? data.error : "HTTP Error " + response.status);
-        }
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        
+        let hasStarted = false;
+        let charQueue = [];
+        let isStreamDone = false;
+        let displayedText = "";
+        
+        // --- HIGH PERFORMANCE TYPEWRITER ---
+        function typewriterEffect() {
+            if (charQueue.length > 0) {
+                let charsPerFrame = 1;
+                if (charQueue.length > 20) charsPerFrame = 2;
+                if (charQueue.length > 50) charsPerFrame = 4;
 
-        if (data && data.reply) {
-            // Save the raw AI response to memory for the NEXT turn
-            lastAiMessage = data.reply; 
-
-            // Convert newlines to HTML breaks, and fix any stray **markdown**
-            const fullText = data.reply
-                .replace(/\n/g, '<br>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            
-            botMsg.innerHTML = "";
-             
-            let i = 0;
-            let currentText = "";
-            
-            function typeWriter() {
-                if (i < fullText.length) {
-                    // If we detect the start of an HTML tag, inject the whole tag at once
-                    if (fullText.charAt(i) === '<') {
-                        let tagEnd = fullText.indexOf('>', i);
-                        if (tagEnd !== -1) {
-                            currentText += fullText.substring(i, tagEnd + 1);
-                            i = tagEnd + 1;
-                            botMsg.innerHTML = currentText;
-                            chatArea.scrollTop = chatArea.scrollHeight;
-                            typeWriter(); // Instantly move to next character without delay
-                            return;
-                        }
+                for (let i = 0; i < charsPerFrame; i++) {
+                    if (charQueue.length > 0) {
+                        displayedText += charQueue.shift();
                     }
-                    
-                    // Otherwise, type the normal character
-                    currentText += fullText.charAt(i);
-                    botMsg.innerHTML = currentText;
-                    i++;
-                    
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                    setTimeout(typeWriter, 10); 
+                }
+
+                let formatted = renderMarkdown(displayedText);
+                
+                botMsg.innerHTML = formatted;
+                chatArea.scrollTop = chatArea.scrollHeight;
+                requestAnimationFrame(typewriterEffect);
+                
+            } else if (!isStreamDone) {
+                requestAnimationFrame(typewriterEffect);
+            } else {
+                // Stream complete
+                lastAiMessage = displayedText; // Save for simulator context
+                windowEl.classList.remove('is-thinking');
+                chatArea.style.scrollBehavior = 'smooth';
+                
+                // Trigger effects if AI gave an enthusiastic response or redirect
+                if (displayedText.includes('!') || displayedText.includes('Blueprint')) {
+                  popConfettiAnchored(botMsg);
                 }
             }
-            typeWriter();
-        } else {
-            throw new Error("Received an empty response.");
         }
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+              isStreamDone = true;
+              break;
+          }
+          
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n');
+          
+          for (const line of lines) {
+            const trimmedLine = line.trim();
+            if (!trimmedLine || trimmedLine === 'data: [DONE]') continue;
+            
+            if (trimmedLine.startsWith("data: ")) {
+                try {
+                    const json = JSON.parse(trimmedLine.substring(6));
+                    if (json.candidates && json.candidates[0].content) {
+                        const newText = json.candidates[0].content.parts[0].text;
+                        
+                        if (!hasStarted) {
+                            hasStarted = true;
+                            botMsg.innerHTML = ""; 
+                            windowEl.classList.remove('is-thinking');
+                            chatArea.style.scrollBehavior = 'auto'; 
+                            playHapticAndSound(); // Ping!
+                            requestAnimationFrame(typewriterEffect);
+                        }
+                        
+                        charQueue.push(...newText.split(''));
+                    }
+                } catch (e) {}
+            }
+          }
+        }
+
       } catch (error) {
         console.error("Error:", error);
+        usage.count--;
+        localStorage.setItem(limitKey, JSON.stringify(usage));
         botMsg.innerHTML = "<span style='color: #fb4934;'><b>System Error:</b> " + error.message + "</span>";
+        windowEl.classList.remove('is-thinking');
       }
       chatArea.scrollTop = chatArea.scrollHeight;
     }
@@ -845,5 +987,4 @@
     if(sendBtn) sendBtn.addEventListener('click', handleMessage);
     if(input) input.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleMessage(); });
   </script>
-</body>
-</html>
+</body></html>
