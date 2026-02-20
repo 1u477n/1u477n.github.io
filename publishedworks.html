@@ -598,7 +598,7 @@
             $3Dmol.download(`pdb:${pdbId}`, viewer, {onemol: true, multimer: true}, function() {
             
                 // 1. WIPE EVERYTHING: Ensure no ghost models or lines carry over
-                viewer.removeAllLabels();
+                // viewer.removeAllLabels();
                 
                 // 2. BASE LAYER: Apply the sleek ribbon to literally everything.
                 // (3Dmol will naturally only draw ribbons for connected amino acids)
