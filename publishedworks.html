@@ -198,21 +198,31 @@
     
     .agent-window {
       position: fixed; top: 50%; left: 50%; 
-      width: min(380px, 90vw); height: 580px; max-height: 85vh;
+      width: min(380px, 92vw); height: 500px; max-height: 85dvh;
       background: var(--ai-window-bg); 
       backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
       border: 1px solid var(--stroke); border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px var(--stroke); 
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px var(--stroke); 
       display: flex; flex-direction: column;
-      transform: translate(-50%, -50%) scale(0.9); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 1000; overflow: hidden;
+      transform: translate(-50%, -45%) scale(0.9); opacity: 0; pointer-events: none; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+      z-index: 1000; overflow: hidden; text-align: left;
+      
+      /* THE FIX: Force the GPU to cut off bleeding glass artifacts */
+      -webkit-clip-path: inset(0 round 20px);
+      clip-path: inset(0 round 20px);
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
     }
     .agent-window.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: all; }
     
     .agent-header {
       padding: 16px 20px; border-bottom: 1px solid var(--stroke); 
-      font-weight: 700; font-size: 13px; letter-spacing: 0.5px; 
+      font-weight: 700; font-size: 14px; letter-spacing: 0.5px; 
       display: flex; justify-content: space-between; align-items: center;
       background: var(--ai-header-bg); color: var(--text);
+      touch-action: none;
     }
     
     .header-brand {
@@ -236,23 +246,56 @@
     .viewer-container {
         height: 0px; 
         width: 100%; 
-        background: rgba(0,0,0,0.4); 
+        /* Deep space background with a subtle cyan glow in the center */
+        background: radial-gradient(circle at 50% 50%, rgba(56,189,248,0.15) 0%, rgba(10,10,10,0.8) 70%, #050505 100%);
         position: relative; 
-        transition: height 0.3s ease;
+        transition: height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Gives it a slight physical "bounce" when opening */
         border-bottom: 1px solid var(--stroke);
+        box-shadow: inset 0 10px 20px rgba(0,0,0,0.5); /* Adds physical depth to the window cut-out */
     }
     .viewer-container.active { height: 220px; }
     .molecule-tag {
-        position: absolute; top: 10px; left: 10px; z-index: 10;
-        background: rgba(0,0,0,0.7); border: 1px solid var(--a1);
-        color: var(--a1); font-size: 10px; padding: 4px 8px; border-radius: 8px;
-        font-weight: bold; letter-spacing: 1px; display: none;
+        position: absolute; 
+        top: 12px; 
+        left: 12px; 
+        z-index: 10;
+        background: rgba(56, 189, 248, 0.1); 
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        color: var(--a1); 
+        font-size: 11px; 
+        padding: 4px 10px; 
+        border-radius: 4px; /* Sharper corners look more analytical */
+        font-family: monospace; /* Monospace feels like raw data */
+        font-weight: 700; 
+        letter-spacing: 1.5px; 
+        text-transform: uppercase;
+        backdrop-filter: blur(4px);
+        display: none;
     }
+    /* --- 2. Custom Glassmorphism Scrollbar --- */
+    .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; font-size: 14.5px; scroll-behavior: smooth; }
     
-    .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; font-size: 14px; }
-    .msg { padding: 12px 16px; max-width: 85%; line-height: 1.5; word-wrap: break-word; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .chat-area { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.15) transparent; }
+    .chat-area::-webkit-scrollbar { width: 6px; }
+    .chat-area::-webkit-scrollbar-track { background: transparent; margin-top: 10px; margin-bottom: 10px; }
+    .chat-area::-webkit-scrollbar-thumb { 
+        background-color: rgba(255, 255, 255, 0.15); 
+        border-radius: 10px; 
+        transition: background-color 0.3s ease; 
+    }
+    .chat-area::-webkit-scrollbar-thumb:hover { 
+        background-color: var(--a1); 
+        box-shadow: 0 0 10px var(--a1); 
+    }
+    /* --- 3. Message Bubbles & Animation --- */
+    .msg { 
+        padding: 12px 16px; max-width: 85%; line-height: 1.5; word-wrap: break-word; border-radius: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; transform-origin: bottom left;
+    }
+    @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     .msg-bot { background: var(--ai-bot-bubble); color: var(--text); border: 1px solid var(--ai-bot-border); align-self: flex-start; border-bottom-left-radius: 4px; }
-    .msg-user { background: var(--ai-user-bubble); color: var(--ai-user-text); align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+    .msg-user { background: linear-gradient(90deg, var(--a2), var(--a1)); color: white; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; transform-origin: bottom right; }
+    .msg b, .msg strong { color: var(--a1); }
     
     .chat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
     .chip-btn { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--a1); border-radius: 16px; padding: 6px 12px; font-size: 12px; cursor: pointer; transition: 0.2s; font-weight: 500; }
@@ -265,10 +308,23 @@
     .send-btn:hover { transform: scale(1.05); }
     .send-btn:active { transform: scale(0.95); }
 
-    .typing-dot { animation: blink 1.4s infinite both; font-size: 18px; margin: 0 1px; }
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes blink { 0% { opacity: 0.2; } 20% { opacity: 1; } 100% { opacity: 0.2; } }
+    /* --- 4. Modern Glowing Typing Indicator --- */
+    .typing-indicator {
+        display: inline-flex; align-items: center; gap: 5px; padding: 6px 4px; height: 24px;
+    }
+    .typing-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background-color: var(--a1);
+        animation: typingBounceGlow 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        will-change: transform, opacity, box-shadow;
+    }
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typingBounceGlow {
+        0%, 100% { transform: translateY(0) scale(0.8); opacity: 0.3; box-shadow: 0 0 0px transparent; }
+        50% { transform: translateY(-5px) scale(1.2); opacity: 1; box-shadow: 0 4px 12px 2px rgba(56, 189, 248, 0.5); }
+    }
   </style>
 </head>
 <body>
@@ -530,22 +586,51 @@
     }
 
     // Function to download and render PDB file
-    function loadMolecule(pdbId) {
-        molViewerContainer.classList.add('active');
-        moleculeTag.style.display = 'block';
-        moleculeTag.innerText = `PDB: ${pdbId}`;
-        
-        initViewer();
-        viewer.clear();
-        
-        // Fetch from RCSB PDB
-        $3Dmol.download(`pdb:${pdbId}`, viewer, {onemol: true, multimer: true}, function() {
-            viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
-            viewer.zoomTo();
-            viewer.render();
-            viewer.zoom(0.8, 2000); // animate slight zoom out
-        });
-    }
+        function loadMolecule(pdbId) {
+            molViewerContainer.classList.add('active');
+            moleculeTag.style.display = 'block';
+            moleculeTag.innerText = `PDB: ${pdbId}`;
+            
+            initViewer();
+            viewer.clear();
+            
+            // Fetch from RCSB PDB
+            $3Dmol.download(`pdb:${pdbId}`, viewer, {onemol: true, multimer: true}, function() {
+            
+                // 1. WIPE EVERYTHING: Ensure no ghost models or lines carry over
+                viewer.removeAllLabels();
+                
+                // 2. BASE LAYER: Apply the sleek ribbon to literally everything.
+                // (3Dmol will naturally only draw ribbons for connected amino acids)
+                viewer.setStyle({}, {
+                    cartoon: { color: 'spectrum' } // A beautiful, high-end slate white
+                });
+
+                // 3. LIGAND LAYER: Overwrite non-protein atoms to glow in cyan
+                viewer.setStyle({hetflag: true, not: {resn: ["HOH", "WAT"]}}, {
+                    stick: { radius: 0.25, colorscheme: 'cyanCarbon' },
+                    sphere: { radius: 0.35, colorscheme: 'cyanCarbon' }
+                });
+
+                // 4. WATER LAYER: Explicitly overwrite water molecules to be invisible
+                viewer.setStyle({resn: ["HOH", "WAT"]}, {
+                    hidden: true
+                });
+
+                // 5. POCKET LAYER: Add thin wireframes to the surrounding protein pocket 
+                // We use addStyle here so we don't erase the beautiful cartoon ribbon we just made
+                viewer.addStyle({within: {distance: 4.0, sel: {hetflag: true, not: {resn: ["HOH", "WAT"]}}}}, {
+                    line: { colorscheme: 'lightgreyCarbon' } // Lines perform better than sticks on massive models
+                });
+
+                viewer.zoomTo();
+                viewer.render();
+                
+                // 6. Cinematic motion
+                viewer.zoom(0.8, 2000); 
+                viewer.spin('y', 0.5);  
+            });
+        }
 
     // Hide the viewer if no PDB is triggered
     function hideViewer() {
