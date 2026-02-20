@@ -649,38 +649,56 @@
             
             // Fetch from RCSB PDB
             $3Dmol.download(`pdb:${pdbId}`, viewer, {onemol: true, multimer: true}, function() {
-            
-                // 1. WIPE EVERYTHING: Ensure no ghost models or lines carry over
-                // viewer.removeAllLabels();
                 
-                // 2. BASE LAYER: Apply the sleek ribbon to literally everything.
-                // (3Dmol will naturally only draw ribbons for connected amino acids)
+                // 1. WIPE THE CANVAS
+                viewer.removeAllLabels();
+                viewer.removeAllSurfaces();
+                viewer.setStyle({}, {});
+
+                // 2. SMART LIGAND SELECTION
+                let ligandSel;
+                if (pdbId.toUpperCase() === '8WE8') {
+                    // Cav1.2 is a membrane protein covered in lipids. 
+                    // We bypass the lipids by strictly targeting Amlodipine (Residue Name: '6UB')
+                    ligandSel = { resn: '6UB' };
+                } else {
+                    // Standard target for soluble proteins like TrkA (7XAF)
+                    ligandSel = { hetflag: true, not: { resn: ["HOH", "WAT"] } };
+                }
+
+                // Target the pocket: 5 Angstroms around the ligand, but exclude the ligand itself
+                const pocketSel = { within: { distance: 5.0, sel: ligandSel }, not: ligandSel };
+
+                // 3. BACKGROUND CONTEXT
                 viewer.setStyle({}, {
-                    cartoon: { color: 'spectrum' } // A beautiful, high-end slate white
+                    cartoon: { color: 'spectrum', opacity: 0.5 }
                 });
 
-                // 3. LIGAND LAYER: Overwrite non-protein atoms to glow in cyan
-                viewer.setStyle({hetflag: true, not: {resn: ["HOH", "WAT"]}}, {
-                    stick: { radius: 0.25, colorscheme: 'cyanCarbon' },
-                    sphere: { radius: 0.35, colorscheme: 'cyanCarbon' }
+                // 4. THE POCKET
+                viewer.addStyle(pocketSel, {
+                    stick: { radius: 0.15, colorscheme: 'whiteCarbon' }
                 });
 
-                // 4. WATER LAYER: Explicitly overwrite water molecules to be invisible
-                viewer.setStyle({resn: ["HOH", "WAT"]}, {
-                    hidden: true
+                // 5. THE CAVITY SURFACE
+                viewer.addSurface($3Dmol.SurfaceType.VDW, {
+                    opacity: 0.4, 
+                    color: '#64748b' 
+                }, pocketSel);
+
+                // 6. THE HERO LIGAND
+                viewer.setStyle(ligandSel, {
+                    stick: { radius: 0.3, colorscheme: 'cyanCarbon' }
                 });
 
-                // 5. POCKET LAYER: Add thin wireframes to the surrounding protein pocket 
-                // We use addStyle here so we don't erase the beautiful cartoon ribbon we just made
-                viewer.addStyle({within: {distance: 4.0, sel: {hetflag: true, not: {resn: ["HOH", "WAT"]}}}}, {
-                    line: { colorscheme: 'lightgreyCarbon' } // Lines perform better than sticks on massive models
-                });
+                // 7. CLEANUP: Hide water and common cryo-EM lipids to keep the background clean
+                viewer.setStyle({resn: ["HOH", "WAT", "CLR", "NAG", "PT5", "3PE"]}, { hidden: true });
 
-                viewer.zoomTo();
+                // 8. CAMERA MAGIC
+                viewer.zoomTo(ligandSel);
                 viewer.render();
                 
-                // 6. Cinematic motion
-                viewer.zoom(0.8, 2000); 
+                // 9. CINEMATIC CLOSE-UP
+                viewer.zoom(1.2, 2000); 
                 viewer.spin('y', 0.5);  
             });
         }
@@ -700,7 +718,7 @@
     const luatContext = `SYSTEM INSTRUCTIONS: You are the Molecular Explorer, a digital computational chemistry assistant for Luat Nguyen.
     CONTEXT:
     - TrkA Target: Luat co-authored patents for Receptor Tyrosine Kinase inhibitors. The PDB ID for TrkA in complex with a Pan-Trk Kinase Inhibitor is 7XAF. The TrkA program was acquired by Purdue Pharma for up to $213M.
-    - Calcium Ion Channel: Luat holds patents for calcium ion channel modulators. The PDB ID for Human L-type voltage-gated calcium channel Cav1.2 (Class II) in the presence of pinaverium is 8WEA.
+    - Calcium Ion Channel: Luat holds patents for calcium ion channel modulators. The PDB ID for the Human L-type voltage-gated calcium channel Cav1.2 bound to the inhibitor Amlodipine is 8WE8.
     - Biosensor Example: Luat holds patents for biosensor arrays and membrane targets. When asked about this, summarize this article: https://pubmed.ncbi.nlm.nih.gov/15960850/. Explain that it details a technique using cell membrane microarrays to monitor the binding of specific ligands, proving highly effective for novel drug discovery.
     
     STRICT RULES:
@@ -708,7 +726,6 @@
     2. Length: Strictly 3 sentences maximum.
     3. Formatting: Plain text only (no Markdown like **).
     4. Focus: If the user asks about TrkA, Calcium Channels, or Biosensors, mention Luat's specific work and explain the target.
-
     User question: `;
 
     let lastAiMessage = "";
@@ -754,15 +771,14 @@
       let pdbToLoad = null;
       const lowerText = text.toLowerCase();
       
-      // Strict mapping to your requested PDB IDs (Broadened to ensure clicks trigger correctly)
       if (lowerText.includes('trka') || lowerText.includes('tyrosine') || lowerText.includes('7xaf')) {
           pdbToLoad = '7XAF'; 
       }
-      else if (lowerText.includes('calcium') || lowerText.includes('8wea')) {
-          pdbToLoad = '8WEA'; 
+      else if (lowerText.includes('calcium') || lowerText.includes('8we8')) {
+          pdbToLoad = '8WE8'; // Updated to the pristine Amlodipine structure
       }
       else if (lowerText.includes('biosensor') || lowerText.includes('pubmed')) {
-          hideViewer(); // No 3D model for the biosensor paper summary
+          hideViewer(); 
       }
       else {
           // Check if they typed a random direct 4-character PDB code
