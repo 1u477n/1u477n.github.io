@@ -790,7 +790,7 @@
           loadMolecule(pdbToLoad);
       }
 
-      // ---- Send request to LLM ----
+      // ---- Send request to Edge LLM ----
       try {
         let fullPrompt = luatContext;
         if (lastAiMessage !== "") {
@@ -801,65 +801,117 @@
         if (pdbToLoad) {
             fullPrompt += `\n\n(System Note: The 3D viewer is currently displaying PDB ID ${pdbToLoad}.)`;
         }
-        
         fullPrompt += `\n\nUser's current reply: "${text}"`;
 
-        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/.netlify/functions/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: fullPrompt })
+        // 1. Point to the correct Edge API endpoint used by the other agents
+        const response = await fetch('https://imaginative-squirrel-aa8082.netlify.app/api/chat', {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ prompt: fullPrompt })
         });
 
-        const data = await response.json().catch(() => null);
+        if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
 
-        if (!response.ok) {
-            usage.count--;
-            localStorage.setItem(limitKey, JSON.stringify(usage));
-            throw new Error(data && data.error ? data.error : "HTTP Error " + response.status);
+        // 2. Setup the SSE Stream Reader
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        
+        let hasStarted = false;
+        
+        // --- 60fps TYPEWRITER ENGINE VARIABLES ---
+        let charQueue = [];
+        let isStreamDone = false;
+        let displayedText = "";
+        let fullResponseBuffer = ""; // Saves the complete string for conversational context
+        
+        // 3. The high-performance typewriter loop
+        function typewriterEffect() {
+            if (charQueue.length > 0) {
+                // Adaptive speed: process more characters per frame if the buffer gets heavy
+                let charsPerFrame = 1;
+                if (charQueue.length > 25) charsPerFrame = 2;
+                if (charQueue.length > 60) charsPerFrame = 4;
+                if (charQueue.length > 150) charsPerFrame = 8;
+
+                for (let i = 0; i < charsPerFrame; i++) {
+                    if (charQueue.length > 0) {
+                        displayedText += charQueue.shift();
+                    }
+                }
+
+                // Format the text in real-time
+                let formatted = displayedText
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/^\s*\*\s+/gm, '• ');
+                
+                botMsg.innerHTML = formatted;
+                
+                // Perfect sync auto-scroll
+                chatArea.scrollTop = chatArea.scrollHeight;
+
+                requestAnimationFrame(typewriterEffect);
+                
+            } else if (!isStreamDone) {
+                // Stream is open, but waiting for next network chunk
+                requestAnimationFrame(typewriterEffect);
+                
+            } else {
+                // --- STREAM COMPLETE ---
+                chatArea.style.scrollBehavior = 'smooth'; // Restore CSS smooth scroll
+                lastAiMessage = fullResponseBuffer; // Save to memory for the next turn
+            }
         }
 
-        if (data && data.reply) {
-            lastAiMessage = data.reply; 
-
-            // Convert newlines to HTML breaks, and fix any stray **markdown**
-            const fullText = data.reply
-                .replace(/\n/g, '<br>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // 4. SSE Stream Parsing Loop
+        while (true) {
+            const { done, value } = await reader.read();
             
-            botMsg.innerHTML = ""; 
+            if (done) {
+                isStreamDone = true;
+                break;
+            }
             
-            let i = 0;
-            let currentText = "";
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split('\n'); 
             
-            function typeWriter() {
-                if (i < fullText.length) {
-                    if (fullText.charAt(i) === '<') {
-                        let tagEnd = fullText.indexOf('>', i);
-                        if (tagEnd !== -1) {
-                            currentText += fullText.substring(i, tagEnd + 1);
-                            i = tagEnd + 1;
-                            botMsg.innerHTML = currentText;
-                            chatArea.scrollTop = chatArea.scrollHeight;
-                            typeWriter();
-                            return;
+            for (const line of lines) {
+                const trimmedLine = line.trim();
+                if (!trimmedLine || trimmedLine === 'data: [DONE]') continue;
+                if (trimmedLine.startsWith("data: ")) {
+                    try {
+                        const json = JSON.parse(trimmedLine.substring(6));
+                        if (json.candidates && json.candidates[0].content) {
+                            const newText = json.candidates[0].content.parts[0].text;
+                            fullResponseBuffer += newText;
+                            
+                            if (!hasStarted) {
+                                hasStarted = true;
+                                botMsg.innerHTML = ""; // Clear the glowing typing dots
+                                
+                                // Disable CSS smooth scroll to allow flawless JS per-frame scrolling
+                                chatArea.style.scrollBehavior = 'auto'; 
+                                
+                                // Kick off the 60fps typewriter engine
+                                requestAnimationFrame(typewriterEffect);
+                            }
+                            
+                            // Push new characters into the queue instead of instantly rendering them
+                            charQueue.push(...newText.split(''));
                         }
-                    }
-                    
-                    currentText += fullText.charAt(i);
-                    botMsg.innerHTML = currentText;
-                    i++;
-                    
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                    setTimeout(typeWriter, 10); 
+                    } catch (e) {
+                        // Silently ignore incomplete JSON chunks
+                    } 
                 }
             }
-            typeWriter();
-        } else {
-            throw new Error("Received an empty response.");
         }
+
       } catch (error) {
         console.error("Error:", error);
-        botMsg.innerHTML = "<span style='color: #fb4934;'><b>System Error:</b> " + error.message + "</span>";
+        usage.count--; 
+        localStorage.setItem(limitKey, JSON.stringify(usage));
+        botMsg.innerHTML = "<span style='color: #fb4934;'><b>System Error:</b> Cannot connect to edge server.</span>";
+        chatArea.style.scrollBehavior = 'smooth';
       }
     }
 
