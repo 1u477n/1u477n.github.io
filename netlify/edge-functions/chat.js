@@ -31,7 +31,7 @@ export default async (request, context) => {
     if (!apiKey) throw new Error("GEMINI_API_KEY is missing in Netlify.");
 
     // 4. Construct the streaming API URL
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.0-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
 
     // 5. Fetch the Server-Sent Events stream from Google
     const response = await fetch(apiUrl, {
