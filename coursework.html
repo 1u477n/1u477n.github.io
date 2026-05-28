@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Continuous Learning & Upskilling - Technical and Scientific Coursework." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#070A12" id="themeColor">
+  <title>Continuous Learning & Upskilling</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Dark Theme (Default) */
+      --bg0: #050505;
+      --bg1: #0A0A0A;
+      --text: #F2F2F2;
+      --muted: rgba(255,255,255,0.7);
+      --muted2: rgba(255,255,255,0.5);
+      
+      --panel: rgba(20, 20, 20, 0.6);
+      --panel-hover: rgba(30, 30, 30, 0.8);
+      --stroke: rgba(255,255,255,0.08);
+      --stroke-hover: rgba(255,255,255,0.2);
+      
+      --a1: #38BDF8; /* Sky */
+      --a2: #818CF8; /* Violet */
+      --a3: #34D399; /* Emerald */
+      
+      --grad: linear-gradient(135deg, var(--a1), var(--a2));
+      --ring: 0 0 0 2px rgba(56,189,248,.55);
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 20px rgba(0,0,0,0.4);
+      --glow: 0 0 40px -10px var(--a1);
+      
+      --r20: 20px;
+      --r24: 24px;
+      --max: 1160px;
+    }
+
+    /* Light Theme Override */
+    [data-theme="light"] {
+      --bg0: #F9FAFB;
+      --bg1: #F3F4F6;
+      --text: #111827;
+      --muted: rgba(0,0,0,0.7);
+      --muted2: rgba(0,0,0,0.5);
+      
+      --panel: rgba(255, 255, 255, 0.7);
+      --panel-hover: rgba(255, 255, 255, 0.95);
+      --stroke: rgba(0,0,0,0.08);
+      --stroke-hover: rgba(0,0,0,0.2);
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0,0,0,0.05);
+      --ring: 0 0 0 2px rgba(56,189,248,.45);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg0);
+      color: var(--text);
+      overflow-x: hidden;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* --- Background FX --- */
+    .bg-orbs {
+      position: fixed; inset: 0; z-index: -1;
+      pointer-events: none; background: var(--bg0); overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px);
+      opacity: 0.4; animation: float 10s infinite ease-in-out alternate;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--a1); top: -10%; left: -10%; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: var(--a2); bottom: -10%; right: -10%; animation-delay: -2s; }
+    .orb-3 { width: 400px; height: 400px; background: var(--a3); top: 40%; left: 40%; opacity: 0.2; animation-delay: -5s; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(30px, 30px); }
+    }
+
+    .bg-noise {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .container{
+      max-width: var(--max); margin: 0 auto; position: relative; z-index: 1;
+    }
+
+    /* Top Bar (Pill Style) */
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; background: var(--panel);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--stroke); border-radius: 99px;
+      margin-bottom: 24px; box-shadow: var(--shadow);
+      position: sticky; top: 20px; z-index: 100;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--grad);
+      border: 0; cursor: pointer; display: grid; place-items: center;
+      color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+      transition: transform 0.2s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.05); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    [data-theme="dark"] .sun { display: none; }
+    [data-theme="light"] .moon { display: none; }
+
+    .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .brand-text strong { font-size: 14px; font-weight: 700; }
+    .brand-text span { font-size: 12px; color: var(--muted2); }
+
+    /* Navigation Menu Styles */
+    .menu-btn {
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .menu-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--text); }
+
+    .menu {
+      position: fixed; top: 80px; right: 20px;
+      width: min(300px, 90vw);
+      background: var(--panel-hover);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      padding: 8px;
+      display: none;
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .menu.open { display: flex; animation: fadeDown 0.2s ease-out; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .menu a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .menu a:hover { background: rgba(255,255,255,0.08); }
+    .menu a span { font-size: 16px; opacity: 0.5; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 60px 20px; margin-bottom: 40px; }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px); margin: 0 0 16px;
+      letter-spacing: -0.03em; line-height: 1.1;
+    }
+    .grad-text {
+      background: linear-gradient(135deg, var(--text) 30%, var(--a1));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .subhead {
+      font-size: 18px; color: var(--muted); max-width: 600px;
+      margin: 0 auto; line-height: 1.6;
+    }
+
+    /* Controls (Search/Filter) */
+    .controls {
+      display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 32px;
+    }
+    @media(max-width: 768px) { .controls { grid-template-columns: 1fr; } }
+
+    .control {
+      background: var(--panel); border: 1px solid var(--stroke);
+      border-radius: 20px; padding: 14px;
+      backdrop-filter: blur(10px); box-shadow: var(--shadow);
+    }
+    .label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--muted2);
+      margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+    }
+    .label i {
+      width: 6px; height: 6px; background: var(--a1);
+      border-radius: 50%; box-shadow: 0 0 8px var(--a1);
+    }
+
+    input, select {
+      width: 100%; background: transparent; border: none;
+      color: var(--text); font-size: 15px; font-family: inherit;
+      outline: none; padding: 0; cursor: pointer;
+    }
+    input::placeholder { color: var(--muted2); }
+    select option { background: var(--bg0); color: var(--text); }
+
+    /* Grid */
+    .awards-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;
+    }
+
+    .award-card {
+      background: var(--panel); border: 1px solid var(--stroke);
+      border-radius: 24px; padding: 24px; display: flex; flex-direction: column;
+      gap: 16px; color: var(--text); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative; overflow: hidden; min-height: 200px; text-decoration: none;
+      cursor: pointer;
+    }
+
+    .award-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%);
+      transform: translateX(-100%); transition: transform 0.6s;
+    }
+
+    .award-card:hover {
+      transform: translateY(-5px); border-color: var(--a2);
+      background: var(--panel-hover); box-shadow: 0 15px 40px -10px rgba(129, 140, 248, 0.2);
+    }
+    .award-card:hover::before { transform: translateX(100%); }
+
+    .award-title { font-size: 18px; line-height: 1.4; margin: 0; font-weight: 700; color: var(--text); }
+    
+    .meta { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
+    
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--stroke); color: var(--muted);
+    }
+    .chip.provider { color: var(--a1); border-color: rgba(56,189,248,.3); }
+
+    .arrow {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--stroke);
+      display: grid; place-items: center; transition: 0.3s; color: var(--text);
+    }
+    .award-card:hover .arrow {
+      background: var(--text); color: var(--bg0); transform: rotate(45deg);
+    }
+
+    .hidden { display: none !important; }
+
+    .footer {
+      margin-top: 40px; padding: 24px; text-align: center;
+      font-size: 12px; color: var(--muted2);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  </div>
+  <div class="bg-noise"></div>
+
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <div class="brand-text">
+          <strong>Continuous Learning & Upskilling</strong>
+          <span>Technical Certifications</span>
+        </div>
+      </div>
+      
+      <!-- New Nav Menu Button -->
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </header>
+
+    <!-- New Nav Menu Dropdown -->
+    <nav class="menu" id="menuPanel">
+      <a href="https://1u477n.github.io/">Home <span>→</span></a>
+      <a href="https://1u477n.github.io/about.html">About Me <span>→</span></a>
+      <a href="https://1u477n.github.io/techandstrategyconsulting.html">Consulting <span>→</span></a>
+      <a href="https://1u477n.github.io/coursework.html">Coursework <span>→</span></a>
+      <a href="https://1u477n.github.io/publishedworks.html">Published Works <span>→</span></a>
+      <a href="https://1u477n.github.io/workrecognitions.html">Work Recognitions <span>→</span></a>
+      <a href="https://1u477n.github.io/blogs/mainpage.html">Blogs <span>→</span></a>
+      <a href="https://1u477n.github.io/images/cv.pdf">CV (PDF) <span>↓</span></a>
+      <a href="https://www.linkedin.com/in/1u477n/" target="_blank">LinkedIn <span>↗</span></a>
+    </nav>
+
+    <section class="hero">
+      <h1><span class="grad-text">Continuous Learning & Upskilling</span></h1>
+      <p class="subhead">
+        A structured overview of completed coursework and professional certificates across software engineering, AI, and big data.
+      </p>
+    </section>
+
+    <section class="controls">
+      <div class="control">
+        <div class="label"><i></i> Search</div>
+        <input type="text" id="searchInput" placeholder="Search courses or keywords..." autocomplete="off" />
+      </div>
+
+      <div class="control">
+        <div class="label"><i></i> Discipline</div>
+        <select id="categoryFilter">
+          <option value="">All Disciplines</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="awards-grid" id="awardsGrid"></section>
+
+    <footer class="footer">
+      © <span id="year"></span> · Technical Certifications
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Theme Toggle Logic
+    (function(){
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const storageKey = "theme";
+      const media = window.matchMedia("(prefers-color-scheme: light)");
+
+      function updateTheme(theme){
+        root.setAttribute("data-theme", theme);
+        const meta = document.getElementById("themeColor");
+        if(meta) meta.setAttribute("content", theme === "dark" ? "#070A12" : "#F9FAFB");
+      }
+
+      const saved = localStorage.getItem(storageKey);
+      if(saved) updateTheme(saved);
+      else updateTheme(media.matches ? "light" : "dark");
+
+      toggle.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        updateTheme(next);
+        localStorage.setItem(storageKey, next);
+      });
+    })();
+
+    // Nav Menu Toggle Logic
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+    
+    menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menuPanel.classList.toggle("open");
+    });
+    
+    document.addEventListener("click", (e) => {
+        if(!menuPanel.contains(e.target) && e.target !== menuBtn) {
+            menuPanel.classList.remove("open");
+        }
+    });
+
+    // Extracted Data from Resume with Placeholder URLs
+    // NOTE: You will need to replace these placeholder URLs with your actual certificate links.
+    const COURSEWORK_DATA = [
+      { title: "Introduction to Responsible AI", provider: "Google", platform: "Coursera", category: "AI & Machine Learning", url: "https://www.coursera.org/learn/introduction-to-responsible-ai" },
+      { title: "Introduction to Large Language Models", provider: "Google", platform: "Coursera", category: "AI & Machine Learning", url: "https://www.coursera.org/learn/introduction-to-large-language-models" },
+      { title: "Introduction to Generative AI", provider: "Google", platform: "Coursera", category: "AI & Machine Learning", url: "https://www.coursera.org/learn/introduction-to-generative-ai" },
+      { title: "Advanced React", provider: "Meta", platform: "Coursera", category: "Web Development", url: "https://www.coursera.org/learn/advanced-react" },
+      { title: "Programming with JavaScript", provider: "Meta", platform: "Coursera", category: "Web Development", url: "https://www.coursera.org/learn/programming-with-javascript" },
+      { title: "HTML and CSS in depth", provider: "Meta", platform: "Coursera", category: "Web Development", url: "https://www.coursera.org/learn/html-and-css-in-depth" },
+      { title: "Introduction to Front-End Development", provider: "Meta", platform: "Coursera", category: "Web Development", url: "https://www.coursera.org/learn/introduction-to-front-end-development" },
+      { title: "Introduction to Back-End Development", provider: "Meta", platform: "Coursera", category: "Web Development", url: "https://www.coursera.org/learn/introduction-to-back-end-development" },
+      { title: "Introduction to Mobile Development", provider: "Meta", platform: "Coursera", category: "Mobile Development", url: "https://www.coursera.org/learn/introduction-to-mobile-development" },
+      { title: "AWS Fundamentals: Addressing Security Risk", provider: "AWS", platform: "Coursera", category: "Cloud Computing", url: "https://www.coursera.org/learn/aws-fundamentals-addressing-security-risk" },
+      { title: "AWS Fundamentals: Going Cloud-Native", provider: "AWS", platform: "Coursera", category: "Cloud Computing", url: "https://www.coursera.org/learn/aws-fundamentals-going-cloud-native" },
+      { title: "AI For Everyone", provider: "deeplearning.ai", platform: "Coursera", category: "AI & Machine Learning", url: "https://www.coursera.org/learn/ai-for-everyone" },
+      { title: "Improving Deep Neural Networks: Hyperparameter Tuning...", provider: "deeplearning.ai", platform: "Coursera", category: "AI & Machine Learning", url: "https://www.coursera.org/learn/deep-neural-network" },
+      { title: "Neural Networks and Deep Learning", provider: "deeplearning.ai", platform: "Coursera", category: "AI & Machine Learning", url: "https://www.coursera.org/learn/neural-networks-deep-learning" },
+      { title: "Drug Discovery", provider: "UC San Diego", platform: "Coursera", category: "Biomedical & Genomics", url: "https://www.coursera.org/learn/drug-discovery" },
+      { title: "Drug Development", provider: "UC San Diego", platform: "Coursera", category: "Biomedical & Genomics", url: "https://www.coursera.org/learn/drug-development" },
+      { title: "Making Biologic Medicine for Patients", provider: "MIT", platform: "edX", category: "Biomedical & Genomics", url: "https://www.edx.org/course/making-biologic-medicines-for-patients-the-princip" },
+      { title: "Command Line Tools for Genomic Data Science", provider: "Johns Hopkins", platform: "Coursera", category: "Biomedical & Genomics", url: "https://www.coursera.org/learn/genomic-tools" },
+      { title: "Python for Genomic Data Science", provider: "Johns Hopkins", platform: "Coursera", category: "Biomedical & Genomics", url: "https://www.coursera.org/learn/python-genomics" },
+      { title: "Introduction to Genomic Technologies", provider: "Johns Hopkins", platform: "Coursera", category: "Biomedical & Genomics", url: "https://www.coursera.org/learn/introduction-genomics" },
+      { title: "Machine Learning With Big Data", provider: "UC San Diego", platform: "Coursera", category: "Data Science & Big Data", url: "https://www.coursera.org/learn/big-data-machine-learning" },
+      { title: "Graph Analytics for Big Data", provider: "UC San Diego", platform: "Coursera", category: "Data Science & Big Data", url: "https://www.coursera.org/learn/graph-analytics" },
+      { title: "Introduction to Big Data Analytics", provider: "UC San Diego", platform: "Coursera", category: "Data Science & Big Data", url: "https://www.coursera.org/learn/big-data-analytics" },
+      { title: "Hadoop Platform and Application Framework", provider: "UC San Diego", platform: "Coursera", category: "Data Science & Big Data", url: "https://www.coursera.org/learn/hadoop" },
+      { title: "Introduction to Big Data", provider: "UC San Diego", platform: "Coursera", category: "Data Science & Big Data", url: "https://www.coursera.org/learn/big-data-introduction" },
+      { title: "Scalable Machine Learning", provider: "UC Berkeley", platform: "edX", category: "Data Science & Big Data", url: "https://www.edx.org/course/scalable-machine-learning" },
+      { title: "Introduction to Big Data with Apache Spark", provider: "UC Berkeley", platform: "edX", category: "Data Science & Big Data", url: "https://www.edx.org/course/introduction-to-big-data-with-apache-spark" },
+      { title: "Machine Learning (Octave)", provider: "Stanford", platform: "Coursera", category: "AI & Machine Learning", url: "https://www.coursera.org/learn/machine-learning" }
+    ];
+
+    const awardsGrid = document.getElementById("awardsGrid");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderCards(data) {
+      awardsGrid.innerHTML = "";
+      const categories = new Set();
+
+      data.forEach(item => {
+        categories.add(item.category);
+
+        const card = document.createElement("a");
+        card.className = "award-card";
+        card.href = item.url;
+        card.target = "_blank"; // Opens link in a new tab
+        card.rel = "noopener noreferrer"; // Security best practice for target="_blank"
+        card.setAttribute("data-category", item.category.toLowerCase());
+        card.setAttribute("data-title", item.title.toLowerCase());
+        card.setAttribute("data-provider", item.provider.toLowerCase());
+
+        card.innerHTML = `
+          <h3 class="award-title">${item.title}</h3>
+          <div class="meta">
+            <div class="chips">
+              <span class="chip provider">${item.provider}</span>
+              <span class="chip">${item.platform}</span>
+            </div>
+            <div class="arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+          </div>
+        `;
+        awardsGrid.appendChild(card);
+      });
+
+      // Populate Categories
+      const list = Array.from(categories).sort();
+      list.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat.toLowerCase();
+        opt.textContent = cat;
+        categoryFilter.appendChild(opt);
+      });
+    }
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      const cat = categoryFilter.value;
+      const cards = Array.from(awardsGrid.children);
+
+      cards.forEach(c => {
+        const title = c.getAttribute("data-title");
+        const provider = c.getAttribute("data-provider");
+        const cCat = c.getAttribute("data-category");
+        
+        const matchesQuery = !q || title.includes(q) || provider.includes(q);
+        const matchesCat = !cat || cCat === cat;
+        
+        c.classList.toggle("hidden", !(matchesQuery && matchesCat));
+      });
+    }
+
+    renderCards(COURSEWORK_DATA);
+    searchInput.addEventListener("input", applyFilters);
+    categoryFilter.addEventListener("change", applyFilters);
+  </script>
+</body>
+</html>
