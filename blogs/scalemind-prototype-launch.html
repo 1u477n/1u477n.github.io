@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Introducing two groundbreaking enterprise AI prototypes from Blueprint AI Partners: The ScaleMind Enterprise Assistant and the Leadership Swarm." />
+  
+  <link rel="canonical" href="https://1u477n.github.io/blogs/scalemind-prototype-launch.html" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://1u477n.github.io/blogs/scalemind-prototype-launch.html">
+  <meta property="og:title" content="Unveiling the ScaleMind Suite: Tactical Execution meets Strategic Synthesis | Blueprint AI Partners">
+  <meta property="og:description" content="Discover our new mobile enterprise assistant and desktop strategic debate engine, powered by the ScaleMind architecture.">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unveiling the ScaleMind Suite | Blueprint AI Partners">
+  <meta name="twitter:description" content="Discover our new mobile enterprise assistant and desktop strategic debate engine.">
+  
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#070A12" id="themeColor">
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const storageKey = "theme";
+      const media = window.matchMedia("(prefers-color-scheme: light)");
+      let saved = null;
+      try { 
+        saved = localStorage.getItem(storageKey); 
+      } catch (e) {}
+      
+      const theme = (saved === "light" || saved === "dark") ? saved : (media.matches ? "light" : "dark");
+      root.setAttribute("data-theme", theme);
+      
+      const meta = document.getElementById("themeColor");
+      if (meta) {
+        meta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
+      }
+    })();
+  </script>
+
+  <title>Unveiling the ScaleMind Suite: Tactical Execution meets Strategic Synthesis | Blueprint AI Partners</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg0: #050505;
+      --bg1: #0A0A0A;
+      --text: #F2F2F2;
+      --muted: rgba(255, 255, 255, 0.7);
+      --muted2: rgba(255, 255, 255, 0.5);
+      
+      --panel: rgba(20, 20, 20, 0.6);
+      --panel-hover: rgba(30, 30, 30, 0.8);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --stroke-hover: rgba(255, 255, 255, 0.2);
+      
+      --a1: #38BDF8;
+      --a2: #818CF8;
+      --a3: #34D399;
+      
+      --grad: linear-gradient(135deg, var(--a1), var(--a2));
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 20px rgba(0, 0, 0, 0.4);
+      --glow: 0 0 40px -10px var(--a1);
+      
+      --max: 1100px;
+    }
+
+    .skip-link {
+      position: absolute; 
+      top: -100px; 
+      left: 20px; 
+      z-index: 9999;
+      background: var(--text); 
+      color: var(--bg0); 
+      padding: 12px 24px;
+      border-radius: 12px; 
+      text-decoration: none; 
+      font-weight: 700; 
+      font-size: 14px;
+      transition: top 0.3s ease; 
+      border: none; 
+      cursor: pointer;
+    }
+    
+    .skip-link:focus { 
+      top: 20px; 
+      outline: 2px solid var(--a1); 
+    }
+
+    [data-theme="light"] {
+      --bg0: #F9FAFB;
+      --bg1: #F3F4F6;
+      --text: #111827;
+      --muted: rgba(0, 0, 0, 0.7);
+      --muted2: rgba(0, 0, 0, 0.5);
+      
+      --panel: rgba(255, 255, 255, 0.7);
+      --panel-hover: rgba(255, 255, 255, 0.95);
+      --stroke: rgba(0, 0, 0, 0.08);
+      --stroke-hover: rgba(0, 0, 0, 0.2);
+      
+      --shadow: 0 0 0 1px var(--stroke), 0 4px 15px rgba(0, 0, 0, 0.05);
+      --glow: 0 0 30px -10px var(--a2);
+    }
+
+    * { 
+      box-sizing: border-box; 
+    }
+    
+    html, body { 
+      height: 100%; 
+      scroll-behavior: smooth; 
+    }
+    
+    body { 
+      margin: 0; 
+      font-family: 'Inter', system-ui, sans-serif; 
+      background-color: var(--bg0); 
+      color: var(--text); 
+      overflow-x: hidden; 
+      padding: 20px; 
+      transition: background-color 0.3s ease, color 0.3s ease; 
+    }
+
+    .bg-orbs { 
+      position: fixed; 
+      inset: 0; 
+      z-index: -1; 
+      pointer-events: none; 
+      background: var(--bg0); 
+      overflow: hidden; 
+    }
+    
+    .orb { 
+      position: absolute; 
+      border-radius: 50%; 
+      filter: blur(80px); 
+      opacity: 0.4; 
+      animation: float 10s infinite ease-in-out alternate; 
+    }
+    
+    .orb-1 { 
+      width: 600px; 
+      height: 600px; 
+      background: var(--a1); 
+      top: -10%; 
+      left: -10%; 
+      animation-delay: 0s; 
+    }
+    
+    .orb-2 { 
+      width: 500px; 
+      height: 500px; 
+      background: var(--a2); 
+      bottom: -10%; 
+      right: -10%; 
+      animation-delay: -2s; 
+    }
+    
+    .orb-3 { 
+      width: 400px; 
+      height: 400px; 
+      background: var(--a3); 
+      top: 40%; 
+      left: 40%; 
+      opacity: 0.2; 
+      animation-delay: -5s; 
+    }
+    
+    @keyframes float { 
+      0% { transform: translate(0, 0); } 
+      100% { transform: translate(30px, 30px); } 
+    }
+
+    .bg-noise { 
+      position: fixed; 
+      inset: 0; 
+      z-index: 0; 
+      pointer-events: none; 
+      opacity: 0.05; 
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); 
+    }
+
+    .container { 
+      max-width: var(--max); 
+      margin: 0 auto; 
+      position: relative; 
+      z-index: 1; 
+    }
+
+    .topbar { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 12px 16px; 
+      background: var(--panel); 
+      backdrop-filter: blur(20px); 
+      border: 1px solid var(--stroke); 
+      border-radius: 99px; 
+      margin-bottom: 40px; 
+      box-shadow: var(--shadow); 
+      position: sticky; 
+      top: 20px; 
+      z-index: 100; 
+    }
+    
+    .brand { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+    }
+    
+    .theme-toggle { 
+      width: 36px; 
+      height: 36px; 
+      border-radius: 50%; 
+      background: var(--grad); 
+      border: 0; 
+      cursor: pointer; 
+      display: grid; 
+      place-items: center; 
+      color: white; 
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); 
+      transition: transform 0.2s ease; 
+    }
+    
+    .theme-toggle:hover { 
+      transform: scale(1.05); 
+    }
+    
+    .theme-toggle svg { 
+      width: 18px; 
+      height: 18px; 
+    }
+    
+    [data-theme="dark"] .sun { 
+      display: none; 
+    }
+    
+    [data-theme="light"] .moon { 
+      display: none; 
+    }
+
+    .brand-text { 
+      display: flex; 
+      flex-direction: column; 
+      line-height: 1.2; 
+    }
+    
+    .brand-text strong { 
+      font-size: 14px; 
+      font-weight: 700; 
+    }
+    
+    .brand-text span { 
+      font-size: 12px; 
+      color: var(--muted2); 
+    }
+
+    .progress-fixed { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      height: 3px; 
+      z-index: 200; 
+      pointer-events: none; 
+    }
+    
+    .progress-bar { 
+      height: 100%; 
+      width: 0%; 
+      background: var(--grad); 
+      transition: width 0.1s linear; 
+    }
+
+    .hero { 
+      padding: 32px; 
+      background: var(--panel); 
+      border: 1px solid var(--stroke); 
+      border-radius: 32px; 
+      backdrop-filter: blur(10px); 
+      margin-bottom: 24px; 
+      box-shadow: var(--shadow); 
+    }
+    
+    .kicker { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      padding: 6px 12px; 
+      border-radius: 99px; 
+      background: rgba(56, 189, 248, 0.1); 
+      border: 1px solid rgba(56, 189, 248, 0.2); 
+      color: var(--a1); 
+      font-size: 12px; 
+      font-weight: 700; 
+      margin-bottom: 16px; 
+    }
+    
+    .kicker i { 
+      width: 6px; 
+      height: 6px; 
+      border-radius: 50%; 
+      background: var(--a1); 
+      box-shadow: 0 0 8px var(--a1); 
+    }
+    
+    h1 { 
+      margin: 0 0 16px; 
+      font-size: clamp(28px, 5vw, 42px); 
+      letter-spacing: -0.02em; 
+      line-height: 1.1; 
+    }
+    
+    .grad-text { 
+      background: var(--grad); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+    }
+    
+    .lead { 
+      font-size: 16px; 
+      line-height: 1.6; 
+      color: var(--muted); 
+      max-width: 90ch; 
+      margin-bottom: 24px; 
+    }
+
+    .meta-row { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 10px; 
+      margin-top: 24px; 
+      align-items: center; 
+    }
+    
+    .pill { 
+      font-size: 12px; 
+      padding: 8px 14px; 
+      border-radius: 99px; 
+      border: 1px solid var(--stroke); 
+      background: rgba(255, 255, 255, 0.03); 
+      color: var(--muted); 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px; 
+    }
+    
+    .pill b { 
+      color: var(--text); 
+    }
+    
+    .icon-pill { 
+      width: 36px; 
+      height: 36px; 
+      padding: 0; 
+      display: grid; 
+      place-items: center; 
+      cursor: pointer; 
+      color: var(--muted); 
+      border: 1px solid var(--stroke); 
+      background: rgba(255, 255, 255, 0.03); 
+      border-radius: 50%; 
+      transition: all 0.2s ease; 
+    }
+    
+    .icon-pill:hover { 
+      color: var(--text); 
+      background: rgba(255, 255, 255, 0.08); 
+      transform: translateY(-2px); 
+    }
+    
+    .icon-pill svg { 
+      width: 16px; 
+      height: 16px; 
+      stroke: currentColor; 
+      fill: none; 
+      stroke-width: 2; 
+    }
+
+    .content-grid { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 24px; 
+      align-items: start; 
+    }
+    
+    @media (min-width: 980px) { 
+      .content-grid { 
+        grid-template-columns: 1fr 300px; 
+      } 
+      .toc { 
+        position: sticky; 
+        top: 100px; 
+      } 
+    }
+
+    .post { 
+      background: var(--panel); 
+      border: 1px solid var(--stroke); 
+      border-radius: 24px; 
+      padding: 32px; 
+      box-shadow: var(--shadow); 
+    }
+    
+    .prose p { 
+      margin-bottom: 24px; 
+      line-height: 1.8; 
+      color: var(--muted); 
+      font-size: 15px; 
+    }
+    
+    .prose h2 { 
+      margin: 40px 0 16px; 
+      font-size: 20px; 
+      color: var(--text); 
+    }
+    
+    .prose h3 { 
+      margin: 30px 0 12px; 
+      font-size: 17px; 
+      color: var(--text); 
+    }
+    
+    .prose strong { 
+      color: var(--text); 
+      font-weight: 600; 
+    }
+    
+    .prose ul { 
+      margin-bottom: 24px; 
+      padding-left: 24px; 
+      color: var(--muted); 
+      line-height: 1.8; 
+      font-size: 15px; 
+    }
+    
+    .prose li { 
+      margin-bottom: 8px; 
+    }
+
+    /* Video Styling */
+    .video-wrapper {
+      margin: 32px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+      outline: none;
+    }
+    
+    .video-caption {
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--muted2);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--stroke);
+    }
+    
+    .mobile-video {
+      max-width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .divider { 
+      height: 1px; 
+      background: var(--stroke); 
+      margin: 32px 0; 
+    }
+
+    body.zen-mode .topbar, 
+    body.zen-mode .footer, 
+    body.zen-mode .toc { 
+      display: none !important; 
+    }
+    
+    body.zen-mode .container { 
+      max-width: 760px; 
+    }
+    
+    body.zen-mode .content-grid { 
+      grid-template-columns: 1fr; 
+    }
+    
+    body.zen-mode #zenBtn { 
+      color: var(--a1); 
+      border-color: var(--a1); 
+      background: rgba(56, 189, 248, 0.15); 
+    }
+
+    body.signal-mode .prose p, 
+    body.signal-mode .prose li { 
+      color: transparent; 
+      text-shadow: 0 0 10px rgba(120, 120, 120, 0.3); 
+    }
+    
+    body.signal-mode .prose .ai-signal { 
+      color: var(--text); 
+      opacity: 1; 
+      text-shadow: none; 
+      background: rgba(167, 139, 250, 0.15); 
+      padding: 2px 4px; 
+      border-radius: 4px; 
+    }
+    
+    body.signal-mode #signalBtn { 
+      color: var(--a2); 
+      border-color: var(--a2); 
+      background: rgba(167, 139, 250, 0.15); 
+    }
+
+    .toc { 
+      background: var(--panel); 
+      border: 1px solid var(--stroke); 
+      border-radius: 24px; 
+      padding: 16px; 
+      backdrop-filter: blur(12px); 
+    }
+    
+    .toc details summary { 
+      cursor: pointer; 
+      font-size: 13px; 
+      font-weight: 700; 
+      color: var(--muted2); 
+      text-transform: uppercase; 
+      letter-spacing: 0.05em; 
+      outline: none; 
+      list-style: none; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+    }
+    
+    .toc details summary::after { 
+      content: "−"; 
+      font-size: 16px; 
+      font-weight: 400; 
+    }
+    
+    .toc details:not([open]) summary::after { 
+      content: "+"; 
+    }
+    
+    .toc details summary::-webkit-details-marker { 
+      display: none; 
+    }
+    
+    .toc-nav { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 6px; 
+      margin-top: 12px; 
+    }
+    
+    .toc-nav a { 
+      text-decoration: none; 
+      font-size: 12px; 
+      color: var(--muted); 
+      padding: 8px 12px; 
+      border-radius: 12px; 
+      transition: all 0.2s; 
+      border: 1px solid transparent; 
+    }
+    
+    .toc-nav a:hover { 
+      background: rgba(255, 255, 255, 0.05); 
+      color: var(--text); 
+    }
+    
+    .toc-nav a.active { 
+      background: rgba(56, 189, 248, 0.1); 
+      color: var(--text); 
+      border-color: rgba(56, 189, 248, 0.25); 
+    }
+
+    .footer { 
+      margin-top: 40px; 
+      padding: 20px; 
+      text-align: center; 
+      font-size: 12px; 
+      color: var(--muted2); 
+      border-top: 1px solid var(--stroke); 
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <button id="a11y-speak-btn" class="skip-link" style="left: 140px;">Listen to this article (Press Enter)</button>
+  
+  <div class="progress-fixed">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  
+  <div class="bg-noise"></div>
+
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <div class="brand-text">
+          <strong>Blog</strong>
+          <span>AI Agents · Blueprint AI Partners</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" id="main">
+      <section class="hero panel" aria-label="Blog post header">
+        <div class="kicker"><i></i> Blueprint AI Partners · Product Launch</div>
+        <h1>
+          <span class="grad-text">Unveiling the ScaleMind Suite: Tactical Execution meets Strategic Synthesis</span>
+        </h1>
+        <p class="lead">
+          We are thrilled to unveil two groundbreaking prototype applications built on our unified multi-agent architecture. Discover how we are bridging the gap between daily operational workflows and high-level executive strategy through managed AI-as-a-Service.
+        </p>
+
+        <div class="meta-row" aria-label="Post metadata">
+          <div class="pill"><b>Author</b> Luat Nguyen</div>
+          <div class="pill"><b>Focus</b> Product Showcase</div>
+          <div class="pill"><b>Updated</b> <time id="today" datetime=""></time></div>
+
+          <button class="icon-pill" id="speakBtn" title="Listen to Article" aria-label="Listen to article">
+            <svg id="speakIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+          
+          <button class="icon-pill" id="signalBtn" title="AI Signal Mode (Highlight Key Insights)">
+            <svg viewBox="0 0 24 24">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </button>
+          
+          <button class="icon-pill" id="zenBtn" title="Zen Mode (Focus Reading)">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <article class="post panel" id="post" aria-label="Blog post content">
+          <div class="prose" id="prose">
+            <p>
+              At Blueprint AI Partners, our mandate has always been to construct AI architectures that seamlessly integrate into the complex realities of modern enterprises. Generative models are powerful, but without rigorous orchestration, they remain isolated novelties.
+            </p>
+            <p>
+              <span class="ai-signal">Today, we are lifting the curtain on two prototypes powered by our ScaleMind framework.</span> These applications represent the dual hemispheres of enterprise intelligence: one engineered for rapid, tactical execution on the ground, and the other designed for deliberate, cross-functional strategic planning at the executive level.
+            </p>
+
+            <h2 id="tactical-execution">1. The ScaleMind Enterprise Assistant (Tactical Execution)</h2>
+            <p>
+              Enterprise knowledge is notoriously fragmented. Navigating HR playbooks, IT security protocols, and financial guidelines to execute a single cross-departmental task often takes days of email chains. To solve this, we developed a mobile-first interface designed to place the entirety of an organization's procedural truth in the palm of an employee's hand.
+            </p>
+            <p>
+              The mobile prototype features a clean, chat-driven interface equipped with a unified "Global Master Brain". Users can also filter their inquiries through specific "Active Knowledge Domains," such as IT Operations, Lab Operations, Marketing, or Finance Operations.
+            </p>
+            <p>
+              <span class="ai-signal">This is not a standard chatbot; it is a tactical execution engine powered by the Aegis Protocol.</span> For example, when queried about how the company fosters a culture of continuous improvement, the Assistant decrypts the neural response and synthesizes a structured answer by directly analyzing database fragments from IT Systems, HR Policies, Lab Processes, and Financial Workflows.
+            </p>
+
+            <figure class="video-wrapper mobile-video">
+              <video controls playsinline muted>
+                <source src="https://1u477n.github.io/videos/Cross-Functional-AI-Alignment-Demo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <figcaption class="video-caption"><strong>Demo:</strong> The ScaleMind Enterprise Assistant resolving a cross-functional IP discovery scenario.</figcaption>
+            </figure>
+
+            <h3>Handling Complex, Cross-Functional Queries</h3>
+            <p>
+              The true power of the Enterprise Assistant is revealed during complex operational scenarios. In the prototype demonstration, the user poses a critical scenario: <em>"A scientist makes a groundbreaking discovery with major IP potential. What is the coordinated process to lock down the knowledge, secure the data, and manage the financial implications?"</em>
+            </p>
+            <p>
+              In seconds, the ScaleMind Engine orchestrates a multi-disciplinary response:
+            </p>
+            <ul>
+              <li><strong>Legal & IP Strategy:</strong> It outlines immediate protection protocols, documentation requirements, and the necessity of Employee Invention Assignment Agreements.</li>
+              <li><strong>IT & Lab Operations:</strong> It dictates safety and reproducibility standards, strict access controls, and regular system hygiene audits.</li>
+              <li><strong>Finance Operations:</strong> It advises on cash management for patent filings, data-driven ROI decisions, and strategic partnerships to scale the discovery.</li>
+            </ul>
+            <p>
+              The interface also provides secure session management, offering Dark/Light mode toggles, Local Engine connections, and a Secure Logout. It transforms complex corporate governance into immediate, actionable intelligence.
+            </p>
+
+            <h2 id="strategic-synthesis">2. The ScaleMind Leadership Swarm (Strategic Synthesis)</h2>
+            <p>
+              While the mobile assistant handles the "how," executive leadership must continuously grapple with the "why" and the "what if." For this, we built a desktop-class strategic simulation environment.
+            </p>
+            <p>
+              The Leadership Swarm prototype allows users to configure a virtual C-suite. In a "Step 1: Configure Leadership" panel, a user can assign domain knowledge to generate specialized executive personas. During our demonstration, we instantiated a virtual Head of Facilities Operations, a VP of Finance, a Director of IT Operations, and a VP of Human Resources.
+            </p>
+            <p>
+              <span class="ai-signal">Once the team is assembled, the user initiates a "Strategy Session" by posing a high-level directive.</span> For instance: <em>"How do we foster a culture of high trust and autonomy while implementing the necessary oversight and controls to protect company assets and data as we scale?"</em>
+            </p>
+
+            <figure class="video-wrapper">
+              <video controls playsinline muted>
+                <source src="https://1u477n.github.io/videos/ScaleMind's Network Agents.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <figcaption class="video-caption"><strong>Demo:</strong> The Leadership Swarm synthesizing executive strategy via a live multi-agent debate session.</figcaption>
+            </figure>
+
+            <h3>Real-Time Debate and Roadmap Generation</h3>
+            <p>
+              Upon execution, the UI splits into a dual-pane view. On the left, the <strong>Backend Discussion Logic</strong> panel streams the real-time, asynchronous debate between the instantiated agents. The Head of Facilities, IT Director, HR VP, and Finance VP cross-examine each other's domain playbooks, analyzing operational friction points, assessing security versus autonomy, and debating the financial implications of compliance drag.
+            </p>
+            <p>
+              Simultaneously, on the right pane, the <strong>Business Strategy Plan</strong> dynamically synthesizes this multi-agent debate into a cohesive, formatted document. The resulting "Executive Roadmap" includes:
+            </p>
+            <ul>
+              <li><strong>Situation Overview:</strong> Defining the core tension between governance and autonomy.</li>
+              <li><strong>Key Findings:</strong> Identifying operational friction points and the specific cost of micromanagement.</li>
+              <li><strong>Business Impact & Risk:</strong> A structured table detailing the strategic consequences of talent attrition, scaling failures, and security breaches.</li>
+              <li><strong>Strategic Verdict & Next Steps:</strong> Actionable phases for technical implementation, cultural shifts, and financial review.</li>
+            </ul>
+            <p>
+              Once the execution recommendations are successfully generated, the finalized strategic roadmap can be immediately exported as an official PDF.
+            </p>
+
+            <h2 id="architectural-foundation">3. The Architectural Foundation</h2>
+            <p>
+              Both of these prototypes share the same underlying decoupled, edge-computed architecture. By keeping the frontend ultra-lightweight and handling the complex RAG pipelines, LLM inference, and multi-agent orchestration on secured backend edge servers, we ensure that proprietary company playbooks remain strictly protected.
+            </p>
+            <p>
+              Whether an employee is querying standard operating procedures from their iPhone, or a CEO is simulating a strategic pivot on their desktop, the ScaleMind framework delivers secure, deterministic, and blisteringly fast intelligence.
+            </p>
+          </div>
+        </article>
+
+        <aside class="toc panel" aria-label="On this page">
+          <details open>
+            <summary>On this page</summary>
+            <nav class="toc-nav" id="tocNav" aria-label="Table of contents"></nav>
+          </details>
+        </aside>
+      </div>
+
+      <footer class="footer panel">
+        © <span id="year"></span> Blueprint AI Partners · Powered by ScaleMind
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Theme Toggle Logic
+    (function() {
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      if (!toggle) return;
+      
+      const storageKey = "theme";
+      const media = window.matchMedia("(prefers-color-scheme: light)");
+      
+      const safeGet = () => { 
+        try { return localStorage.getItem(storageKey); } 
+        catch (e) { return null; } 
+      };
+      
+      const safeSet = (v) => { 
+        try { localStorage.setItem(storageKey, v); } 
+        catch (e) {} 
+      };
+      
+      const systemTheme = () => (media.matches ? "light" : "dark");
+      
+      function setToggleText(theme) {
+        const next = theme === "dark" ? "light" : "dark";
+        toggle.setAttribute("aria-label", `Switch to ${next} mode`);
+        toggle.setAttribute("title", `Switch to ${next} mode`);
+      }
+      
+      function applyTheme(theme, persist) {
+        root.setAttribute("data-theme", theme);
+        const meta = document.getElementById("themeColor");
+        if (meta) {
+          meta.setAttribute("content", theme === "dark" ? "#070A12" : "#ffffff");
+        }
+        if (persist) {
+          safeSet(theme);
+        }
+        setToggleText(theme);
+      }
+      
+      const saved = safeGet();
+      if (saved === "light" || saved === "dark") { 
+        applyTheme(saved, false); 
+      } else { 
+        applyTheme(systemTheme(), false); 
+      }
+      
+      toggle.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") || systemTheme();
+        applyTheme(current === "dark" ? "light" : "dark", true);
+      });
+    })();
+
+    // UI Behaviors (Progress, Date, Zen/Signal modes)
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById("year").textContent = new Date().getFullYear();
+      
+      const d = new Date();
+      const timeEl = document.getElementById("today");
+      if (timeEl) {
+        const fmt = new Intl.DateTimeFormat(undefined, { 
+          year: "numeric", 
+          month: "short", 
+          day: "2-digit" 
+        });
+        timeEl.textContent = fmt.format(d);
+      }
+
+      const progressBar = document.getElementById("progressBar");
+      let ticking = false;
+      
+      function updateProgress() {
+        ticking = false;
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop || document.body.scrollTop;
+        const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+        const p = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
+        if (progressBar) {
+          progressBar.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
+        }
+      }
+      
+      window.addEventListener("scroll", () => {
+        if (!ticking) { 
+          ticking = true; 
+          requestAnimationFrame(updateProgress); 
+        }
+      }, { passive: true });
+      
+      updateProgress();
+
+      const zenBtn = document.getElementById("zenBtn");
+      if (zenBtn) {
+        zenBtn.addEventListener("click", () => {
+          document.body.classList.toggle("zen-mode");
+          const active = document.body.classList.contains("zen-mode");
+          zenBtn.style.color = active ? "#38BDF8" : "";
+          zenBtn.style.background = active ? "rgba(56, 189, 248, .15)" : "";
+        });
+      }
+
+      const signalBtn = document.getElementById("signalBtn");
+      if (signalBtn) {
+        signalBtn.addEventListener("click", () => {
+          document.body.classList.toggle("signal-mode");
+          const active = document.body.classList.contains("signal-mode");
+          signalBtn.style.color = active ? "#A78BFA" : "";
+          signalBtn.style.background = active ? "rgba(167, 139, 250, .15)" : "";
+        });
+      }
+    });
+
+    // Table of Contents Observer
+    (function() {
+      const prose = document.getElementById("prose");
+      const tocNav = document.getElementById("tocNav");
+      
+      if (!prose || !tocNav) return;
+      
+      const headings = Array.from(prose.querySelectorAll("h2, h3"));
+      if (!headings.length) return;
+      
+      const slugify = (s) => s.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+      
+      tocNav.innerHTML = headings.map((h, i) => {
+        if (!h.id) {
+          h.id = slugify(h.textContent) + "-" + i;
+        }
+        const lvl = h.tagName === "H3" ? "3" : "2";
+        return `<a href="#${h.id}" data-id="${h.id}" data-level="${lvl}">${h.textContent}</a>`;
+      }).join("");
+
+      const links = Array.from(tocNav.querySelectorAll("a"));
+      const setActive = (id) => links.forEach(a => a.classList.toggle("active", a.dataset.id === id));
+      
+      const obs = new IntersectionObserver((entries) => {
+        const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) {
+          setActive(visible[0].target.id);
+        }
+      }, { 
+        threshold: [0.1], 
+        rootMargin: "-10% 0px -50% 0px" 
+      });
+      
+      headings.forEach(h => obs.observe(h));
+    })();
+
+    // Web Speech API
+    (function() {
+      const visualBtn = document.getElementById("speakBtn");
+      const a11yBtn = document.getElementById("a11y-speak-btn");
+      const icon = document.getElementById("speakIcon");
+      const prose = document.getElementById("prose");
+      
+      if (!prose || !('speechSynthesis' in window)) {
+        if (visualBtn) visualBtn.style.display = 'none';
+        if (a11yBtn) a11yBtn.style.display = 'none';
+        return;
+      }
+
+      const synth = window.speechSynthesis;
+      let utterance = null;
+      let isSpeaking = false;
+      let isPaused = false;
+
+      const playIcon = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>`;
+      const pauseIcon = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+
+      function reset() {
+        synth.cancel();
+        isSpeaking = false;
+        isPaused = false;
+        
+        if (icon) {
+          icon.innerHTML = playIcon;
+        }
+        
+        if (visualBtn) {
+          visualBtn.style.color = "";
+          visualBtn.style.background = "";
+          visualBtn.title = "Listen to Article";
+        }
+        
+        if (a11yBtn) {
+          a11yBtn.innerText = "Listen to this article (Press Enter)";
+        }
+      }
+
+      function toggleSpeech() {
+        if (isSpeaking && !isPaused) {
+          synth.pause();
+          isPaused = true;
+          
+          if (icon) icon.innerHTML = playIcon;
+          if (a11yBtn) a11yBtn.innerText = "Resume listening";
+          
+        } else if (isPaused) {
+          synth.resume();
+          isPaused = false;
+          
+          if (icon) icon.innerHTML = pauseIcon;
+          if (a11yBtn) a11yBtn.innerText = "Pause listening";
+          
+        } else {
+          const text = prose.innerText;
+          utterance = new SpeechSynthesisUtterance(text);
+          const voices = synth.getVoices();
+          const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+          
+          if (preferred) {
+            utterance.voice = preferred;
+          }
+          
+          utterance.onend = reset;
+          utterance.onerror = reset;
+
+          synth.speak(utterance);
+          isSpeaking = true;
+          isPaused = false;
+          
+          if (icon) icon.innerHTML = pauseIcon;
+          if (visualBtn) {
+            visualBtn.style.color = "var(--a3)";
+            visualBtn.style.background = "rgba(52, 211, 153, 0.1)";
+            visualBtn.title = "Pause";
+          }
+          if (a11yBtn) {
+            a11yBtn.innerText = "Pause listening";
+          }
+        }
+      }
+
+      if (visualBtn) {
+        visualBtn.addEventListener("click", toggleSpeech);
+      }
+      
+      if (a11yBtn) {
+        a11yBtn.addEventListener("click", toggleSpeech);
+        a11yBtn.addEventListener("keypress", (e) => {
+          if (e.key === 'Enter') {
+            toggleSpeech();
+          }
+        });
+      }
+
+      window.addEventListener('beforeunload', reset);
+    })();
+  </script>
+</body>
+</html>
