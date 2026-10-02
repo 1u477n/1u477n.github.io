@@ -512,7 +512,7 @@
       margin-bottom: 8px; 
     }
 
-    /* Video Styling */
+    /* Video & Image Styling */
     .video-wrapper {
       margin: 32px 0;
       border-radius: 20px;
@@ -523,7 +523,9 @@
       position: relative;
     }
     
-    .video-wrapper video {
+    /* ADDED img selector to properly style embedded architecture images */
+    .video-wrapper video,
+    .video-wrapper img {
       width: 100%;
       display: block;
       outline: none;
@@ -819,7 +821,7 @@
               Blueprint AI Partners constructs AI architectures designed to integrate directly into the complex realities of modern enterprises. Generative models are powerful, but without rigorous orchestration, they remain isolated novelties rather than true drivers of business value.
             </p>
             <p>
-              <span class="ai-signal">Powered by the ScaleMind framework, two active prototype applications capture the dual hemispheres of enterprise intelligence and are ready for integration. One application is engineered for rapid, tactical execution on the ground, while the other is purpose-built for deliberate, cross-functional strategic planning at the executive level. Adopt these tools today to transform isolated generative capabilities into a coordinated, enterprise-grade intelligence system.
+              <span class="ai-signal">Powered by the ScaleMind framework, two active prototype applications capture the dual hemispheres of enterprise intelligence and are ready for integration. One application is engineered for rapid, tactical execution on the ground, while the other is purpose-built for deliberate, cross-functional strategic planning at the executive level. Adopt these tools today to transform isolated generative capabilities into a coordinated, enterprise-grade intelligence system.</span>
             </p>
 
             <h2 id="tactical-execution">1. The ScaleMind Enterprise Assistant (Tactical Execution)</h2>
@@ -894,6 +896,13 @@
             </p>
 
             <h2 id="architectural-foundation">3. The Architectural Foundation</h2>
+
+            <!-- NEWLY INSERTED ARCHITECTURE DIAGRAM -->
+            <figure class="video-wrapper">
+              <img src="https://1u477n.github.io/images/rag-architecture-diagram.jpg" alt="Diagram detailing how LLMs and RAG power Agentic and Multi-Agent Systems" />
+              <figcaption class="video-caption"><strong>Architecture:</strong> How foundational LLMs and Retrieval-Augmented Generation (RAG) power ScaleMind's autonomous and multi-agent systems.</figcaption>
+            </figure>
+
             <p>
               Both of these prototypes share the same underlying decoupled, edge-computed architecture. By keeping the frontend ultra-lightweight and handling the complex RAG pipelines, LLM inference, and multi-agent orchestration on secured backend edge servers, we ensure that proprietary company playbooks remain strictly protected.
             </p>
@@ -1182,16 +1191,12 @@
         const data = toObjects(parseCSV(text));
         const currentHref = window.location.href.split("#")[0];
 
-        // Filter out current page
         let others = data.filter(d => {
           const url = d.blog_url || "";
           return url && !currentHref.includes(url.split("/").pop());
         });
 
-        // Shuffle
         others.sort(() => 0.5 - Math.random());
-        
-        // Take 2
         const selected = others.slice(0, 2);
         
         if (selected.length === 0) {
